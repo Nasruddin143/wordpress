@@ -139,6 +139,25 @@ function wooshop_widgets_init()
 }
 add_action('widgets_init', 'wooshop_widgets_init');
 
+
+/**
+ * Register Footer widget area.
+ */
+function wooshop_register_footer_widgets() {
+
+        register_sidebar( array(
+            'name'          => sprintf( __( 'Footer Links', 'wooshop' )),
+            'id'            => 'footer-sidebar-1',
+            'description'   => sprintf( __( 'Widgets in Footer Column 1.', 'wooshop' ) ),
+            'before_widget' => '<div id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</div>',
+            'before_title'  => '<h4 class="widget-title mb-4 text-second">',
+            'after_title'   => '</h4>',
+        ) );
+
+}
+add_action( 'widgets_init', 'wooshop_register_footer_widgets' );
+
 /**
  * Enqueue scripts and styles.
  */

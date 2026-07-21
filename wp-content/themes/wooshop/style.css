@@ -110,6 +110,14 @@ body {
 	background-color: var(--first-theme-color) !important;
 }
 
+.text-first {
+	color: var(--first-theme-color);
+}
+
+.text-second{
+	color: var(--second-theme-color);
+}
+
 .bg-second {
 	background-color: var(--second-theme-color) !important;
 }
@@ -398,4 +406,13 @@ body {
 
 .woocommerce-breadcrumb a:hover{
 	color: var(--second-theme-color);
+}
+
+.footer a {
+	color: var(--second-theme-color);
+	text-decoration: none;
+}
+
+.footer a:hover {
+	color: var(--first-theme-color);
 }
