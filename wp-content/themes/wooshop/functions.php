@@ -150,6 +150,7 @@ function wooshop_scripts()
 
 	wp_enqueue_script('wooshop-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 	wp_enqueue_script('wooshop-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.bundle.min.js', array(), _S_VERSION, true);
+	wp_enqueue_script('wooshop-common', get_template_directory_uri() . '/assets/js/common.js', array(), _S_VERSION, true);
 
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
