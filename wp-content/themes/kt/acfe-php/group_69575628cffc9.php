@@ -1,0 +1,92 @@
+<?php 
+
+if( function_exists('acf_add_local_field_group') ):
+
+acf_add_local_field_group(array(
+	'key' => 'group_69575628cffc9',
+	'title' => 'Sewing Machine Pricing',
+	'fields' => array(
+		array(
+			'key' => 'field_695756292a2ef',
+			'label' => 'Actual Price',
+			'name' => 'actual_price',
+			'aria-label' => '',
+			'type' => 'number',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'acfe_settings' => '',
+			'acfe_validate' => '',
+			'min' => 0,
+			'max' => '',
+			'acfe_permissions' => '',
+			'allow_in_bindings' => 0,
+			'placeholder' => '',
+			'step' => '0.01',
+			'prepend' => '₹',
+			'append' => '',
+		),
+		array(
+			'key' => 'field_695758795b417',
+			'label' => 'Final Price',
+			'name' => 'final_price',
+			'aria-label' => '',
+			'type' => 'number',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'acfe_settings' => '',
+			'acfe_validate' => '',
+			'min' => 0,
+			'max' => '',
+			'acfe_permissions' => '',
+			'allow_in_bindings' => 1,
+			'placeholder' => '',
+			'step' => '0.01',
+			'prepend' => '₹',
+			'append' => '',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'sewing_machine',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'left',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => true,
+	'description' => '',
+	'show_in_rest' => 1,
+	'display_title' => 'Product Pricing',
+	'acfe_autosync' => array(
+		0 => 'php',
+		1 => 'json',
+	),
+	'acfe_permissions' => '',
+	'acfe_form' => 1,
+	'acfe_meta' => '',
+	'acfe_note' => '',
+	'modified' => 1767976820,
+));
+
+endif;

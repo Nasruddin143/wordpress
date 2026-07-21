@@ -1,0 +1,197 @@
+diff --cc wp-content/themes/kt/page-sewing_machine.php
+index 5596ca42,5a415fde..e0113eee
+--- a/wp-content/themes/kt/page-sewing_machine.php
++++ b/wp-content/themes/kt/page-sewing_machine.php
+@@@ -1,127 -1,127 +1,106 @@@
+  <?php
+  /**
+-- * Template Name: Sewing Machine Page Template
+++ * Template Name: Sewing Machine Page
+   * Template Post Type: page
+   * Description: A custom template for displaying content related to sewing machines.
+   */
+--if (!defined('ABSPATH'))
+--    exit;
+++if (!defined('ABSPATH')) exit;
+++
+  get_header();
+  
+  $post_type = 'sewing_machine';
+  $cpt = get_post_type_object($post_type);
+  
+--// echo '<pre>';
+--// print_r($cpt);
+--// echo '</pre>';
+--
+++// Get all sewing machine categories
+  $sewing_machines = get_terms([
+      'taxonomy' => 'sewing-machine',
+      'hide_empty' => false,
+  ]);
+++
+++// Page title for SEO
+++$page_title = !empty($cpt->labels->name) ? $cpt->labels->name : 'Sewing Machines';
+  ?>
+  
+  <section class="my-5">
+      <div class="container">
+--        <div class="row">
+--            <div class="col-sm-12 col-md-12 col-lg-8 offset-md-2">
+--                <div class="text-center mb-5">
+--                    <h2 class="kt-center-title">Explore <?php echo esc_html($cpt->labels->name); ?></h2>
+--                    <p><?php echo esc_attr($cpt->description); ?></p>
+--                </div>
+++        <header class="row">
+++            <div class="col-md-8 offset-md-2 text-center mb-5">
+++                <h1 class="kt-center-title"><?php echo esc_html($page_title); ?></h1>
+++                <?php if (!empty($cpt->description)): ?>
+++                    <p class="lead"><?php echo esc_html($cpt->description); ?></p>
+++                <?php endif; ?>
+              </div>
+--        </div>
+++        </header>
+  
+          <div class="row g-4">
+--            <?php if (!empty($sewing_machines) && !is_wp_error($sewing_machines)):
+--                foreach ($sewing_machines as $item):
+--
+++            <?php if (!empty($sewing_machines) && !is_wp_error($sewing_machines)): ?>
+++                <?php foreach ($sewing_machines as $item):
+                      $acf_key = $item->taxonomy . '_' . $item->term_id;
+                      $acf_image = get_field('machine_featured_image', $acf_key);
+  
+--                    $img_url = '';
+--                    $img_alt = !empty($item->name) ? $item->name : 'Image';
+--                    $img_title = !empty($item->name) ? $item->name : 'Image';
+--
+--                    if (!empty($acf_image) && is_numeric($acf_image)) {
+-                         $img_url = wp_get_attachment_image_url($acf_image, 'kt-page-featured-post');
+ -                        $img_url = wp_get_attachment_image_url($acf_image, 'full');
+--                        $img_alt = get_post_meta($acf_image, '_wp_attachment_image_alt', true) ?: $img_alt;
+--                        $img_title = get_the_title($acf_image) ?: $img_title;
+--                    } elseif (!empty($acf_image) && is_array($acf_image)) {
+--                        $img_url = $acf_image['sizes']['full'] ?? ($acf_image['url'] ?? '');
+--                        $img_alt = $acf_image['alt'] ?? $img_alt;
+--                        $img_title = $acf_image['title'] ?? $img_title;
+++                    // Default placeholder
+++                    $img_url = 'https://placehold.co/600x300';
+++                    $img_alt = !empty($item->name) ? $item->name : 'Sewing Machine';
+++                    $img_title = !empty($item->name) ? $item->name : 'Sewing Machine';
+++
+++                    if (!empty($acf_image)) {
+++                        if (is_numeric($acf_image)) {
+++                            $img_url = wp_get_attachment_image_url($acf_image, 'medium');
+++                            $img_alt = get_post_meta($acf_image, '_wp_attachment_image_alt', true) ?: $img_alt;
+++                            $img_title = get_the_title($acf_image) ?: $img_title;
+++                        } elseif (is_array($acf_image)) {
+++                            $img_url = $acf_image['sizes']['medium'] ?? ($acf_image['url'] ?? $img_url);
+++                            $img_alt = $acf_image['alt'] ?? $img_alt;
+++                            $img_title = $acf_image['title'] ?? $img_title;
+++                        }
+                      }
+  
+--                    if (empty($img_url))
+--                        $img_url = esc_url('https://placehold.co/600x300');
+--
+                      $term_name = !empty($item->name) ? $item->name : 'Unknown Category';
+--                    $term_desc = !empty($item->description) ? wp_trim_words($item->description, 20) : '';
+++                    $term_desc = !empty($item->description) ? wp_trim_words($item->description, 25) : '';
+++                    $term_link = esc_url(get_term_link($item));
+                      ?>
+--
+--                    <!-- Normal Demo-->
+--                    <div class="column col-sm-6 col-md-6 col-lg-4">
+--                        <!-- <div class="demo-title">Normal</div> -->
+--                        <!-- Post-->
+--                        <div class="post-module">
+--                            <!-- Thumbnail-->
+--                            <div class="thumbnail">
+--                                <div class="date">
+--
+--                                    <div class="day"><?php echo get_the_date("j") ?></div>
+--                                    <div class="month"><?php echo get_the_date("M") ?></div>
+--                                </div>
+--                                <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr($img_alt); ?>"
+--                                    title="<?php echo esc_attr($img_title); ?>" class="img-fluid" loading="lazy" />
+++                    
+++                    <article class="col-sm-6 col-md-6 col-lg-4" itemscope itemtype="https://schema.org/Product">
+++                        <div class="post-module shadow-sm rounded">
+++                            <div class="thumbnail position-relative">
+++                                <img src="<?php echo esc_url($img_url); ?>" 
+++                                     alt="<?php echo esc_attr($img_alt); ?>" 
+++                                     title="<?php echo esc_attr($img_title); ?>" 
+++                                     class="img-fluid" loading="lazy" 
+++                                     itemprop="image" />
+                              </div>
+--                            <!-- Post Content-->
+--                            <div class="post-content">
+--                                <div class="category"><?php echo esc_html($cpt->labels->name); ?></div>
+--                                 <a href="<?php echo esc_url(get_term_link($item)); ?>" class="text-decoration-none">
+--                                    <h5 aria-label="<?php echo esc_html($term_name); ?>" class="title">
+--                                        <?php echo esc_html($term_name); ?>
+--                                    </h5>
+++                            <div class="post-content p-3">
+++                                <div class="category text-uppercase text-muted mb-1"><?php echo esc_html($page_title); ?></div>
+++                                <a href="<?php echo $term_link; ?>" class="text-decoration-none" itemprop="url">
+++                                    <h2 class="title h5" itemprop="name"><?php echo esc_html($term_name); ?></h2>
+++                                </a>
+++                                <?php if (!empty($term_desc)): ?>
+++                                    <p class="description mb-2" itemprop="description"><?php echo esc_html($term_desc); ?></p>
+++                                <?php endif; ?>
+++                                <a href="<?php echo $term_link; ?>" class="btn btn-outline-primary btn-sm mt-2" aria-label="View <?php echo esc_attr($term_name); ?> Catalog">
+++                                    View Catalog <i class="fa fa-arrow-right-long"></i>
+                                  </a>
+--                                    <h6 class="sub_title"><?php echo esc_html($cpt->labels->name); ?></h6>
+--
+--                                    <?php if (!empty($term_desc)): ?>
+--                                        <p class="description"><?php echo esc_html($term_desc); ?></p>
+--                                    <?php endif; ?>
+--
+--                                    <div class="post-meta">
+--                                        <!-- <span class="timestamp"><i class="fa fa-clock-">o</i> 6 mins ago</span> -->
+--                                        <span class="comments">
+--                                            <a href="<?php echo esc_url(get_term_link($item)); ?>"> View
+--                                                Catelog</a> <i class="fa fa-arrow-right-long text-red"></i>
+--                                        </span>
+--                                    </div>
+                              </div>
+                          </div>
+--                    </div>
+--                    <!-- </div> -->
+--
+--
+--                    <!--  -->
+--
+--                <?php endforeach; else: ?>
+--
+--                <p class="text-center text-muted">No categories found.</p>
+++                    </article>
+  
+++                <?php endforeach; ?>
+++            <?php else: ?>
+++                <p class="text-center text-muted">No sewing machine categories found.</p>
+              <?php endif; ?>
+          </div>
+      </div>
+  </section>
+  
+  <script>
+--    jQuery(window).on("load", function () {
+--        jQuery('.post-module').hover(function () {
+--            jQuery(this).find('.description').stop().animate({
+--                height: "toggle",
+--                opacity: "toggle"
+--            }, 300);
+--        });
+++jQuery(window).on("load", function () {
+++    jQuery('.post-module').hover(function () {
+++        jQuery(this).find('.description').stop().animate({
+++            height: "toggle",
+++            opacity: "toggle"
+++        }, 300);
+      });
+++});
+  </script>
+  
+--<?php get_footer();
+++<?php get_footer(); ?>

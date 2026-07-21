@@ -1,0 +1,49 @@
+.embla {
+    overflow: hidden;
+}
+
+.embla__viewport {
+    overflow: hidden;
+}
+
+.embla__container {
+    display: flex;
+}
+
+.embla__slide {
+    flex: 0 0 20%;
+    min-width: 0;
+}
+
+/* Large Desktop */
+.embla__slide {
+    flex: 0 0 20%;
+}
+
+/* Laptop */
+@media (max-width: 1200px) {
+    .embla__slide {
+        flex: 0 0 25%;
+    }
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+    .embla__slide {
+        flex: 0 0 33.333%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .embla__slide {
+        flex: 0 0 50%;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .embla__slide {
+        flex: 0 0 100%;
+    }
+}

@@ -1,0 +1,1 @@
+<?php return array('dependencies' => array('react', 'wp-api-fetch', 'wp-components', 'wp-element', 'wp-html-entities', 'wp-i18n', 'wp-primitives', 'wp-url', 'generateblocks-pro-components'), 'version' => '2a7469ab1d7f8f2d60ae');

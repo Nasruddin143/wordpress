@@ -1,0 +1,128 @@
+<?php
+
+namespace GeminiLabs\SiteReviews\Modules;
+
+class Encryption
+{
+    public function decode(string $string): string
+    {
+        return base64_decode(str_replace(['-', '_'], ['+', '/'], $string));
+    }
+
+    /**
+     * @return string|false
+     */
+    public function decrypt(string $message)
+    {
+        $decoded = $this->decode($message);
+        if (empty($decoded)) {
+            return '';
+        }
+        try {
+            $nonceLength = \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES;
+            if (strlen($decoded) >= $nonceLength + 1) { // Minimum for new format
+                $nonce = substr($decoded, 0, $nonceLength);
+                $ciphertext = substr($decoded, $nonceLength);
+                if (strlen($nonce) === $nonceLength) {
+                    // Try the current (HKDF) key first, then fall back to the
+                    // legacy key so data encrypted before the KDF change still opens.
+                    foreach ([$this->key(), $this->legacyKey()] as $key) {
+                        $plaintext = sodium_crypto_secretbox_open($ciphertext, $nonce, $key);
+                        if (false !== $plaintext) {
+                            return $plaintext; // Success with new format
+                        }
+                    }
+                }
+            }
+            return $this->legacyDecrypt($decoded);
+        } catch (\Exception $e) {
+            glsr_log()->error($e->getMessage());
+            return false;
+        }
+    }
+
+    public function decryptRequest(string $message): array
+    {
+        if ($message = $this->decrypt($message)) {
+            $data = explode('|', $message);
+            $data = array_map('sanitize_text_field', $data);
+            $action = array_shift($data);
+            return compact('action', 'data');
+        }
+        return [];
+    }
+
+    public function encode(string $string): string
+    {
+        return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($string));
+    }
+
+    /**
+     * @return string|false
+     */
+    public function encrypt(string $message)
+    {
+        try {
+            $nonce = random_bytes(\SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+            $ciphertext = sodium_crypto_secretbox($message, $nonce, $this->key());
+            // Prepend nonce to ciphertext
+            return $this->encode($nonce.$ciphertext);
+        } catch (\Exception $e) {
+            glsr_log()->error($e->getMessage());
+            return false;
+        }
+    }
+
+    public function encryptRequest(string $action, array $data): string
+    {
+        $values = array_values(array_map('sanitize_text_field', $data));
+        $message = implode('|', $values);
+        $message = sprintf('%s|%s', $action, $message);
+        return (string) $this->encrypt($message);
+    }
+
+    /**
+     * @return string|false
+     */
+    protected function legacyDecrypt(string $ciphertext)
+    {
+        try {
+            $plaintext = sodium_crypto_secretbox_open($ciphertext, $this->legacyNonce(), $this->legacyKey());
+            if (false === $plaintext) {
+                throw new \Exception('Legacy decryption failed');
+            }
+            return $plaintext;
+        } catch (\Exception $e) {
+            glsr_log()->error($e->getMessage());
+            return false;
+        }
+    }
+
+    protected function legacyNonce(): string
+    {
+        $nonce = defined('NONCE_SALT') ? \NONCE_SALT : '';
+        $nonce = substr($nonce, 0, (int) \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+        return str_pad($nonce, (int) \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '#');
+    }
+
+    protected function key(): string
+    {
+        $ikm = defined('NONCE_KEY') ? \NONCE_KEY : '';
+        if ('' === $ikm) {
+            return $this->legacyKey(); // no keying material available
+        }
+        $salt = defined('NONCE_SALT') ? \NONCE_SALT : '';
+        return hash_hkdf('sha256', $ikm, (int) \SODIUM_CRYPTO_SECRETBOX_KEYBYTES, 'site-reviews-encryption', $salt);
+    }
+
+    /**
+     * Legacy key derivation (truncate-and-pad) retained so that data encrypted
+     * before the move to HKDF can still be decrypted.
+     */
+    protected function legacyKey(): string
+    {
+        $key = defined('NONCE_KEY') ? \NONCE_KEY : '';
+        $key = substr($key, 0, (int) \SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
+        return str_pad($key, (int) \SODIUM_CRYPTO_SECRETBOX_KEYBYTES, '#');
+    }
+}

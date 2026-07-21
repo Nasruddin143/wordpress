@@ -1,0 +1,24 @@
+[2026-07-12 12:57:26 : INFO] - Pruning the Cache log file 
+[2026-07-12 12:59:43 : INFO] - Full Cache Purge triggered by: WP_Optimize_Cache_Commands::purge_page_cache 
+[2026-07-12 13:00:00 : INFO] - Full Cache Purge triggered by: WPO_Page_Cache::handle_purge_single_page_cache 
+[2026-07-12 13:00:13 : INFO] - Cache for URL: http://localhost/wordpress/contact-us/ has been purged, triggered by: WPO_Page_Cache::handle_purge_single_page_cache 
+[2026-07-12 13:00:38 : INFO] - Cache for URL: http://localhost:8080/wordpress/ has been purged, triggered by action: save_post 
+[2026-07-12 13:00:38 : INFO] - Cache for author page URL: http://localhost:8080/wordpress/author/sknasruddingmail-com/ associated with post_type: page and Title: "Home" has been purged, triggered by action: save_post 
+[2026-07-12 13:13:49 : INFO] - Full Cache Purge triggered by: WPO_Page_Cache::handle_purge_single_page_cache 
+[2026-07-12 17:26:11 : INFO] - Full Cache Purge triggered by: WP_Optimize_Cache_Commands::purge_page_cache 
+[2026-07-12 17:29:49 : INFO] - Full Cache Purge triggered by: WPO_Page_Cache::disable 
+[2026-07-12 17:29:49 : INFO] - Pruning the Cache log file 
+[2026-07-12 17:29:53 : INFO] - Pruning the Cache log file 
+[2026-07-12 17:29:56 : INFO] - Full Cache Purge triggered by: WP_Optimize_Cache_Commands::purge_page_cache 
+[2026-07-12 17:29:58 : INFO] - Full Cache Purge triggered by: WPO_Page_Cache::disable 
+[2026-07-12 17:29:58 : INFO] - Pruning the Cache log file 
+[2026-07-12 17:37:37 : INFO] - Full Cache Purge triggered by: plugin activation/deactivation 
+[2026-07-12 17:39:09 : INFO] - Full Cache Purge triggered by: plugin activation/deactivation 
+[2026-07-12 17:54:29 : INFO] - Cache for URL: http://localhost:8080/wordpress/ has been purged, triggered by action: save_post 
+[2026-07-12 17:54:29 : INFO] - Cache for author page URL: http://localhost:8080/wordpress/author/sknasruddingmail-com/ associated with post_type: page and Title: "Home" has been purged, triggered by action: save_post 
+[2026-07-12 17:56:01 : INFO] - Cache for URL: http://localhost:8080/wordpress/ has been purged, triggered by action: save_post 
+[2026-07-12 17:56:01 : INFO] - Cache for author page URL: http://localhost:8080/wordpress/author/sknasruddingmail-com/ associated with post_type: page and Title: "Home" has been purged, triggered by action: save_post 
+[2026-07-12 18:05:16 : INFO] - Cache for URL: http://localhost:8080/wordpress/ has been purged, triggered by action: save_post 
+[2026-07-12 18:05:16 : INFO] - Cache for author page URL: http://localhost:8080/wordpress/author/sknasruddingmail-com/ associated with post_type: page and Title: "Home" has been purged, triggered by action: save_post 
+[2026-07-12 18:10:03 : INFO] - Cache for URL: http://localhost:8080/wordpress/ has been purged, triggered by action: save_post 
+[2026-07-12 18:10:03 : INFO] - Cache for author page URL: http://localhost:8080/wordpress/author/sknasruddingmail-com/ associated with post_type: page and Title: "Home" has been purged, triggered by action: save_post 

@@ -1,0 +1,89 @@
+[2026-03-23 21:13:32] ERROR [C:\wamp64\www\wordpress\wp-content\themes\kt\template-parts\content-single.php:226] File not found: (forms.review) 
+[2026-04-02 22:10:54] ERROR [WP_Hook:341] [wp_mail] Email was not sent: Could not instantiate mail function.
+[2026-04-02 22:10:54] DEBUG [WP_Hook:341] Array (
+    [headers] =&gt; Array (
+        [0] =&gt; from: King Tailors &lt;sknasruddin@gmail.com&gt;
+        [1] =&gt; reply-to: King Tailors &lt;sknasruddin@gmail.com&gt;
+        [2] =&gt; Content-Type: text/html
+    )
+    [attachments] =&gt; Array ()
+    [email] =&gt; Array (
+        [after] =&gt; 
+        [attachments] =&gt; Array ()
+        [bcc] =&gt; 
+        [before] =&gt; 
+        [cc] =&gt; 
+        [from] =&gt; King Tailors &lt;sknasruddin@gmail.com&gt;
+        [message] =&gt; 
+        [recipients] =&gt; Array (
+            [0] =&gt; sknasruddin@gmail.com
+        )
+        [reply-to] =&gt; King Tailors &lt;sknasruddin@gmail.com&gt;
+        [subject] =&gt; [King Tailors] New 5-star review
+        [template] =&gt; default
+        [template-tags] =&gt; Array (
+            [approve_url] =&gt; http://localhost:8080/wordpress/wp-admin/?glsr_=ppeyxkrmxFn3dOx4b2ncXNqTd5NWHPVLeEnyCTTFn7-ZsiBr4r3zWCSAhiGUMe_Mu54UKw
+            [edit_url] =&gt; http://localhost:8080/wordpress/wp-admin/post.php?post=2747&amp;action=edit
+            [review_assigned_links] =&gt; 
+            [review_assigned_posts] =&gt; 
+            [review_assigned_users] =&gt; 
+            [review_author] =&gt; Nasruddin Shaikh
+            [review_categories] =&gt; 
+            [review_content] =&gt; Test Review for Sony Embroidery Sewing Machine
+            [review_email] =&gt; sknasruddin@gmail.com
+            [review_id] =&gt; 2747
+            [review_ip] =&gt; ::1
+            [review_rating] =&gt; 5
+            [review_title] =&gt; Excellent
+            [site_title] =&gt; King Tailors
+            [site_url] =&gt; http://localhost:8080/wordpress
+            [review_link] =&gt; &lt;a href=&quot;http://localhost:8080/wordpress/wp-admin/post.php?post=2747&#038;action=edit&quot;&gt;Edit Review&lt;/a&gt;
+        )
+    )
+)
+[2026-04-06 22:42:56] ERROR [WP_Hook:341] [wp_mail] Email was not sent: Could not instantiate mail function.
+[2026-04-06 22:42:56] DEBUG [WP_Hook:341] Array (
+    [headers] =&gt; Array (
+        [0] =&gt; from: King Tailors &lt;sknasruddin@gmail.com&gt;
+        [1] =&gt; reply-to: King Tailors &lt;sknasruddin@gmail.com&gt;
+        [2] =&gt; Content-Type: text/html
+    )
+    [attachments] =&gt; Array ()
+    [email] =&gt; Array (
+        [after] =&gt; 
+        [attachments] =&gt; Array ()
+        [bcc] =&gt; 
+        [before] =&gt; 
+        [cc] =&gt; 
+        [from] =&gt; King Tailors &lt;sknasruddin@gmail.com&gt;
+        [message] =&gt; 
+        [recipients] =&gt; Array (
+            [0] =&gt; sknasruddin@gmail.com
+        )
+        [reply-to] =&gt; King Tailors &lt;sknasruddin@gmail.com&gt;
+        [subject] =&gt; [King Tailors] New 5-star review
+        [template] =&gt; default
+        [template-tags] =&gt; Array (
+            [approve_url] =&gt; http://localhost:8080/wordpress/wp-admin/?glsr_=lDWoWcT4iiB18vzaBaeRE0xKZtmN2l6yYONbEGQLZpNaXKD-SIoxpxppmW-LsOg6UZwkvw
+            [edit_url] =&gt; http://localhost:8080/wordpress/wp-admin/post.php?post=2881&amp;action=edit
+            [review_assigned_links] =&gt; 
+            [review_assigned_posts] =&gt; 
+            [review_assigned_users] =&gt; 
+            [review_author] =&gt; King Tailors
+            [review_categories] =&gt; 
+            [review_content] =&gt; TEST REVIEW DESCRIPTION
+            [review_email] =&gt; kingtailorsozar@gmail.com
+            [review_id] =&gt; 2881
+            [review_ip] =&gt; ::1
+            [review_rating] =&gt; 5
+            [review_title] =&gt; TEST REVIEW HEADING
+            [site_title] =&gt; King Tailors
+            [site_url] =&gt; http://localhost:8080/wordpress
+            [review_link] =&gt; &lt;a href=&quot;http://localhost:8080/wordpress/wp-admin/post.php?post=2881&#038;action=edit&quot;&gt;Edit Review&lt;/a&gt;
+        )
+    )
+)
+[2026-04-07 21:27:31] ERROR [C:\wamp64\www\wordpress\wp-content\themes\kt\template-parts\content-single.php:333] Target class [Modules\Form\Form] does not exist.
+[2026-04-07 21:27:31] ERROR [C:\wamp64\www\wordpress\wp-content\themes\kt\template-parts\content-single.php:333] Attempting to call render() on an unknown class [Modules\Form\Form]
+[2026-04-07 21:29:43] ERROR [C:\wamp64\www\wordpress\wp-content\themes\kt\template-parts\content-single.php:333] Target class [Modules\Form\Form] does not exist.
+[2026-04-07 21:29:43] ERROR [C:\wamp64\www\wordpress\wp-content\themes\kt\template-parts\content-single.php:333] Attempting to call render() on an unknown class [Modules\Form\Form]
