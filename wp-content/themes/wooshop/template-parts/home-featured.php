@@ -58,7 +58,7 @@ $trending = wooshop_get_products(array(
 
 						<div class="embla__slide">
 
-							<div class="product-card p-2 border rounded me-3 h-100 bg-white position-relative">
+							<div class="product-card p-2 border me-3 h-100 bg-white position-relative">
 								<!-- Product Image -->
 								<div class="product-image">
 
@@ -195,7 +195,7 @@ $trending = wooshop_get_products(array(
 
 						<div class="embla__slide">
 
-							<div class="product-card p-2 border rounded me-3 h-100 bg-white position-relative">
+							<div class="product-card p-2 border me-3 h-100 bg-white position-relative">
 								<!-- Product Image -->
 								<div class="product-image">
 
@@ -318,7 +318,7 @@ $trending = wooshop_get_products(array(
 
 						<div class="embla__slide">
 
-							<div class="product-card p-2 border rounded me-3 h-100 bg-white position-relative">
+							<div class="product-card p-2 border me-3 h-100 bg-white position-relative">
 								<!-- Product Image -->
 								<div class="product-image">
 

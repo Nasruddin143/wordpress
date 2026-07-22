@@ -45,7 +45,7 @@
 
                     <div class="col-lg-2 col-md-3 col-sm-6 col-6 mb-3">
 
-                        <div class="p-2 shadow-sm rounded product-card">
+                        <div class="p-2 product-card">
 
                             <div class="product-image">
 
@@ -78,11 +78,4 @@
         <?php endif; ?>
     </div>
 
-    <div class="container mt-5">
-        <div class="row row-cols-3 g-3">
-            <div class="col">1</div>
-            <div class="col">2</div>
-            <div class="col">3</div>
-        </div>
-    </div>
 </div>

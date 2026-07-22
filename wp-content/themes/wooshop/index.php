@@ -45,7 +45,7 @@ get_header();
 				?>
 
 				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
+					<h1 class="h3 page-title screen-reader-text text-first fw-medium"><?php single_post_title(); ?></h1>
 				</header>
 				<?php
 			endif;
@@ -71,7 +71,7 @@ get_header();
 
 		endif;
 		?>
-</div>
+	</div>
 </main><!-- #main -->
 
 <?php

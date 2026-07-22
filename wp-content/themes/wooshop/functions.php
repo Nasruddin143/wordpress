@@ -125,6 +125,9 @@ add_action('after_setup_theme', 'wooshop_content_width', 0);
  */
 function wooshop_widgets_init()
 {
+	/**
+ 	 * Sidebar Widgets 
+ 	 */	
 	register_sidebar(
 		array(
 			'name' => esc_html__('Sidebar', 'wooshop'),
@@ -136,27 +139,41 @@ function wooshop_widgets_init()
 			'after_title' => '</h2>',
 		)
 	);
+
+
+	/**
+ 	 * Advertisement Banners 
+ 	 */	
+
+	for ($i = 1; $i <= 3; $i++) {
+
+		register_sidebar(array(
+			'name' => sprintf(__('Advertisement %d', 'wooshop'), $i),
+			'id' => 'advertisement-banner-' . $i,
+			'description' => sprintf(__('Widgets in Page Column %d.', 'wooshop'), $i),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget' => '</div>',
+			'before_title' => '',
+			'after_title' => '',
+		));
+	}
+
+	/**
+	 * Register Footer widget area.
+	 */
+
+	register_sidebar(array(
+		'name' => sprintf(__('Footer Links', 'wooshop')),
+		'id' => 'footer-sidebar-1',
+		'description' => sprintf(__('Widgets in Footer Column 1.', 'wooshop')),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4 class="widget-title mb-4 text-second">',
+		'after_title' => '</h4>',
+	));
 }
 add_action('widgets_init', 'wooshop_widgets_init');
 
-
-/**
- * Register Footer widget area.
- */
-function wooshop_register_footer_widgets() {
-
-        register_sidebar( array(
-            'name'          => sprintf( __( 'Footer Links', 'wooshop' )),
-            'id'            => 'footer-sidebar-1',
-            'description'   => sprintf( __( 'Widgets in Footer Column 1.', 'wooshop' ) ),
-            'before_widget' => '<div id="%1$s" class="widget %2$s">',
-            'after_widget'  => '</div>',
-            'before_title'  => '<h4 class="widget-title mb-4 text-second">',
-            'after_title'   => '</h4>',
-        ) );
-
-}
-add_action( 'widgets_init', 'wooshop_register_footer_widgets' );
 
 /**
  * Enqueue scripts and styles.
@@ -177,34 +194,35 @@ function wooshop_scripts()
 }
 add_action('wp_enqueue_scripts', 'wooshop_scripts');
 
-function wooshop_enqueue_embla() {
+function wooshop_enqueue_embla()
+{
 
-    if ( ! is_front_page() ) {
-        return;
-    }
+	if (!is_front_page()) {
+		return;
+	}
 
-    wp_enqueue_style(
-        'embla-css',
-        get_template_directory_uri() . '/assets/css/embla.css',
-        array(),
-        '1.0'
-    );
+	wp_enqueue_style(
+		'embla-css',
+		get_template_directory_uri() . '/assets/css/embla.css',
+		array(),
+		'1.0'
+	);
 
-    wp_enqueue_script(
-        'embla',
-        get_template_directory_uri() . '/assets/js/embla.min.js',
-        array(),
-        '8.6.0',
-        true
-    );
+	wp_enqueue_script(
+		'embla',
+		get_template_directory_uri() . '/assets/js/embla.min.js',
+		array(),
+		'8.6.0',
+		true
+	);
 
-    wp_enqueue_script(
-        'embla-init',
-        get_template_directory_uri() . '/assets/js/embla-init.js',
-        array('embla'),
-        '1.0',
-        true
-    );
+	wp_enqueue_script(
+		'embla-init',
+		get_template_directory_uri() . '/assets/js/embla-init.js',
+		array('embla'),
+		'1.0',
+		true
+	);
 
 }
 add_action('wp_enqueue_scripts', 'wooshop_enqueue_embla');
@@ -243,9 +261,7 @@ if (class_exists('WooCommerce')) {
 	require get_template_directory() . '/inc/woocommerce.php';
 }
 
-
 /**
  * Load Bootstrap Slider Custom Post type and Slider Code file.
  */
 require get_template_directory() . '/inc/slider-banner.php';
-

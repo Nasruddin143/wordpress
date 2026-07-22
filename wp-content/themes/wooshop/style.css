@@ -416,3 +416,14 @@ body {
 .footer a:hover {
 	color: var(--first-theme-color);
 }
+
+.widget img{
+    width:100%;
+    height:auto;
+    display:block;
+    transition:.3s;
+}
+
+.widget img:hover{
+    opacity:.85;
+}

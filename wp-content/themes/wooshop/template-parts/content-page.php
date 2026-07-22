@@ -29,13 +29,13 @@
 		?>
 
 		<header class="entry-header">
-			<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
+			<?php the_title('<h1 class="h2 text-dark fw-semibold entry-title">', '</h1>'); ?>
 		</header><!-- .entry-header -->
 	<?php endif; ?>
 
 	<?php wooshop_post_thumbnail(); ?>
 
-	<div class="entry-content">
+	<div class="entry-content text-body-secondary fw-medium">
 		<?php
 		the_content();
 
