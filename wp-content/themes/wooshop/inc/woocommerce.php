@@ -21,7 +21,7 @@ function wooshop_woocommerce_setup()
 	add_theme_support(
 		'woocommerce',
 		array(
-			'thumbnail_image_width' => 200,
+			'thumbnail_image_width' => 150,
 			'gallery_thumbnail_image_width' => 100,
 			'single_image_width' => 500,
 			'product_grid' => array(

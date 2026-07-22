@@ -37,7 +37,7 @@ $trending = wooshop_get_products(array(
 		<div class="embla mb-5">
 
 			<div class="d-flex align-items-center justify-content-between section-title mb-4">
-				<h2 class="fw-bold">New Arrivals</h2>
+				<h2 class="">New Arrivals</h2>
 
 				<div class="slider-nav">
 					<button class="embla__prev btn btn-primary">‹</button>
@@ -174,7 +174,7 @@ $trending = wooshop_get_products(array(
 		<div class="embla mb-5">
 
 			<div class="d-flex align-items-center justify-content-between section-title mb-4">
-				<h2 class="fw-bold">Featured Products</h2>
+				<h2 class="">Featured Products</h2>
 
 				<div class="slider-nav">
 					<button class="embla__prev btn btn-primary">‹</button>
@@ -297,7 +297,7 @@ $trending = wooshop_get_products(array(
 		<div class="embla mb-5">
 
 			<div class="d-flex align-items-center justify-content-between section-title mb-4">
-				<h2 class="fw-bold">Best Sellers</h2>
+				<h2 class="">Best Sellers</h2>
 
 				<div class="slider-nav">
 					<button class="embla__prev btn btn-primary">‹</button>

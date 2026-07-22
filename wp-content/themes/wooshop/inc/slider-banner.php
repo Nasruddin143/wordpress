@@ -82,7 +82,7 @@ function custom_bootstrap_slider_shortcode()
 
     ob_start();
     ?>
-    
+
 
     <div id="wpBootstrapCarousel" class="carousel slide" data-bs-ride="carousel">
 

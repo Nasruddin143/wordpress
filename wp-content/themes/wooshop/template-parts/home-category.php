@@ -9,7 +9,7 @@
 <div id="wcProductCategories" class="product-categories py-5">
 
     <div class="section-title mb-5">
-        <h2 class="text-center fw-bold">Explore Popular Categories</h2>
+        <h2 class="text-center">Explore Popular Categories</h2>
     </div>
 
     <div class="container text-center">

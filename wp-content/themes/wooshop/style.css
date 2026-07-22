@@ -389,10 +389,10 @@ body {
 }
 
 .woocommerce .woocommerce-breadcrumb {
-	font-size: 13px;
+	font-size: 13px!important;
 	font-weight: 600;
 	text-transform: uppercase;
-	color: #aaa;
+	color: #aaa!important;
 }
 
 .woocommerce-breadcrumb a {
@@ -405,7 +405,7 @@ body {
 }
 
 .woocommerce-breadcrumb a:hover{
-	color: var(--second-theme-color);
+	color: var(--second-theme-color)!important;
 }
 
 .footer a {
@@ -426,4 +426,8 @@ body {
 
 .widget img:hover{
     opacity:.85;
+}
+
+.text-justify {
+  text-align: justify !important;
 }

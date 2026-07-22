@@ -17,7 +17,7 @@ get_header();
 
 <main id="primary" class="site-main woocommerce page ">
 
-	<div class="page-banner mb-5">
+	<div class="page-banner mb-3">
 		<img class="img-fluid" src="<?php echo get_template_directory_uri().'/assets/images/page-banner.webp' ?>" alt="Page Banner" >
 	</div>
 
