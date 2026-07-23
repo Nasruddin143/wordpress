@@ -431,3 +431,96 @@ body {
 .text-justify {
   text-align: justify !important;
 }
+
+
+.widget {
+    margin-bottom: 2rem;
+}
+
+.widget-title {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.widget ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.widget ul li {
+    padding: .5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.widget ul li:last-child {
+    border: 0;
+}
+
+/**
+ * Comments Callback
+ */
+
+ .comments-area{
+    margin-top:4rem;
+}
+
+.comments-title{
+    font-weight:700;
+    margin-bottom:2rem;
+}
+
+.comment-list{
+    padding:0;
+}
+
+.comment-list li{
+    list-style:none;
+}
+
+.comment-content p:last-child{
+    margin-bottom:0;
+}
+
+.comment-author a{
+    color:var(--second-theme-color);
+    text-decoration:none;
+    font-weight:600;
+}
+
+.comment-author a:hover{
+    color:var(--first-theme-color);
+}
+
+.comment-reply-link{
+    display:inline-block;
+    padding:.45rem 1rem;
+    border:1px solid var(--first-theme-color);
+    border-radius:6px;
+    text-decoration:none;
+    color:var(--first-theme-color);
+    transition:.3s;
+}
+
+.comment-reply-link:hover{
+    background:var(--first-theme-color);
+    color:#fff;
+}
+
+.comment-form label{
+    font-weight:600;
+    margin-bottom:.5rem;
+}
+
+.comment-form .form-control{
+    /* border-radius:8px; */
+}
+
+.comment-form textarea{
+    resize:vertical;
+}
+
+.comment-form .submit{
+    margin-top:1rem;
+}

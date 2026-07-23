@@ -132,7 +132,7 @@ if (!function_exists('wooshop_post_thumbnail')):
 			?>
 
 			<div class="post-thumbnail">
-				<?php the_post_thumbnail('post-thumbnail', array( 'class' => 'attachment-post-thumbnail size-post-thumbnail wp-post-image img-fluid w-100' ) ); ?>
+				<?php the_post_thumbnail('post-thumbnail', array('class' => 'attachment-post-thumbnail size-post-thumbnail wp-post-image img-fluid w-100')); ?>
 			</div><!-- .post-thumbnail -->
 
 		<?php else: ?>
@@ -168,4 +168,157 @@ if (!function_exists('wp_body_open')):
 	{
 		do_action('wp_body_open');
 	}
+endif;
+
+
+
+/**
+ * Display post meta.
+ *
+ * Date | Author | Comments | Reading Time | Categories
+ */
+
+if (!function_exists('wooshop_post_meta')):
+
+	function wooshop_post_meta()
+	{
+		// Date
+		$date = sprintf(
+			'<a href="%1$s" class="text-body-tertiary text-decoration-none" rel="bookmark"><time class="entry-date published updated" datetime="%2$s">%3$s</time></a>',
+			esc_url(get_permalink()),
+			esc_attr(get_the_date(DATE_W3C)),
+			esc_html(get_the_date())
+		);
+
+		// Author
+		$author = sprintf(
+			'<a href="%1$s" class="text-body-tertiary text-decoration-none">%2$s</a>',
+			esc_url(get_author_posts_url(get_the_author_meta('ID'))),
+			esc_html(get_the_author())
+		);
+
+		// Comments
+		if (comments_open() || get_comments_number()) {
+
+			ob_start();
+
+			comments_popup_link(
+				esc_html__('0 Comments', 'wooshop'),
+				esc_html__('1 Comment', 'wooshop'),
+				esc_html__('% Comments', 'wooshop'),
+				'text-body-tertiary text-decoration-none',
+				''
+			);
+
+			$comments = ob_get_clean();
+
+		} else {
+			$comments = '';
+		}
+
+		// Reading Time
+		$content = wp_strip_all_tags(get_post_field('post_content', get_the_ID()));
+
+		$words = str_word_count($content);
+
+		$reading_time = max(1, ceil($words / 200));
+
+		// Categories
+		$categories = get_the_category_list(', ');
+
+		?>
+
+		<div class="entry-meta hstack gap-3 mb-2 text-body-tertiary">
+
+			<span class="meta-date">
+
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
+					class="main-grid-item-icon me-2" fill="none" stroke="currentColor" stroke-linecap="round"
+					stroke-linejoin="round" stroke-width="2">
+					<rect height="18" rx="2" ry="2" width="18" x="3" y="4" />
+					<line x1="16" x2="16" y1="2" y2="6" />
+					<line x1="8" x2="8" y1="2" y2="6" />
+					<line x1="3" x2="21" y1="10" y2="10" />
+				</svg>
+
+				<?php echo $date; ?>
+
+			</span>
+
+			<span class="meta-author">
+
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
+					class="main-grid-item-icon me-2" fill="none" stroke="currentColor" stroke-linecap="round"
+					stroke-linejoin="round" stroke-width="2">
+					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+					<circle cx="12" cy="7" r="4" />
+				</svg>
+
+				<?php echo $author; ?>
+
+			</span>
+
+			<?php if ($comments): ?>
+
+				<span class="meta-comments">
+
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
+						class="main-grid-item-icon me-2" fill="none" stroke="currentColor" stroke-linecap="round"
+						stroke-linejoin="round" stroke-width="2">
+						<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+					</svg>
+
+					<?php echo $comments; ?>
+
+				</span>
+
+			<?php endif; ?>
+
+			<span class="meta-reading-time text-body-tertiary">
+
+
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
+					class="main-grid-item-icon me-2" fill="none" stroke="currentColor" stroke-linecap="round"
+					stroke-linejoin="round" stroke-width="2">
+					<circle cx="12" cy="12" r="10" />
+					<polyline points="12 6 12 12 16 14" />
+				</svg>
+
+
+				<?php
+				printf(
+					esc_html__('%d min read', 'wooshop'),
+					absint($reading_time)
+				);
+				?>
+
+			</span>
+
+			<?php if ($categories): ?>
+
+				<span class="meta-category">
+
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
+						class="main-grid-item-icon me-2" fill="none" stroke="currentColor" stroke-linecap="round"
+						stroke-linejoin="round" stroke-width="2">
+						<circle cx="12" cy="8" r="7" />
+						<polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+					</svg>
+
+
+					<?php 
+					$categories = str_replace('<a ', '<a class="text-body-tertiary text-decoration-none" ', $categories);
+					echo $categories; 
+					?>
+
+				</span>
+
+			<?php endif; ?>
+
+		</div>
+
+		<?php
+
+	}
+
 endif;

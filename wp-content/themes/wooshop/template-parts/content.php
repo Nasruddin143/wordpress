@@ -9,32 +9,32 @@
 
 ?>
 
-
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 		<?php
-		if ('post' === get_post_type()):
-			?>
-				<div class="entry-meta text-body-secondary mb-2">
-					<?php
-					wooshop_posted_on();
-					wooshop_posted_by();
-					?>
-				</div><!-- .entry-meta -->
-		<?php endif;
-
 		if (is_singular()):
-			the_title('<h1 class="entry-title">', '</h1>');
+			the_title('<h1 class="entry-title text-dark fw-normal mb-3">', '</h1>');
 		else:
-			the_title('<h2 class="h4 fw-bold entry-title"><a href="' . esc_url(get_permalink()) . '" rel="bookmark" class="link-dark text-decoration-none">', '</a></h2>');
+			the_title('<h2 class="entry-title text-dark fw-normal mb-3"><a href="' . esc_url(get_permalink()) . '" rel="bookmark">', '</a></h2>');
 		endif;
 
-		?>
+		if ('post' === get_post_type()):
+			?>
+			<div class="mb-4">
+				<?php
+				wooshop_post_meta();
+
+				?>
+			</div><!-- .entry-meta -->
+		<?php endif; ?>
 	</header><!-- .entry-header -->
 
-	<?php wooshop_post_thumbnail(); ?>
+	<div class="mb-4">
+		<?php wooshop_post_thumbnail(); ?>
+	</div>
 
-	<div class="entry-content">
+
+	<div class="entry-content text-justify lh-lg">
 		<?php
 		the_content(
 			sprintf(

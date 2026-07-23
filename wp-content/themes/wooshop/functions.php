@@ -126,8 +126,8 @@ add_action('after_setup_theme', 'wooshop_content_width', 0);
 function wooshop_widgets_init()
 {
 	/**
- 	 * Sidebar Widgets 
- 	 */	
+	 * Sidebar Widgets 
+	 */
 	register_sidebar(
 		array(
 			'name' => esc_html__('Sidebar', 'wooshop'),
@@ -142,8 +142,8 @@ function wooshop_widgets_init()
 
 
 	/**
- 	 * Advertisement Banners 
- 	 */	
+	 * Advertisement Banners 
+	 */
 
 	for ($i = 1; $i <= 3; $i++) {
 
@@ -173,6 +173,34 @@ function wooshop_widgets_init()
 	));
 }
 add_action('widgets_init', 'wooshop_widgets_init');
+
+
+add_filter('get_search_form', 'wooshop_search_form');
+
+function wooshop_search_form()
+{
+
+	return '
+    <form role="search" method="get" class="search-form" action="' . esc_url(home_url('/')) . '">
+
+        <div class="input-group">
+
+            <input type="search" class="form-control" placeholder="Search.." name="s">
+
+            <button class="btn btn-primary">
+
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+				<circle cx="11" cy="11" r="8" />
+				<line x1="21" x2="16.65" y1="21" y2="16.65" />
+				</svg>
+
+            </button>
+
+        </div>
+
+    </form>';
+
+}
 
 
 /**
@@ -265,3 +293,139 @@ if (class_exists('WooCommerce')) {
  * Load Bootstrap Slider Custom Post type and Slider Code file.
  */
 require get_template_directory() . '/inc/slider-banner.php';
+
+
+/**
+ * Bootstrap Comment Callback
+ */
+
+function wooshop_comment_callback($comment, $args, $depth)
+{
+
+	$GLOBALS['comment'] = $comment;
+
+	?>
+
+	<li <?php comment_class('mb-4'); ?> id="comment-<?php comment_ID(); ?>">
+
+		<article class="card shadow-sm border-0">
+
+			<div class="card-body">
+
+				<div class="d-flex">
+
+					<div class="flex-shrink-0 me-3">
+
+						<?php
+
+						echo get_avatar(
+
+							$comment,
+
+							70,
+
+							'',
+
+							'',
+
+							array(
+
+								'class' => 'rounded-circle'
+
+							)
+
+						);
+
+						?>
+
+					</div>
+
+					<div class="flex-grow-1">
+
+						<div class="d-flex justify-content-between align-items-center mb-2">
+
+							<div>
+
+								<h6 class="mb-0">
+
+									<?php comment_author_link(); ?>
+
+								</h6>
+
+								<small class="text-muted">
+
+									<?php
+
+									echo esc_html(
+
+										get_comment_date()
+
+									);
+
+									?>
+
+								</small>
+
+							</div>
+
+						</div>
+
+						<?php if ($comment->comment_approved == '0'): ?>
+
+							<div class="alert alert-warning py-2">
+
+								<?php esc_html_e('Your comment is awaiting moderation.', 'wooshop'); ?>
+
+							</div>
+
+						<?php endif; ?>
+
+						<div class="comment-content mt-3">
+
+							<?php comment_text(); ?>
+
+						</div>
+
+						<div class="mt-3">
+
+							<?php
+
+							comment_reply_link(
+
+								array_merge(
+
+									$args,
+
+									array(
+
+										'depth' => $depth,
+
+										'max_depth' => $args['max_depth'],
+
+										'reply_text' => __('Reply', 'wooshop'),
+
+										'class' => 'btn btn-sm btn-outline-primary'
+
+									)
+
+								)
+
+							);
+
+							?>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</article>
+
+	</li>
+
+	<?php
+
+}
