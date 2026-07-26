@@ -30,7 +30,7 @@ get_header();
             if (function_exists('woocommerce_breadcrumb')) {
                 woocommerce_breadcrumb(array(
                     'delimiter' => ' / ',
-                    'wrap_before' => '<nav class="woocommerce-breadcrumb pb-3 mb-4 border-bottom" aria-label="Breadcrumb">',
+                    'wrap_before' => '<nav class="woocommerce-breadcrumb" aria-label="Breadcrumb">',
                     'wrap_after' => '</nav>',
                     'home' => _x('Home', 'breadcrumb', 'woocommerce'),
                 ));
@@ -38,70 +38,36 @@ get_header();
             ?>
 
             <div class="row">
-                <div class="col col-md-9">
+                <div class="col-12 col-sm-12 col-md-8 col-lg-9">
+
                     <?php
+
+                    if (is_home() && !is_front_page()): ?>
+
+                        <header>
+                            <h1 class="page-title fw-normal mb-4 text-dark">
+                                <?php single_post_title(); ?>
+                            </h1>
+                        </header>
+                    <?php endif; ?>
+
+                    <?php
+
                     if (have_posts()):
-
-                        if (is_home() && !is_front_page()):
-                            ?>
-
-                            <header>
-                                <h1 class="page-title screen-reader-text fw-normal"><?php single_post_title(); ?></h1>
-                            </header>
-                            <?php
-                        endif;
 
                         /* Start the Loop */
                         while (have_posts()):
                             the_post(); ?>
 
-                            <article id="post-<?php the_ID(); ?>" <?php post_class('mb-5'); ?>>
+                            <?php
+                            /*
+                             * Include the Post-Type-specific template for the content.
+                             * If you want to override this in a child theme, then include a file
+                             * called content-___.php (where ___ is the Post Type name) and that will be used instead.
+                             */
+                            get_template_part('template-parts/content', get_post_type());
 
-                                <div class="card border">
-
-                                    <?php wooshop_post_thumbnail(); ?>
-
-                                    <div class="card-body">
-                                        <header class="entry-header">
-
-                                            <?php
-
-                                            if (is_singular()):
-                                                the_title('<h1 class="entry-title card-title">', '</h1>');
-                                            else:
-                                                the_title('<h2 class="fw-normal entry-title card-title"><a href="' . esc_url(get_permalink()) . '" rel="bookmark" class="link-dark text-decoration-none">', '</a></h2>');
-                                            endif;
-
-                                            if ('post' === get_post_type()): ?>
-
-                                                <?php wooshop_post_meta(); ?>
-
-                                            <?php endif; ?>
-
-                                        </header><!-- .entry-header -->
-
-                                        <div class="entry-content">
-                                            <?php
-                                            the_excerpt();
-
-                                            wp_link_pages(
-                                                array(
-                                                    'before' => '<div class="page-links">' . esc_html__('Pages:', 'wooshop'),
-                                                    'after' => '</div>',
-                                                )
-                                            );
-                                            ?>
-                                        </div><!-- .entry-content -->
-
-                                        <footer class="entry-footer">
-                                            <?php wooshop_entry_footer(); ?>
-                                        </footer>
-                                        <!-- .entry-footer -->
-                                    </div>
-                                </div>
-                            </article><!-- #post-<?php the_ID(); ?> -->
-
-                        <?php endwhile;
+                        endwhile;
 
                         the_posts_navigation();
 
@@ -113,7 +79,7 @@ get_header();
                     ?>
                 </div>
 
-                <div class="col col-md-3">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-3">
                     <?php
                     get_sidebar(); ?>
                 </div>

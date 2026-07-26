@@ -151,7 +151,7 @@ function my_theme_customize_register($wp_customize)
         'section' => 'my_theme_settings_section',
         'type' => 'text',
     ));
-    
+
     $wp_customize->add_setting('shop_opening_time', array(
         'default' => '',
         'sanitize_callback' => 'sanitize_text_field',

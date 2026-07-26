@@ -12,6 +12,12 @@ if (!defined('_S_VERSION')) {
 	define('_S_VERSION', '1.0.0');
 }
 
+add_action('wp_head', function () {
+	global $template;
+	echo "<!-- Template Used: " . basename($template) . " -->";
+});
+
+
 require_once get_template_directory() . '/inc/nav-walker.php';
 
 /**
@@ -118,6 +124,10 @@ function wooshop_content_width()
 }
 add_action('after_setup_theme', 'wooshop_content_width', 0);
 
+
+require_once get_template_directory() . '/inc/widgets/widgets.php';
+
+
 /**
  * Register widget area.
  *
@@ -171,6 +181,19 @@ function wooshop_widgets_init()
 		'before_title' => '<h4 class="widget-title mb-4 text-second">',
 		'after_title' => '</h4>',
 	));
+
+
+	register_sidebar(
+		array(
+			'name' => esc_html__('WooShop Sidebar', 'wooshop'),
+			'id' => 'wooshop-sidebar',
+			'description' => esc_html__('Add widgets here.', 'wooshop'),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget' => '</section>',
+			'before_title' => '<h2 class="widget-title">',
+			'after_title' => '</h2>',
+		)
+	);
 }
 add_action('widgets_init', 'wooshop_widgets_init');
 
@@ -229,29 +252,9 @@ function wooshop_enqueue_embla()
 		return;
 	}
 
-	wp_enqueue_style(
-		'embla-css',
-		get_template_directory_uri() . '/assets/css/embla.css',
-		array(),
-		'1.0'
-	);
-
-	wp_enqueue_script(
-		'embla',
-		get_template_directory_uri() . '/assets/js/embla.min.js',
-		array(),
-		'8.6.0',
-		true
-	);
-
-	wp_enqueue_script(
-		'embla-init',
-		get_template_directory_uri() . '/assets/js/embla-init.js',
-		array('embla'),
-		'1.0',
-		true
-	);
-
+	wp_enqueue_style('embla-css', get_template_directory_uri() . '/assets/css/embla.css', array(), '1.0');
+	wp_enqueue_script('embla', get_template_directory_uri() . '/assets/js/embla.min.js', array(), '8.6.0', true);
+	wp_enqueue_script('embla-init', get_template_directory_uri() . '/assets/js/embla-init.js', array('embla'), '1.0', true);
 }
 add_action('wp_enqueue_scripts', 'wooshop_enqueue_embla');
 

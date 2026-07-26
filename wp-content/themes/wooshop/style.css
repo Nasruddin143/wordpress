@@ -96,6 +96,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 :root {
 	--first-theme-color: #fe4f17;
 	--second-theme-color: #002374;
+	--gray-theme-color: #777777;
 
 	--section-bg-blue: #f4f7ff;
 }
@@ -114,7 +115,7 @@ body {
 	color: var(--first-theme-color);
 }
 
-.text-second{
+.text-second {
 	color: var(--second-theme-color);
 }
 
@@ -312,8 +313,8 @@ body {
 	overflow: hidden;
 	padding: 30px 0;
 	/* Adds nice fade-out effect on left/right edges */
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+	mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+	-webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .brand-track {
@@ -389,14 +390,14 @@ body {
 }
 
 .woocommerce .woocommerce-breadcrumb {
-	font-size: 13px!important;
+	font-size: 13px !important;
 	font-weight: 600;
 	text-transform: uppercase;
-	color: #aaa!important;
+	color: #aaa !important;
 }
 
 .woocommerce-breadcrumb a {
-	text-decoration: none!important;
+	text-decoration: none !important;
 	color: #aaa;
 }
 
@@ -404,8 +405,8 @@ body {
 	color: var(--first-theme-color);
 }
 
-.woocommerce-breadcrumb a:hover{
-	color: var(--second-theme-color)!important;
+.woocommerce-breadcrumb a:hover {
+	color: var(--second-theme-color) !important;
 }
 
 .footer a {
@@ -417,110 +418,153 @@ body {
 	color: var(--first-theme-color);
 }
 
-.widget img{
-    width:100%;
-    height:auto;
-    display:block;
-    transition:.3s;
+.widget .wooshop-recent-posts img {
+	max-width: 75px;
+    max-height: 75px;
+	display: block;
+	transition: .3s;
 }
 
-.widget img:hover{
-    opacity:.85;
+.widget img:hover {
+	opacity: .85;
 }
 
 .text-justify {
-  text-align: justify !important;
+	text-align: justify !important;
 }
 
 
 .widget {
-    margin-bottom: 2rem;
+	margin-bottom: 2rem;
 }
 
-.widget-title {
-    font-size: 1.25rem;
-    font-weight: 400;
-    margin-bottom: 1rem;
+.widget a {
+	color: var(--gray-theme-color);
+	text-decoration: none!important;
+}
+
+.widget a:hover {
+	color: var(--first-theme-color);
+}
+
+.widget h2 {
+	font-size: 1.5rem;
+	font-weight: 500;
+	margin-bottom: 20px;
+	color:var(--second-theme-color);
 }
 
 .widget ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
-.widget ul li {
-    padding: .5rem 0;
-    border-bottom: 1px solid #eee;
+ .widget ul li {
+	margin-bottom: 10px;
 }
 
 .widget ul li:last-child {
-    border: 0;
+	border: 0;
+}
+
+.widget .wooshop-tag-cloud a:hover {
+	border-color: var(--first-theme-color)!important;
+}
+
+.widget .wooshop-image-banner img{
+    width:100%;
+    height:auto;
+    display:block;
+    transition:.35s;
+}
+
+.widget .wooshop-image-banner{
+    overflow:hidden;
+    border-radius:8px;
+}
+
+.widget .wooshop-image-banner:hover img{
+    transform:scale(1.05);
+}
+
+.widget .banner-button a {
+	color: #fff !important;
+}
+
+.widget .banner-button a:hover {
+	color: var(--first-theme-color) !important;
 }
 
 /**
  * Comments Callback
  */
 
- .comments-area{
-    margin-top:4rem;
+.comments-area {
+	margin-top: 4rem;
 }
 
-.comments-title{
-    font-weight:700;
-    margin-bottom:2rem;
+.comments-title {
+	font-weight: 700;
+	margin-bottom: 2rem;
 }
 
-.comment-list{
-    padding:0;
+.comment-list {
+	padding: 0;
 }
 
-.comment-list li{
-    list-style:none;
+.comment-list li {
+	list-style: none;
 }
 
-.comment-content p:last-child{
-    margin-bottom:0;
+.comment-content p:last-child {
+	margin-bottom: 0;
 }
 
-.comment-author a{
-    color:var(--second-theme-color);
-    text-decoration:none;
-    font-weight:600;
+.comment-author a {
+	color: var(--second-theme-color);
+	text-decoration: none;
+	font-weight: 600;
 }
 
-.comment-author a:hover{
-    color:var(--first-theme-color);
+.comment-author a:hover {
+	color: var(--first-theme-color);
 }
 
-.comment-reply-link{
-    display:inline-block;
-    padding:.45rem 1rem;
-    border:1px solid var(--first-theme-color);
-    border-radius:6px;
-    text-decoration:none;
-    color:var(--first-theme-color);
-    transition:.3s;
+.comment-reply-link {
+	display: inline-block;
+	padding: .45rem 1rem;
+	border: 1px solid var(--first-theme-color);
+	border-radius: 6px;
+	text-decoration: none;
+	color: var(--first-theme-color);
+	transition: .3s;
 }
 
-.comment-reply-link:hover{
-    background:var(--first-theme-color);
-    color:#fff;
+.comment-reply-link:hover {
+	background: var(--first-theme-color);
+	color: #fff;
 }
 
-.comment-form label{
-    font-weight:600;
-    margin-bottom:.5rem;
+.comment-form label {
+	font-weight: 600;
+	margin-bottom: .5rem;
 }
 
-.comment-form .form-control{
-    /* border-radius:8px; */
+/* .comment-form .form-control{
+    border-radius:8px;
+} */
+
+.comment-form textarea {
+	resize: vertical;
 }
 
-.comment-form textarea{
-    resize:vertical;
+.comment-form .submit {
+	margin-top: 1rem;
 }
 
-.comment-form .submit{
-    margin-top:1rem;
+.widget_wooshop_blog_categories ul li:not(:last-child) {
+	margin-bottom: 1rem;
+	padding: 0;
+	border: none;
 }
