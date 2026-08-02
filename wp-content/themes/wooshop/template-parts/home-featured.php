@@ -37,7 +37,7 @@ $trending = wooshop_get_products(array(
 		<div class="embla mb-5">
 
 			<div class="d-flex align-items-center justify-content-between section-title mb-4">
-				<h2 class="fw-bold">New Arrivals</h2>
+				<h2 class="">New Arrivals</h2>
 
 				<div class="slider-nav">
 					<button class="embla__prev btn btn-primary">‹</button>
@@ -58,7 +58,7 @@ $trending = wooshop_get_products(array(
 
 						<div class="embla__slide">
 
-							<div class="product-card p-2 border rounded me-3 h-100 bg-white position-relative">
+							<div class="product-card p-2 border me-3 h-100 bg-white position-relative">
 								<!-- Product Image -->
 								<div class="product-image">
 
@@ -86,8 +86,8 @@ $trending = wooshop_get_products(array(
 									<!-- Overlay Icons -->
 									<div class="product-overlay">
 
-										<button class="wishlist-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1"
-											aria-label="Add to Wishlist" data-product="<?php echo $product->get_id(); ?>">
+										<button type="button" class="wishlist-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1"
+											aria-label="Add to Wishlist" data-product="<?php echo $product->get_id(); ?>" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add to Wishlist">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16"
 												height="16" class="main-grid-item-icon" fill="none" stroke="currentColor"
 												stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -96,8 +96,8 @@ $trending = wooshop_get_products(array(
 											</svg>
 										</button>
 
-										<button class="quickview-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1"
-											data-product-id="<?php echo esc_attr($product->get_id()); ?>"
+										<button type="button" class="quickview-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1"
+											data-product-id="<?php echo esc_attr($product->get_id()); ?>" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View"
 											aria-label="Quick View">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16"
 												height="16" class="main-grid-item-icon" fill="none" stroke="currentColor"
@@ -174,7 +174,7 @@ $trending = wooshop_get_products(array(
 		<div class="embla mb-5">
 
 			<div class="d-flex align-items-center justify-content-between section-title mb-4">
-				<h2 class="fw-bold">Featured Products</h2>
+				<h2 class="">Featured Products</h2>
 
 				<div class="slider-nav">
 					<button class="embla__prev btn btn-primary">‹</button>
@@ -195,7 +195,7 @@ $trending = wooshop_get_products(array(
 
 						<div class="embla__slide">
 
-							<div class="product-card p-2 border rounded me-3 h-100 bg-white position-relative">
+							<div class="product-card p-2 border me-3 h-100 bg-white position-relative">
 								<!-- Product Image -->
 								<div class="product-image">
 
@@ -223,7 +223,7 @@ $trending = wooshop_get_products(array(
 									<!-- Overlay Icons -->
 									<div class="product-overlay">
 
-										<button class="wishlist-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1"
+										<button class="wishlist-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add to Wishlist"
 											aria-label="Add to Wishlist" data-product="<?php echo $product->get_id(); ?>">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16"
 												height="16" class="main-grid-item-icon" fill="none" stroke="currentColor"
@@ -233,7 +233,7 @@ $trending = wooshop_get_products(array(
 											</svg>
 										</button>
 
-										<button class="quickview-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1"
+										<button class="quickview-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View"
 											data-product-id="<?php echo esc_attr($product->get_id()); ?>"
 											aria-label="Quick View">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16"
@@ -297,7 +297,7 @@ $trending = wooshop_get_products(array(
 		<div class="embla mb-5">
 
 			<div class="d-flex align-items-center justify-content-between section-title mb-4">
-				<h2 class="fw-bold">Best Sellers</h2>
+				<h2 class="">Best Sellers</h2>
 
 				<div class="slider-nav">
 					<button class="embla__prev btn btn-primary">‹</button>
@@ -318,7 +318,7 @@ $trending = wooshop_get_products(array(
 
 						<div class="embla__slide">
 
-							<div class="product-card p-2 border rounded me-3 h-100 bg-white position-relative">
+							<div class="product-card p-2 border me-3 h-100 bg-white position-relative">
 								<!-- Product Image -->
 								<div class="product-image">
 
@@ -346,7 +346,7 @@ $trending = wooshop_get_products(array(
 									<!-- Overlay Icons -->
 									<div class="product-overlay">
 
-										<button class="wishlist-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1"
+										<button class="wishlist-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add to Wishlist"
 											aria-label="Add to Wishlist" data-product="<?php echo $product->get_id(); ?>">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16"
 												height="16" class="main-grid-item-icon" fill="none" stroke="currentColor"
@@ -356,7 +356,7 @@ $trending = wooshop_get_products(array(
 											</svg>
 										</button>
 
-										<button class="quickview-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1"
+										<button class="quickview-btn btn btn-outline-primary btn-sm rounded-circle p-2 lh-1" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View"
 											data-product-id="<?php echo esc_attr($product->get_id()); ?>"
 											aria-label="Quick View">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16"

@@ -15,35 +15,13 @@
 get_header();
 ?>
 
-<main id="primary index" class="site-main">
+	<main id="primary" class="site-main index woocommerce">
 
-	<div class="page-banner mb-5">
-		<img class="img-fluid" src="<?php echo get_template_directory_uri() . '/assets/images/page-banner.webp' ?>"
-			alt="Page Banner">
-	</div>
-
-	<div class="container">
 		<?php
-		if (have_posts()):
+		if ( have_posts() ) :
 
-			if (is_home() && !is_front_page()):
+			if ( is_home() && ! is_front_page() ) :
 				?>
-
-				<?php
-				if (function_exists('woocommerce_breadcrumb')) {
-					woocommerce_breadcrumb(array(
-						'delimiter' => ' <span class="breadcrumb-separator"><!-- https://feathericons.dev/?search=chevron-right&iconset=feather -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-  <polyline points="9 18 15 12 9 6" />
-</svg>
-</span> ',
-						'wrap_before' => '<nav class="woocommerce-breadcrumb" aria-label="Breadcrumb">',
-						'wrap_after' => '</nav>',
-						'home' => _x('Home', 'breadcrumb', 'woocommerce'),
-					));
-				}
-				?>
-
 				<header>
 					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
 				</header>
@@ -51,7 +29,7 @@ get_header();
 			endif;
 
 			/* Start the Loop */
-			while (have_posts()):
+			while ( have_posts() ) :
 				the_post();
 
 				/*
@@ -59,20 +37,20 @@ get_header();
 				 * If you want to override this in a child theme, then include a file
 				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
 				 */
-				get_template_part('template-parts/content', get_post_type());
+				get_template_part( 'template-parts/content', get_post_type() );
 
 			endwhile;
 
 			the_posts_navigation();
 
-		else:
+		else :
 
-			get_template_part('template-parts/content', 'none');
+			get_template_part( 'template-parts/content', 'none' );
 
 		endif;
 		?>
-</div>
-</main><!-- #main -->
+
+	</main><!-- #main -->
 
 <?php
 get_sidebar();

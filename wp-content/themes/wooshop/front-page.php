@@ -21,6 +21,31 @@ get_header();
 
     <?php get_template_part('template-parts/home', 'category'); ?>
 
+
+    <div id="wpAdvertisementBanner" class="advertisement py-5">
+        <div class="container">
+            <div class="row">
+                <?php if (is_active_sidebar('advertisement-banner-1')): ?>
+                    <div class="col col-md-4 col-lg-4">
+                        <?php dynamic_sidebar('advertisement-banner-1'); ?>
+                    </div>
+                <?php endif; ?>
+                <?php if (is_active_sidebar('advertisement-banner-2')): ?>
+                    <div class="col col-md-4 col-lg-4">
+                        <?php dynamic_sidebar('advertisement-banner-2'); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (is_active_sidebar('advertisement-banner-3')): ?>
+                    <div class="col col-md-4 col-lg-4">
+                        <?php dynamic_sidebar('advertisement-banner-3'); ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+
     <?php get_template_part('template-parts/home', 'featured'); ?>
 
     <?php get_template_part('template-parts/home', 'branding'); ?>

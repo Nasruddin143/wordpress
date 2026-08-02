@@ -21,14 +21,14 @@ class bootstrap_5_wp_nav_menu_walker extends Walker_Nav_menu
   function start_lvl(&$output, $depth = 0, $args = null)
   {
     $dropdown_menu_class[] = '';
-    foreach($this->current_item->classes as $class) {
-      if(in_array($class, $this->dropdown_menu_alignment_values)) {
+    foreach ($this->current_item->classes as $class) {
+      if (in_array($class, $this->dropdown_menu_alignment_values)) {
         $dropdown_menu_class[] = $class;
       }
     }
     $indent = str_repeat("\t", $depth);
     $submenu = ($depth > 0) ? ' sub-menu' : '';
-    $output .= "\n$indent<ul class=\"dropdown-menu$submenu " . esc_attr(implode(" ",$dropdown_menu_class)) . " depth_$depth\">\n";
+    $output .= "\n$indent<ul class=\"dropdown-menu$submenu " . esc_attr(implode(" ", $dropdown_menu_class)) . " depth_$depth\">\n";
   }
 
   function start_el(&$output, $item, $depth = 0, $args = null, $id = 0)
@@ -49,7 +49,7 @@ class bootstrap_5_wp_nav_menu_walker extends Walker_Nav_menu
       $classes[] = 'dropdown-menu dropdown-menu-end';
     }
 
-    $class_names =  join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
+    $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
     $class_names = ' class="' . esc_attr($class_names) . '"';
 
     $id = apply_filters('nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args);
@@ -63,8 +63,8 @@ class bootstrap_5_wp_nav_menu_walker extends Walker_Nav_menu
     $attributes .= !empty($item->url) ? ' href="' . esc_attr($item->url) . '"' : '';
 
     $active_class = ($item->current || $item->current_item_ancestor || in_array("current_page_parent", $item->classes, true) || in_array("current-post-ancestor", $item->classes, true)) ? 'active' : '';
-    $nav_link_class = ( $depth > 0 ) ? 'dropdown-item ' : 'nav-link ';
-    $attributes .= ( $args->walker->has_children ) ? ' class="'. $nav_link_class . $active_class . ' dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : ' class="'. $nav_link_class . $active_class . '"';
+    $nav_link_class = ($depth > 0) ? 'dropdown-item ' : 'nav-link ';
+    $attributes .= ($args->walker->has_children) ? ' class="' . $nav_link_class . $active_class . ' dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : ' class="' . $nav_link_class . $active_class . '"';
 
     $item_output = $args->before;
     $item_output .= '<a' . $attributes . '>';

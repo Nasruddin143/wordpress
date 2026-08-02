@@ -15,63 +15,198 @@
  * the visitor has not yet entered the password we will
  * return early without loading the comments.
  */
-if ( post_password_required() ) {
+if (post_password_required()) {
 	return;
 }
 ?>
 
-<div id="comments" class="comments-area">
+<div id="comments" class="comments-area mt-5 bg-light p-5">
 
-	<?php
-	// You can start editing here -- including this comment!
-	if ( have_comments() ) :
-		?>
-		<h2 class="comments-title">
+	<?php if (have_comments()): ?>
+
+		<h3 class="comments-title mb-4">
+
 			<?php
-			$wooshop_comment_count = get_comments_number();
-			if ( '1' === $wooshop_comment_count ) {
-				printf(
-					/* translators: 1: title. */
-					esc_html__( 'One thought on &ldquo;%1$s&rdquo;', 'wooshop' ),
-					'<span>' . wp_kses_post( get_the_title() ) . '</span>'
-				);
-			} else {
-				printf( 
-					/* translators: 1: comment count number, 2: title. */
-					esc_html( _nx( '%1$s thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', $wooshop_comment_count, 'comments title', 'wooshop' ) ),
-					number_format_i18n( $wooshop_comment_count ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					'<span>' . wp_kses_post( get_the_title() ) . '</span>'
-				);
-			}
+
+			$count = get_comments_number();
+
+			printf(
+
+				_n(
+					'%s Comment',
+					'%s Comments',
+					$count,
+					'wooshop'
+				),
+
+				number_format_i18n($count)
+
+			);
+
 			?>
-		</h2><!-- .comments-title -->
+
+		</h3>
+
+		<ol class="comment-list list-unstyled">
+
+			<?php
+
+			wp_list_comments(array(
+
+				'style' => 'ol',
+				'avatar_size' => 70,
+				'short_ping' => true,
+				'callback' => 'wooshop_comment_callback',
+
+			));
+
+			?>
+
+		</ol>
 
 		<?php the_comments_navigation(); ?>
 
-		<ol class="comment-list">
-			<?php
-			wp_list_comments(
-				array(
-					'style'      => 'ol',
-					'short_ping' => true,
-				)
-			);
-			?>
-		</ol><!-- .comment-list -->
+		<?php if (!comments_open()): ?>
 
-		<?php
-		the_comments_navigation();
+			<div class="alert alert-warning mt-4">
 
-		// If comments are closed and there are comments, let's leave a little note, shall we?
-		if ( ! comments_open() ) :
-			?>
-			<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'wooshop' ); ?></p>
-			<?php
-		endif;
+				<?php esc_html_e('Comments are closed.', 'wooshop'); ?>
 
-	endif; // Check for have_comments().
+			</div>
 
-	comment_form();
+		<?php endif; ?>
+
+	<?php endif; ?>
+
+
+	<?php
+
+	comment_form(array(
+
+		'class_form' => 'comment-form row g-3 mt-4',
+
+		'class_submit' => 'btn btn-primary',
+
+		'title_reply' => __('Leave a Comment', 'wooshop'),
+
+		'title_reply_before' => '<h3 class="mb-4">',
+
+		'title_reply_after' => '</h3>',
+
+		'label_submit' => __('Post Comment', 'wooshop'),
+
+		'comment_notes_before' => '',
+
+		'comment_notes_after' => '',
+
+		'fields' => array(
+
+			'author' => '
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+
+                    ' . esc_html__('Name', 'wooshop') . '
+
+                </label>
+
+                <input
+
+                    id="author"
+
+                    name="author"
+
+                    type="text"
+
+                    class="form-control"
+
+                    required>
+
+            </div>
+
+            ',
+
+			'email' => '
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+
+                    ' . esc_html__('Email', 'wooshop') . '
+
+                </label>
+
+                <input
+
+                    id="email"
+
+                    name="email"
+
+                    type="email"
+
+                    class="form-control"
+
+                    required>
+
+            </div>
+
+            ',
+
+			'url' => '
+
+            <div class="col-12">
+
+                <label class="form-label">
+
+                    ' . esc_html__('Website', 'wooshop') . '
+
+                </label>
+
+                <input
+
+                    id="url"
+
+                    name="url"
+
+                    type="url"
+
+                    class="form-control">
+
+            </div>
+
+            ',
+
+		),
+
+		'comment_field' => '
+
+        <div class="col-12">
+
+            <label class="form-label">
+
+                ' . esc_html__('Comment', 'wooshop') . '
+
+            </label>
+
+            <textarea
+
+                id="comment"
+
+                name="comment"
+
+                rows="6"
+
+                class="form-control"
+
+                required></textarea>
+
+        </div>
+
+        ',
+
+	));
+
 	?>
 
-</div><!-- #comments -->
+</div>

@@ -9,18 +9,14 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('py-5'); ?>>
 
 	<?php if (!is_front_page()): ?>
 
 		<?php
 		if (function_exists('woocommerce_breadcrumb')) {
 			woocommerce_breadcrumb(array(
-				'delimiter' => ' <span class="breadcrumb-separator"><!-- https://feathericons.dev/?search=chevron-right&iconset=feather -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-  <polyline points="9 18 15 12 9 6" />
-</svg>
-</span> ',
+				'delimiter' => ' / ',
 				'wrap_before' => '<nav class="woocommerce-breadcrumb" aria-label="Breadcrumb">',
 				'wrap_after' => '</nav>',
 				'home' => _x('Home', 'breadcrumb', 'woocommerce'),
@@ -28,14 +24,16 @@
 		}
 		?>
 
-		<header class="entry-header">
-			<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
+		<header class="entry-header mb-4">
+			<?php the_title('<h1 class="text-dark fw-normal entry-title">', '</h1>'); ?>
 		</header><!-- .entry-header -->
 	<?php endif; ?>
 
-	<?php wooshop_post_thumbnail(); ?>
+	<div class="mb-4">
+		<?php wooshop_post_thumbnail(); ?>
+	</div>
 
-	<div class="entry-content">
+	<div class="entry-content text-body-secondary fw-medium lh-base text-justify">
 		<?php
 		the_content();
 
