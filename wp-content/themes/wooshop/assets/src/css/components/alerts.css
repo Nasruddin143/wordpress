@@ -1,0 +1,31 @@
+/*--------------------------------------------------------------
+# Alerts
+--------------------------------------------------------------*/
+
+.ws-alert {
+
+    padding: 1rem;
+
+    border-radius: var(--ws-radius);
+
+    margin-bottom: 1rem;
+
+}
+
+.ws-alert-success {
+
+    background: #d1e7dd;
+
+}
+
+.ws-alert-danger {
+
+    background: #f8d7da;
+
+}
+
+.ws-alert-warning {
+
+    background: #fff3cd;
+
+}

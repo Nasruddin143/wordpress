@@ -1,0 +1,150 @@
+/*--------------------------------------------------------------
+# Buttons
+--------------------------------------------------------------*/
+
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+.button,
+.wp-element-button,
+.ws-btn {
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    padding: 0.75rem 1.25rem;
+
+    border: 1px solid transparent;
+    border-radius: var(--ws-radius);
+
+    background: var(--ws-primary);
+    color: #fff;
+
+    font: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: background-color var(--ws-transition),
+    border-color var(--ws-transition),
+    color var(--ws-transition),
+    transform var(--ws-transition),
+    box-shadow var(--ws-transition);
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+.button:hover,
+.wp-element-button:hover,
+.ws-btn:hover {
+
+    background: var(--ws-primary-hover);
+    color: #fff;
+    text-decoration: none;
+
+    transform: translateY(-1px);
+
+    box-shadow: var(--ws-shadow);
+}
+
+button:active,
+.button:active,
+.ws-btn:active {
+
+    transform: translateY(0);
+}
+
+button:focus-visible,
+.button:focus-visible,
+.ws-btn:focus-visible {
+
+    outline: 2px solid var(--ws-primary);
+    outline-offset: 2px;
+}
+
+button:disabled,
+.button:disabled,
+.ws-btn:disabled,
+button[disabled] {
+
+    opacity: .55;
+
+    cursor: not-allowed;
+
+    pointer-events: none;
+}
+
+/* Variants */
+
+.ws-btn-secondary {
+
+    background: var(--ws-secondary);
+}
+
+.ws-btn-secondary:hover {
+
+    background: var(--ws-secondary-hover);
+}
+
+.ws-btn-success {
+
+    background: var(--ws-success);
+}
+
+.ws-btn-danger {
+
+    background: var(--ws-danger);
+}
+
+.ws-btn-outline {
+
+    background: transparent;
+
+    color: var(--ws-primary);
+
+    border-color: var(--ws-primary);
+}
+
+.ws-btn-outline:hover {
+
+    background: var(--ws-primary);
+
+    color: #fff;
+}
+
+.ws-btn-light {
+
+    background: var(--ws-light);
+
+    color: var(--ws-dark);
+}
+
+/* Sizes */
+
+.ws-btn-sm {
+
+    padding: .5rem .85rem;
+
+    font-size: .875rem;
+}
+
+.ws-btn-lg {
+
+    padding: 1rem 1.75rem;
+
+    font-size: 1.05rem;
+}
+
+.ws-btn-block {
+
+    display: flex;
+
+    width: 100%;
+}

@@ -1,0 +1,101 @@
+/*--------------------------------------------------------------
+# Pagination
+--------------------------------------------------------------*/
+
+.navigation.pagination,
+.woocommerce-pagination,
+.ws-pagination {
+
+    margin: 2rem 0;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+.navigation.pagination .nav-links,
+.woocommerce-pagination ul.page-numbers,
+.ws-pagination {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .5rem;
+
+    padding: 0;
+
+    margin: 0;
+
+    list-style: none;
+
+    flex-wrap: wrap;
+}
+
+.navigation.pagination a,
+.navigation.pagination span,
+.woocommerce-pagination a,
+.woocommerce-pagination span,
+.ws-pagination a,
+.ws-pagination span {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 2.75rem;
+
+    height: 2.75rem;
+
+    padding: 0 .875rem;
+
+    border: 1px solid var(--ws-border);
+
+    border-radius: var(--ws-radius);
+
+    background: #fff;
+
+    color: var(--ws-dark);
+
+    text-decoration: none;
+
+    font-weight: 500;
+
+    transition: background-color var(--ws-transition),
+    border-color var(--ws-transition),
+    color var(--ws-transition),
+    box-shadow var(--ws-transition);
+}
+
+.navigation.pagination a:hover,
+.woocommerce-pagination a:hover,
+.ws-pagination a:hover {
+
+    background: var(--ws-primary);
+
+    border-color: var(--ws-primary);
+
+    color: #fff;
+}
+
+.navigation.pagination .current,
+.woocommerce-pagination .current,
+.ws-pagination .is-active {
+
+    background: var(--ws-primary);
+
+    border-color: var(--ws-primary);
+
+    color: #fff;
+}
+
+.navigation.pagination .dots,
+.woocommerce-pagination .dots {
+
+    border: none;
+
+    background: transparent;
+}

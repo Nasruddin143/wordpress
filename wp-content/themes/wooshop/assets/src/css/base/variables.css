@@ -1,0 +1,26 @@
+:root {
+
+    --ws-primary: #0d6efd;
+    --ws-primary-hover: #0b5ed7;
+
+    --ws-secondary: #6c757d;
+    --ws-secondary-hover: #5c636a;
+
+    --ws-success: #198754;
+    --ws-danger: #dc3545;
+    --ws-warning: #ffc107;
+
+    --ws-light: #f8f9fa;
+    --ws-dark: #212529;
+
+    --ws-body: #495057;
+    --ws-border: #dee2e6;
+
+    --ws-radius-sm: .375rem;
+    --ws-radius: .5rem;
+    --ws-radius-lg: .75rem;
+
+    --ws-shadow: 0 .5rem 1rem rgba(0,0,0,.12);
+
+    --ws-transition: .2s ease-in-out;
+}

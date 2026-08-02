@@ -1,0 +1,87 @@
+/*--------------------------------------------------------------
+# Spinner
+--------------------------------------------------------------*/
+
+.ws-spinner {
+
+    display: inline-block;
+
+    width: 2rem;
+
+    height: 2rem;
+
+    border: .25rem solid rgba(0, 0, 0, .1);
+
+    border-top-color: var(--ws-primary);
+
+    border-radius: 50%;
+
+    animation: ws-spin .7s linear infinite;
+
+}
+
+.ws-spinner-sm {
+
+    width: 1rem;
+
+    height: 1rem;
+
+    border-width: .15rem;
+
+}
+
+.ws-spinner-lg {
+
+    width: 3rem;
+
+    height: 3rem;
+
+    border-width: .35rem;
+
+}
+
+.ws-loading {
+
+    position: relative;
+
+    pointer-events: none;
+
+    opacity: .7;
+
+}
+
+.ws-loading::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(255, 255, 255, .6);
+
+}
+
+.ws-loading .ws-spinner {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 2;
+
+}
+
+@keyframes ws-spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}

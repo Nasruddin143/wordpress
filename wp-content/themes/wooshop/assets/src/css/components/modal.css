@@ -1,0 +1,169 @@
+/*--------------------------------------------------------------
+# Modal
+--------------------------------------------------------------*/
+
+/*
+HTML Structure
+
+<div class="ws-modal" id="quick-view">
+
+    <div class="ws-modal-dialog">
+
+        <button class="ws-modal-close"></button>
+
+        <div class="ws-modal-content">
+
+        </div>
+
+    </div>
+
+</div>
+
+*/
+
+.ws-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 1.5rem;
+
+    background: rgba(0, 0, 0, .65);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition: opacity .25s ease,
+    visibility .25s ease;
+
+    z-index: 9999;
+
+}
+
+.ws-modal.is-open {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+}
+
+.ws-modal-dialog {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 900px;
+
+    max-height: 90vh;
+
+    overflow: auto;
+
+    background: #fff;
+
+    border-radius: var(--ws-radius-lg);
+
+    box-shadow: var(--ws-shadow-lg);
+
+    transform: translateY(30px);
+
+    transition: transform .25s ease;
+
+}
+
+.ws-modal.is-open .ws-modal-dialog {
+
+    transform: none;
+
+}
+
+.ws-modal-content {
+
+    padding: 2rem;
+
+}
+
+.ws-modal-close {
+
+    position: absolute;
+
+    top: 1rem;
+
+    right: 1rem;
+
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: var(--ws-light);
+
+    color: var(--ws-dark);
+
+    cursor: pointer;
+
+}
+
+.ws-modal-close::before {
+
+    content: "×";
+
+    font-size: 1.5rem;
+
+    line-height: 42px;
+
+}
+
+.ws-modal-close:hover {
+
+    background: var(--ws-primary);
+
+    color: #fff;
+
+}
+
+body.ws-modal-open {
+
+    overflow: hidden;
+
+}
+
+@media (max-width: 768px) {
+
+    .ws-modal {
+
+        padding: 1rem;
+
+    }
+
+    .ws-modal-dialog {
+
+        max-height: 100%;
+
+        border-radius: var(--ws-radius);
+
+    }
+
+    .ws-modal-content {
+
+        padding: 1.25rem;
+
+    }
+
+}

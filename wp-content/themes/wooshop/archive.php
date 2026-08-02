@@ -1,80 +1,69 @@
 <?php
 /**
- * The template for displaying archive pages
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * Archive Template
  *
  * @package WooShop
  */
 
+defined( 'ABSPATH' ) || exit;
+
 get_header();
 ?>
 
-<main id="primary" class="site-main woocommerce archive">
+    <main id="primary" class="site-main">
 
-	<div class="page-banner mb-3">
-		<img class="img-fluid" src="<?php echo get_template_directory_uri() . '/assets/images/page-banner.webp' ?>"
-			alt="Page Banner">
-	</div>
+        <?php if ( have_posts() ) : ?>
 
-	<div class="py-5">
+            <header class="page-header">
 
-		<div class="container">
+                <?php
+                the_archive_title(
+                        '<h1 class="page-title">',
+                        '</h1>'
+                );
 
-			<?php
-			if (function_exists('woocommerce_breadcrumb')) {
-				woocommerce_breadcrumb(array(
-					'delimiter' => ' / ',
-					'wrap_before' => '<nav class="woocommerce-breadcrumb" aria-label="Breadcrumb">',
-					'wrap_after' => '</nav>',
-					'home' => _x('Home', 'breadcrumb', 'woocommerce'),
-				));
-			}
-			?>
+                the_archive_description(
+                        '<div class="archive-description">',
+                        '</div>'
+                );
+                ?>
 
-			<div class="row">
-				<div class="col-12 col-sm-12 col-md-8 col-lg-9">
+            </header>
 
-					<header class="page-header">
-						<?php
-						the_archive_title('<h1 class="page-title text-dark fw-normal mb-4">', '</h1>');
-						the_archive_description('<div class="archive-description text-body-tertiary mb-4">', '</div>');
-						?>
-					</header><!-- .page-header -->
+            <div class="archive-posts">
 
-					<?php if (have_posts()): ?>
-						<?php
-						/* Start the Loop */
-						while (have_posts()):
-							the_post();
+                <?php
+                while ( have_posts() ) :
 
-							/*
-							 * Include the Post-Type-specific template for the content.
-							 * If you want to override this in a child theme, then include a file
-							 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-							 */
-							get_template_part('template-parts/content', get_post_type());
+                    the_post();
 
-						endwhile;
+                    get_template_part(
+                            'template-parts/content/content',
+                            get_post_type()
+                    );
 
-						the_posts_navigation();
+                endwhile;
+                ?>
 
-					else:
+            </div>
 
-						get_template_part('template-parts/content', 'none');
+            <?php
+            wooshop_pagination();
+            ?>
 
-					endif;
-					?>
-				</div>
+        <?php else : ?>
 
-				<div class="col-12 col-sm-12 col-md-4 col-lg-3">
-					<?php
-					get_sidebar(); ?>
-				</div>
-			</div>
+            <?php
+            get_template_part(
+                    'template-parts/content/content',
+                    'none'
+            );
+            ?>
 
-		</div>
-	</div>
-</main><!-- #main -->
+        <?php endif; ?>
 
-<?php get_footer();
+    </main>
+
+<?php
+get_sidebar();
+get_footer();

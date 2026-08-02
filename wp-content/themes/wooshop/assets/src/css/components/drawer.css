@@ -1,0 +1,175 @@
+/*--------------------------------------------------------------
+# Drawer / Offcanvas
+--------------------------------------------------------------*/
+
+/*
+Directions
+
+.ws-drawer-right
+
+.ws-drawer-left
+
+.ws-drawer-top
+
+.ws-drawer-bottom
+
+*/
+
+.ws-drawer {
+
+    position: fixed;
+
+    background: #fff;
+
+    z-index: 9998;
+
+    transition: transform .3s ease;
+
+    box-shadow: var(--ws-shadow-lg);
+
+    overflow: auto;
+
+}
+
+/* Right */
+
+.ws-drawer-right {
+
+    top: 0;
+
+    right: 0;
+
+    width: 420px;
+
+    height: 100%;
+
+    transform: translateX(100%);
+
+}
+
+/* Left */
+
+.ws-drawer-left {
+
+    top: 0;
+
+    left: 0;
+
+    width: 420px;
+
+    height: 100%;
+
+    transform: translateX(-100%);
+
+}
+
+/* Top */
+
+.ws-drawer-top {
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 400px;
+
+    transform: translateY(-100%);
+
+}
+
+/* Bottom */
+
+.ws-drawer-bottom {
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 100%;
+
+    height: 400px;
+
+    transform: translateY(100%);
+
+}
+
+.ws-drawer.is-open {
+
+    transform: none;
+
+}
+
+.ws-drawer-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 1rem;
+
+    border-bottom: 1px solid var(--ws-border);
+
+}
+
+.ws-drawer-title {
+
+    margin: 0;
+
+    font-size: 1.125rem;
+
+}
+
+.ws-drawer-body {
+
+    padding: 1rem;
+
+}
+
+.ws-drawer-footer {
+
+    padding: 1rem;
+
+    border-top: 1px solid var(--ws-border);
+
+}
+
+.ws-drawer-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, .5);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: .25s;
+
+    z-index: 9997;
+
+}
+
+.ws-drawer-overlay.is-open {
+
+    opacity: 1;
+
+    visibility: visible;
+
+}
+
+@media (max-width: 576px) {
+
+    .ws-drawer-left,
+    .ws-drawer-right {
+
+        width: 100%;
+
+    }
+
+}
