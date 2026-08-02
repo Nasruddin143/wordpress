@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c3265717-fc43-46a7-b7ee-f3a087b36974" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/functions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/Theme/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/Theme/Header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/header/actions.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/header/actions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/header/branding.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/header/branding.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/header/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/header/mobile.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/header/mobile-menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/header/navigation.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/header/navigation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/uploads/wc-logs/fatal-errors-2026-08-02-aa39fa01fcd6a84e7d3002fc6cf2b893.log" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/uploads/wc-logs/fatal-errors-2026-08-02-aa39fa01fcd6a84e7d3002fc6cf2b893.log" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="PHP File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="$PROJECT_DIR$/../../bin/php/php8.3.28/php.exe" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="3HG2vWPPQqCCA1XKpWCgBdiIT1b" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SearchEverywhere.PersistedScope.FileSearchEverywhereContributor&quot;: &quot;All Places&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;wooshop&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;L:\\PhpStorm-2026.2.0.1.win\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\wordpress\wp-content\themes\wooshop\assets\src\js" />
+      <recent name="C:\wamp64\www\wordpress\wp-content\themes\wooshop\assets\fonts" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-PS-262.8665.325" />
+        <option value="bundled-php-predefined-a98d8de5180a-ff90ddd8021d-com.jetbrains.php.sharedIndexes-PS-262.8665.325" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c3265717-fc43-46a7-b7ee-f3a087b36974" name="Changes" comment="" />
+      <created>1785480320775</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1785480320775</updated>
+      <workItem from="1785480321327" duration="10177000" />
+      <workItem from="1785510748889" duration="8300000" />
+      <workItem from="1785604050903" duration="8394000" />
+      <workItem from="1785670744047" duration="13340000" />
+      <workItem from="1785688890015" duration="5587000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

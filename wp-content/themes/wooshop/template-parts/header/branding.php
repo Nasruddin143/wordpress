@@ -6,53 +6,54 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+$home_url   = home_url( '/' );
+$site_name  = get_bloginfo( 'name' );
+$tagline    = get_bloginfo( 'description' );
+$has_logo   = has_custom_logo();
 ?>
 
-<div class="site-branding">
+<div class="ws-branding">
 
-    <?php
-
-    if ( has_custom_logo() ) {
-
-        the_custom_logo();
-
-    } else {
-
-        ?>
-
-        <a
-            class="site-title"
-            href="<?php echo esc_url( home_url( '/' ) ); ?>"
+    <a
+            href="<?php echo esc_url( $home_url ); ?>"
+            class="ws-branding__link"
             rel="home"
-        >
+            aria-label="<?php echo esc_attr( sprintf( __( 'Go to %s homepage', 'wooshop' ), $site_name ) ); ?>"
+    >
 
-            <?php bloginfo( 'name' ); ?>
+        <div class="ws-branding__logo">
 
-        </a>
+            <?php if ( $has_logo ) : ?>
 
-        <?php
+                <?php the_custom_logo(); ?>
 
-        $description = get_bloginfo(
-            'description',
-            'display'
-        );
+            <?php else : ?>
 
-        if ( $description ) :
+                <div class="ws-branding__text">
 
-            ?>
+					<span class="ws-branding__title">
 
-            <p class="site-description">
+						<?php echo esc_html( $site_name ); ?>
 
-                <?php echo esc_html( $description ); ?>
+					</span>
 
-            </p>
+                    <?php if ( ! empty( $tagline ) ) : ?>
 
-        <?php
+                        <span class="ws-branding__tagline">
 
-        endif;
+							<?php echo esc_html( $tagline ); ?>
 
-    }
+						</span>
 
-    ?>
+                    <?php endif; ?>
+
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+    </a>
 
 </div>

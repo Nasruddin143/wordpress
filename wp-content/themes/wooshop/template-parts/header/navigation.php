@@ -1,10 +1,24 @@
 <?php
 /**
- * Header Navigation Wrapper
+ * Header Navigation
  *
  * @package WooShop
  */
 
 defined( 'ABSPATH' ) || exit;
 
-get_template_part( 'template-parts/navigation/primary' );
+wp_nav_menu(
+
+    [
+        'theme_location' => 'primary',
+
+        'container'      => 'nav',
+
+        'container_class'=> 'primary-navigation',
+
+        'menu_class'     => 'navbar-nav',
+
+        'fallback_cb'    => false,
+    ]
+
+);
