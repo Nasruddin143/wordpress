@@ -76,10 +76,26 @@ class Loader
          */
         $this->container->set(
             AssetManager::class,
-            function () {
+            function (Container $container) {
 
-                return new AssetManager();
+                $assets = new AssetManager();
+                /** @var Config $config */
+                $config = $container->get(Config::class);
+                $asset_config = $config->get('assets', []);
 
+                foreach (($asset_config['global']['styles'] ?? []) as $asset) {
+                    $assets->registerStyle($asset['handle'], $asset['src'], $asset['deps'] ?? [], $asset['media'] ?? 'all');
+                }
+                foreach (($asset_config['global']['scripts'] ?? []) as $asset) {
+                    $assets->registerScript($asset['handle'], $asset['src'], $asset['deps'] ?? [], $asset['strategy'] ?? 'defer', $asset['footer'] ?? true);
+                }
+                foreach (($asset_config['editor']['styles'] ?? []) as $asset) {
+                    $assets->registerEditorStyle($asset['handle'], $asset['src'], $asset['deps'] ?? []);
+                }
+                foreach (($asset_config['editor']['scripts'] ?? []) as $asset) {
+                    $assets->registerEditorScript($asset['handle'], $asset['src'], $asset['deps'] ?? []);
+                }
+                return $assets;
             }
         );
 
@@ -119,7 +135,8 @@ class Loader
      *
      * @return void
      */
-    protected function register_hooks(): void
+    protected
+    function register_hooks(): void
     {
 
         /**
@@ -152,7 +169,8 @@ class Loader
      *
      * @return void
      */
-    protected function load_modules(): void
+    protected
+    function load_modules(): void
     {
 
         $manager = new ModuleManager(
@@ -167,7 +185,8 @@ class Loader
      *
      * @return Container
      */
-    public function get_container(): Container
+    public
+    function get_container(): Container
     {
 
         return $this->container;

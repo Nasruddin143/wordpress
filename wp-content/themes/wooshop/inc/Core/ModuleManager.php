@@ -45,7 +45,20 @@ class ModuleManager
     public function register(string $class): void
     {
 
-        if (!class_exists($class)) {
+        if ( ! class_exists( $class ) ) {
+
+            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+
+                trigger_error(
+                    sprintf(
+                        'WooShop Module not found: %s',
+                        $class
+                    ),
+                    E_USER_WARNING
+                );
+
+            }
+
             return;
         }
 

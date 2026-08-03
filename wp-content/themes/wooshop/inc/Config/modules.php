@@ -10,6 +10,7 @@ use WooShop\Modules\Theme\Menus;
 use WooShop\Modules\Theme\Navigation;
 use WooShop\Modules\Theme\Setup;
 use WooShop\Modules\Theme\Sidebars;
+use WooShop\Modules\Theme\Header;
 use WooShop\Modules\WooCommerce\Bootstrap;
 
 defined('ABSPATH') || exit;
@@ -34,7 +35,7 @@ return [
 
     Navigation::class,
 
-    //Header::class,
+    Header::class,
 
     //Footer::class,
 

@@ -31,6 +31,12 @@ class Header extends Module
         );
 
         add_action(
+            'wooshop_header_branding',
+            [ $this, 'render_branding' ],
+            10
+        );
+
+        add_action(
             'wooshop_header',
             [$this, 'render']
         );
@@ -209,5 +215,12 @@ class Header extends Module
         }
 
         return $atts;
+    }
+
+    public function render_branding(): void
+    {
+        $this->container
+            ->get( View::class )
+            ->render( 'header/branding' );
     }
 }
