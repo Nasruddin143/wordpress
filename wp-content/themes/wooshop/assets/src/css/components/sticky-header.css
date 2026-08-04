@@ -1,0 +1,63 @@
+.ws-header {
+
+    position: relative;
+
+    z-index: 1000;
+
+    background: #fff;
+
+    transition: box-shadow .25s ease,
+    padding .25s ease,
+    transform .25s ease;
+
+}
+
+.ws-header.is-sticky {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    right: 0;
+
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .08);
+
+    animation: wsHeaderSlide .25s ease;
+
+}
+
+.ws-header.is-sticky .ws-branding__logo img {
+
+    max-height: 42px;
+
+}
+
+.ws-header.is-sticky .ws-search {
+
+    max-width: 700px;
+
+}
+
+body.ws-header-sticky {
+
+    padding-top: 110px;
+
+}
+
+@keyframes wsHeaderSlide {
+
+    from {
+
+        transform: translateY(-100%);
+
+    }
+
+    to {
+
+        transform: translateY(0);
+
+    }
+
+}

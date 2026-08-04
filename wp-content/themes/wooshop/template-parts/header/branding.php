@@ -7,52 +7,48 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$home_url   = home_url( '/' );
-$site_name  = get_bloginfo( 'name' );
-$tagline    = get_bloginfo( 'description' );
-$has_logo   = has_custom_logo();
+$site_name = get_bloginfo( 'name' );
+$tagline   = get_bloginfo( 'description' );
 ?>
 
 <div class="ws-branding">
 
     <a
-            href="<?php echo esc_url( $home_url ); ?>"
             class="ws-branding__link"
+            href="<?php echo esc_url( home_url( '/' ) ); ?>"
             rel="home"
             aria-label="<?php echo esc_attr( sprintf( __( 'Go to %s homepage', 'wooshop' ), $site_name ) ); ?>"
     >
 
-        <div class="ws-branding__logo">
+        <?php if ( has_custom_logo() ) : ?>
 
-            <?php if ( $has_logo ) : ?>
-
+            <div class="ws-branding__logo">
                 <?php the_custom_logo(); ?>
+            </div>
 
-            <?php else : ?>
+        <?php else : ?>
 
-                <div class="ws-branding__text">
+            <div class="ws-branding__text">
 
-					<span class="ws-branding__title">
+                <span class="ws-branding__title">
 
-						<?php echo esc_html( $site_name ); ?>
+                    <?php echo esc_html( $site_name ); ?>
 
-					</span>
+                </span>
 
-                    <?php if ( ! empty( $tagline ) ) : ?>
+                <?php if ( ! empty( $tagline ) ) : ?>
 
-                        <span class="ws-branding__tagline">
+                    <span class="ws-branding__tagline">
 
-							<?php echo esc_html( $tagline ); ?>
+                        <?php echo esc_html( $tagline ); ?>
 
-						</span>
+                    </span>
 
-                    <?php endif; ?>
+                <?php endif; ?>
 
-                </div>
+            </div>
 
-            <?php endif; ?>
-
-        </div>
+        <?php endif; ?>
 
     </a>
 

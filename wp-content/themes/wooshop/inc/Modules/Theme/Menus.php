@@ -24,6 +24,7 @@ class Menus extends Module {
             [ $this, 'register_menus' ],
             30
         );
+
     }
 
     /**

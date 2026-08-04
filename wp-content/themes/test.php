@@ -32,31 +32,8 @@ class Header extends Module
 
         add_action(
             'wooshop_header_branding',
-            [$this, 'render_branding'],
+            [ $this, 'render_branding' ],
             10
-        );
-
-        add_action(
-
-            'wooshop_header_navigation',
-
-            [$this, 'render_navigation']
-
-        );
-
-        add_action(
-            'wooshop_header_announcement',
-            [$this, 'render_announcement']
-        );
-
-        add_action(
-            'wooshop_header_actions',
-            [$this, 'render_actions']
-        );
-
-        add_action(
-            'wooshop_header_search',
-            [$this, 'render_search']
         );
 
         add_action(
@@ -243,41 +220,7 @@ class Header extends Module
     public function render_branding(): void
     {
         $this->container
-            ->get(View::class)
-            ->render('header/branding');
-    }
-
-
-    public function render_search(): void
-    {
-        $this->container
-            ->get(\WooShop\Core\View::class)
-            ->render('header/search');
-    }
-
-    public function render_actions(): void
-    {
-        $this->container
-            ->get(\WooShop\Core\View::class)
-            ->render('header/actions');
-    }
-
-
-    public function render_navigation(): void
-    {
-
-        $this->container
-            ->get(\WooShop\Core\View::class)
-            ->render(
-                'header/navigation'
-            );
-
-    }
-
-    public function render_announcement(): void
-    {
-        $this->container
-            ->get(\WooShop\Core\View::class)
-            ->render('header/announcement');
+            ->get( View::class )
+            ->render( 'header/branding' );
     }
 }

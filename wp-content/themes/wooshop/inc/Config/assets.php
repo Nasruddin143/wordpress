@@ -118,6 +118,12 @@ return [
 
         ],
 
+        'sticky-header' => [
+            'handle' => 'wooshop-sticky-header',
+            'src'    => 'assets/build/css/components/sticky-header.css',
+            'deps'   => ['wooshop'],
+        ],
+
     ],
 
     /*
@@ -184,6 +190,12 @@ return [
 
         ],
 
+    ],
+
+    'sticky-header' => [
+        'handle' => 'wooshop-sticky-header',
+        'src'    => 'assets/build/js/components/sticky-header.js',
+        'deps'   => ['wooshop'],
     ],
 
 ];

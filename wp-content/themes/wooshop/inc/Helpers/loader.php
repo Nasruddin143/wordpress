@@ -5,6 +5,8 @@
  * @package WooShop
  */
 
+use WooShop\Helpers\ProductCategories;
+
 defined( 'ABSPATH' ) || exit;
 
 $helper_files = [
@@ -25,4 +27,20 @@ foreach ( $helper_files as $file ) {
     if ( file_exists( $path ) ) {
         require_once $path;
     }
+}
+
+if ( ! function_exists( 'wooshop_product_category_dropdown' ) ) {
+
+    function wooshop_product_category_dropdown(
+        string $name = 'product_cat',
+        string $selected = ''
+    ): void {
+
+        ProductCategories::dropdown(
+            $name,
+            $selected
+        );
+
+    }
+
 }
