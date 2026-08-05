@@ -1,0 +1,78 @@
+/**
+ * ==========================================
+ * Header Categories
+ * ==========================================
+ */
+
+.ws-header-categories {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.ws-categories-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+
+    padding: .75rem 1rem;
+
+    border-radius: var(--ws-radius-md);
+
+    font-weight: 600;
+}
+
+.ws-categories-icon {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.ws-categories-menu {
+    min-width: 260px;
+
+    margin-top: .5rem;
+
+    border: 1px solid var(--ws-color-border);
+
+    border-radius: var(--ws-radius-md);
+
+    box-shadow: var(--ws-shadow-md);
+
+    padding: .5rem 0;
+}
+
+.ws-categories-menu li {
+    list-style: none;
+}
+
+.ws-categories-menu a {
+    display: block;
+
+    padding: .65rem 1rem;
+
+    color: var(--ws-color-text);
+
+    text-decoration: none;
+}
+
+.ws-categories-menu a:hover {
+    background: var(--ws-color-light);
+    color: var(--ws-color-primary);
+}
+
+@media (max-width: 991.98px) {
+
+    .ws-header-categories {
+
+        width: 100%;
+
+    }
+
+    .ws-categories-toggle {
+
+        width: 100%;
+
+        justify-content: center;
+
+    }
+
+}

@@ -5,42 +5,40 @@
  * @package WooShop
  */
 
-defined( 'ABSPATH' ) || exit;
-
-$site_name = get_bloginfo( 'name' );
-$tagline   = get_bloginfo( 'description' );
+defined('ABSPATH') || exit;
 ?>
 
-<div class="ws-branding">
+<div class="ws-header-branding">
 
-    <a
-            class="ws-branding__link"
-            href="<?php echo esc_url( home_url( '/' ) ); ?>"
-            rel="home"
-            aria-label="<?php echo esc_attr( sprintf( __( 'Go to %s homepage', 'wooshop' ), $site_name ) ); ?>"
-    >
+    <a class="ws-site-branding" href="<?php echo esc_url(home_url('/')); ?>" rel="home">
 
-        <?php if ( has_custom_logo() ) : ?>
+        <?php if (has_custom_logo()) : ?>
 
-            <div class="ws-branding__logo">
+            <div class="ws-site-logo">
+
                 <?php the_custom_logo(); ?>
+
             </div>
 
         <?php else : ?>
 
-            <div class="ws-branding__text">
+            <div class="ws-site-identity">
 
-                <span class="ws-branding__title">
+                <span class="ws-site-title">
 
-                    <?php echo esc_html( $site_name ); ?>
+                    <?php bloginfo('name'); ?>
 
                 </span>
 
-                <?php if ( ! empty( $tagline ) ) : ?>
+                <?php
+                $description = get_bloginfo('description', 'display');
 
-                    <span class="ws-branding__tagline">
+                if ($description) :
+                    ?>
 
-                        <?php echo esc_html( $tagline ); ?>
+                    <span class="ws-site-tagline">
+
+                        <?php echo esc_html($description); ?>
 
                     </span>
 

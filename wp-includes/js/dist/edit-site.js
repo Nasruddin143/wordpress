@@ -23217,7 +23217,7 @@ var wp;
           navigationMenu?.status
         ),
         description: (0, import_i18n77.__)(
-          "Navigation Menus are a curated collection of blocks that allow visitors to get around your site."
+          "Navigation MobileMenus are a curated collection of blocks that allow visitors to get around your site."
         ),
         children: /* @__PURE__ */ (0, import_jsx_runtime177.jsx)(NavigationMenuEditor, { navigationMenuId: navigationMenu?.id })
       }
@@ -23275,7 +23275,7 @@ var wp;
         SidebarNavigationScreenWrapper,
         {
           description: (0, import_i18n78.__)(
-            "Navigation Menus are a curated collection of blocks that allow visitors to get around your site."
+            "Navigation MobileMenus are a curated collection of blocks that allow visitors to get around your site."
           ),
           backPath,
           children: /* @__PURE__ */ (0, import_jsx_runtime178.jsx)(import_components88.Spinner, { className: "edit-site-sidebar-navigation-screen-navigation-menus__loading" })
@@ -23520,7 +23520,7 @@ var wp;
       return /* @__PURE__ */ (0, import_jsx_runtime179.jsx)(
         SidebarNavigationScreenWrapper,
         {
-          description: (0, import_i18n80.__)("No Navigation Menus found."),
+          description: (0, import_i18n80.__)("No Navigation MobileMenus found."),
           backPath
         }
       );
@@ -23560,7 +23560,7 @@ var wp;
       {
         title: title || (0, import_i18n80.__)("Navigation"),
         actions,
-        description: description || (0, import_i18n80.__)("Manage your Navigation Menus."),
+        description: description || (0, import_i18n80.__)("Manage your Navigation MobileMenus."),
         backPath,
         content: children
       }

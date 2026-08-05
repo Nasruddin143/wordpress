@@ -141,7 +141,7 @@ class WP_Navigation_Fallback {
 		$classic_nav_menu = static::get_fallback_classic_menu();
 
 		if ( ! $classic_nav_menu ) {
-			return new WP_Error( 'no_classic_menus', __( 'No Classic Menus found.' ) );
+			return new WP_Error( 'no_classic_menus', __( 'No Classic MobileMenus found.' ) );
 		}
 
 		// If there is a classic menu then convert it to blocks.

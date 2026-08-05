@@ -1,6 +1,6 @@
 <?php
 /**
- * Navigation Menus Configuration
+ * Navigation MobileMenus Configuration
  *
  * @package WooShop
  */

@@ -675,7 +675,7 @@ body.more-filters-opened .more-filters:focus:before {
   color: #fff;
 }
 
-/* Nav Menus */
+/* Nav MobileMenus */
 .nav-menus-php .item-edit:focus:before {
   box-shadow: 0 0 0 1px rgb(232.0183486239, 118.6422018349, 110.9816513761), 0 0 2px 1px #e14d43;
 }

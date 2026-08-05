@@ -6713,7 +6713,7 @@ Post = Select.extend(/** @lends wp.media.view.MediaFrame.Post.prototype */{
 		}
 	},
 
-	// Menus.
+	// MobileMenus.
 	/**
 	 * @param {wp.Backbone.View} view
 	 */

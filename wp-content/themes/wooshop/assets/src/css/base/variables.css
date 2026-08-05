@@ -23,4 +23,9 @@
     --ws-shadow: 0 .5rem 1rem rgba(0,0,0,.12);
 
     --ws-transition: .2s ease-in-out;
+
+    --ws-heading-color: var(--ws-primary);
+    --ws-heading-hover-color: var(--ws-primary);
+
+    --ws-text-muted: var(--ws-light);
 }

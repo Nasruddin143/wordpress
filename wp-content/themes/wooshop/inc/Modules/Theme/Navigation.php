@@ -1,25 +1,75 @@
 <?php
 /**
- * Header Navigation
+ * Navigation Module
  *
  * @package WooShop
  */
 
+namespace WooShop\Modules\Theme\Header;
+
+use WooShop\Core\Module;
+use WooShop\Core\View;
+
 defined( 'ABSPATH' ) || exit;
-?>
 
-<nav
-    class="navbar navbar-expand-lg ws-navbar"
-    aria-label="<?php esc_attr_e( 'Primary Navigation', 'wooshop' ); ?>"
->
+class Navigation extends Module
+{
 
-    <div class="container">
+    /**
+     * View renderer.
+     *
+     * @var View
+     */
+    protected View $view;
 
-        <?php get_template_part(
-            'template-parts/header/navigation',
-            'primary'
-        ); ?>
+    /**
+     * Register module.
+     *
+     * @return void
+     */
+    public function register(): void
+    {
 
-    </div>
+        $this->view = $this->container->get(View::class);
 
-</nav>
+        add_action(
+                'after_setup_theme',
+                [$this, 'register_menus']
+        );
+
+        add_action(
+                'wooshop_header_center',
+                [$this,'render'],
+                10
+        );
+    }
+
+    /**
+     * Register theme menus.
+     *
+     * @return void
+     */
+    public function register_menus(): void
+    {
+
+        register_nav_menus(
+                [
+                        'primary' => __('Primary Menu', 'wooshop'),
+                        'topbar' => __('Top Bar Menu', 'wooshop'),
+                        'mobile' => __('Mobile Menu', 'wooshop'),
+                        'footer' => __('Footer Menu', 'wooshop'),
+                ]
+        );
+    }
+
+    /**
+     * Render navigation.
+     *
+     * @return void
+     */
+    public function render(): void
+    {
+
+        $this->view->render('header/navigation');
+    }
+}

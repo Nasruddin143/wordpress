@@ -1,6 +1,6 @@
 <?php
 /**
- * WordPress Customize Nav Menus classes
+ * WordPress Customize Nav MobileMenus classes
  *
  * @package WordPress
  * @subpackage Customize
@@ -8,7 +8,7 @@
  */
 
 /**
- * Customize Nav Menus class.
+ * Customize Nav MobileMenus class.
  *
  * Implements menu management in the Customizer.
  *
@@ -657,16 +657,16 @@ final class WP_Customize_Nav_Menus {
 		$this->manager->register_control_type( 'WP_Customize_Nav_Menu_Auto_Add_Control' );
 		$this->manager->register_control_type( 'WP_Customize_Nav_Menu_Item_Control' );
 
-		// Create a panel for Menus.
+		// Create a panel for MobileMenus.
 		$description = '<p>' . __( 'This panel is used for managing navigation menus for content you have already published on your site. You can create menus and add items for existing content such as pages, posts, categories, tags, formats, or custom links.' ) . '</p>';
 		if ( current_theme_supports( 'widgets' ) ) {
 			$description .= '<p>' . sprintf(
 				/* translators: %s: URL to the Widgets panel of the Customizer. */
-				__( 'Menus can be displayed in locations defined by your theme or in <a href="%s">widget areas</a> by adding a &#8220;Navigation Menu&#8221; widget.' ),
+				__( 'MobileMenus can be displayed in locations defined by your theme or in <a href="%s">widget areas</a> by adding a &#8220;Navigation Menu&#8221; widget.' ),
 				"javascript:wp.customize.panel( 'widgets' ).focus();"
 			) . '</p>';
 		} else {
-			$description .= '<p>' . __( 'Menus can be displayed in locations defined by your theme.' ) . '</p>';
+			$description .= '<p>' . __( 'MobileMenus can be displayed in locations defined by your theme.' ) . '</p>';
 		}
 
 		/*
@@ -678,7 +678,7 @@ final class WP_Customize_Nav_Menus {
 				$this->manager,
 				'nav_menus',
 				array(
-					'title'       => __( 'Menus' ),
+					'title'       => __( 'MobileMenus' ),
 					'description' => $description,
 					'priority'    => 100,
 				)
@@ -1085,7 +1085,7 @@ final class WP_Customize_Nav_Menus {
 							<span class="screen-reader-text">
 							<?php
 								/* translators: Hidden accessibility text. 1: Title of a menu item, 2: Type of a menu item. */
-								printf( __( 'Add to menu: %1$s (%2$s)' ), '{{ data.title || wp.customize.Menus.data.l10n.untitled }}', '{{ data.type_label }}' );
+								printf( __( 'Add to menu: %1$s (%2$s)' ), '{{ data.title || wp.customize.MobileMenus.data.l10n.untitled }}', '{{ data.type_label }}' );
 							?>
 							</span>
 						</button>

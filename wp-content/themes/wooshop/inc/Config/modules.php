@@ -6,7 +6,7 @@
  */
 
 use WooShop\Modules\Theme\Images;
-use WooShop\Modules\Theme\Menus;
+use WooShop\Modules\Theme\MobileMenus;
 use WooShop\Modules\Theme\Navigation;
 use WooShop\Modules\Theme\Setup;
 use WooShop\Modules\Theme\Sidebars;
@@ -25,7 +25,7 @@ return [
 
     Setup::class,
 
-    Menus::class,
+    MobileMenus::class,
 
     Sidebars::class,
 

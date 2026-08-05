@@ -19,78 +19,27 @@ class Header extends Module
 
     /**
      * Register module.
-     *
-     * @return void
      */
     public function register(): void
     {
 
-        add_action(
-            'after_setup_theme',
-            [$this, 'register_menus']
-        );
+        add_action('after_setup_theme', [$this, 'register_menus']);
 
-        add_action(
-            'wooshop_header_branding',
-            [$this, 'render_branding'],
-            10
-        );
+        add_action('wooshop_header', [$this, 'render']);
 
-        add_action(
+        add_filter('body_class', [$this, 'body_classes']);
 
-            'wooshop_header_navigation',
+        add_action('wooshop_header_branding', [$this, 'branding']);
 
-            [$this, 'render_navigation']
+        add_action('wooshop_header_navigation', [$this, 'navigation']);
 
-        );
+        add_action('wooshop_header_categories', [$this, 'categories']);
 
-        add_action(
-            'wooshop_header_announcement',
-            [$this, 'render_announcement']
-        );
-
-        add_action(
-            'wooshop_header_actions',
-            [$this, 'render_actions']
-        );
-
-        add_action(
-            'wooshop_header_search',
-            [$this, 'render_search']
-        );
-
-        add_action(
-            'wooshop_header',
-            [$this, 'render']
-        );
-
-        add_filter(
-            'body_class',
-            [$this, 'body_classes']
-        );
-
-        add_filter(
-            'wp_nav_menu_args',
-            [$this, 'menu_args']
-        );
-
-        add_filter(
-            'nav_menu_css_class',
-            [$this, 'menu_item_classes'],
-            10,
-            4
-        );
-
-        add_filter(
-            'nav_menu_link_attributes',
-            [$this, 'menu_link_attributes'],
-            10,
-            4
-        );
+        add_action('wooshop_header_search', [$this, 'search']);
     }
 
     /**
-     * Register navigation menus.
+     * Register header menus.
      *
      * @return void
      */
@@ -99,36 +48,25 @@ class Header extends Module
 
         register_nav_menus(
             [
-                'primary' => esc_html__('Primary Menu', 'wooshop'),
-                'topbar' => esc_html__('Top Bar Menu', 'wooshop'),
-                'catalog' => esc_html__('Category Menu', 'wooshop'),
+                'primary' => __('Primary Menu', 'wooshop'),
+                'topbar' => __('Top Bar Menu', 'wooshop'),
+                'categories' => __('Category Menu', 'wooshop'),
             ]
         );
     }
 
     /**
-     * Render site header.
+     * Render header.
      *
      * @return void
      */
     public function render(): void
     {
 
-        /**
-         * Before header.
-         */
-        do_action('wooshop_header_before');
-
+        /** @var View $view */
         $view = $this->container->get(View::class);
 
-        $view->render(
-            'header/site-header'
-        );
-
-        /**
-         * After header.
-         */
-        do_action('wooshop_header_after');
+        $view->render('header/site-header');
     }
 
     /**
@@ -140,144 +78,61 @@ class Header extends Module
     public function body_classes(array $classes): array
     {
 
-        $classes[] = 'wooshop';
-
-        if (has_custom_logo()) {
-            $classes[] = 'has-site-logo';
-        }
+        $classes[] = 'ws-theme';
 
         if (is_front_page()) {
-            $classes[] = 'is-homepage';
-        }
-
-        if (is_user_logged_in()) {
-            $classes[] = 'logged-in-user';
+            $classes[] = 'ws-home';
         }
 
         return $classes;
     }
 
     /**
-     * Default menu arguments.
+     * Render branding.
      *
-     * @param array $args Menu arguments.
-     * @return array
+     * @return void
      */
-    public function menu_args(array $args): array
+    public function branding(): void
     {
 
-        if ('primary' !== ($args['theme_location'] ?? '')) {
-            return $args;
-        }
+        $view = $this->container->get(View::class);
 
-        $args['container'] = false;
-        $args['menu_class'] = 'navbar-nav ms-auto align-items-lg-center';
-        $args['fallback_cb'] = false;
-        $args['depth'] = 3;
-
-        return $args;
+        $view->render('header/branding');
     }
 
     /**
-     * Menu item classes.
+     * Render navigation.
      *
-     * @param array $classes Classes.
-     * @param \WP_Post $item Menu item.
-     * @param stdClass $args Arguments.
-     * @param int $depth Depth.
-     * @return array
+     * @return void
      */
-    public function menu_item_classes(
-        array $classes,
-              $item,
-              $args,
-        int   $depth
-    ): array
+    public function navigation(): void
     {
 
-        if ('primary' !== ($args->theme_location ?? '')) {
-            return $classes;
-        }
+        $view = $this->container->get(View::class);
 
-        $classes[] = 'nav-item';
-
-        if (in_array('menu-item-has-children', $classes, true)) {
-            $classes[] = 'dropdown';
-        }
-
-        return array_unique($classes);
+        $view->render('header/navigation');
     }
 
     /**
-     * Menu link attributes.
+     * Render categories.
      *
-     * @param array $atts Attributes.
-     * @param \WP_Post $item Menu item.
-     * @param stdClass $args Arguments.
-     * @param int $depth Depth.
-     * @return array
+     * @return void
      */
-    public function menu_link_attributes(
-        array $atts,
-              $item,
-              $args,
-        int   $depth
-    ): array
+    public function categories(): void
     {
 
-        if ('primary' !== ($args->theme_location ?? '')) {
-            return $atts;
-        }
+        $view = $this->container->get(View::class);
 
-        $atts['class'] = 'nav-link';
-
-        if (in_array('menu-item-has-children', $item->classes, true)) {
-            $atts['class'] .= ' dropdown-toggle';
-            $atts['data-bs-toggle'] = 'dropdown';
-            $atts['aria-expanded'] = 'false';
-        }
-
-        return $atts;
+        $view->render('header/categories');
     }
 
-    public function render_branding(): void
-    {
-        $this->container
-            ->get(View::class)
-            ->render('header/branding');
-    }
+    /**
+     * Render search.
+     */
+    public function search(): void {
 
+        $view = $this->container->get( View::class );
 
-    public function render_search(): void
-    {
-        $this->container
-            ->get(\WooShop\Core\View::class)
-            ->render('header/search');
-    }
-
-    public function render_actions(): void
-    {
-        $this->container
-            ->get(\WooShop\Core\View::class)
-            ->render('header/actions');
-    }
-
-
-    public function render_navigation(): void
-    {
-
-        $this->container
-            ->get(\WooShop\Core\View::class)
-            ->render(
-                'header/navigation'
-            );
-
-    }
-
-    public function render_announcement(): void
-    {
-        $this->container
-            ->get(\WooShop\Core\View::class)
-            ->render('header/announcement');
+        $view->render( 'header/search' );
     }
 }

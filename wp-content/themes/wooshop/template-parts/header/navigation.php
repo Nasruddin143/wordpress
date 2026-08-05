@@ -5,20 +5,45 @@
  * @package WooShop
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
+?>
 
-wp_nav_menu(
+<nav id="site-navigation"
+     class="ws-navigation navbar navbar-expand-lg"
+     aria-label="<?php esc_attr_e('Primary Navigation', 'wooshop'); ?>">
 
-    [
-        'theme_location' => 'primary',
+    <div class="container">
 
-        'container'      => 'nav',
+        <button class="navbar-toggler ws-navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#wsPrimaryMenu"
+                aria-controls="wsPrimaryMenu"
+                aria-expanded="false"
+                aria-label="<?php esc_attr_e('Toggle navigation', 'wooshop'); ?>">
 
-        'container_class'=> 'primary-navigation',
+            <span class="navbar-toggler-icon"></span>
 
-        'menu_class'     => 'navbar-nav',
+        </button>
 
-        'fallback_cb'    => false,
-    ]
+        <div class="collapse navbar-collapse" id="wsPrimaryMenu">
 
-);
+            <?php
+
+            wp_nav_menu(
+                    [
+                            'theme_location' => 'primary',
+                            'container' => false,
+                            'menu_class' => 'navbar-nav ws-navbar',
+                            'fallback_cb' => false,
+                            'depth' => 2,
+                    ]
+            );
+
+            ?>
+
+        </div>
+
+    </div>
+
+</nav>

@@ -1,51 +1,35 @@
 <?php
 /**
- * Main Site Header
+ * Site Header
  *
  * @package WooShop
  */
 
 defined('ABSPATH') || exit;
 ?>
-<?php do_action( 'wooshop_header_before' ); ?>
-    <header
-            id="site-header"
-            class="ws-header"
-            role="banner"
-    >
 
-        <div class="container">
+<header id="masthead" class="site-header">
 
-            <div class="row align-items-center g-3">
+    <?php do_action('wooshop_header_before'); ?>
 
-                <div class="col-auto">
+    <div class="container">
 
-                    <?php do_action('wooshop_header_branding'); ?>
+        <div class="ws-header">
 
-                </div>
+            <?php do_action('wooshop_header_branding'); ?>
 
-                <div class="col">
+            <?php do_action('wooshop_header_categories'); ?>
 
-                    <?php do_action('wooshop_header_search'); ?>
+            <?php do_action('wooshop_header_search'); ?>
 
-                </div>
-
-                <div class="col-auto">
-
-                    <?php do_action('wooshop_header_actions'); ?>
-
-                </div>
-
-            </div>
+            <?php do_action('wooshop_header_actions'); ?>
 
         </div>
 
-    </header>
+    </div>
 
-<?php do_action( 'wooshop_header_after' ); ?>
+    <?php do_action('wooshop_header_navigation'); ?>
 
-<?php do_action('wooshop_header_navigation'); ?>
+    <?php do_action('wooshop_header_after'); ?>
 
-<?php do_action('wooshop_header_announcement'); ?>
-
-
+</header>

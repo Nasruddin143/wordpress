@@ -379,7 +379,7 @@ class WP_REST_Menus_Controller extends WP_REST_Terms_Controller {
 		// We don't support trashing for terms.
 		if ( ! $request['force'] ) {
 			/* translators: %s: force=true */
-			return new WP_Error( 'rest_trash_not_supported', sprintf( __( "Menus do not support trashing. Set '%s' to delete." ), 'force=true' ), array( 'status' => 501 ) );
+			return new WP_Error( 'rest_trash_not_supported', sprintf( __( "MobileMenus do not support trashing. Set '%s' to delete." ), 'force=true' ), array( 'status' => 501 ) );
 		}
 
 		$request->set_param( 'context', 'view' );

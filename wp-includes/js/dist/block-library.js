@@ -38285,7 +38285,7 @@ ${js}
               choices: menuChoices
             }
           ) }),
-          showClassicMenus && hasClassicMenus && /* @__PURE__ */ (0, import_jsx_runtime304.jsx)(import_components69.MenuGroup, { label: (0, import_i18n113.__)("Import Classic Menus"), children: classicMenus?.map((menu) => {
+          showClassicMenus && hasClassicMenus && /* @__PURE__ */ (0, import_jsx_runtime304.jsx)(import_components69.MenuGroup, { label: (0, import_i18n113.__)("Import Classic MobileMenus"), children: classicMenus?.map((menu) => {
             const label = (0, import_html_entities3.decodeEntities)(menu.name);
             return /* @__PURE__ */ (0, import_jsx_runtime304.jsx)(
               import_components69.MenuItem,
@@ -42481,7 +42481,7 @@ ${js}
         if (!ref && hasResolvedCanUserCreateNavigationMenus && !canUserCreateNavigationMenus) {
           showNavigationMenuPermissionsNotice(
             (0, import_i18n141.__)(
-              "You do not have permission to create Navigation Menus."
+              "You do not have permission to create Navigation MobileMenus."
             )
           );
         }

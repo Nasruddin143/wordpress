@@ -780,7 +780,7 @@ body.adding-menu-items #customize-preview iframe {
 	transition-timing-function: cubic-bezier( .25, -2.5, .75, 8 ); /* Replacement for .hide().fadeIn('slow') in JS to add emphasis when it's loaded. */
 }
 
-/* Add/delete Menus */
+/* Add/delete MobileMenus */
 
 #customize-theme-controls .control-panel-content .control-section-nav_menu:nth-last-child(2) .accordion-section-title {
 	border-bottom-color: #dcdcde;

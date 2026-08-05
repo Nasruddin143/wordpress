@@ -18,6 +18,7 @@ $helper_files = [
     'entry',
     'post-meta',
     'formatting',
+    'icons',
 ];
 
 foreach ( $helper_files as $file ) {

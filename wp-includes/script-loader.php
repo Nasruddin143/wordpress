@@ -1519,7 +1519,7 @@ function wp_default_scripts( $scripts ) {
 		$scripts->set_translations( 'set-post-thumbnail' );
 
 		/*
-		 * Navigation Menus: Adding underscore as a dependency to utilize _.debounce
+		 * Navigation MobileMenus: Adding underscore as a dependency to utilize _.debounce
 		 * see https://core.trac.wordpress.org/ticket/42321
 		 */
 		$scripts->add( 'nav-menu', "/wp-admin/js/nav-menu$suffix.js", array( 'jquery-ui-sortable', 'jquery-ui-draggable', 'jquery-ui-droppable', 'wp-lists', 'postbox', 'underscore' ) );

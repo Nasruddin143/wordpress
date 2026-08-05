@@ -7,6 +7,9 @@
 
 namespace WooShop\Core;
 
+use WooShop\Core\Icons\Icon;
+use WooShop\Core\Icons\Manager;
+
 defined('ABSPATH') || exit;
 
 class Loader
@@ -29,6 +32,8 @@ class Loader
         require_once get_template_directory() . '/inc/Helpers/loader.php';
 
         $this->container = new Container();
+
+        Application::set_container( $this->container );
 
         $this->register_services();
 
@@ -123,8 +128,26 @@ class Loader
                     $container->get(
                         TemplateLoader::class
                     )
-
                 );
+            }
+        );
+
+        $this->container->set(
+            Manager::class,
+            function () {
+
+                return new Manager(
+                    get_template_directory() . '/inc/Core/Icons/svg'
+                );
+
+            }
+        );
+
+        $this->container->set(
+            Icon::class,
+            function ( $container ) {
+
+                return new Icon( $container );
 
             }
         );

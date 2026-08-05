@@ -8,7 +8,7 @@
  */
 
 /**
- * Customize Nav Menus Panel Class
+ * Customize Nav MobileMenus Panel Class
  *
  * Needed to add screen options.
  *
@@ -27,7 +27,7 @@ class WP_Customize_Nav_Menus_Panel extends WP_Customize_Panel {
 	public $type = 'nav_menus';
 
 	/**
-	 * Render screen options for Menus.
+	 * Render screen options for MobileMenus.
 	 *
 	 * @since 4.3.0
 	 */
@@ -110,7 +110,7 @@ class WP_Customize_Nav_Menus_Panel extends WP_Customize_Panel {
 		<?php
 		// NOTE: The following is a workaround for an inability to treat (and thus label) a list of sections as a whole.
 		?>
-		<li class="customize-control-title customize-section-title-nav_menus-heading"><?php _e( 'Menus' ); ?></li>
+		<li class="customize-control-title customize-section-title-nav_menus-heading"><?php _e( 'MobileMenus' ); ?></li>
 		<?php
 	}
 }

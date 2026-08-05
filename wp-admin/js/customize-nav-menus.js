@@ -39,7 +39,7 @@
 	}
 
 	/**
-	 * Newly-created Nav Menus and Nav Menu Items have negative integer IDs which
+	 * Newly-created Nav MobileMenus and Nav Menu Items have negative integer IDs which
 	 * serve as placeholders until Save & Publish happens.
 	 *
 	 * @alias wp.customize.Menus.generatePlaceholderAutoIncrementId
@@ -51,7 +51,7 @@
 	};
 
 	/**
-	 * wp.customize.Menus.AvailableItemModel
+	 * wp.customize.MobileMenus.AvailableItemModel
 	 *
 	 * A single available menu item model. See PHP's WP_Customize_Nav_Menu_Item_Setting class.
 	 *
@@ -66,7 +66,7 @@
 	) );
 
 	/**
-	 * wp.customize.Menus.AvailableItemCollection
+	 * wp.customize.MobileMenus.AvailableItemCollection
 	 *
 	 * Collection for available menu item models.
 	 *
@@ -181,7 +181,7 @@
 		addingNew: false,
 
 		/**
-		 * wp.customize.Menus.AvailableMenuItemsPanelView
+		 * wp.customize.MobileMenus.AvailableMenuItemsPanelView
 		 *
 		 * View class for the available menu items panel.
 		 *
@@ -798,7 +798,7 @@
 	});
 
 	/**
-	 * wp.customize.Menus.MenusPanel
+	 * wp.customize.MobileMenus.MenusPanel
 	 *
 	 * Customizer panel for menus. This is used only for screen options management.
 	 * Note that 'menus' must match the WP_Customize_Menu_Panel::$type.
@@ -930,7 +930,7 @@
 	} );
 
 	/**
-	 * wp.customize.Menus.MenuSection
+	 * wp.customize.MobileMenus.MenuSection
 	 *
 	 * Customizer section for menus. This is used only for lazy-loading child controls.
 	 * Note that 'nav_menu' must match the WP_Customize_Menu_Section::$type.
@@ -1261,7 +1261,7 @@
 	};
 
 	/**
-	 * wp.customize.Menus.NewMenuSection
+	 * wp.customize.MobileMenus.NewMenuSection
 	 *
 	 * Customizer section for new menus.
 	 *
@@ -1499,7 +1499,7 @@
 	});
 
 	/**
-	 * wp.customize.Menus.MenuLocationControl
+	 * wp.customize.MobileMenus.MenuLocationControl
 	 *
 	 * Customizer control for menu locations (rendered as a <select>).
 	 * Note that 'nav_menu_location' must match the WP_Customize_Nav_Menu_Location_Control::$type.
@@ -1585,7 +1585,7 @@
 	api.Menus.MenuItemControl = api.Control.extend(/** @lends wp.customize.Menus.MenuItemControl.prototype */{
 
 		/**
-		 * wp.customize.Menus.MenuItemControl
+		 * wp.customize.MobileMenus.MenuItemControl
 		 *
 		 * Customizer control for menu items.
 		 * Note that 'menu_item' must match the WP_Customize_Menu_Item_Control::$type.
@@ -2493,7 +2493,7 @@
 	} );
 
 	/**
-	 * wp.customize.Menus.MenuNameControl
+	 * wp.customize.MobileMenus.MenuNameControl
 	 *
 	 * Customizer control for a nav menu's name.
 	 *
@@ -2532,7 +2532,7 @@
 	});
 
 	/**
-	 * wp.customize.Menus.MenuLocationsControl
+	 * wp.customize.MobileMenus.MenuLocationsControl
 	 *
 	 * Customizer control for a nav menu's locations.
 	 *
@@ -2606,7 +2606,7 @@
 	});
 
 	/**
-	 * wp.customize.Menus.MenuAutoAddControl
+	 * wp.customize.MobileMenus.MenuAutoAddControl
 	 *
 	 * Customizer control for a nav menu's auto add.
 	 *
@@ -2658,7 +2658,7 @@
 	});
 
 	/**
-	 * wp.customize.Menus.MenuControl
+	 * wp.customize.MobileMenus.MenuControl
 	 *
 	 * Customizer control for menus.
 	 * Note that 'nav_menu' must match the WP_Menu_Customize_Control::$type

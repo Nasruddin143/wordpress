@@ -4403,7 +4403,7 @@ function _add_default_theme_supports() {
 	add_filter( 'should_load_block_assets_on_demand', '__return_true' );
 
 	/*
-	 * Remove the Customizer's Menus panel when block theme is active.
+	 * Remove the Customizer's MobileMenus panel when block theme is active.
 	 */
 	add_filter(
 		'customize_panel_active',

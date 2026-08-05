@@ -1,0 +1,45 @@
+/**
+ * ==========================================
+ * Header Search
+ * ==========================================
+ */
+
+.ws-header-search {
+    flex: 1;
+    max-width: 700px;
+}
+
+.ws-search-form {
+    display: flex;
+    align-items: stretch;
+}
+
+.ws-search-input {
+    border-radius: .5rem 0 0 .5rem;
+    border-right: 0;
+    min-height: 46px;
+}
+
+.ws-search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 54px;
+
+    border-radius: 0 .5rem .5rem 0;
+}
+
+.ws-search-button .ws-icon {
+    width: 18px;
+    height: 18px;
+}
+
+
+@media (max-width: 991.98px) {
+
+    .ws-header-search {
+        display: none;
+    }
+
+}
