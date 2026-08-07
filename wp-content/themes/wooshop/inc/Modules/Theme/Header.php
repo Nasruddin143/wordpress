@@ -36,6 +36,8 @@ class Header extends Module
         add_action('wooshop_header_categories', [$this, 'categories']);
 
         add_action('wooshop_header_search', [$this, 'search']);
+
+        add_action('wooshop_header_actions', [$this, 'actions']);
     }
 
     /**
@@ -129,10 +131,22 @@ class Header extends Module
     /**
      * Render search.
      */
-    public function search(): void {
+    public function search(): void
+    {
 
-        $view = $this->container->get( View::class );
+        $view = $this->container->get(View::class);
 
-        $view->render( 'header/search' );
+        $view->render('header/search');
+    }
+
+    /**
+     * Render header actions.
+     */
+    public function actions(): void
+    {
+
+        $view = $this->container->get(View::class);
+
+        $view->render('header/actions');
     }
 }

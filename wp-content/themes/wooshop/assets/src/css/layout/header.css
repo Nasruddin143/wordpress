@@ -54,6 +54,62 @@
     display: block;
 }
 
+/**
+ * ==========================================
+ * Header Layout
+ * ==========================================
+ */
+
+.site-header {
+
+    position: relative;
+
+    width: 100%;
+
+    background: #fff;
+
+    border-bottom: 1px solid var(--ws-color-border);
+
+    z-index: 100;
+
+}
+
+.ws-header-main {
+
+    background: #fff;
+
+}
+
+.ws-header {
+
+    display: grid;
+
+    grid-template-columns:
+
+        auto      /* Logo */
+
+        auto      /* Categories */
+
+        1fr       /* Search */
+
+        auto; /* Actions */
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    min-height: 80px;
+
+}
+
+.ws-header-navigation {
+
+    border-top: 1px solid var(--ws-color-border);
+
+    background: #fff;
+
+}
+
 /* ==========================================
    Mobile
 ========================================== */
@@ -68,4 +124,26 @@
     .ws-header-search {
         display: none;
     }
+}
+
+@media (max-width: 991.98px) {
+
+    .ws-header {
+
+        grid-template-columns:
+
+auto
+1fr
+auto;
+
+        gap: 1rem;
+
+    }
+
+    .ws-header-categories {
+
+        display: none;
+
+    }
+
 }

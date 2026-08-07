@@ -23,6 +23,7 @@ WooShop Theme Styles
 @import url("./layout/grid.css");
 
 /* Components */
+@import url("./components/actions.css");
 @import url("./components/buttons.css");
 @import url("./components/badges.css");
 @import url("./components/cards.css");

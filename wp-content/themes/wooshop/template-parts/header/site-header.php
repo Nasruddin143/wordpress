@@ -8,28 +8,44 @@
 defined('ABSPATH') || exit;
 ?>
 
-<header id="masthead" class="site-header">
+<header id="masthead"
+        class="site-header"
+        role="banner">
 
-    <?php do_action('wooshop_header_before'); ?>
+    <?php do_action('wooshop_before_header'); ?>
 
-    <div class="container">
+    <!-- Main Header -->
+    <div class="ws-header-main">
 
-        <div class="ws-header">
+        <div class="container">
 
-            <?php do_action('wooshop_header_branding'); ?>
+            <div class="ws-header">
 
-            <?php do_action('wooshop_header_categories'); ?>
+                <!-- Logo -->
+                <?php do_action('wooshop_header_branding'); ?>
 
-            <?php do_action('wooshop_header_search'); ?>
+                <!-- Categories -->
+                <?php do_action('wooshop_header_categories'); ?>
 
-            <?php do_action('wooshop_header_actions'); ?>
+                <!-- Search -->
+                <?php do_action('wooshop_header_search'); ?>
+
+                <!-- Header Actions -->
+                <?php do_action('wooshop_header_actions'); ?>
+
+            </div>
 
         </div>
 
     </div>
 
-    <?php do_action('wooshop_header_navigation'); ?>
+    <!-- Navigation -->
+    <div class="ws-header-navigation">
 
-    <?php do_action('wooshop_header_after'); ?>
+        <?php do_action('wooshop_header_navigation'); ?>
+
+    </div>
+
+    <?php do_action('wooshop_after_header'); ?>
 
 </header>
