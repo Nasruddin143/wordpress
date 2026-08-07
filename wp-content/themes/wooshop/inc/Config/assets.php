@@ -23,7 +23,7 @@ return [
             [
                 'handle' => 'wooshop',
                 'src'    => 'assets/build/css/app.min.css',
-                'deps'   => ['bootstrap'],
+                'deps'   => [ 'bootstrap' ],
                 'media'  => 'all',
             ],
 
@@ -32,17 +32,19 @@ return [
         'scripts' => [
 
             [
-                'handle' => 'bootstrap',
-                'src'     => 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
-                'deps'    => [],
-                'footer'  => true,
+                'handle'   => 'bootstrap',
+                'src'      => 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
+                'deps'     => [],
+                'footer'   => true,
+                'strategy' => 'defer',
             ],
 
             [
-                'handle' => 'wooshop',
-                'src'     => 'assets/build/js/app.min.js',
-                'deps'    => ['bootstrap'],
-                'footer'  => true,
+                'handle'   => 'wooshop',
+                'src'      => 'assets/build/js/app.min.js',
+                'deps'     => [ 'bootstrap' ],
+                'footer'   => true,
+                'strategy' => 'defer',
             ],
 
         ],
@@ -60,142 +62,15 @@ return [
 
         ],
 
-    ],
+        'scripts' => [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Styles
-    |--------------------------------------------------------------------------
-    */
-
-    'styles' => [
-
-        'app' => [
-
-            'src' => 'assets/css/app.css',
-
-            'deps' => [],
-
-            'version' => null,
-
-            'condition' => 'global',
+            [
+                'handle' => 'wooshop-editor',
+                'src'    => 'assets/build/js/editor.min.js',
+            ],
 
         ],
 
-        'bootstrap' => [
-
-            'src' => 'assets/vendor/bootstrap/css/bootstrap.min.css',
-
-            'deps' => [],
-
-            'version' => '5.3.8',
-
-            'condition' => 'global',
-
-        ],
-
-        'embla' => [
-
-            'src' => 'assets/vendor/embla/embla.css',
-
-            'deps' => [],
-
-            'version' => null,
-
-            'condition' => 'slider',
-
-        ],
-
-        'editor' => [
-
-            'src' => 'assets/css/editor.css',
-
-            'deps' => [],
-
-            'version' => null,
-
-            'condition' => 'editor',
-
-        ],
-
-        'sticky-header' => [
-            'handle' => 'wooshop-sticky-header',
-            'src'    => 'assets/build/css/components/sticky-header.css',
-            'deps'   => ['wooshop'],
-        ],
-
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Scripts
-    |--------------------------------------------------------------------------
-    */
-
-    'scripts' => [
-
-        'app' => [
-
-            'src' => 'assets/js/app.js',
-
-            'deps' => [],
-
-            'footer' => true,
-
-            'version' => null,
-
-            'condition' => 'global',
-
-        ],
-
-        'bootstrap' => [
-
-            'src' => 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
-
-            'deps' => [],
-
-            'footer' => true,
-
-            'version' => '5.3.8',
-
-            'condition' => 'global',
-
-        ],
-
-        'embla' => [
-
-            'src' => 'assets/vendor/embla/embla.min.js',
-
-            'deps' => [],
-
-            'footer' => true,
-
-            'version' => null,
-
-            'condition' => 'slider',
-
-        ],
-
-        'navigation' => [
-
-            'src' => 'assets/js/navigation.js',
-
-            'deps' => [ 'app' ],
-
-            'footer' => true,
-
-            'version' => null,
-
-            'condition' => 'global',
-
-        ],
-
-    ],
-
-    'sticky-header' => [
-        'handle' => 'wooshop-sticky-header',
-        'src'    => 'assets/build/js/components/sticky-header.js',
-        'deps'   => ['wooshop'],
     ],
 
 ];

@@ -1,0 +1,85 @@
+/**
+ * ==========================================
+ * Grid
+ * ==========================================
+ */
+
+.ws-row {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    margin-inline: -.75rem;
+
+}
+
+.ws-row > * {
+
+    padding-inline: .75rem;
+
+}
+
+.ws-col {
+
+    flex: 1 0 0%;
+
+}
+
+.ws-col-1 {
+    width: 8.333333%;
+}
+
+.ws-col-2 {
+    width: 16.666667%;
+}
+
+.ws-col-3 {
+    width: 25%;
+}
+
+.ws-col-4 {
+    width: 33.333333%;
+}
+
+.ws-col-5 {
+    width: 41.666667%;
+}
+
+.ws-col-6 {
+    width: 50%;
+}
+
+.ws-col-7 {
+    width: 58.333333%;
+}
+
+.ws-col-8 {
+    width: 66.666667%;
+}
+
+.ws-col-9 {
+    width: 75%;
+}
+
+.ws-col-10 {
+    width: 83.333333%;
+}
+
+.ws-col-11 {
+    width: 91.666667%;
+}
+
+.ws-col-12 {
+    width: 100%;
+}
+
+@media (max-width: 991px) {
+
+    [class*="ws-col-"] {
+
+        width: 100%;
+
+    }
+
+}

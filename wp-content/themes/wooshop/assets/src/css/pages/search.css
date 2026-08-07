@@ -1,0 +1,31 @@
+/**
+ * ==========================================
+ * Search Results
+ * ==========================================
+ */
+
+.search .site-main{
+
+    padding-block:2rem;
+
+}
+
+.search-results-header{
+
+    margin-bottom:2rem;
+
+}
+
+.search-result{
+
+    padding:1.5rem 0;
+
+    border-bottom:1px solid var(--ws-color-border);
+
+}
+
+.search-result:last-child{
+
+    border-bottom:0;
+
+}

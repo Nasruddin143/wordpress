@@ -1171,7 +1171,7 @@ function wp_admin_bar_appearance_menu( $wp_admin_bar ) {
 			array(
 				'parent' => 'appearance',
 				'id'     => 'menus',
-				'title'  => __( 'MobileMenus' ),
+				'title'  => __( 'Menus' ),
 				'href'   => admin_url( 'nav-menus.php' ),
 			)
 		);

@@ -56,10 +56,7 @@ class Setup extends Module
         /*
          * Translation.
          */
-        load_theme_textdomain(
-            'wooshop',
-            get_template_directory() . '/languages'
-        );
+        load_theme_textdomain('wooshop', get_template_directory() . '/languages');
 
         /*
          * RSS feed links.
@@ -98,8 +95,8 @@ class Setup extends Module
         add_theme_support(
             'custom-logo',
             [
-                'height' => 120,
-                'width' => 320,
+                'height' => 80,
+                'width' => 260,
                 'flex-height' => true,
                 'flex-width' => true,
             ]
@@ -126,9 +123,43 @@ class Setup extends Module
         add_theme_support('align-wide');
 
         /*
+         * Block styles.
+         */
+        add_theme_support('wp-block-styles');
+
+        /*
          * Editor styles.
          */
-        add_editor_style('assets/css/editor.css');
+        add_theme_support('editor-styles');
+
+        /*
+         * Editor styles CSS.
+         */
+        add_editor_style(
+            'assets/build/css/editor.min.css'
+        );
+
+        /*
+         * Custom Spacing.
+         */
+        add_theme_support(
+            'custom-spacing'
+        );
+
+        /*
+         * Custom Line Height.
+         */
+        add_theme_support(
+            'custom-line-height'
+        );
+
+        /*
+         * Appearance Tools.
+         */
+        add_theme_support(
+            'appearance-tools'
+        );
+
     }
 
     /**

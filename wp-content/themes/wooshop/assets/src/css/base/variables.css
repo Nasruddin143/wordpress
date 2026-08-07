@@ -1,31 +1,56 @@
+/**
+ * ==========================================
+ * CSS Variables
+ * ==========================================
+ */
+
 :root {
 
-    --ws-primary: #0d6efd;
-    --ws-primary-hover: #0b5ed7;
+    /* Brand */
 
-    --ws-secondary: #6c757d;
-    --ws-secondary-hover: #5c636a;
+    --ws-color-primary: #0d6efd;
+    --ws-color-secondary: #6c757d;
+    --ws-color-success: #198754;
+    --ws-color-danger: #dc3545;
+    --ws-color-warning: #ffc107;
+    --ws-color-info: #0dcaf0;
 
-    --ws-success: #198754;
-    --ws-danger: #dc3545;
-    --ws-warning: #ffc107;
+    /* Text */
 
-    --ws-light: #f8f9fa;
-    --ws-dark: #212529;
+    --ws-color-text: #212529;
+    --ws-color-text-light: #6c757d;
 
-    --ws-body: #495057;
-    --ws-border: #dee2e6;
+    /* Background */
 
-    --ws-radius-sm: .375rem;
+    --ws-color-body: #f8f9fa;
+    --ws-color-surface: #ffffff;
+
+    /* Border */
+
+    --ws-color-border: #dee2e6;
+
+    /* Radius */
+
+    --ws-radius-sm: .25rem;
     --ws-radius: .5rem;
     --ws-radius-lg: .75rem;
+    --ws-radius-xl: 1rem;
 
-    --ws-shadow: 0 .5rem 1rem rgba(0,0,0,.12);
+    /* Shadow */
 
-    --ws-transition: .2s ease-in-out;
+    --ws-shadow-sm: 0 2px 6px rgba(0, 0, 0, .08);
+    --ws-shadow: 0 6px 20px rgba(0, 0, 0, .08);
 
-    --ws-heading-color: var(--ws-primary);
-    --ws-heading-hover-color: var(--ws-primary);
+    /* Transition */
 
-    --ws-text-muted: var(--ws-light);
+    --ws-transition: .25s ease;
+
+    /* Layout */
+
+    --ws-container: 1320px;
+
+    /* Header */
+
+    --ws-header-height: 80px;
+
 }

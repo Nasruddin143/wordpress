@@ -1,0 +1,47 @@
+/**
+ * ==========================================
+ * Single Post
+ * ==========================================
+ */
+
+.single .site-main{
+
+    padding-block:2rem;
+
+}
+
+.single .entry-header{
+
+    margin-bottom:2rem;
+
+}
+
+.single .entry-title{
+
+    margin-bottom:1rem;
+
+}
+
+.single .entry-meta{
+
+    color:var(--ws-color-text-light);
+
+    margin-bottom:2rem;
+
+}
+
+.single .entry-content{
+
+    line-height:1.8;
+
+}
+
+.single .entry-footer{
+
+    margin-top:3rem;
+
+    padding-top:2rem;
+
+    border-top:1px solid var(--ws-color-border);
+
+}

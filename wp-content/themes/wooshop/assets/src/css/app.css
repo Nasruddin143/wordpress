@@ -2,10 +2,6 @@
 WooShop Theme Styles
 --------------------------------------------------------------*/
 
-/* Vendors */
-@import url("./vendors/bootstrap.css");
-@import url("./vendors/embla.css");
-
 /* Base */
 @import url("./base/variables.css");
 @import url("./base/reset.css");
@@ -33,6 +29,8 @@ WooShop Theme Styles
 @import url("./components/branding.css");
 @import url("./components/search.css");
 @import url("./components/categories.css");
+@import url("./components/mobile-toggle.css");
+@import url("./components/mobile-menu.css");
 @import url("./components/modal.css");
 @import url("./components/drawer.css");
 @import url("./components/spinner.css");

@@ -4,74 +4,115 @@
  * ==========================================
  */
 
-.ws-header-categories {
-    position: relative;
-    flex-shrink: 0;
+.ws-categories{
+
+    position:relative;
+
 }
 
-.ws-categories-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
+.ws-categories-toggle{
 
-    padding: .75rem 1rem;
+    display:flex;
 
-    border-radius: var(--ws-radius-md);
+    align-items:center;
 
-    font-weight: 600;
+    gap:.5rem;
+
+    min-height:48px;
+
+    padding:0 1rem;
+
+    border:1px solid var(--ws-color-border);
+
+    border-radius:var(--ws-radius);
+
+    background:#fff;
+
+    cursor:pointer;
+
+    transition:var(--ws-transition);
+
 }
 
-.ws-categories-icon {
-    font-size: 1rem;
-    line-height: 1;
+.ws-categories-toggle:hover{
+
+    border-color:var(--ws-color-primary);
+
 }
 
-.ws-categories-menu {
-    min-width: 260px;
+.ws-categories-menu{
 
-    margin-top: .5rem;
+    position:absolute;
 
-    border: 1px solid var(--ws-color-border);
+    top:100%;
 
-    border-radius: var(--ws-radius-md);
+    left:0;
 
-    box-shadow: var(--ws-shadow-md);
+    min-width:260px;
 
-    padding: .5rem 0;
+    margin-top:.5rem;
+
+    background:#fff;
+
+    border:1px solid var(--ws-color-border);
+
+    border-radius:var(--ws-radius);
+
+    box-shadow:var(--ws-shadow);
+
+    display:none;
+
+    z-index:1000;
+
 }
 
-.ws-categories-menu li {
-    list-style: none;
+.ws-categories:hover .ws-categories-menu{
+
+    display:block;
+
 }
 
-.ws-categories-menu a {
-    display: block;
+.ws-categories-menu ul{
 
-    padding: .65rem 1rem;
+    margin:0;
 
-    color: var(--ws-color-text);
+    padding:0;
 
-    text-decoration: none;
+    list-style:none;
+
 }
 
-.ws-categories-menu a:hover {
-    background: var(--ws-color-light);
-    color: var(--ws-color-primary);
+.ws-categories-menu li{
+
+    border-bottom:1px solid var(--ws-color-border);
+
 }
 
-@media (max-width: 991.98px) {
+.ws-categories-menu li:last-child{
 
-    .ws-header-categories {
+    border-bottom:0;
 
-        width: 100%;
+}
 
-    }
+.ws-categories-menu a{
 
-    .ws-categories-toggle {
+    display:block;
 
-        width: 100%;
+    padding:.85rem 1rem;
 
-        justify-content: center;
+}
+
+.ws-categories-menu a:hover{
+
+    background:#f8f9fa;
+
+}
+
+@media(max-width:991px){
+
+    .ws-categories{
+
+        display:none;
 
     }
 

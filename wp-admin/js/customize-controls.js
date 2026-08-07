@@ -4104,7 +4104,7 @@
 				var availableItem, $content, itemTemplate;
 
 				// Prepare the new page as an available menu item.
-				// See api.MobileMenus.submitNew().
+				// See api.Menus.submitNew().
 				availableItem = new api.Menus.AvailableItemModel( {
 					'id': 'post-' + data.post_id, // Used for available menu item Backbone models.
 					'title': title,

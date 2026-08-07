@@ -1,0 +1,33 @@
+/**
+ * ==========================================
+ * Static Pages
+ * ==========================================
+ */
+
+.page .site-main{
+
+    padding-block:2rem;
+
+}
+
+.page .entry-content{
+
+    line-height:1.8;
+
+}
+
+.page .alignwide{
+
+    max-width:1200px;
+
+    margin-inline:auto;
+
+}
+
+.page .alignfull{
+
+    width:100vw;
+
+    margin-left:calc(50% - 50vw);
+
+}

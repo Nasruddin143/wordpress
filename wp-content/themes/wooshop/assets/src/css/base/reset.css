@@ -1,14 +1,72 @@
+/**
+ * ==========================================
+ * Reset
+ * ==========================================
+ */
+
 *,
 *::before,
-*::after{
-    box-sizing:border-box;
+*::after {
+
+    box-sizing: border-box;
+
 }
 
-html{
-    scroll-behavior:smooth;
+html {
+
+    scroll-behavior: smooth;
+
 }
 
-body{
-    margin:0;
-    min-height:100vh;
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    background: var(--ws-color-body);
+
+    color: var(--ws-color-text);
+
+    overflow-x: hidden;
+
+}
+
+img {
+
+    display: block;
+
+    max-width: 100%;
+
+    height: auto;
+
+}
+
+svg {
+
+    display: block;
+
+}
+
+button,
+input,
+textarea,
+select {
+
+    font: inherit;
+
+}
+
+ul,
+ol {
+
+    margin: 0;
+    padding: 0;
+
+}
+
+figure {
+
+    margin: 0;
+
 }

@@ -21,17 +21,17 @@ defined('ABSPATH') || exit;
 
             <div class="ws-header">
 
-                <!-- Logo -->
-                <?php do_action('wooshop_header_branding'); ?>
+                <?php do_action( 'wooshop_header_branding' ); ?>
 
-                <!-- Categories -->
-                <?php do_action('wooshop_header_categories'); ?>
+                <?php do_action( 'wooshop_header_categories' ); ?>
 
-                <!-- Search -->
-                <?php do_action('wooshop_header_search'); ?>
+                <?php do_action( 'wooshop_header_search' ); ?>
 
-                <!-- Header Actions -->
-                <?php do_action('wooshop_header_actions'); ?>
+                <?php do_action( 'wooshop_header_actions' ); ?>
+
+                <?php get_template_part(
+                        'template-parts/header/mobile-toggle'
+                ); ?>
 
             </div>
 
@@ -47,5 +47,11 @@ defined('ABSPATH') || exit;
     </div>
 
     <?php do_action('wooshop_after_header'); ?>
+
+    <?php
+    get_template_part(
+            'template-parts/header/mobile-menu'
+    );
+    ?>
 
 </header>

@@ -113,7 +113,7 @@ function create_initial_taxonomies() {
 			'public'                => false,
 			'hierarchical'          => false,
 			'labels'                => array(
-				'name'          => __( 'Navigation MobileMenus' ),
+				'name'          => __( 'Navigation Menus' ),
 				'singular_name' => __( 'Navigation Menu' ),
 			),
 			'query_var'             => false,

@@ -1,0 +1,59 @@
+/**
+ * ==========================================
+ * Archive Page
+ * ==========================================
+ */
+
+.archive .site-main{
+
+    padding-block:2rem;
+
+}
+
+.archive-header{
+
+    margin-bottom:2rem;
+
+}
+
+.archive-title{
+
+    margin-bottom:.5rem;
+
+}
+
+.archive-description{
+
+    color:var(--ws-color-text-light);
+
+}
+
+.posts-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:2rem;
+
+}
+
+@media(max-width:991px){
+
+    .posts-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:767px){
+
+    .posts-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

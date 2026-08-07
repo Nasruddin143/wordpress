@@ -1,6 +1,6 @@
 <?php
 /**
- * WordPress Administration for Navigation MobileMenus
+ * WordPress Administration for Navigation Menus
  * Interface functions
  *
  * @version 2.0.0
@@ -29,7 +29,7 @@ if ( ! current_user_can( 'edit_theme_options' ) ) {
 }
 
 // Used in the HTML title tag.
-$title = __( 'MobileMenus' );
+$title = __( 'Menus' );
 
 wp_enqueue_script( 'nav-menu' );
 
@@ -711,7 +711,7 @@ if ( ! $locations_screen ) : // Main tab.
 	$overview  = '<p>' . __( 'This screen is used for managing your navigation menus.' ) . '</p>';
 	$overview .= '<p>' . sprintf(
 		/* translators: 1: URL to Widgets screen, 2 and 3: The names of the default themes. */
-		__( 'MobileMenus can be displayed in locations defined by your theme, even used in sidebars by adding a &#8220;Navigation Menu&#8221; widget on the <a href="%1$s">Widgets</a> screen. If your theme does not support the navigation menus feature (the default themes, %2$s and %3$s, do), you can learn about adding this support by following the documentation link to the side.' ),
+		__( 'Menus can be displayed in locations defined by your theme, even used in sidebars by adding a &#8220;Navigation Menu&#8221; widget on the <a href="%1$s">Widgets</a> screen. If your theme does not support the navigation menus feature (the default themes, %2$s and %3$s, do), you can learn about adding this support by following the documentation link to the side.' ),
 		admin_url( 'widgets.php' ),
 		'Twenty Twenty',
 		'Twenty Twenty-One'
@@ -751,7 +751,7 @@ if ( ! $locations_screen ) : // Main tab.
 	get_current_screen()->add_help_tab(
 		array(
 			'id'      => 'editing-menus',
-			'title'   => __( 'Editing MobileMenus' ),
+			'title'   => __( 'Editing Menus' ),
 			'content' => $editing_menus,
 		)
 	);
@@ -772,7 +772,7 @@ endif;
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="https://wordpress.org/documentation/article/appearance-menus-screen/">Documentation on MobileMenus</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://wordpress.org/documentation/article/appearance-menus-screen/">Documentation on Menus</a>' ) . '</p>' .
 	'<p>' . __( '<a href="https://wordpress.org/support/forums/">Support forums</a>' ) . '</p>'
 );
 
@@ -780,7 +780,7 @@ get_current_screen()->set_help_sidebar(
 require_once ABSPATH . 'wp-admin/admin-header.php';
 ?>
 <div class="wrap">
-	<h1 class="wp-heading-inline"><?php esc_html_e( 'MobileMenus' ); ?></h1>
+	<h1 class="wp-heading-inline"><?php esc_html_e( 'Menus' ); ?></h1>
 	<?php
 	if ( current_user_can( 'customize' ) ) :
 		$focus = $locations_screen ? array( 'section' => 'menu_locations' ) : array( 'panel' => 'nav_menus' );
@@ -811,7 +811,7 @@ require_once ABSPATH . 'wp-admin/admin-header.php';
 	<hr class="wp-header-end">
 
 	<nav class="nav-tab-wrapper wp-clearfix" aria-label="<?php esc_attr_e( 'Secondary menu' ); ?>">
-		<a href="<?php echo esc_url( admin_url( 'nav-menus.php' ) ); ?>" class="nav-tab<?php echo $nav_tab_active_class; ?>"<?php echo $nav_aria_current; ?>><?php esc_html_e( 'Edit MobileMenus' ); ?></a>
+		<a href="<?php echo esc_url( admin_url( 'nav-menus.php' ) ); ?>" class="nav-tab<?php echo $nav_tab_active_class; ?>"<?php echo $nav_aria_current; ?>><?php esc_html_e( 'Edit Menus' ); ?></a>
 		<?php
 		if ( $num_locations && $menu_count ) {
 			$active_tab_class = '';

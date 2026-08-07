@@ -248,7 +248,7 @@ if ( ! wp_is_block_theme() || has_action( 'customize_register' ) ) {
 }
 
 if ( current_theme_supports( 'menus' ) || current_theme_supports( 'widgets' ) ) {
-	$submenu['themes.php'][10] = array( __( 'MobileMenus' ), 'edit_theme_options', 'nav-menus.php' );
+	$submenu['themes.php'][10] = array( __( 'Menus' ), 'edit_theme_options', 'nav-menus.php' );
 }
 
 if ( current_theme_supports( 'custom-header' ) && current_user_can( 'customize' ) ) {

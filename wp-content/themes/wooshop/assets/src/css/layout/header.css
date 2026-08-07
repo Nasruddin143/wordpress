@@ -110,6 +110,67 @@
 
 }
 
+/**
+ * ==========================================
+ * Header
+ * ==========================================
+ */
+
+.site-header {
+
+    position: relative;
+
+    background: #fff;
+
+    border-bottom: 1px solid var(--ws-color-border);
+
+    z-index: 100;
+
+}
+
+.ws-header-main {
+
+    min-height: var(--ws-header-height);
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+.ws-header {
+
+    display: grid;
+
+    grid-template-columns:
+
+        auto
+        auto
+        1fr
+        auto;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    width: 100%;
+
+}
+
+@media (max-width: 991px) {
+
+    .ws-header {
+
+        grid-template-columns:
+
+auto
+1fr
+auto;
+
+    }
+
+}
+
 /* ==========================================
    Mobile
 ========================================== */

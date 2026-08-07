@@ -1069,7 +1069,7 @@ function wp_import_upload_form( $action ) {
  *                                              should display. Available contexts vary from screen to
  *                                              screen. Post edit screen contexts include 'normal', 'side',
  *                                              and 'advanced'. Comments screen contexts include 'normal'
- *                                              and 'side'. MobileMenus meta boxes (accordion sections) all use
+ *                                              and 'side'. Menus meta boxes (accordion sections) all use
  *                                              the 'side' context. Global default is 'advanced'.
  * @param string                 $priority      Optional. The priority within the context where the box should show.
  *                                              Accepts 'high', 'core', 'default', or 'low'. Default 'default'.
@@ -1483,7 +1483,7 @@ function do_meta_boxes( $screen, $context, $data_object ) {
  * @param string                 $context The context within the screen where the box is set to display.
  *                                        Contexts vary from screen to screen. Post edit screen contexts
  *                                        include 'normal', 'side', and 'advanced'. Comments screen contexts
- *                                        include 'normal' and 'side'. MobileMenus meta boxes (accordion sections)
+ *                                        include 'normal' and 'side'. Menus meta boxes (accordion sections)
  *                                        all use the 'side' context.
  */
 function remove_meta_box( $id, $screen, $context ) {

@@ -1,17 +1,20 @@
 /**
- * WooShop Base JavaScript
- *
- * @package WooShop
+ * WooShop Application
  */
 
-(function () {
-    'use strict';
+import './components/navigation';
+import './components/dropdown';
+import './components/mobile-menu';
+import './components/sticky-header';
+import './components/search';
+import './components/categories';
+import './components/modal';
+import './components/drawer';
+import './components/spinner';
+import './components/back-to-top';
 
-    /*
-     * Theme-wide JavaScript.
-     *
-     * Keep this file empty unless functionality
-     * is genuinely required across the front end.
-     */
+document.addEventListener('DOMContentLoaded', () => {
 
-})();
+    document.documentElement.classList.add('ws-ready');
+
+});

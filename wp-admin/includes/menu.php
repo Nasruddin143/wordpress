@@ -101,7 +101,7 @@ unset( $sub, $parent );
 
 /*
  * Loop over the top-level menu.
- * MobileMenus for which the original parent is not accessible due to lack of privileges
+ * Menus for which the original parent is not accessible due to lack of privileges
  * will have the next submenu in line be assigned as the new menu parent.
  */
 foreach ( $menu as $id => $data ) {
