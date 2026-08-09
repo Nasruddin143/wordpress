@@ -69,3 +69,71 @@
     font-weight: 600;
 
 }
+
+/**
+ * ==========================================
+ * Mobile Menu States
+ * ==========================================
+ */
+
+body.ws-mobile-menu-open {
+
+    overflow: hidden;
+
+}
+
+.ws-mobile-menu {
+
+    overflow-y: auto;
+
+}
+
+.ws-mobile-menu .sub-menu {
+
+    display: none;
+
+    margin-top: .5rem;
+
+    padding-left: 1rem;
+
+}
+
+.ws-mobile-menu .menu-item-has-children.is-open
+> .sub-menu {
+
+    display: block;
+
+}
+
+.ws-mobile-menu .submenu-toggle {
+
+    width: 40px;
+
+    height: 40px;
+
+    margin-left: auto;
+
+    border: 0;
+
+    background: none;
+
+    cursor: pointer;
+
+}
+
+.ws-mobile-menu .submenu-toggle::after {
+
+    content: "+";
+
+    font-size: 1.25rem;
+
+    font-weight: 600;
+
+}
+
+.ws-mobile-menu .menu-item-has-children.is-open
+> .submenu-toggle::after {
+
+    content: "−";
+
+}

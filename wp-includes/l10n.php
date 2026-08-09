@@ -25,7 +25,7 @@
  * @global string $locale           The current locale.
  * @global string $wp_local_package Locale code of the package.
  *
- * @return string The locale of the blog or from the {@see 'locale'} hook.
+ * @return string The locale of the blog.php or from the {@see 'locale'} hook.
  */
 function get_locale() {
 	global $locale, $wp_local_package;
@@ -46,7 +46,7 @@ function get_locale() {
 
 	// If multisite, check options.
 	if ( is_multisite() ) {
-		// Don't check blog option when installing.
+		// Don't check blog.php option when installing.
 		if ( wp_installing() ) {
 			$ms_locale = get_site_option( 'WPLANG' );
 		} else {

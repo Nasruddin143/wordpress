@@ -18,7 +18,7 @@ class MobileMessagingHandler {
 	 * Prepares mobile messaging with a deep link.
 	 *
 	 * @param WC_Order $order order that mobile message is created for.
-	 * @param ?int     $blog_id  of blog to make a deep link for (will be null if Jetpack is not enabled).
+	 * @param ?int     $blog_id  of blog.php to make a deep link for (will be null if Jetpack is not enabled).
 	 * @param DateTime $now      current DateTime.
 	 * @param string   $domain URL of the current site.
 	 *
@@ -93,7 +93,7 @@ class MobileMessagingHandler {
 	/**
 	 * Prepares message with a deep link to mobile payment.
 	 *
-	 * @param ?int   $blog_id blog id to deep link to.
+	 * @param ?int   $blog_id blog.php id to deep link to.
 	 * @param string $domain URL of the current site.
 	 *
 	 * @return string formatted message
@@ -123,7 +123,7 @@ class MobileMessagingHandler {
 	/**
 	 * Prepares message with a deep link to manage order details.
 	 *
-	 * @param int    $blog_id blog id to deep link to.
+	 * @param int    $blog_id blog.php id to deep link to.
 	 * @param int    $order_id order id to deep link to.
 	 * @param string $domain URL of the current site.
 	 *
@@ -155,7 +155,7 @@ class MobileMessagingHandler {
 	/**
 	 * Prepares message with a deep link to learn more about mobile app.
 	 *
-	 * @param ?int   $blog_id blog id used for tracking.
+	 * @param ?int   $blog_id blog.php id used for tracking.
 	 * @param string $domain URL of the current site.
 	 *
 	 * @return string formatted message
@@ -185,7 +185,7 @@ class MobileMessagingHandler {
 	 * Prepares array of parameters used by WooCommerce.com for tracking.
 	 *
 	 * @param string   $campaign name of the deep link campaign.
-	 * @param int|null $blog_id blog id of the current site.
+	 * @param int|null $blog_id blog.php id of the current site.
 	 * @param string   $domain URL of the current site.
 	 *
 	 * @return array

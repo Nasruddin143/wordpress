@@ -1,6 +1,55 @@
 /*--------------------------------------------------------------
 # Spinner
 --------------------------------------------------------------*/
+/**
+ * ==========================================
+ * Spinner
+ * ==========================================
+ */
+
+.ws-spinner{
+
+    width:20px;
+
+    height:20px;
+
+    border:2px solid var(--ws-color-border);
+
+    border-top-color:var(--ws-color-primary);
+
+    border-radius:50%;
+
+    animation:wsSpinner .7s linear infinite;
+
+}
+
+.ws-spinner[hidden]{
+
+    display:none;
+
+}
+
+body.ws-loading{
+
+    cursor:progress;
+
+}
+
+@keyframes wsSpinner{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
 
 .ws-spinner {
 

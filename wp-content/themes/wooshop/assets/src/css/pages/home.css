@@ -1,37 +1,12 @@
-/**
- * ==========================================
- * Home Page
- * ==========================================
- */
 
-.home .site-main{
+/*--------------------------------------------------------------
+# Homepage
+--------------------------------------------------------------*/
 
-    padding-block:2rem;
-
+.ws-home-main {
+    width: 100%;
 }
 
-.home section{
-
-    margin-bottom:4rem;
-
-}
-
-.home .entry-content{
-
-    margin:0;
-
-}
-
-.home .wp-block-group{
-
-    margin-bottom:3rem;
-
-}
-
-.home .wp-block-cover{
-
-    border-radius:var(--ws-radius-lg);
-
-    overflow:hidden;
-
+.ws-front-page {
+    width: 100%;
 }

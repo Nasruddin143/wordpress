@@ -1,59 +1,37 @@
-/**
- * ==========================================
- * Archive Page
- * ==========================================
- */
+/*--------------------------------------------------------------
+# Archives
+--------------------------------------------------------------*/
 
-.archive .site-main{
-
-    padding-block:2rem;
-
+.ws-archive-header {
+    margin-bottom: var(--ws-space-xl);
 }
 
-.archive-header{
-
-    margin-bottom:2rem;
-
+.ws-archive-title {
+    margin: 0;
 }
 
-.archive-title{
-
-    margin-bottom:.5rem;
-
+.ws-archive-description {
+    margin-top: var(--ws-space-md);
+    max-width: 70ch;
 }
 
-.archive-description{
-
-    color:var(--ws-color-text-light);
-
+.ws-archive-description p:last-child {
+    margin-bottom: 0;
 }
 
-.posts-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:2rem;
-
+.ws-archive-loop {
+    display: grid;
+    gap: var(--ws-space-xl);
 }
 
-@media(max-width:991px){
-
-    .posts-grid{
-
-        grid-template-columns:repeat(2,1fr);
-
-    }
-
+.ws-no-results {
+    padding: var(--ws-space-xl) 0;
 }
 
-@media(max-width:767px){
+.ws-no-results__title {
+    margin-top: 0;
+}
 
-    .posts-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
+.ws-no-results__content {
+    max-width: 60ch;
 }

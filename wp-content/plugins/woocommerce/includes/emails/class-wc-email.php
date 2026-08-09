@@ -846,7 +846,7 @@ class WC_Email extends WC_Settings_API {
 	}
 
 	/**
-	 * Get WordPress blog name.
+	 * Get WordPress blog.php name.
 	 *
 	 * @return string
 	 */

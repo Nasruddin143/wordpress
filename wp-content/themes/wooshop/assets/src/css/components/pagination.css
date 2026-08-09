@@ -99,3 +99,39 @@
 
     background: transparent;
 }
+
+/*--------------------------------------------------------------
+# Pagination
+--------------------------------------------------------------*/
+
+.pagination {
+    margin-top: var(--ws-space-xl);
+}
+
+.pagination .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ws-space-xs);
+    flex-wrap: wrap;
+}
+
+.pagination .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    border: 1px solid var(--ws-color-border);
+    border-radius: var(--ws-radius-sm);
+}
+
+.pagination .page-numbers.current {
+    font-weight: 600;
+}
+
+.pagination .page-numbers:hover {
+    text-decoration: none;
+}

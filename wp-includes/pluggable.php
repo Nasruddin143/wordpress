@@ -155,7 +155,7 @@ if ( ! function_exists( 'wp_mail' ) ) :
 	 * However, you can set the content type of the email by using the
 	 * {@see 'wp_mail_content_type'} filter.
 	 *
-	 * The default charset is based on the charset used on the blog. The charset can
+	 * The default charset is based on the charset used on the blog.php. The charset can
 	 * be set using the {@see 'wp_mail_charset'} filter.
 	 *
 	 * When using the `$embeds` parameter to embed images for use in HTML emails,
@@ -1400,7 +1400,7 @@ endif;
 
 if ( ! function_exists( 'check_ajax_referer' ) ) :
 	/**
-	 * Verifies the Ajax request to prevent processing requests external of the blog.
+	 * Verifies the Ajax request to prevent processing requests external of the blog.php.
 	 *
 	 * @since 2.0.3
 	 *
@@ -1807,7 +1807,7 @@ if ( ! function_exists( 'wp_notify_postauthor' ) ) :
 			unset( $emails[ $author->user_email ] );
 		}
 
-		// The post author is no longer a member of the blog.
+		// The post author is no longer a member of the blog.php.
 		if ( $author && ! $notify_author && ! user_can( $post->post_author, 'read_post', $post->ID ) ) {
 			unset( $emails[ $author->user_email ] );
 		}
@@ -2012,7 +2012,7 @@ if ( ! function_exists( 'wp_notify_moderator' ) ) :
 		 *
 		 * @since 4.4.0
 		 *
-		 * @param bool $maybe_notify Whether to notify blog moderator.
+		 * @param bool $maybe_notify Whether to notify blog.php moderator.
 		 * @param int  $comment_id   The ID of the comment for the notification.
 		 */
 		$maybe_notify = apply_filters( 'notify_moderator', $maybe_notify, $comment_id );
@@ -2182,7 +2182,7 @@ endif;
 
 if ( ! function_exists( 'wp_password_change_notification' ) ) :
 	/**
-	 * Notifies the blog admin of a user changing password, normally via email.
+	 * Notifies the blog.php admin of a user changing password, normally via email.
 	 *
 	 * @since 2.7.0
 	 *

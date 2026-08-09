@@ -10,32 +10,18 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 ?>
 
-    <main id="primary" class="site-main error-404">
+    <main
+            id="primary"
+            class="site-main">
 
-        <header class="page-header">
+        <div class="ws-container">
 
-            <h1 class="page-title">
-
-                <?php esc_html_e( 'Page Not Found', 'wooshop' ); ?>
-
-            </h1>
-
-        </header>
-
-        <div class="page-content">
-
-            <p>
-
-                <?php
-                esc_html_e(
-                        'The page you are looking for does not exist.',
-                        'wooshop'
-                );
-                ?>
-
-            </p>
-
-            <?php get_search_form(); ?>
+            <?php
+            get_template_part(
+                    'template-parts/content/content',
+                    '404'
+            );
+            ?>
 
         </div>
 

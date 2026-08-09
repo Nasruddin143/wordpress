@@ -26,7 +26,7 @@ get_current_screen()->add_help_tab(
 		'content' => '<p>' . __( 'This screen contains the settings that affect the display of your content.' ) . '</p>' .
 			'<p>' . sprintf(
 				/* translators: %s: URL to create a new page. */
-				__( 'You can choose what&#8217;s displayed on the homepage of your site. It can be posts in reverse chronological order (classic blog), or a fixed/static page. To set a static homepage, you first need to create two <a href="%s">Pages</a>. One will become the homepage, and the other will be where your posts are displayed.' ),
+				__( 'You can choose what&#8217;s displayed on the homepage of your site. It can be posts in reverse chronological order (classic blog.php), or a fixed/static page. To set a static homepage, you first need to create two <a href="%s">Pages</a>. One will become the homepage, and the other will be where your posts are displayed.' ),
 				'post-new.php?post_type=page'
 			) . '</p>' .
 			'<p>' . sprintf(

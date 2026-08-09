@@ -2222,7 +2222,7 @@ $email_unsubscribes_table_schema;
 	}
 
 	/**
-	 * Uninstall tables when MU blog is deleted.
+	 * Uninstall tables when MU blog.php is deleted.
 	 *
 	 * @param array $tables List of tables that will be deleted by WP.
 	 *

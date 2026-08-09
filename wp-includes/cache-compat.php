@@ -337,8 +337,8 @@ if ( ! function_exists( 'wp_cache_switch_to_blog' ) ) :
 		}
 
 		/*
-		 * Perform a fallback blog switch, which will reinitialize the caches
-		 * for the new blog ID.
+		 * Perform a fallback blog.php switch, which will reinitialize the caches
+		 * for the new blog.php ID.
 		 */
 		wp_cache_switch_to_blog_fallback();
 	}

@@ -43,7 +43,7 @@ class XMLRPC_Async_Call {
 	 * Adds a new XMLRPC call to the queue to be processed on shutdown
 	 *
 	 * @param string  $method The XML-RPC method.
-	 * @param integer $user_id The user ID used to make the request (will use this user's token); Use 0 for the blog token.
+	 * @param integer $user_id The user ID used to make the request (will use this user's token); Use 0 for the blog.php token.
 	 * @param mixed   ...$args This function accepts any number of additional arguments, that will be passed to the call.
 	 * @return void
 	 */

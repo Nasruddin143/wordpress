@@ -2,57 +2,54 @@
 /**
  * Header Search
  *
+ * Displays the site search form.
+ *
  * @package WooShop
  */
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
+
+$placeholder = $placeholder ?? __( 'Search...', 'wooshop' );
+
+$show_button = $show_button ?? true;
 ?>
 
 <div class="ws-header-search">
 
-    <form role="search"
-          method="get"
-          class="ws-search-form"
-          action="<?php echo esc_url(home_url('/')); ?>">
+    <form
+            class="ws-search-form"
+            role="search"
+            method="get"
+            action="<?php echo esc_url( home_url( '/' ) ); ?>">
+
+        <label
+                class="screen-reader-text"
+                for="ws-search">
+
+            <?php esc_html_e( 'Search for:', 'wooshop' ); ?>
+
+        </label>
 
         <input
+                id="ws-search"
+                class="ws-search-input"
                 type="search"
-                class="form-control ws-search-input"
-                placeholder="<?php esc_attr_e('Search products...', 'wooshop'); ?>"
-                value="<?php echo esc_attr(get_search_query()); ?>"
                 name="s"
-        />
+                value="<?php echo esc_attr( get_search_query() ); ?>"
+                placeholder="<?php echo esc_attr( $placeholder ); ?>"
+        >
 
-        <input type="hidden" name="post_type" value="product">
+        <?php if ( $show_button ) : ?>
 
-        <button
-                class="btn btn-primary ws-search-button"
-                type="submit"
-                aria-label="<?php esc_attr_e('Search', 'wooshop'); ?>">
+            <button
+                    type="submit"
+                    class="ws-search-button">
 
-            <!-- Search Icon -->
-            <svg class="ws-icon"
-                 width="18"
-                 height="18"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 xmlns="http://www.w3.org/2000/svg">
+                <?php esc_html_e( 'Search', 'wooshop' ); ?>
 
-                <circle cx="11" cy="11" r="7"
-                        stroke="currentColor"
-                        stroke-width="2"/>
+            </button>
 
-                <line x1="20"
-                      y1="20"
-                      x2="16.5"
-                      y2="16.5"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"/>
-
-            </svg>
-
-        </button>
+        <?php endif; ?>
 
     </form>
 

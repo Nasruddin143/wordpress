@@ -94,11 +94,11 @@ if ( isset( $_GET['action'] ) ) {
 								$userfunction = 'all_spam';
 
 								/**
-								 * Filters whether to propagate the blog status when a user is marked as spam.
+								 * Filters whether to propagate the blog.php status when a user is marked as spam.
 								 *
 								 * @since 7.0.0
 								 *
-								 * @param bool $propagate Whether to propagate the blog status. Default false.
+								 * @param bool $propagate Whether to propagate the blog.php status. Default false.
 								 * @param int  $user_id   User ID.
 								 */
 								if ( apply_filters( 'propagate_network_user_spam_to_blogs', false, $user_id ) ) {
@@ -188,8 +188,8 @@ if ( isset( $_GET['action'] ) ) {
 				wp_die( __( 'Sorry, you are not allowed to access this page.' ), 403 );
 			}
 
-			if ( ! empty( $_POST['blog'] ) && is_array( $_POST['blog'] ) ) {
-				foreach ( $_POST['blog'] as $id => $users ) {
+			if ( ! empty( $_POST['blog.php'] ) && is_array( $_POST['blog.php'] ) ) {
+				foreach ( $_POST['blog.php'] as $id => $users ) {
 					foreach ( $users as $blogid => $user_id ) {
 						if ( ! current_user_can( 'delete_user', $id ) ) {
 							continue;

@@ -1962,7 +1962,7 @@ function wc_update_350_db_version() {
 }
 
 /**
- * Drop the fk_wc_download_log_permission_id FK as we use a new one with the table and blog prefix for MS compatibility.
+ * Drop the fk_wc_download_log_permission_id FK as we use a new one with the table and blog.php prefix for MS compatibility.
  *
  * @return void
  */

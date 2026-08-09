@@ -1,0 +1,73 @@
+/**
+ * Footer Payment Icons
+ *
+ * @package WooShop
+ */
+
+.ws-footer-payments {
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    flex-wrap: wrap;
+}
+
+.ws-payment-title {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ws-payment-list {
+    display: flex;
+
+    align-items: center;
+
+    gap: .5rem;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.ws-payment-item {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 44px;
+    min-height: 30px;
+
+    padding: .25rem .4rem;
+
+    border: 1px solid var(--ws-color-border);
+    border-radius: 4px;
+
+    background: var(--ws-color-background, #fff);
+}
+
+.ws-payment-icon {
+    display: block;
+
+    width: 38px;
+    height: 24px;
+
+    color: var(--ws-color-text);
+
+    transition: opacity .2s ease;
+}
+
+.ws-payment-item:hover .ws-payment-icon {
+    opacity: .75;
+}
+
+@media (max-width: 767px) {
+
+    .ws-footer-payments {
+        justify-content: center;
+    }
+
+}

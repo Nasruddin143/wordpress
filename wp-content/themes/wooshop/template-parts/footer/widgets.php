@@ -2,27 +2,30 @@
 /**
  * Footer Widgets
  *
+ * Displays footer widget areas.
+ *
  * @package WooShop
  */
 
 defined( 'ABSPATH' ) || exit;
-
-if ( ! is_active_sidebar( 'footer-1' )
-    && ! is_active_sidebar( 'footer-2' )
-    && ! is_active_sidebar( 'footer-3' )
-    && ! is_active_sidebar( 'footer-4' ) ) {
-    return;
-}
 ?>
 
-<div class="footer-widgets">
+<div class="ws-footer-widgets">
 
-    <?php dynamic_sidebar( 'footer-1' ); ?>
+    <?php for ( $i = 1; $i <= 4; $i++ ) : ?>
 
-    <?php dynamic_sidebar( 'footer-2' ); ?>
+        <?php $sidebar = 'footer-' . $i; ?>
 
-    <?php dynamic_sidebar( 'footer-3' ); ?>
+        <?php if ( is_active_sidebar( $sidebar ) ) : ?>
 
-    <?php dynamic_sidebar( 'footer-4' ); ?>
+            <div class="ws-footer-column">
+
+                <?php dynamic_sidebar( $sidebar ); ?>
+
+            </div>
+
+        <?php endif; ?>
+
+    <?php endfor; ?>
 
 </div>

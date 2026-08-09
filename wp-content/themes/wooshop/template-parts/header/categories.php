@@ -2,46 +2,31 @@
 /**
  * Header Categories
  *
+ * Displays the category navigation.
+ *
  * @package WooShop
  */
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
+
+if ( ! has_nav_menu( 'categories' ) ) {
+    return;
+}
 ?>
 
-<div class="ws-header-categories dropdown">
-
-    <button
-            class="btn btn-light ws-categories-toggle dropdown-toggle"
-            type="button"
-            id="wsCategoriesMenu"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            aria-label="<?php esc_attr_e('Browse Categories', 'wooshop'); ?>">
-
-        <span class="ws-categories-icon">
-            <?php echo wooshop_icon( 'menu' ); ?>
-        </span>
-
-        <span class="ws-categories-text">
-
-            <?php esc_html_e('Browse Categories', 'wooshop'); ?>
-
-        </span>
-
-    </button>
+<nav
+        class="ws-categories"
+        aria-label="<?php esc_attr_e( 'Product Categories', 'wooshop' ); ?>">
 
     <?php
-
     wp_nav_menu(
             [
                     'theme_location' => 'categories',
-                    'container' => false,
-                    'menu_class' => 'dropdown-menu ws-categories-menu',
-                    'fallback_cb' => false,
-                    'depth' => 2,
+                    'container'      => false,
+                    'menu_class'     => 'ws-category-menu',
+                    'fallback_cb'    => false,
             ]
     );
-
     ?>
 
-</div>
+</nav>

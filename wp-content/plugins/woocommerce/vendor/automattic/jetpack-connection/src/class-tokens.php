@@ -43,7 +43,7 @@ class Tokens {
 	}
 
 	/**
-	 * Perform the API request to validate the blog and user tokens.
+	 * Perform the API request to validate the blog.php and user tokens.
 	 *
 	 * @param int|null $user_id ID of the user we need to validate token for. Current user's ID by default.
 	 *
@@ -87,7 +87,7 @@ class Tokens {
 	}
 
 	/**
-	 * Perform the API request to validate only the blog.
+	 * Perform the API request to validate only the blog.php.
 	 *
 	 * @return bool|WP_Error Boolean with the test result. WP_Error if test cannot be performed.
 	 */
@@ -101,7 +101,7 @@ class Tokens {
 			Constants::get_constant( 'JETPACK__WPCOM_JSON_API_BASE' ),
 			'wpcom',
 			'2',
-			'sites/' . $blog_id . '/jetpack-token-health/blog'
+			'sites/' . $blog_id . '/jetpack-token-health/blog.php'
 		);
 
 		$method   = 'GET';
@@ -129,7 +129,7 @@ class Tokens {
 		$role  = $roles->translate_current_user_to_role();
 
 		if ( ! $role ) {
-			return new WP_Error( 'role', __( 'An administrator for this blog must set up the Jetpack connection.', 'jetpack-connection' ) );
+			return new WP_Error( 'role', __( 'An administrator for this blog.php must set up the Jetpack connection.', 'jetpack-connection' ) );
 		}
 
 		$client_secret = $this->get_access_token();
@@ -427,8 +427,8 @@ class Tokens {
 		}
 
 		if ( ! $possible_tokens ) {
-			// If no user tokens were found, it would have failed earlier, so this is about blog token.
-			return $suppress_errors ? false : new WP_Error( 'no_possible_tokens', __( 'No blog token found', 'jetpack-connection' ) );
+			// If no user tokens were found, it would have failed earlier, so this is about blog.php token.
+			return $suppress_errors ? false : new WP_Error( 'no_possible_tokens', __( 'No blog.php token found', 'jetpack-connection' ) );
 		}
 
 		$valid_token = false;
@@ -457,7 +457,7 @@ class Tokens {
 				// translators: %d is the user ID.
 				return $suppress_errors ? false : new WP_Error( 'no_valid_user_token', sprintf( __( 'Invalid token for user %d', 'jetpack-connection' ), $user_id ) );
 			} else {
-				return $suppress_errors ? false : new WP_Error( 'no_valid_blog_token', __( 'Invalid blog token', 'jetpack-connection' ) );
+				return $suppress_errors ? false : new WP_Error( 'no_valid_blog_token', __( 'Invalid blog.php token', 'jetpack-connection' ) );
 			}
 		}
 
@@ -468,12 +468,12 @@ class Tokens {
 	}
 
 	/**
-	 * Updates the blog token to a new value.
+	 * Updates the blog.php token to a new value.
 	 *
 	 * @access public
 	 *
-	 * @param string $token the new blog token value.
-	 * @return Boolean Whether updating the blog token was successful.
+	 * @param string $token the new blog.php token value.
+	 * @return Boolean Whether updating the blog.php token was successful.
 	 */
 	public function update_blog_token( $token ) {
 		return Jetpack_Options::update_option( 'blog_token', $token );

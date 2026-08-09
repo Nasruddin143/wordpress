@@ -59,7 +59,7 @@ if ( isset( $_REQUEST['action'] ) && 'adduser' === $_REQUEST['action'] ) {
 		);
 	}
 
-	// Adding an existing user to this blog.
+	// Adding an existing user to this blog.php.
 	$new_user_email = array();
 	$redirect       = 'user-new.php';
 	$username       = $user_details->user_login;

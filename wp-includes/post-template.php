@@ -179,7 +179,7 @@ function get_the_title( $post = 0 ) {
  *
  * The guid will appear to be a link, but should not be used as a link to the
  * post. The reason you should not use it as a link, is because of moving the
- * blog across domains.
+ * blog.php across domains.
  *
  * URL is escaped to make it XML-safe.
  *
@@ -211,7 +211,7 @@ function the_guid( $post = 0 ) {
  *
  * The guid will appear to be a link, but should not be used as an link to the
  * post. The reason you should not use it as a link, is because of moving the
- * blog across domains.
+ * blog.php across domains.
  *
  * @since 1.5.0
  *
@@ -649,7 +649,7 @@ function get_body_class( $css_class = '' ) {
 		$classes[] = 'home';
 	}
 	if ( is_home() ) {
-		$classes[] = 'blog';
+		$classes[] = 'blog.php';
 	}
 	if ( is_privacy_policy() ) {
 		$classes[] = 'privacy-policy';

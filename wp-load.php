@@ -40,7 +40,7 @@ if ( function_exists( 'error_reporting' ) ) {
  * If wp-config.php exists in the WordPress root, or if it exists in the root and wp-settings.php
  * doesn't, load wp-config.php. The secondary check for wp-settings.php has the added benefit
  * of avoiding cases where the current directory is a nested installation, e.g. / is WordPress(a)
- * and /blog/ is WordPress(b).
+ * and /blog.php/ is WordPress(b).
  *
  * If neither set of conditions is true, initiate loading the setup process.
  */

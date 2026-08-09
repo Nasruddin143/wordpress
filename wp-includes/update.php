@@ -357,7 +357,7 @@ function wp_update_plugins( $extra_stats = array() ) {
 		return;
 	}
 
-	// If running blog-side, bail unless we've not checked in the last 12 hours.
+	// If running blog.php-side, bail unless we've not checked in the last 12 hours.
 	if ( ! function_exists( 'get_plugins' ) ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}

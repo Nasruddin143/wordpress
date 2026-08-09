@@ -15,7 +15,7 @@ class Autoloader
     /**
      * Namespace prefix.
      */
-    protected const PREFIX = 'WooShop\\';
+    protected const string PREFIX = 'WooShop\\';
 
     /**
      * Base directory.
@@ -39,7 +39,7 @@ class Autoloader
     protected static function autoload(string $class): void
     {
 
-        if (strpos($class, self::PREFIX) !== 0) {
+        if (!str_starts_with($class, self::PREFIX)) {
             return;
         }
 

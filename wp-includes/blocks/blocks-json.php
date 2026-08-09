@@ -6175,7 +6175,7 @@
 		'keywords' => array(
 			'posts',
 			'list',
-			'blog',
+			'blog.php',
 			'blogs',
 			'custom post types'
 		),

@@ -2,6 +2,8 @@
 /**
  * Template Loader
  *
+ * Handles WooShop template resolution.
+ *
  * @package WooShop
  */
 
@@ -9,162 +11,106 @@ namespace WooShop\Core;
 
 defined( 'ABSPATH' ) || exit;
 
-class TemplateLoader {
+class TemplateLoader
+{
 
     /**
-     * Template search paths.
+     * Parent theme path.
      *
-     * Ordered by priority.
-     *
-     * @var array<int,string>
+     * @var string
      */
-    protected array $paths = [];
+    protected string $parent_path;
+
+    /**
+     * Child theme path.
+     *
+     * @var string
+     */
+    protected string $child_path;
 
     /**
      * Constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
+        $this->parent_path = get_template_directory();
 
-        $this->registerDefaultPaths();
+        $this->child_path = get_stylesheet_directory();
     }
 
     /**
-     * Register default template paths.
+     * Locate template.
      *
-     * @return void
-     */
-    protected function registerDefaultPaths(): void {
-
-        $stylesheet = trailingslashit( get_stylesheet_directory() );
-        $template   = trailingslashit( get_template_directory() );
-
-        $this->paths = [
-
-            // Child theme.
-            $stylesheet . 'template-parts/',
-
-            // Parent theme.
-            $template . 'template-parts/',
-
-            // Parent templates.
-            $template . 'templates/',
-
-        ];
-
-        /**
-         * Filter template search paths.
-         */
-        $this->paths = apply_filters(
-            'wooshop/template_paths',
-            $this->paths
-        );
-    }
-
-    /**
-     * Locate a template.
+     * Child theme takes priority.
      *
-     * Example:
-     * content/product-card
-     *
-     * @param string $template Template slug.
+     * @param string $template Template name.
      *
      * @return string|false
      */
-    public function locate( string $template ) {
-
+    public function locate( string $template )
+    {
         $template = ltrim( $template, '/' );
 
-        foreach ( $this->paths as $path ) {
+        /*
+         * WooShop template-parts.
+         */
+        $template = 'template-parts/' . $template;
 
-            $file = trailingslashit( $path ) . $template . '.php';
+        /*
+         * Child theme.
+         */
+        $child_template = trailingslashit( $this->child_path )
+            . $template
+            . '.php';
 
-            if ( file_exists( $file ) ) {
-                return $file;
-            }
+        if ( file_exists( $child_template ) ) {
+            return $child_template;
+        }
+
+        /*
+         * Parent theme.
+         */
+        $parent_template = trailingslashit( $this->parent_path )
+            . $template
+            . '.php';
+
+        if ( file_exists( $parent_template ) ) {
+            return $parent_template;
         }
 
         return false;
     }
 
-    /**
-     * Determine whether a template exists.
-     *
-     * @param string $template Template slug.
-     *
-     * @return bool
-     */
-    public function exists( string $template ): bool {
-
-        return (bool) $this->locate( $template );
-    }
 
     /**
-     * Register an additional template path.
+     * Render template.
      *
-     * Higher priority than defaults.
-     *
-     * @param string $path Directory path.
+     * @param string $template Template name.
+     * @param array  $args     Template arguments.
      *
      * @return void
      */
-    public function addPath( string $path ): void {
+    public function render(
+        string $template,
+        array $args = []
+    ): void {
 
-        $path = trailingslashit( $path );
+        $file = $this->locate( $template );
 
-        if ( ! in_array( $path, $this->paths, true ) ) {
+        if ( ! $file ) {
+            return;
+        }
 
-            array_unshift(
-                $this->paths,
-                $path
+        /*
+         * Make template arguments available as variables.
+         */
+        if ( ! empty( $args ) ) {
+            extract(
+                $args,
+                EXTR_SKIP
             );
         }
-    }
 
-    /**
-     * Return registered template paths.
-     *
-     * @return array<int,string>
-     */
-    public function getPaths(): array {
-
-        return $this->paths;
-    }
-
-    /**
-     * Locate a component.
-     *
-     * @param string $component Component name.
-     *
-     * @return string|false
-     */
-    public function locateComponent( string $component ) {
-
-        return $this->locate(
-            'components/' . $component
-        );
-    }
-
-    /**
-     * Locate a layout.
-     *
-     * @param string $layout Layout name.
-     *
-     * @return string|false
-     */
-    public function locateLayout( string $layout ) {
-
-        foreach ( $this->paths as $path ) {
-
-            $file = trailingslashit( dirname( $path ) )
-                . 'templates/'
-                . $layout
-                . '.php';
-
-            if ( file_exists( $file ) ) {
-                return $file;
-            }
-        }
-
-        return false;
+        include $file;
     }
 }

@@ -312,7 +312,7 @@ Commenter avatars come from <a href="%s">Gravatar</a>.'
 		if ( empty( $first_page ) ) {
 			$first_page = "<!-- wp:paragraph -->\n<p>";
 			/* translators: First page content. */
-			$first_page .= __( "This is an example page. It's different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors. It might say something like this:" );
+			$first_page .= __( "This is an example page. It's different from a blog.php post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors. It might say something like this:" );
 			$first_page .= "</p>\n<!-- /wp:paragraph -->\n\n";
 
 			$first_page .= "<!-- wp:quote -->\n<blockquote class=\"wp-block-quote\">\n<!-- wp:paragraph -->\n<p>";
@@ -466,7 +466,7 @@ Commenter avatars come from <a href="%s">Gravatar</a>.'
 			$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->usermeta WHERE user_id != %d AND meta_key = %s", $user_id, $table_prefix . 'capabilities' ) );
 
 			/*
-			 * Delete any caps that snuck into the previously active blog. (Hardcoded to blog 1 for now.)
+			 * Delete any caps that snuck into the previously active blog.php. (Hardcoded to blog.php 1 for now.)
 			 * TODO: Get previous_blog_id.
 			 */
 			if ( ! is_super_admin( $user_id ) && 1 !== $user_id ) {
@@ -2009,7 +2009,7 @@ function upgrade_430() {
 
 	if ( $wp_current_db_version < 33055 && 'utf8mb4' === $wpdb->charset ) {
 		if ( is_multisite() ) {
-			$tables = $wpdb->tables( 'blog' );
+			$tables = $wpdb->tables( 'blog.php' );
 		} else {
 			$tables = $wpdb->tables( 'all' );
 			if ( ! wp_should_upgrade_global_tables() ) {
@@ -2936,7 +2936,7 @@ function deslash( $content ) {
 function dbDelta( $queries = '', $execute = true ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 	global $wpdb;
 
-	if ( in_array( $queries, array( '', 'all', 'blog', 'global', 'ms_global' ), true ) ) {
+	if ( in_array( $queries, array( '', 'all', 'blog.php', 'global', 'ms_global' ), true ) ) {
 		$queries = wp_get_db_schema( $queries );
 	}
 
@@ -3451,13 +3451,13 @@ function make_site_theme_from_oldschool( $theme_name, $template ) {
 
 		chmod( "$site_dir/$newfile", 0777 );
 
-		// Update the blog header include in each file.
+		// Update the blog.php header include in each file.
 		$lines = explode( "\n", implode( '', file( "$site_dir/$newfile" ) ) );
 		if ( $lines ) {
 			$f = fopen( "$site_dir/$newfile", 'w' );
 
 			foreach ( $lines as $line ) {
-				if ( preg_match( '/require.*wp-blog-header/', $line ) ) {
+				if ( preg_match( '/require.*wp-blog.php-header/', $line ) ) {
 					$line = '//' . $line;
 				}
 
@@ -3600,7 +3600,7 @@ function make_site_theme_from_default( $theme_name, $template ) {
  * @return string|false
  */
 function make_site_theme() {
-	// Name the theme after the blog.
+	// Name the theme after the blog.php.
 	$theme_name = __get_option( 'blogname' );
 	$template   = sanitize_title( $theme_name );
 	$site_dir   = WP_CONTENT_DIR . "/themes/$template";

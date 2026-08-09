@@ -1020,7 +1020,7 @@ class wpdb {
 
 			$this->prefix = $this->get_blog_prefix();
 
-			foreach ( $this->tables( 'blog' ) as $table => $prefixed_table ) {
+			foreach ( $this->tables( 'blog.php' ) as $table => $prefixed_table ) {
 				$this->$table = $prefixed_table;
 			}
 
@@ -1032,13 +1032,13 @@ class wpdb {
 	}
 
 	/**
-	 * Sets blog ID.
+	 * Sets blog.php ID.
 	 *
 	 * @since 3.0.0
 	 *
 	 * @param int $blog_id
 	 * @param int $network_id Optional. Network ID. Default 0.
-	 * @return int Previous blog ID.
+	 * @return int Previous blog.php ID.
 	 */
 	public function set_blog_id( $blog_id, $network_id = 0 ) {
 		if ( ! empty( $network_id ) ) {
@@ -1050,7 +1050,7 @@ class wpdb {
 
 		$this->prefix = $this->get_blog_prefix();
 
-		foreach ( $this->tables( 'blog' ) as $table => $prefixed_table ) {
+		foreach ( $this->tables( 'blog.php' ) as $table => $prefixed_table ) {
 			$this->$table = $prefixed_table;
 		}
 
@@ -1062,12 +1062,12 @@ class wpdb {
 	}
 
 	/**
-	 * Gets blog prefix.
+	 * Gets blog.php prefix.
 	 *
 	 * @since 3.0.0
 	 *
 	 * @param int $blog_id Optional. Blog ID to retrieve the table prefix for.
-	 *                     Defaults to the current blog ID.
+	 *                     Defaults to the current blog.php ID.
 	 * @return string Blog prefix.
 	 */
 	public function get_blog_prefix( $blog_id = null ) {
@@ -1097,7 +1097,7 @@ class wpdb {
 	 * The `$scope` argument can take one of the following:
 	 *
 	 * - 'all' - returns 'all' and 'global' tables. No old tables are returned.
-	 * - 'blog' - returns the blog-level tables for the queried blog.
+	 * - 'blog.php' - returns the blog.php-level tables for the queried blog.php.
 	 * - 'global' - returns the global tables for the installation, returning multisite tables only on multisite.
 	 * - 'ms_global' - returns the multisite global tables, regardless if current installation is multisite.
 	 * - 'old' - returns tables which are deprecated.
@@ -1111,9 +1111,9 @@ class wpdb {
 	 * @uses wpdb::$ms_global_tables
 	 * @uses wpdb::$old_ms_global_tables
 	 *
-	 * @param string $scope   Optional. Possible values include 'all', 'global', 'ms_global', 'blog',
+	 * @param string $scope   Optional. Possible values include 'all', 'global', 'ms_global', 'blog.php',
 	 *                        or 'old' tables. Default 'all'.
-	 * @param bool   $prefix  Optional. Whether to include table prefixes. If blog prefix is requested,
+	 * @param bool   $prefix  Optional. Whether to include table prefixes. If blog.php prefix is requested,
 	 *                        then the custom users and usermeta tables will be mapped. Default true.
 	 * @param int    $blog_id Optional. The blog_id to prefix. Used only when prefix is requested.
 	 *                        Defaults to `wpdb::$blogid`.
@@ -1127,7 +1127,7 @@ class wpdb {
 					$tables = array_merge( $tables, $this->ms_global_tables );
 				}
 				break;
-			case 'blog':
+			case 'blog.php':
 				$tables = $this->tables;
 				break;
 			case 'global':

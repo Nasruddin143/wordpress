@@ -56,7 +56,7 @@ class WC_REST_Network_Orders_V2_Controller extends WC_REST_Orders_V2_Controller 
 	public function get_public_item_schema() {
 		$schema = parent::get_public_item_schema();
 
-		$schema['properties']['blog']              = array(
+		$schema['properties']['blog.php']              = array(
 			'description' => __( 'Blog id of the record on the multisite.', 'woocommerce' ),
 			'type'        => 'integer',
 			'context'     => array( 'view' ),
@@ -91,7 +91,7 @@ class WC_REST_Network_Orders_V2_Controller extends WC_REST_Orders_V2_Controller 
 	}
 
 	/**
-	 * Does a permissions check for the proper requested blog
+	 * Does a permissions check for the proper requested blog.php
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 *
@@ -111,7 +111,7 @@ class WC_REST_Network_Orders_V2_Controller extends WC_REST_Orders_V2_Controller 
 	}
 
 	/**
-	 * Get a collection of orders from the requested blog id
+	 * Get a collection of orders from the requested blog.php id
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 *
@@ -145,7 +145,7 @@ class WC_REST_Network_Orders_V2_Controller extends WC_REST_Orders_V2_Controller 
 		foreach ( $items->data as &$current_order ) {
 			$order = wc_get_order( $current_order['id'] );
 
-			$current_order['blog']     = get_blog_details( get_current_blog_id() );
+			$current_order['blog.php']     = get_blog_details( get_current_blog_id() );
 			$current_order['edit_url'] = get_admin_url( $blog_id, 'post.php?post=' . absint( $order->get_id() ) . '&action=edit' );
 			/* translators: 1: first name 2: last name */
 			$current_order['customer']        = trim( sprintf( _x( '%1$s %2$s', 'full name', 'woocommerce' ), $order->get_billing_first_name(), $order->get_billing_last_name() ) );

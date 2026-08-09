@@ -32,7 +32,7 @@ class Users {
 	/**
 	 * Get a user from a valid user ID, but only if the active user is able to see them.
 	 *
-	 * In a multisite context, that may mean that they both must be members of the current blog, or else the active
+	 * In a multisite context, that may mean that they both must be members of the current blog.php, or else the active
 	 * user must either have special permissions (manage_network_users) or else a special legacy mode
 	 * (woocommerce_network_wide_customers) is enabled.
 	 *
@@ -155,7 +155,7 @@ class Users {
 	 * Site-specific method of retrieving the requested user meta.
 	 *
 	 * This is a multisite-aware wrapper around WordPress's own `get_user_meta()` function, and works by prefixing the
-	 * supplied meta key with a blog-specific meta key.
+	 * supplied meta key with a blog.php-specific meta key.
 	 *
 	 * @param int    $user_id User ID.
 	 * @param string $key     Optional. The meta key to retrieve. By default, returns data for all keys.
@@ -176,7 +176,7 @@ class Users {
 	 * Site-specific means of updating user meta.
 	 *
 	 * This is a multisite-aware wrapper around WordPress's own `update_user_meta()` function, and works by prefixing
-	 * the supplied meta key with a blog-specific meta key.
+	 * the supplied meta key with a blog.php-specific meta key.
 	 *
 	 * @param int    $user_id    User ID.
 	 * @param string $meta_key   Metadata key.
@@ -197,7 +197,7 @@ class Users {
 	 * Site-specific means of deleting user meta.
 	 *
 	 * This is a multisite-aware wrapper around WordPress's own `delete_user_meta()` function, and works by prefixing
-	 * the supplied meta key with a blog-specific meta key.
+	 * the supplied meta key with a blog.php-specific meta key.
 	 *
 	 * @param int    $user_id    User ID.
 	 * @param string $meta_key   Metadata name.

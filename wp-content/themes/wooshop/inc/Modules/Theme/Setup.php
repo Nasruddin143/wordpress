@@ -30,6 +30,11 @@ class Setup extends Module
 
         add_action(
             'after_setup_theme',
+            [$this, 'register_image_sizes']
+        );
+
+        add_action(
+            'after_setup_theme',
             [$this, 'content_width'],
             0
         );
@@ -135,9 +140,9 @@ class Setup extends Module
         /*
          * Editor styles CSS.
          */
-        add_editor_style(
-            'assets/build/css/editor.min.css'
-        );
+//        add_editor_style(
+//            'assets/build/css/editor.min.css'
+//        );
 
         /*
          * Custom Spacing.
@@ -160,6 +165,64 @@ class Setup extends Module
             'appearance-tools'
         );
 
+    }
+
+    /**
+     * Register theme image sizes.
+     *
+     * @return void
+     */
+    public function register_image_sizes(): void
+    {
+        /*
+         * Small card image.
+         */
+        add_image_size(
+            'wooshop-card',
+            400,
+            400,
+            true
+        );
+
+        /*
+         * Medium content image.
+         */
+        add_image_size(
+            'wooshop-medium',
+            768,
+            768,
+            false
+        );
+
+        /*
+         * Large content image.
+         */
+        add_image_size(
+            'wooshop-large',
+            1200,
+            1200,
+            false
+        );
+
+        /*
+         * Wide banner image.
+         */
+        add_image_size(
+            'wooshop-banner',
+            1600,
+            600,
+            true
+        );
+
+        /*
+         * Small thumbnail.
+         */
+        add_image_size(
+            'wooshop-thumbnail',
+            150,
+            150,
+            true
+        );
     }
 
     /**

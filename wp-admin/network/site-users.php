@@ -170,7 +170,7 @@ if ( $action ) {
 						wp_die( __( 'Sorry, you are not allowed to edit this user.' ), 403 );
 					}
 
-					// If the user doesn't already belong to the blog, bail.
+					// If the user doesn't already belong to the blog.php, bail.
 					if ( ! is_user_member_of_blog( $user_id ) ) {
 						wp_die(
 							'<h1>' . __( 'An error occurred.' ) . '</h1>' .

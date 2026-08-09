@@ -1,6 +1,8 @@
 <?php
 /**
- * Main Footer Template
+ * Footer Template
+ *
+ * Displays the main site footer.
  *
  * @package WooShop
  */
@@ -8,35 +10,41 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-</div><!-- #content -->
-
 <footer
-    id="colophon"
-    class="site-footer"
-    role="contentinfo"
->
+        id="colophon"
+        class="site-footer"
+        role="contentinfo">
 
-    <div class="container">
+    <?php do_action( 'wooshop_footer_top' ); ?>
 
-        <?php get_template_part( 'template-parts/footer/widgets' ); ?>
+    <?php do_action( 'wooshop_footer_newsletter' ); ?>
 
-        <?php get_template_part( 'template-parts/footer/navigation' ); ?>
+    <div class="ws-footer">
 
-        <?php get_template_part( 'template-parts/footer/copyright' ); ?>
+        <div class="ws-container">
 
-        <?php get_template_part( 'template-parts/footer/credits' ); ?>
+            <?php do_action( 'wooshop_footer_widgets' ); ?>
+
+        </div>
 
     </div>
 
+    <div class="ws-footer-bottom">
+
+        <div class="ws-container">
+
+            <?php do_action( 'wooshop_footer_navigation' ); ?>
+
+            <?php do_action( 'wooshop_footer_payment_icons' ); ?>
+
+            <?php do_action( 'wooshop_footer_social' ); ?>
+
+            <?php do_action( 'wooshop_footer_copyright' ); ?>
+
+        </div>
+
+    </div>
+
+    <?php do_action( 'wooshop_footer_bottom' ); ?>
+
 </footer>
-
-<?php get_template_part( 'template-parts/footer/back-to-top' ); ?>
-
-<?php get_template_part( 'template-parts/footer/after-footer' ); ?>
-
-</div><!-- #page -->
-
-<?php wp_footer(); ?>
-
-</body>
-</html>

@@ -1,0 +1,15 @@
+/*--------------------------------------------------------------
+# WooCommerce
+--------------------------------------------------------------*/
+
+.ws-woocommerce-main {
+    width: 100%;
+    padding-block: var(--ws-space-2xl);
+}
+
+.ws-shop,
+.ws-product,
+.ws-product-category,
+.ws-product-tag {
+    width: 100%;
+}

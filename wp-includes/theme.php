@@ -27,8 +27,8 @@
  *                          'site' to return only site-allowed themes.
  *                          'network' to return only network-allowed themes.
  *                          Null to return all themes. Default null.
- *     @type int   $blog_id (Multisite) The blog ID used to calculate which themes
- *                          are allowed. Default 0, synonymous for the current blog.
+ *     @type int   $blog_id (Multisite) The blog.php ID used to calculate which themes
+ *                          are allowed. Default 0, synonymous for the current blog.php.
  * }
  * @return WP_Theme[] Array of WP_Theme objects.
  */
@@ -840,7 +840,7 @@ function switch_theme( $stylesheet ) {
 	update_option( 'theme_switched', $old_theme->get_stylesheet() );
 
 	/*
-	 * Reset template globals when switching themes outside of a switched blog
+	 * Reset template globals when switching themes outside of a switched blog.php
 	 * context to ensure templates will be loaded from the new theme.
 	 */
 	if ( ! is_multisite() || ! ms_is_switched() ) {
@@ -2380,7 +2380,7 @@ function get_theme_starter_content() {
 			'page_blog'       => array(
 				'type'      => 'post_type',
 				'object'    => 'page',
-				'object_id' => '{{blog}}',
+				'object_id' => '{{blog.php}}',
 			),
 			'page_news'       => array(
 				'type'      => 'post_type',
@@ -2459,7 +2459,7 @@ function get_theme_starter_content() {
 					_x( 'This is a page with some basic contact information, such as an address and phone number. You might also try a plugin to add a contact form.', 'Theme starter content' )
 				),
 			),
-			'blog'             => array(
+			'blog.php'             => array(
 				'post_type'  => 'page',
 				'post_title' => _x( 'Blog', 'Theme starter content' ),
 			),
@@ -2473,7 +2473,7 @@ function get_theme_starter_content() {
 				'post_title'   => _x( 'A homepage section', 'Theme starter content' ),
 				'post_content' => sprintf(
 					"<!-- wp:paragraph -->\n<p>%s</p>\n<!-- /wp:paragraph -->",
-					_x( 'This is an example of a homepage section. Homepage sections can be any page other than the homepage itself, including the page that shows your latest blog posts.', 'Theme starter content' )
+					_x( 'This is an example of a homepage section. Homepage sections can be any page other than the homepage itself, including the page that shows your latest blog.php posts.', 'Theme starter content' )
 				),
 			),
 		),

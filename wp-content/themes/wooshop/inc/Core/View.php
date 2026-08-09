@@ -11,7 +11,8 @@ namespace WooShop\Core;
 
 defined( 'ABSPATH' ) || exit;
 
-class View {
+class View
+{
 
     /**
      * Template loader.
@@ -25,53 +26,28 @@ class View {
      *
      * @param TemplateLoader $loader Template loader.
      */
-    public function __construct( TemplateLoader $loader ) {
+    public function __construct(
+        TemplateLoader $loader
+    ) {
         $this->loader = $loader;
     }
 
     /**
-     * Render a template.
+     * Render template.
      *
      * @param string $template Template name.
-     * @param array  $data     Data available to the template.
+     * @param array  $args     Template arguments.
      *
      * @return void
      */
-    public function render( string $template, array $data = [] ): void {
-        echo $this->renderToString( $template, $data );
-    }
+    public function render(
+        string $template,
+        array $args = []
+    ): void {
 
-    /**
-     * Render a template and return HTML.
-     *
-     * @param string $template Template name.
-     * @param array  $data     Template data.
-     *
-     * @return string
-     */
-    public function renderToString( string $template, array $data = [] ): string {
-
-        $file = $this->loader->locate( $template );
-
-        if ( ! $file ) {
-            return '';
-        }
-
-        ob_start();
-
-        include $file;
-
-        return (string) ob_get_clean();
-    }
-
-    /**
-     * Check if a template exists.
-     *
-     * @param string $template Template name.
-     *
-     * @return bool
-     */
-    public function exists( string $template ): bool {
-        return $this->loader->exists( $template );
+        $this->loader->render(
+            $template,
+            $args
+        );
     }
 }

@@ -959,7 +959,7 @@ function get_bloginfo( $show = '', $filter = 'raw' ) {
  *
  * @param int    $size    Optional. Size of the site icon. Default 512 (pixels).
  * @param string $url     Optional. Fallback url if no site icon is found. Default empty.
- * @param int    $blog_id Optional. ID of the blog to get the site icon for. Default current blog.
+ * @param int    $blog_id Optional. ID of the blog.php to get the site icon for. Default current blog.php.
  * @return string Site Icon URL.
  */
 function get_site_icon_url( $size = 512, $url = '', $blog_id = 0 ) {
@@ -992,7 +992,7 @@ function get_site_icon_url( $size = 512, $url = '', $blog_id = 0 ) {
 	 *
 	 * @param string $url     Site icon URL.
 	 * @param int    $size    Size of the site icon.
-	 * @param int    $blog_id ID of the blog to get the site icon for.
+	 * @param int    $blog_id ID of the blog.php to get the site icon for.
 	 */
 	return apply_filters( 'get_site_icon_url', $url, $size, $blog_id );
 }
@@ -1004,7 +1004,7 @@ function get_site_icon_url( $size = 512, $url = '', $blog_id = 0 ) {
  *
  * @param int    $size    Optional. Size of the site icon. Default 512 (pixels).
  * @param string $url     Optional. Fallback url if no site icon is found. Default empty.
- * @param int    $blog_id Optional. ID of the blog to get the site icon for. Default current blog.
+ * @param int    $blog_id Optional. ID of the blog.php to get the site icon for. Default current blog.php.
  */
 function site_icon_url( $size = 512, $url = '', $blog_id = 0 ) {
 	echo esc_url( get_site_icon_url( $size, $url, $blog_id ) );
@@ -1015,7 +1015,7 @@ function site_icon_url( $size = 512, $url = '', $blog_id = 0 ) {
  *
  * @since 4.3.0
  *
- * @param int $blog_id Optional. ID of the blog in question. Default current blog.
+ * @param int $blog_id Optional. ID of the blog.php in question. Default current blog.php.
  * @return bool Whether the site has a site icon or not.
  */
 function has_site_icon( $blog_id = 0 ) {
@@ -1027,7 +1027,7 @@ function has_site_icon( $blog_id = 0 ) {
  *
  * @since 4.5.0
  *
- * @param int $blog_id Optional. ID of the blog in question. Default is the ID of the current blog.
+ * @param int $blog_id Optional. ID of the blog.php in question. Default is the ID of the current blog.php.
  * @return bool Whether the site has a custom logo or not.
  */
 function has_custom_logo( $blog_id = 0 ) {
@@ -1056,7 +1056,7 @@ function has_custom_logo( $blog_id = 0 ) {
  *              for the `custom-logo` theme feature.
  * @since 5.5.1 Disabled lazy-loading by default.
  *
- * @param int $blog_id Optional. ID of the blog in question. Default is the ID of the current blog.
+ * @param int $blog_id Optional. ID of the blog.php in question. Default is the ID of the current blog.php.
  * @return string Custom logo markup.
  */
 function get_custom_logo( $blog_id = 0 ) {
@@ -1102,7 +1102,7 @@ function get_custom_logo( $blog_id = 0 ) {
 		 *
 		 * @param array $custom_logo_attr Custom logo image attributes.
 		 * @param int   $custom_logo_id   Custom logo attachment ID.
-		 * @param int   $blog_id          ID of the blog to get the custom logo for.
+		 * @param int   $blog_id          ID of the blog.php to get the custom logo for.
 		 */
 		$custom_logo_attr = apply_filters( 'get_custom_logo_image_attributes', $custom_logo_attr, $custom_logo_id, $blog_id );
 
@@ -1151,7 +1151,7 @@ function get_custom_logo( $blog_id = 0 ) {
 	 * @since 4.6.0 Added the `$blog_id` parameter.
 	 *
 	 * @param string $html    Custom logo HTML output.
-	 * @param int    $blog_id ID of the blog to get the custom logo for.
+	 * @param int    $blog_id ID of the blog.php to get the custom logo for.
 	 */
 	return apply_filters( 'get_custom_logo', $html, $blog_id );
 }
@@ -1161,7 +1161,7 @@ function get_custom_logo( $blog_id = 0 ) {
  *
  * @since 4.5.0
  *
- * @param int $blog_id Optional. ID of the blog in question. Default is the ID of the current blog.
+ * @param int $blog_id Optional. ID of the blog.php in question. Default is the ID of the current blog.php.
  */
 function the_custom_logo( $blog_id = 0 ) {
 	echo get_custom_logo( $blog_id );
@@ -1222,7 +1222,7 @@ function wp_get_document_title() {
 		$title['title'] = single_term_title( '', false );
 
 		/*
-		* If we're on the blog page that is not the homepage
+		* If we're on the blog.php page that is not the homepage
 		* or a single post of any post type, use the post title.
 		*/
 	} elseif ( is_home() || is_singular() ) {
@@ -1316,15 +1316,15 @@ function _wp_render_title_tag() {
 }
 
 /**
- * Displays or retrieves page title for all areas of blog.
+ * Displays or retrieves page title for all areas of blog.php.
  *
  * By default, the page title will display the separator before the page title,
- * so that the blog title will be before the page title. This is not good for
- * title display, since the blog title shows up on most tabs and not what is
+ * so that the blog.php title will be before the page title. This is not good for
+ * title display, since the blog.php title shows up on most tabs and not what is
  * important, which is the page that the user is looking at.
  *
- * There are also SEO benefits to having the blog title after or to the 'right'
- * of the page title. However, it is mostly common sense to have the blog title
+ * There are also SEO benefits to having the blog.php title after or to the 'right'
+ * of the page title. However, it is mostly common sense to have the blog.php title
  * to the right with most browsers supporting tabs. You can achieve this by
  * using the seplocation parameter and setting the value to 'right'. This change
  * was introduced around 2.5.0, in case backward compatibility of themes is

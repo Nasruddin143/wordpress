@@ -22,7 +22,7 @@ class WC_Background_Updater extends WC_Background_Process {
 	 * Initiate new background process.
 	 */
 	public function __construct() {
-		// Uses unique prefix per blog so each blog has separate queue.
+		// Uses unique prefix per blog.php so each blog.php has separate queue.
 		$this->prefix = 'wp_' . get_current_blog_id();
 		$this->action = 'wc_updater';
 

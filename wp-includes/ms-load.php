@@ -57,15 +57,15 @@ function wp_get_active_network_plugins() {
 }
 
 /**
- * Checks status of current blog.
+ * Checks status of current blog.php.
  *
- * Checks if the blog is deleted, inactive, archived, or spammed.
+ * Checks if the blog.php is deleted, inactive, archived, or spammed.
  *
- * Dies with a default message if the blog does not pass the check.
+ * Dies with a default message if the blog.php does not pass the check.
  *
- * To change the default message when a blog does not pass the check,
- * use the wp-content/blog-deleted.php, blog-inactive.php and
- * blog-suspended.php drop-ins.
+ * To change the default message when a blog.php does not pass the check,
+ * use the wp-content/blog.php-deleted.php, blog.php-inactive.php and
+ * blog.php-suspended.php drop-ins.
  *
  * @since 3.0.0
  *
@@ -74,11 +74,11 @@ function wp_get_active_network_plugins() {
 function ms_site_check() {
 
 	/**
-	 * Filters checking the status of the current blog.
+	 * Filters checking the status of the current blog.php.
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param bool|null $check Whether to skip the blog status check. Default null.
+	 * @param bool|null $check Whether to skip the blog.php status check. Default null.
 	 */
 	$check = apply_filters( 'ms_site_check', null );
 	if ( null !== $check ) {
@@ -93,16 +93,16 @@ function ms_site_check() {
 	$blog = get_site();
 
 	if ( '1' === $blog->deleted ) {
-		if ( file_exists( WP_CONTENT_DIR . '/blog-deleted.php' ) ) {
-			return WP_CONTENT_DIR . '/blog-deleted.php';
+		if ( file_exists( WP_CONTENT_DIR . '/blog.php-deleted.php' ) ) {
+			return WP_CONTENT_DIR . '/blog.php-deleted.php';
 		} else {
 			wp_die( __( 'This site is no longer available.' ), '', array( 'response' => 410 ) );
 		}
 	}
 
 	if ( '2' === $blog->deleted ) {
-		if ( file_exists( WP_CONTENT_DIR . '/blog-inactive.php' ) ) {
-			return WP_CONTENT_DIR . '/blog-inactive.php';
+		if ( file_exists( WP_CONTENT_DIR . '/blog.php-inactive.php' ) ) {
+			return WP_CONTENT_DIR . '/blog.php-inactive.php';
 		} else {
 			$admin_email = str_replace( '@', ' AT ', get_site_option( 'admin_email', 'support@' . get_network()->domain ) );
 			wp_die(
@@ -116,8 +116,8 @@ function ms_site_check() {
 	}
 
 	if ( '1' === $blog->archived || '1' === $blog->spam ) {
-		if ( file_exists( WP_CONTENT_DIR . '/blog-suspended.php' ) ) {
-			return WP_CONTENT_DIR . '/blog-suspended.php';
+		if ( file_exists( WP_CONTENT_DIR . '/blog.php-suspended.php' ) ) {
+			return WP_CONTENT_DIR . '/blog.php-suspended.php';
 		} else {
 			wp_die( __( 'This site has been archived or suspended.' ), '', array( 'response' => 410 ) );
 		}
@@ -455,7 +455,7 @@ function ms_load_current_site_and_network( $domain, $path, $subdomain = false ) 
 /**
  * Displays a failure message.
  *
- * Used when a blog's tables do not exist. Checks for a missing $wpdb->site table as well.
+ * Used when a blog.php's tables do not exist. Checks for a missing $wpdb->site table as well.
  *
  * @access private
  * @since 3.0.0

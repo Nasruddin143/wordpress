@@ -1,35 +1,127 @@
-document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Sticky Header
+ *
+ * Smart sticky header with hide/show on scroll.
+ *
+ * @package WooShop
+ */
 
-    const header = document.getElementById('site-header');
+class StickyHeader {
 
-    if (!header) {
-        return;
+    constructor() {
+
+        this.header = document.querySelector('.ws-site-header');
+
+        if (!this.header) {
+            return;
+        }
+
+        this.lastScroll = window.scrollY;
+
+        this.offset = 100;
+
+        this.ticking = false;
+
+        this.bind();
+
     }
 
-    const stickyOffset = header.offsetTop;
+    /**
+     * Register events.
+     */
+    bind() {
 
-    function updateStickyHeader() {
+        window.addEventListener(
+            'scroll',
+            () => this.onScroll(),
+            {
+                passive: true,
+            }
+        );
 
-        if (window.scrollY > stickyOffset) {
+    }
 
-            header.classList.add('is-sticky');
-            document.body.classList.add('ws-header-sticky');
+    /**
+     * Scroll handler.
+     */
+    onScroll() {
 
-        } else {
+        if (this.ticking) {
+            return;
+        }
 
-            header.classList.remove('is-sticky');
-            document.body.classList.remove('ws-header-sticky');
+        this.ticking = true;
+
+        requestAnimationFrame(() => {
+
+            this.update();
+
+            this.ticking = false;
+
+        });
+
+    }
+
+    /**
+     * Update header state.
+     */
+    update() {
+
+        const current = window.scrollY;
+
+        /*
+         * Back to top.
+         */
+        if (current <= this.offset) {
+
+            this.header.classList.remove(
+                'is-sticky',
+                'is-hidden'
+            );
+
+            this.lastScroll = current;
+
+            return;
 
         }
 
+        /*
+         * Sticky.
+         */
+        this.header.classList.add(
+            'is-sticky'
+        );
+
+        /*
+         * Hide while scrolling down.
+         */
+        if (current > this.lastScroll) {
+
+            this.header.classList.add(
+                'is-hidden'
+            );
+
+        } else {
+
+            this.header.classList.remove(
+                'is-hidden'
+            );
+
+        }
+
+        this.lastScroll = current;
+
     }
 
-    window.addEventListener(
-        'scroll',
-        updateStickyHeader,
-        { passive: true }
-    );
+}
 
-    updateStickyHeader();
+document.addEventListener(
+    'DOMContentLoaded',
+    () => {
 
-});
+        new StickyHeader();
+
+    }
+);
+
+export default StickyHeader;

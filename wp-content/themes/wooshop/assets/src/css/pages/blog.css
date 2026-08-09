@@ -1,0 +1,20 @@
+/*--------------------------------------------------------------
+# Blog / Posts Index
+--------------------------------------------------------------*/
+
+.ws-blog-main {
+    padding-block: var(--ws-space-2xl);
+}
+
+.ws-blog-header {
+    margin-bottom: var(--ws-space-xl);
+}
+
+.ws-blog-title {
+    margin: 0;
+}
+
+.ws-posts-loop {
+    display: grid;
+    gap: var(--ws-space-xl);
+}

@@ -1486,7 +1486,7 @@ themes.Router = Backbone.Router.extend({
 // Execute and setup the application.
 themes.Run = {
 	init: function() {
-		// Initializes the blog's theme library view.
+		// Initializes the blog.php's theme library view.
 		// Create a new collection with data.
 		this.themes = new themes.Collection( themes.data.themes );
 

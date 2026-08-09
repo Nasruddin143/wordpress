@@ -29,7 +29,7 @@ $charset_collate = $wpdb->get_charset_collate();
  *
  * @global wpdb $wpdb WordPress database abstraction object.
  *
- * @param string $scope   Optional. The tables for which to retrieve SQL. Can be all, global, ms_global, or blog tables. Defaults to all.
+ * @param string $scope   Optional. The tables for which to retrieve SQL. Can be all, global, ms_global, or blog.php tables. Defaults to all.
  * @param int    $blog_id Optional. The site ID for which to retrieve SQL. Default is the current site ID.
  * @return string The SQL needed to create the requested tables.
  */
@@ -316,7 +316,7 @@ CREATE TABLE $wpdb->signups (
 ) $charset_collate;";
 
 	switch ( $scope ) {
-		case 'blog':
+		case 'blog.php':
 			$queries = $blog_tables;
 			break;
 		case 'global':
@@ -1134,7 +1134,7 @@ function populate_network( $network_id = 1, $domain = '', $email = '', $site_nam
 		if ( $subdomain_install ) {
 			$wp_rewrite->set_permalink_structure( '/%year%/%monthnum%/%day%/%postname%/' );
 		} else {
-			$wp_rewrite->set_permalink_structure( '/blog/%year%/%monthnum%/%day%/%postname%/' );
+			$wp_rewrite->set_permalink_structure( '/blog.php/%year%/%monthnum%/%day%/%postname%/' );
 		}
 
 		flush_rewrite_rules();
@@ -1343,7 +1343,7 @@ We hope you enjoy your new site. Thanks!
 		'WPLANG'                      => get_locale(),
 	);
 	if ( ! $subdomain_install ) {
-		$sitemeta['illegal_names'][] = 'blog';
+		$sitemeta['illegal_names'][] = 'blog.php';
 	}
 
 	$sitemeta = wp_parse_args( $meta, $sitemeta );

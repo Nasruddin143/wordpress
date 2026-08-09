@@ -117,9 +117,9 @@ class MarketingJetpack {
 	}
 
 	/**
-	 * Check if this blog already has a Jetpack Backups product.
+	 * Check if this blog.php already has a Jetpack Backups product.
 	 *
-	 * @return boolean  Whether or not this blog has backups.
+	 * @return boolean  Whether or not this blog.php has backups.
 	 */
 	protected static function has_backups() {
 		$product_ids = [];

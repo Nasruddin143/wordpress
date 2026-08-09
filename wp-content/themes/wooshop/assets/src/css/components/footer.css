@@ -1,0 +1,70 @@
+/**
+ * ==========================================
+ * Footer Navigation
+ * ==========================================
+ */
+
+.ws-footer-nav {
+
+    margin-top: 2rem;
+
+    padding-top: 1.5rem;
+
+    border-top: 1px solid var(--ws-color-border);
+
+}
+
+.ws-footer-menu {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
+
+}
+
+.ws-footer-menu li {
+
+    margin: 0;
+
+}
+
+.ws-footer-menu a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+    transition: color .2s ease;
+
+}
+
+.ws-footer-menu a:hover,
+.ws-footer-menu .current-menu-item > a {
+
+    color: var(--ws-color-primary);
+
+}
+
+@media (max-width: 767px) {
+
+    .ws-footer-menu {
+
+        justify-content: flex-start;
+
+        gap: 1rem;
+
+    }
+
+}

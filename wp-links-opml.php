@@ -1,7 +1,7 @@
 <?php
 /**
  * Outputs the OPML XML format for getting the links defined in the link
- * administration. This can be used to export links from one blog over to
+ * administration. This can be used to export links from one blog.php over to
  * another. Links aren't exported by the WordPress export, so this file handles
  * that.
  *

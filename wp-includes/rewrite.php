@@ -477,7 +477,7 @@ function wp_resolve_numeric_slug_conflicts( $query_vars = array() ) {
 /**
  * Examines a URL and try to determine the post ID it represents.
  *
- * Checks are supposedly from the hosted site blog.
+ * Checks are supposedly from the hosted site blog.php.
  *
  * @since 1.0.0
  *
@@ -575,7 +575,7 @@ function url_to_postid( $url ) {
 		// Chop off http://domain.com/[path].
 		$url = str_replace( home_url(), '', $url );
 	} else {
-		// Chop off /path/to/blog.
+		// Chop off /path/to/blog.php.
 		$home_path = parse_url( home_url( '/' ) );
 		$home_path = $home_path['path'] ?? '';
 		$url       = preg_replace( sprintf( '#^%s#', preg_quote( $home_path ) ), '', trailingslashit( $url ) );

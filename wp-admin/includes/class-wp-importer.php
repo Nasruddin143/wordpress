@@ -123,7 +123,7 @@ class WP_Importer {
 
 					$source_comment_id = (int) $source_comment_id;
 
-					// Check if this comment came from this blog.
+					// Check if this comment came from this blog.php.
 					if ( (int) $blog_id === (int) $comment_agent_blog_id ) {
 						$hashtable[ $source_comment_id ] = (int) $r->comment_ID;
 					}
@@ -159,7 +159,7 @@ class WP_Importer {
 				)
 			);
 			if ( ! $blogs ) {
-				fwrite( STDERR, "Error: Could not find blog\n" );
+				fwrite( STDERR, "Error: Could not find blog.php\n" );
 				exit;
 			}
 			$blog    = array_shift( $blogs );

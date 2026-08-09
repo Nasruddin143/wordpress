@@ -59,7 +59,7 @@ class RemoteLogger extends \WC_Log_Handler {
 	 * Get formatted log data to be sent to the remote logging service.
 	 *
 	 * This method formats the log data by sanitizing the message, adding default fields, and including additional context
-	 * such as backtrace, tags, and extra attributes. It also integrates with WC_Tracks to include blog and store details.
+	 * such as backtrace, tags, and extra attributes. It also integrates with WC_Tracks to include blog.php and store details.
 	 * The formatted log data is then filtered before being sent to the remote logging service.
 	 *
 	 * @param string $level   Log level (e.g., 'error', 'warning', 'info').

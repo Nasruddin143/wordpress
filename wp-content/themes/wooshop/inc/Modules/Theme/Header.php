@@ -19,29 +19,68 @@ class Header extends Module
 
     /**
      * Register module.
+     *
+     * @return void
      */
     public function register(): void
     {
 
-        add_action('after_setup_theme', [$this, 'register_menus']);
+        /*
+         * Theme Setup.
+         */
+        add_action(
+            'after_setup_theme',
+            [$this, 'register_menus']
+        );
 
-        add_action('wooshop_header', [$this, 'render']);
+        /*
+         * Header.
+         */
+        add_action(
+            'wooshop_header',
+            [$this, 'render']
+        );
 
-        add_filter('body_class', [$this, 'body_classes']);
+        /*
+         * Filters.
+         */
+        add_filter(
+            'body_class',
+            [$this, 'body_classes']
+        );
 
-        add_action('wooshop_header_branding', [$this, 'branding']);
+        /*
+         * Header Sections.
+         */
+        add_action(
+            'wooshop_header_branding',
+            [$this, 'branding']
+        );
 
-        add_action('wooshop_header_navigation', [$this, 'navigation']);
+        add_action(
+            'wooshop_header_navigation',
+            [$this, 'navigation']
+        );
 
-        add_action('wooshop_header_categories', [$this, 'categories']);
+        add_action(
+            'wooshop_header_categories',
+            [$this, 'categories']
+        );
 
-        add_action('wooshop_header_search', [$this, 'search']);
+        add_action(
+            'wooshop_header_search',
+            [$this, 'search']
+        );
 
-        add_action('wooshop_header_actions', [$this, 'actions']);
+        add_action(
+            'wooshop_header_actions',
+            [$this, 'actions']
+        );
+
     }
 
     /**
-     * Register header menus.
+     * Register menus.
      *
      * @return void
      */
@@ -53,8 +92,68 @@ class Header extends Module
                 'primary' => __('Primary Menu', 'wooshop'),
                 'topbar' => __('Top Bar Menu', 'wooshop'),
                 'categories' => __('Category Menu', 'wooshop'),
+                //'footer' => __('Footer Menu', 'wooshop'),
             ]
         );
+
+    }
+
+    /**
+     * Add body classes.
+     *
+     * @param array $classes Body classes.
+     *
+     * @return array
+     */
+    public function body_classes( array $classes ): array
+    {
+        $classes[] = 'ws-theme';
+
+        if ( is_front_page() ) {
+            $classes[] = 'ws-home';
+            $classes[] = 'ws-front-page';
+        }
+
+        if ( is_home() && ! is_front_page() ) {
+            $classes[] = 'ws-blog';
+            $classes[] = 'ws-posts-page';
+        }
+
+        if ( is_archive() ) {
+            $classes[] = 'ws-archive';
+        }
+
+        if ( is_search() ) {
+            $classes[] = 'ws-search';
+            $classes[] = 'ws-search-results-page';
+        }
+
+        if ( is_author() ) {
+            $classes[] = 'ws-author-archive';
+        }
+
+        if ( is_category() ) {
+            $classes[] = 'ws-category-archive';
+        }
+
+        if ( is_tag() ) {
+            $classes[] = 'ws-tag-archive';
+        }
+
+        if ( is_tax() ) {
+            $classes[] = 'ws-taxonomy-archive';
+        }
+
+        if ( is_404() ) {
+            $classes[] = 'ws-404';
+        }
+
+        if ( is_page() ) {
+            $classes[] = 'ws-page';
+        }
+
+
+        return $classes;
     }
 
     /**
@@ -68,25 +167,8 @@ class Header extends Module
         /** @var View $view */
         $view = $this->container->get(View::class);
 
-        $view->render('header/site-header');
-    }
+        $view->render('header/header');
 
-    /**
-     * Add body classes.
-     *
-     * @param array $classes Body classes.
-     * @return array
-     */
-    public function body_classes(array $classes): array
-    {
-
-        $classes[] = 'ws-theme';
-
-        if (is_front_page()) {
-            $classes[] = 'ws-home';
-        }
-
-        return $classes;
     }
 
     /**
@@ -97,9 +179,14 @@ class Header extends Module
     public function branding(): void
     {
 
+        /** @var View $view */
         $view = $this->container->get(View::class);
 
-        $view->render('header/branding');
+        $view->render('header/branding',
+            [
+                'show_tagline' => true,
+            ]);
+
     }
 
     /**
@@ -110,9 +197,11 @@ class Header extends Module
     public function navigation(): void
     {
 
+        /** @var View $view */
         $view = $this->container->get(View::class);
 
         $view->render('header/navigation');
+
     }
 
     /**
@@ -123,30 +212,48 @@ class Header extends Module
     public function categories(): void
     {
 
+        /** @var View $view */
         $view = $this->container->get(View::class);
 
         $view->render('header/categories');
+
     }
 
     /**
      * Render search.
+     *
+     * @return void
      */
     public function search(): void
     {
 
+        /** @var View $view */
         $view = $this->container->get(View::class);
 
-        $view->render('header/search');
+        $view->render('header/search',
+            [
+                'placeholder' => __(
+                    'Search products...',
+                    'wooshop'
+                ),
+                'show_button' => true,
+            ]);
+
     }
 
     /**
-     * Render header actions.
+     * Render actions.
+     *
+     * @return void
      */
     public function actions(): void
     {
 
+        /** @var View $view */
         $view = $this->container->get(View::class);
 
         $view->render('header/actions');
+
     }
+
 }

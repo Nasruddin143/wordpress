@@ -1,0 +1,89 @@
+/**
+ * ==========================================
+ * Back To Top
+ * ==========================================
+ */
+
+.ws-back-to-top {
+
+    position: fixed;
+
+    right: 1.5rem;
+
+    bottom: 1.5rem;
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: var(--ws-color-primary);
+
+    color: #fff;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: translateY(16px);
+
+    transition: opacity .25s ease,
+    visibility .25s ease,
+    transform .25s ease;
+
+    z-index: 999;
+
+}
+
+.ws-back-to-top:hover {
+
+    background: var(--ws-color-primary-hover);
+
+}
+
+.ws-back-to-top.is-visible {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateY(0);
+
+}
+
+.ws-back-to-top svg {
+
+    width: 20px;
+
+    height: 20px;
+
+    fill: currentColor;
+
+}
+
+@media (max-width: 767px) {
+
+    .ws-back-to-top {
+
+        right: 1rem;
+
+        bottom: 1rem;
+
+        width: 44px;
+
+        height: 44px;
+
+    }
+
+}

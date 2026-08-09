@@ -74,8 +74,8 @@ class Capabilities {
 	 *
 	 * The value is one of the POSPreset constants. It drives the admin UI, but it
 	 * is not the authorization signal: has_pos_access() reads the `woocommerce_pos_*` caps, not
-	 * this meta. Stored per-site via Users::*_site_user_meta() (which suffixes the blog prefix)
-	 * so it stays aligned with the blog-scoped capabilities on multisite.
+	 * this meta. Stored per-site via Users::*_site_user_meta() (which suffixes the blog.php prefix)
+	 * so it stays aligned with the blog.php-scoped capabilities on multisite.
 	 */
 	public const POS_PRESET_META_KEY = 'woocommerce_pos_preset';
 
@@ -152,7 +152,7 @@ class Capabilities {
 	 * assignable preset, so a stale or hand-edited value reads as "no preset".
 	 *
 	 * The meta is stored per-site (see set_pos_preset()) so it stays aligned with the
-	 * blog-scoped POS capabilities on multisite.
+	 * blog.php-scoped POS capabilities on multisite.
 	 *
 	 * @param int $user_id Target user.
 	 * @return string|null One of the POSPreset constants, or null.
@@ -306,8 +306,8 @@ class Capabilities {
 			return true;
 		}
 
-		// Store the preset per-site so the bookkeeping stays aligned with the blog-scoped
-		// POS capabilities on multisite (Users::update_site_user_meta suffixes the blog prefix,
+		// Store the preset per-site so the bookkeeping stays aligned with the blog.php-scoped
+		// POS capabilities on multisite (Users::update_site_user_meta suffixes the blog.php prefix,
 		// so the key still matches the woocommerce_% uninstall sweep).
 		Users::update_site_user_meta( $user_id, self::POS_PRESET_META_KEY, $preset );
 

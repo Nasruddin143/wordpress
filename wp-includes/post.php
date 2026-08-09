@@ -3383,7 +3383,7 @@ function _count_posts_cache_key( $type = 'post', $perm = '' ) {
  * Counts number of posts of a post type and if user has permissions to view.
  *
  * This function provides an efficient method of finding the amount of post's
- * type a blog has. Another method is to count the amount of items in
+ * type a blog.php has. Another method is to count the amount of items in
  * get_posts(), but that method has a lot of overhead with doing so. Therefore,
  * when developing for 2.5+, use this function instead.
  *
@@ -7525,15 +7525,15 @@ function get_posts_by_author_sql( $post_type, $full = true, $post_author = null,
  * Retrieves the most recent time that a post on the site was published.
  *
  * The server timezone is the default and is the difference between GMT and
- * server time. The 'blog' value is the date when the last post was posted.
+ * server time. The 'blog.php' value is the date when the last post was posted.
  * The 'gmt' is when the last post was posted in GMT formatted date.
  *
  * @since 0.71
  * @since 4.4.0 The `$post_type` argument was added.
  *
- * @param string $timezone  Optional. The timezone for the timestamp. Accepts 'server', 'blog', or 'gmt'.
+ * @param string $timezone  Optional. The timezone for the timestamp. Accepts 'server', 'blog.php', or 'gmt'.
  *                          'server' uses the server's internal timezone.
- *                          'blog' uses the `post_date` field, which proxies to the timezone set for the site.
+ *                          'blog.php' uses the `post_date` field, which proxies to the timezone set for the site.
  *                          'gmt' uses the `post_date_gmt` field.
  *                          Default 'server'.
  * @param string $post_type Optional. The post type to check. Default 'any'.
@@ -7561,7 +7561,7 @@ function get_lastpostdate( $timezone = 'server', $post_type = 'any' ) {
  * Gets the most recent time that a post on the site was modified.
  *
  * The server timezone is the default and is the difference between GMT and
- * server time. The 'blog' value is just when the last post was modified.
+ * server time. The 'blog.php' value is just when the last post was modified.
  * The 'gmt' is when the last post was modified in GMT time.
  *
  * @since 1.2.0
@@ -7660,7 +7660,7 @@ function _get_last_post_time( $timezone, $field, $post_type = 'any' ) {
 		case 'gmt':
 			$date = $wpdb->get_var( "SELECT post_{$field}_gmt FROM $wpdb->posts WHERE post_status = 'publish' AND post_type IN ({$post_types}) ORDER BY post_{$field}_gmt DESC LIMIT 1" );
 			break;
-		case 'blog':
+		case 'blog.php':
 			$date = $wpdb->get_var( "SELECT post_{$field} FROM $wpdb->posts WHERE post_status = 'publish' AND post_type IN ({$post_types}) ORDER BY post_{$field}_gmt DESC LIMIT 1" );
 			break;
 		case 'server':
@@ -7950,7 +7950,7 @@ function _transition_post_status( $new_status, $old_status, $post ) {
 
 	// If published posts changed clear the lastpostmodified cache.
 	if ( 'publish' === $new_status || 'publish' === $old_status ) {
-		foreach ( array( 'server', 'gmt', 'blog' ) as $timezone ) {
+		foreach ( array( 'server', 'gmt', 'blog.php' ) as $timezone ) {
 			wp_cache_delete( "lastpostmodified:$timezone", 'timeinfo' );
 			wp_cache_delete( "lastpostdate:$timezone", 'timeinfo' );
 			wp_cache_delete( "lastpostdate:$timezone:{$post->post_type}", 'timeinfo' );

@@ -295,7 +295,7 @@ class Loader {
 		$pieces = array_reverse( $pieces );
 		$title  = implode( ' &lsaquo; ', $pieces );
 
-		/* translators: %1$s: updated title, %2$s: blog info name */
+		/* translators: %1$s: updated title, %2$s: blog.php info name */
 		return sprintf( __( '%1$s &lsaquo; %2$s', 'woocommerce' ), $title, get_bloginfo( 'name' ) );
 	}
 

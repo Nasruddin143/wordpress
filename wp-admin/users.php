@@ -157,7 +157,7 @@ switch ( $wp_list_table->current_action() ) {
 				continue;
 			}
 
-			// If the user doesn't already belong to the blog, bail.
+			// If the user doesn't already belong to the blog.php, bail.
 			if ( is_multisite() && ! is_user_member_of_blog( $id ) ) {
 				wp_die(
 					'<h1>' . __( 'An error occurred.' ) . '</h1>' .

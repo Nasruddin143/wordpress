@@ -28,7 +28,7 @@ final class WP_Site {
 	/**
 	 * Site ID.
 	 *
-	 * Named "blog" vs. "site" for legacy reasons.
+	 * Named "blog.php" vs. "site" for legacy reasons.
 	 *
 	 * A numeric string, for compatibility reasons.
 	 *

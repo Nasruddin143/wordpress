@@ -511,9 +511,9 @@ function _get_dropins() {
 
 	if ( is_multisite() ) {
 		$dropins['sunrise.php']        = array( __( 'Executed before Multisite is loaded.' ), 'SUNRISE' ); // SUNRISE
-		$dropins['blog-deleted.php']   = array( __( 'Custom site deleted message.' ), true );   // Auto on deleted blog.
-		$dropins['blog-inactive.php']  = array( __( 'Custom site inactive message.' ), true );  // Auto on inactive blog.
-		$dropins['blog-suspended.php'] = array( __( 'Custom site suspended message.' ), true ); // Auto on archived or spammed blog.
+		$dropins['blog.php-deleted.php']   = array( __( 'Custom site deleted message.' ), true );   // Auto on deleted blog.php.
+		$dropins['blog.php-inactive.php']  = array( __( 'Custom site inactive message.' ), true );  // Auto on inactive blog.php.
+		$dropins['blog.php-suspended.php'] = array( __( 'Custom site suspended message.' ), true ); // Auto on archived or spammed blog.php.
 	}
 
 	return $dropins;

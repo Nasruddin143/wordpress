@@ -15,7 +15,7 @@ use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProce
  * shutdown via the InternalNotificationDispatcher. Should be accessed from the
  * container (`wc_get_container`) to ensure store is shared by all usage.
  *
- * Notifications are keyed by `{type}_{resource_id}` (with blog ID from
+ * Notifications are keyed by `{type}_{resource_id}` (with blog.php ID from
  * `get_current_blog_id()`) to prevent duplicates within a single request.
  *
  * @since 10.7.0

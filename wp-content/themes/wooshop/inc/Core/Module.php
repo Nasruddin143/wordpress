@@ -19,4 +19,30 @@ abstract class Module
     }
 
     abstract public function register(): void;
+
+    protected function service(string $id)
+    {
+        return $this->container->get($id);
+    }
+
+    protected function view(): View
+    {
+        return $this->service(
+            View::class
+        );
+    }
+
+    protected function config(): Config
+    {
+        return $this->service(
+            Config::class
+        );
+    }
+
+    protected function assets(): AssetManager
+    {
+        return $this->service(
+            AssetManager::class
+        );
+    }
 }

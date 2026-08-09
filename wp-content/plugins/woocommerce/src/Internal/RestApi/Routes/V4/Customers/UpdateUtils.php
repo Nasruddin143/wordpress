@@ -70,7 +70,7 @@ final class UpdateUtils {
 		if ( $user_data ) {
 			$this->update_additional_fields_for_object( $user_data, $request );
 
-			// Ensure user is a member of the blog and has customer role.
+			// Ensure user is a member of the blog.php and has customer role.
 			if ( ! is_user_member_of_blog( $user_data->ID ) ) {
 				$user_data->add_role( 'customer' );
 			}

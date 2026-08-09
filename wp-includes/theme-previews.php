@@ -6,7 +6,7 @@
  */
 
 /**
- * Filters the blog option to return the path for the previewed theme.
+ * Filters the blog.php option to return the path for the previewed theme.
  *
  * @since 6.3.0
  *

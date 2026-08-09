@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Site/blog functions that work with the blogs table and related data.
+ * Site/blog.php functions that work with the blogs table and related data.
  *
  * @package WordPress
  * @subpackage Multisite
@@ -26,7 +26,7 @@ function wpmu_update_blogs_date() {
 
 	update_blog_details( $site_id, array( 'last_updated' => current_time( 'mysql', true ) ) );
 	/**
-	 * Fires after the blog details are updated.
+	 * Fires after the blog.php details are updated.
 	 *
 	 * @since MU (3.0.0)
 	 *
@@ -118,14 +118,14 @@ function get_id_from_blogname( $slug ) {
 }
 
 /**
- * Retrieves the details for a blog from the blogs table and blog options.
+ * Retrieves the details for a blog.php from the blogs table and blog.php options.
  *
  * @since MU (3.0.0)
  *
  * @global wpdb $wpdb WordPress database abstraction object.
  *
- * @param int|string|array $fields  Optional. A blog ID, a blog slug, or an array of fields to query against.
- *                                  Defaults to the current blog ID.
+ * @param int|string|array $fields  Optional. A blog.php ID, a blog.php slug, or an array of fields to query against.
+ *                                  Defaults to the current blog.php ID.
  * @param bool             $get_all Whether to retrieve all details or only the details in the blogs table.
  *                                  Default is true.
  * @return WP_Site|false Blog details on success. False on failure.
@@ -138,7 +138,7 @@ function get_blog_details( $fields = null, $get_all = true ) {
 			$blog_id = $fields['blog_id'];
 		} elseif ( isset( $fields['domain'] ) && isset( $fields['path'] ) ) {
 			$key  = md5( $fields['domain'] . $fields['path'] );
-			$blog = wp_cache_get( $key, 'blog-lookup' );
+			$blog = wp_cache_get( $key, 'blog.php-lookup' );
 			if ( false !== $blog ) {
 				return $blog;
 			}
@@ -149,14 +149,14 @@ function get_blog_details( $fields = null, $get_all = true ) {
 				$blog = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->blogs WHERE domain = %s AND path = %s", $fields['domain'], $fields['path'] ) );
 			}
 			if ( $blog ) {
-				wp_cache_set( $blog->blog_id . 'short', $blog, 'blog-details' );
+				wp_cache_set( $blog->blog_id . 'short', $blog, 'blog.php-details' );
 				$blog_id = $blog->blog_id;
 			} else {
 				return false;
 			}
 		} elseif ( isset( $fields['domain'] ) && is_subdomain_install() ) {
 			$key  = md5( $fields['domain'] );
-			$blog = wp_cache_get( $key, 'blog-lookup' );
+			$blog = wp_cache_get( $key, 'blog.php-lookup' );
 			if ( false !== $blog ) {
 				return $blog;
 			}
@@ -167,7 +167,7 @@ function get_blog_details( $fields = null, $get_all = true ) {
 				$blog = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->blogs WHERE domain = %s", $fields['domain'] ) );
 			}
 			if ( $blog ) {
-				wp_cache_set( $blog->blog_id . 'short', $blog, 'blog-details' );
+				wp_cache_set( $blog->blog_id . 'short', $blog, 'blog.php-details' );
 				$blog_id = $blog->blog_id;
 			} else {
 				return false;
@@ -188,7 +188,7 @@ function get_blog_details( $fields = null, $get_all = true ) {
 	$blog_id = (int) $blog_id;
 
 	$all     = $get_all ? '' : 'short';
-	$details = wp_cache_get( $blog_id . $all, 'blog-details' );
+	$details = wp_cache_get( $blog_id . $all, 'blog.php-details' );
 
 	if ( $details ) {
 		if ( ! is_object( $details ) ) {
@@ -196,7 +196,7 @@ function get_blog_details( $fields = null, $get_all = true ) {
 				return false;
 			} else {
 				// Clear old pre-serialized objects. Cache clients do better with that.
-				wp_cache_delete( $blog_id . $all, 'blog-details' );
+				wp_cache_delete( $blog_id . $all, 'blog.php-details' );
 				unset( $details );
 			}
 		} else {
@@ -206,9 +206,9 @@ function get_blog_details( $fields = null, $get_all = true ) {
 
 	// Try the other cache.
 	if ( $get_all ) {
-		$details = wp_cache_get( $blog_id . 'short', 'blog-details' );
+		$details = wp_cache_get( $blog_id . 'short', 'blog.php-details' );
 	} else {
-		$details = wp_cache_get( $blog_id, 'blog-details' );
+		$details = wp_cache_get( $blog_id, 'blog.php-details' );
 		// If short was requested and full cache is set, we can return.
 		if ( $details ) {
 			if ( ! is_object( $details ) ) {
@@ -216,7 +216,7 @@ function get_blog_details( $fields = null, $get_all = true ) {
 					return false;
 				} else {
 					// Clear old pre-serialized objects. Cache clients do better with that.
-					wp_cache_delete( $blog_id, 'blog-details' );
+					wp_cache_delete( $blog_id, 'blog.php-details' );
 					unset( $details );
 				}
 			} else {
@@ -229,7 +229,7 @@ function get_blog_details( $fields = null, $get_all = true ) {
 		$details = WP_Site::get_instance( $blog_id );
 		if ( ! $details ) {
 			// Set the full cache.
-			wp_cache_set( $blog_id, -1, 'blog-details' );
+			wp_cache_set( $blog_id, -1, 'blog.php-details' );
 			return false;
 		}
 	}
@@ -239,7 +239,7 @@ function get_blog_details( $fields = null, $get_all = true ) {
 	}
 
 	if ( ! $get_all ) {
-		wp_cache_set( $blog_id . $all, $details, 'blog-details' );
+		wp_cache_set( $blog_id . $all, $details, 'blog.php-details' );
 		return $details;
 	}
 
@@ -260,29 +260,29 @@ function get_blog_details( $fields = null, $get_all = true ) {
 	}
 
 	/**
-	 * Filters a blog's details.
+	 * Filters a blog.php's details.
 	 *
 	 * @since MU (3.0.0)
 	 * @deprecated 4.7.0 Use {@see 'site_details'} instead.
 	 *
-	 * @param WP_Site $details The blog details.
+	 * @param WP_Site $details The blog.php details.
 	 */
 	$details = apply_filters_deprecated( 'blog_details', array( $details ), '4.7.0', 'site_details' );
 
-	wp_cache_set( $blog_id . $all, $details, 'blog-details' );
+	wp_cache_set( $blog_id . $all, $details, 'blog.php-details' );
 
 	$key = md5( $details->domain . $details->path );
-	wp_cache_set( $key, $details, 'blog-lookup' );
+	wp_cache_set( $key, $details, 'blog.php-lookup' );
 
 	return $details;
 }
 
 /**
- * Clears the blog details cache.
+ * Clears the blog.php details cache.
  *
  * @since MU (3.0.0)
  *
- * @param int $blog_id Optional. Blog ID. Defaults to current blog.
+ * @param int $blog_id Optional. Blog ID. Defaults to current blog.php.
  */
 function refresh_blog_details( $blog_id = 0 ) {
 	$blog_id = (int) $blog_id;
@@ -294,7 +294,7 @@ function refresh_blog_details( $blog_id = 0 ) {
 }
 
 /**
- * Updates the details for a blog and the blogs table for a given blog ID.
+ * Updates the details for a blog.php and the blogs table for a given blog.php ID.
  *
  * @since MU (3.0.0)
  *
@@ -334,11 +334,11 @@ function clean_site_details_cache( $site_id = 0 ) {
 	}
 
 	wp_cache_delete( $site_id, 'site-details' );
-	wp_cache_delete( $site_id, 'blog-details' );
+	wp_cache_delete( $site_id, 'blog.php-details' );
 }
 
 /**
- * Retrieves option value for a given blog id based on name of option.
+ * Retrieves option value for a given blog.php id based on name of option.
  *
  * If the option does not exist or does not have a value, then the return value
  * will be false. This is useful to check whether you need to install an option
@@ -349,7 +349,7 @@ function clean_site_details_cache( $site_id = 0 ) {
  *
  * @since MU (3.0.0)
  *
- * @param int    $id            A blog ID. Can be null to refer to the current blog.
+ * @param int    $id            A blog.php ID. Can be null to refer to the current blog.php.
  * @param string $option        Name of option to retrieve. Expected to not be SQL-escaped.
  * @param mixed  $default_value Optional. Default value to return if the option does not exist.
  * @return mixed Value set for the option.
@@ -370,9 +370,9 @@ function get_blog_option( $id, $option, $default_value = false ) {
 	restore_current_blog();
 
 	/**
-	 * Filters a blog option value.
+	 * Filters a blog.php option value.
 	 *
-	 * The dynamic portion of the hook name, `$option`, refers to the blog option name.
+	 * The dynamic portion of the hook name, `$option`, refers to the blog.php option name.
 	 *
 	 * @since 3.5.0
 	 *
@@ -383,7 +383,7 @@ function get_blog_option( $id, $option, $default_value = false ) {
 }
 
 /**
- * Adds a new option for a given blog ID.
+ * Adds a new option for a given blog.php ID.
  *
  * You do not need to serialize values. If the value needs to be serialized, then
  * it will be serialized before it is inserted into the database. Remember,
@@ -396,7 +396,7 @@ function get_blog_option( $id, $option, $default_value = false ) {
  *
  * @since MU (3.0.0)
  *
- * @param int    $id     A blog ID. Can be null to refer to the current blog.
+ * @param int    $id     A blog.php ID. Can be null to refer to the current blog.php.
  * @param string $option Name of option to add. Expected to not be SQL-escaped.
  * @param mixed  $value  Option value, can be anything. Expected to not be SQL-escaped.
  * @return bool True if the option was added, false otherwise.
@@ -420,11 +420,11 @@ function add_blog_option( $id, $option, $value ) {
 }
 
 /**
- * Removes an option by name for a given blog ID. Prevents removal of protected WordPress options.
+ * Removes an option by name for a given blog.php ID. Prevents removal of protected WordPress options.
  *
  * @since MU (3.0.0)
  *
- * @param int    $id     A blog ID. Can be null to refer to the current blog.
+ * @param int    $id     A blog.php ID. Can be null to refer to the current blog.php.
  * @param string $option Name of option to remove. Expected to not be SQL-escaped.
  * @return bool True if the option was deleted, false otherwise.
  */
@@ -447,11 +447,11 @@ function delete_blog_option( $id, $option ) {
 }
 
 /**
- * Updates an option for a particular blog.
+ * Updates an option for a particular blog.php.
  *
  * @since MU (3.0.0)
  *
- * @param int    $id         The blog ID.
+ * @param int    $id         The blog.php ID.
  * @param string $option     The option key.
  * @param mixed  $value      The option value.
  * @param mixed  $deprecated Not used.
@@ -476,7 +476,7 @@ function update_blog_option( $id, $option, $value, $deprecated = null ) {
 }
 
 /**
- * Switches the current blog.
+ * Switches the current blog.php.
  *
  * This function is useful if you need to pull posts, or other information,
  * from other blogs. You can switch back afterwards using restore_current_blog().
@@ -493,7 +493,7 @@ function update_blog_option( $id, $option, $value, $deprecated = null ) {
  * @global string          $table_prefix       The database table prefix.
  * @global WP_Object_Cache $wp_object_cache
  *
- * @param int  $new_blog_id The ID of the blog to switch to. Default: current blog.
+ * @param int  $new_blog_id The ID of the blog.php to switch to. Default: current blog.php.
  * @param bool $deprecated  Not used.
  * @return true Always returns true.
  */
@@ -508,19 +508,19 @@ function switch_to_blog( $new_blog_id, $deprecated = null ) {
 	$GLOBALS['_wp_switched_stack'][] = $prev_blog_id;
 
 	/*
-	 * If we're switching to the same blog id that we're on,
+	 * If we're switching to the same blog.php id that we're on,
 	 * set the right vars, do the associated actions, but skip
 	 * the extra unnecessary work
 	 */
 	if ( $new_blog_id === $prev_blog_id ) {
 		/**
-		 * Fires when the blog is switched.
+		 * Fires when the blog.php is switched.
 		 *
 		 * @since MU (3.0.0)
 		 * @since 5.4.0 The `$context` parameter was added.
 		 *
-		 * @param int    $new_blog_id  New blog ID.
-		 * @param int    $prev_blog_id Previous blog ID.
+		 * @param int    $new_blog_id  New blog.php ID.
+		 * @param int    $prev_blog_id Previous blog.php ID.
 		 * @param string $context      Additional context. Accepts 'switch' when called from switch_to_blog()
 		 *                             or 'restore' when called from restore_current_blog().
 		 */
@@ -546,7 +546,7 @@ function switch_to_blog( $new_blog_id, $deprecated = null ) {
 }
 
 /**
- * Restores the current blog, after calling switch_to_blog().
+ * Restores the current blog.php, after calling switch_to_blog().
  *
  * @see switch_to_blog()
  * @since MU (3.0.0)
@@ -558,7 +558,7 @@ function switch_to_blog( $new_blog_id, $deprecated = null ) {
  * @global string          $table_prefix       The database table prefix.
  * @global WP_Object_Cache $wp_object_cache
  *
- * @return bool True on success, false if we're already on the current blog.
+ * @return bool True on success, false if we're already on the current blog.php.
  */
 function restore_current_blog() {
 	global $wpdb;
@@ -643,9 +643,9 @@ function wp_cache_switch_to_blog_fallback() {
 	if ( function_exists( 'wp_cache_add_global_groups' ) ) {
 		if ( ! is_array( $global_groups ) || empty( $global_groups ) ) {
 			$global_groups = array(
-				'blog-details',
-				'blog-id-cache',
-				'blog-lookup',
+				'blog.php-details',
+				'blog.php-id-cache',
+				'blog.php-lookup',
 				'blog_meta',
 				'global-posts',
 				'image_editor',
@@ -719,19 +719,19 @@ function ms_is_switched() {
 }
 
 /**
- * Checks if a particular blog is archived.
+ * Checks if a particular blog.php is archived.
  *
  * @since MU (3.0.0)
  *
  * @param int $id Blog ID.
- * @return string Whether the blog is archived or not.
+ * @return string Whether the blog.php is archived or not.
  */
 function is_archived( $id ) {
 	return get_blog_status( $id, 'archived' );
 }
 
 /**
- * Updates the 'archived' status of a particular blog.
+ * Updates the 'archived' status of a particular blog.php.
  *
  * @since MU (3.0.0)
  *
@@ -745,7 +745,7 @@ function update_archived( $id, $archived ) {
 }
 
 /**
- * Updates a blog details field.
+ * Updates a blog.php details field.
  *
  * @since MU (3.0.0)
  * @since 5.1.0 Use wp_update_site() internally.
@@ -786,7 +786,7 @@ function update_blog_status( $blog_id, $pref, $value, $deprecated = null ) {
 }
 
 /**
- * Gets a blog details field.
+ * Gets a blog.php details field.
  *
  * @since MU (3.0.0)
  *

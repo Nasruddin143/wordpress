@@ -26,7 +26,7 @@ class WC_Tracks {
 	}
 
 	/**
-	 * Gather blog related properties.
+	 * Gather blog.php related properties.
 	 *
 	 * @param int $user_id User id.
 	 * @return array Blog details.

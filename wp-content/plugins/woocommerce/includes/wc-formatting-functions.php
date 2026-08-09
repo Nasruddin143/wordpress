@@ -1596,7 +1596,7 @@ function wc_esc_json( $json, $html = false ) {
 	return _wp_specialchars(
 		$json,
 		$html ? ENT_NOQUOTES : ENT_QUOTES, // Escape quotes in attribute nodes only.
-		'UTF-8',                           // json_encode() outputs UTF-8 (really just ASCII), not the blog's charset.
+		'UTF-8',                           // json_encode() outputs UTF-8 (really just ASCII), not the blog.php's charset.
 		true                               // Double escape entities: `&amp;` -> `&amp;amp;`.
 	);
 }

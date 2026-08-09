@@ -31,16 +31,16 @@ function get_sitestats() {
 /**
  * Gets one of a user's active blogs.
  *
- * Returns the user's primary blog, if they have one and
+ * Returns the user's primary blog.php, if they have one and
  * it is active. If it's inactive, function returns another
- * active blog of the user. If none are found, the user
- * is added as a Subscriber to the Dashboard Blog and that blog
+ * active blog.php of the user. If none are found, the user
+ * is added as a Subscriber to the Dashboard Blog and that blog.php
  * is returned.
  *
  * @since MU (3.0.0)
  *
  * @param int $user_id The unique ID of the user
- * @return WP_Site|void The blog object
+ * @return WP_Site|void The blog.php object
  */
 function get_active_blog_for_user( $user_id ) {
 	$blogs = get_blogs_of_user( $user_id );
@@ -62,7 +62,7 @@ function get_active_blog_for_user( $user_id ) {
 			$primary = get_site( $primary_blog );
 		}
 	} else {
-		// TODO: Review this call to add_user_to_blog too - to get here the user must have a role on this blog?
+		// TODO: Review this call to add_user_to_blog too - to get here the user must have a role on this blog.php?
 		$result = add_user_to_blog( $first_blog->userblog_id, $user_id, 'subscriber' );
 
 		if ( ! is_wp_error( $result ) ) {
@@ -74,7 +74,7 @@ function get_active_blog_for_user( $user_id ) {
 	if ( ( ! is_object( $primary ) )
 		|| ( '1' === $primary->archived || '1' === $primary->spam || '1' === $primary->deleted )
 	) {
-		$blogs = get_blogs_of_user( $user_id, true ); // If a user's primary blog is shut down, check their other blogs.
+		$blogs = get_blogs_of_user( $user_id, true ); // If a user's primary blog.php is shut down, check their other blogs.
 		$ret   = false;
 
 		if ( is_array( $blogs ) && count( $blogs ) > 0 ) {
@@ -126,14 +126,14 @@ function get_blog_count( $network_id = null ) {
 }
 
 /**
- * Gets a blog post from any site on the network.
+ * Gets a blog.php post from any site on the network.
  *
  * This function is similar to get_post(), except that it can retrieve a post
  * from any site on the network, not just the current site.
  *
  * @since MU (3.0.0)
  *
- * @param int $blog_id ID of the blog.
+ * @param int $blog_id ID of the blog.php.
  * @param int $post_id ID of the post being looked for.
  * @return WP_Post|null WP_Post object on success, null on failure
  */
@@ -146,13 +146,13 @@ function get_blog_post( $blog_id, $post_id ) {
 }
 
 /**
- * Adds a user to a blog, along with specifying the user's role.
+ * Adds a user to a blog.php, along with specifying the user's role.
  *
- * Use the {@see 'add_user_to_blog'} action to fire an event when users are added to a blog.
+ * Use the {@see 'add_user_to_blog'} action to fire an event when users are added to a blog.php.
  *
  * @since MU (3.0.0)
  *
- * @param int    $blog_id ID of the blog the user is being added to.
+ * @param int    $blog_id ID of the blog.php the user is being added to.
  * @param int    $user_id ID of the user being added.
  * @param string $role    User role.
  * @return true|WP_Error True on success or a WP_Error object if the user doesn't exist
@@ -211,7 +211,7 @@ function add_user_to_blog( $blog_id, $user_id, $role ) {
 	do_action( 'add_user_to_blog', $user_id, $role, $blog_id );
 
 	clean_user_cache( $user_id );
-	wp_cache_delete( $blog_id . '_user_count', 'blog-details' );
+	wp_cache_delete( $blog_id . '_user_count', 'blog.php-details' );
 
 	restore_current_blog();
 
@@ -219,20 +219,20 @@ function add_user_to_blog( $blog_id, $user_id, $role ) {
 }
 
 /**
- * Removes a user from a blog.
+ * Removes a user from a blog.php.
  *
  * Use the {@see 'remove_user_from_blog'} action to fire an event when
- * users are removed from a blog.
+ * users are removed from a blog.php.
  *
  * Accepts an optional `$reassign` parameter, if you want to
- * reassign the user's blog posts to another user upon removal.
+ * reassign the user's blog.php posts to another user upon removal.
  *
  * @since MU (3.0.0)
  *
  * @global wpdb $wpdb WordPress database abstraction object.
  *
  * @param int $user_id  ID of the user being removed.
- * @param int $blog_id  Optional. ID of the blog the user is being removed from. Default 0.
+ * @param int $blog_id  Optional. ID of the blog.php the user is being removed from. Default 0.
  * @param int $reassign Optional. ID of the user to whom to reassign posts. Default 0.
  * @return true|WP_Error True on success or a WP_Error object if the user doesn't exist.
  */
@@ -251,13 +251,13 @@ function remove_user_from_blog( $user_id, $blog_id = 0, $reassign = 0 ) {
 	 * @since 5.4.0 Added the `$reassign` parameter.
 	 *
 	 * @param int $user_id  ID of the user being removed.
-	 * @param int $blog_id  ID of the blog the user is being removed from.
+	 * @param int $blog_id  ID of the blog.php the user is being removed from.
 	 * @param int $reassign ID of the user to whom to reassign posts.
 	 */
 	do_action( 'remove_user_from_blog', $user_id, $blog_id, $reassign );
 
 	/*
-	 * If being removed from the primary blog, set a new primary
+	 * If being removed from the primary blog.php, set a new primary
 	 * if the user is assigned to multiple blogs.
 	 */
 	$primary_blog = (int) get_user_meta( $user_id, 'primary_blog', true );
@@ -315,11 +315,11 @@ function remove_user_from_blog( $user_id, $blog_id = 0, $reassign = 0 ) {
 }
 
 /**
- * Gets the permalink for a post on another blog.
+ * Gets the permalink for a post on another blog.php.
  *
  * @since MU (3.0.0) 1.0
  *
- * @param int $blog_id ID of the source blog.
+ * @param int $blog_id ID of the source blog.php.
  * @param int $post_id ID of the desired post.
  * @return string The post's permalink.
  */
@@ -332,7 +332,7 @@ function get_blog_permalink( $blog_id, $post_id ) {
 }
 
 /**
- * Gets a blog's numeric ID from its URL.
+ * Gets a blog.php's numeric ID from its URL.
  *
  * On a subdirectory installation like example.com/blog1/,
  * $domain will be the root 'example.com' and $path the
@@ -345,12 +345,12 @@ function get_blog_permalink( $blog_id, $post_id ) {
  *
  * @param string $domain Website domain.
  * @param string $path   Optional. Not required for subdomain installations. Default '/'.
- * @return int 0 if no blog found, otherwise the ID of the matching blog.
+ * @return int 0 if no blog.php found, otherwise the ID of the matching blog.php.
  */
 function get_blog_id_from_url( $domain, $path = '/' ) {
 	$domain = strtolower( $domain );
 	$path   = strtolower( $path );
-	$id     = wp_cache_get( md5( $domain . $path ), 'blog-id-cache' );
+	$id     = wp_cache_get( md5( $domain . $path ), 'blog.php-id-cache' );
 
 	if ( -1 === $id ) { // Blog does not exist.
 		return 0;
@@ -369,11 +369,11 @@ function get_blog_id_from_url( $domain, $path = '/' ) {
 	$id     = array_shift( $result );
 
 	if ( ! $id ) {
-		wp_cache_set( md5( $domain . $path ), -1, 'blog-id-cache' );
+		wp_cache_set( md5( $domain . $path ), -1, 'blog.php-id-cache' );
 		return 0;
 	}
 
-	wp_cache_set( md5( $domain . $path ), $id, 'blog-id-cache' );
+	wp_cache_set( md5( $domain . $path ), $id, 'blog.php-id-cache' );
 
 	return $id;
 }
@@ -604,8 +604,8 @@ function wpmu_validate_user_signup( $user_name, $user_email ) {
 /**
  * Processes new site registrations.
  *
- * Checks the data provided by the user during blog signup. Verifies
- * the validity and uniqueness of blog paths and domains.
+ * Checks the data provided by the user during blog.php signup. Verifies
+ * the validity and uniqueness of blog.php paths and domains.
  *
  * This function prevents the current user from registering a new site
  * with a blogname equivalent to another user's login name. Passing the
@@ -685,7 +685,7 @@ function wpmu_validate_blog_signup( $blogname, $blog_title, $user = '' ) {
 		$errors->add( 'blogname', sprintf( _n( 'Site name must be at least %s character.', 'Site name must be at least %s characters.', $minimum_site_name_length ), number_format_i18n( $minimum_site_name_length ) ) );
 	}
 
-	// Do not allow users to create a site that conflicts with a page on the main blog.
+	// Do not allow users to create a site that conflicts with a page on the main blog.php.
 	if ( ! is_subdomain_install() && $wpdb->get_var( $wpdb->prepare( 'SELECT post_name FROM ' . $wpdb->get_blog_prefix( $current_network->site_id ) . "posts WHERE post_type = 'page' AND post_name = %s", $blogname ) ) ) {
 		$errors->add( 'blogname', __( 'Sorry, you may not use that site name.' ) );
 	}
@@ -929,8 +929,8 @@ function wpmu_signup_user( $user, $user_email, $meta = array() ) {
  *
  * @since MU (3.0.0)
  *
- * @param string $domain     The new blog domain.
- * @param string $path       The new blog path.
+ * @param string $domain     The new blog.php domain.
+ * @param string $path       The new blog.php path.
  * @param string $title      The site title.
  * @param string $user_login The user's login name.
  * @param string $user_email The user's email address.
@@ -988,7 +988,7 @@ function wpmu_signup_blog_notification(
 
 	$message = sprintf(
 		/**
-		 * Filters the message content of the new blog notification email.
+		 * Filters the message content of the new blog.php notification email.
 		 *
 		 * Content should be formatted for transmission via wp_mail().
 		 *
@@ -1022,7 +1022,7 @@ function wpmu_signup_blog_notification(
 
 	$subject = sprintf(
 		/**
-		 * Filters the subject of the new blog notification email.
+		 * Filters the subject of the new blog.php notification email.
 		 *
 		 * @since MU (3.0.0)
 		 *
@@ -1188,7 +1188,7 @@ function wpmu_signup_user_notification(
  * @global wpdb $wpdb WordPress database abstraction object.
  *
  * @param string $key The activation key provided to the user.
- * @return array|WP_Error An array containing information about the activated user and/or blog.
+ * @return array|WP_Error An array containing information about the activated user and/or blog.php.
  */
 function wpmu_activate_signup(
 	#[\SensitiveParameter]
@@ -1261,11 +1261,11 @@ function wpmu_activate_signup(
 
 	$blog_id = wpmu_create_blog( $signup->domain, $signup->path, $signup->title, $user_id, $meta, get_current_network_id() );
 
-	// TODO: What to do if we create a user but cannot create a blog?
+	// TODO: What to do if we create a user but cannot create a blog.php?
 	if ( is_wp_error( $blog_id ) ) {
 		/*
-		 * If blog is taken, that means a previous attempt to activate this blog
-		 * failed in between creating the blog and setting the activation flag.
+		 * If blog.php is taken, that means a previous attempt to activate this blog.php
+		 * failed in between creating the blog.php and setting the activation flag.
 		 * Let's just set the active flag and instruct the user to reset their password.
 		 */
 		if ( 'blog_taken' === $blog_id->get_error_code() ) {
@@ -1358,7 +1358,7 @@ function wpmu_create_user(
 		return false;
 	}
 
-	// Newly created users have no roles or caps until they are added to a blog.
+	// Newly created users have no roles or caps until they are added to a blog.php.
 	delete_user_option( $user_id, 'capabilities' );
 	delete_user_option( $user_id, 'user_level' );
 
@@ -1996,7 +1996,7 @@ function get_most_recent_post_of_user( $user_id ) {
 	$most_recent_post = array();
 
 	/*
-	 * Walk through each blog and get the most recent post
+	 * Walk through each blog.php and get the most recent post
 	 * published by $user_id.
 	 */
 	foreach ( (array) $user_blogs as $blog ) {
@@ -2058,10 +2058,10 @@ function check_upload_mimes( $mimes ) {
 }
 
 /**
- * Updates a blog's post count.
+ * Updates a blog.php's post count.
  *
- * WordPress MS stores a blog's post count as an option so as
- * to avoid extraneous COUNTs when a blog's details are fetched
+ * WordPress MS stores a blog.php's post count as an option so as
+ * to avoid extraneous COUNTs when a blog.php's details are fetched
  * with get_site(). This function is called when posts are published
  * or unpublished to make sure the count stays current.
  *
@@ -2211,7 +2211,7 @@ function maybe_redirect_404() {
 }
 
 /**
- * Adds a new user to a blog by visiting /newbloguser/{key}/.
+ * Adds a new user to a blog.php by visiting /newbloguser/{key}/.
  *
  * This will only work when the user's details are saved as an option
  * keyed as 'new_user_{key}', where '{key}' is a hash generated for the user to be
@@ -2259,14 +2259,14 @@ function maybe_add_existing_user_to_blog() {
 }
 
 /**
- * Adds a user to a blog based on details from maybe_add_existing_user_to_blog().
+ * Adds a user to a blog.php based on details from maybe_add_existing_user_to_blog().
  *
  * @since MU (3.0.0)
  *
  * @param array|false $details {
  *     User details. Must at least contain values for the keys listed below.
  *
- *     @type int    $user_id The ID of the user being added to the current blog.
+ *     @type int    $user_id The ID of the user being added to the current blog.php.
  *     @type string $role    The role to be assigned to the user.
  * }
  * @return true|WP_Error|void True on success or a WP_Error object if the user doesn't exist
@@ -2293,7 +2293,7 @@ function add_existing_user_to_blog( $details = false ) {
 }
 
 /**
- * Adds a newly created user to the appropriate blog
+ * Adds a newly created user to the appropriate blog.php
  *
  * To add a user in general, use add_user_to_blog(). This function
  * is specifically hooked into the {@see 'wpmu_activate_user'} action.
@@ -2315,7 +2315,7 @@ function add_new_user_to_blog(
 	if ( ! empty( $meta['add_to_blog'] ) ) {
 		$blog_id = $meta['add_to_blog'];
 		$role    = $meta['new_role'];
-		remove_user_from_blog( $user_id, get_network()->site_id ); // Remove user from main blog.
+		remove_user_from_blog( $user_id, get_network()->site_id ); // Remove user from main blog.php.
 
 		$result = add_user_to_blog( $blog_id, $user_id, $role );
 
@@ -2358,7 +2358,7 @@ function is_user_spammy( $user = null ) {
 }
 
 /**
- * Updates this blog's 'public' setting in the global blogs table.
+ * Updates this blog.php's 'public' setting in the global blogs table.
  *
  * Public blogs have a setting of 1, private blogs are 0.
  *
@@ -2605,7 +2605,7 @@ function get_space_used() {
 }
 
 /**
- * Returns the upload quota for the current blog.
+ * Returns the upload quota for the current blog.php.
  *
  * @since MU (3.0.0)
  *
@@ -2627,13 +2627,13 @@ function get_space_allowed() {
 	 *
 	 * @since 3.7.0
 	 *
-	 * @param int $space_allowed Upload quota in megabytes for the current blog.
+	 * @param int $space_allowed Upload quota in megabytes for the current blog.php.
 	 */
 	return apply_filters( 'get_space_allowed', $space_allowed );
 }
 
 /**
- * Determines if there is any upload space left in the current blog's quota.
+ * Determines if there is any upload space left in the current blog.php's quota.
  *
  * @since 3.0.0
  *
@@ -2659,7 +2659,7 @@ function get_upload_space_available() {
 }
 
 /**
- * Determines if there is any upload space left in the current blog's quota.
+ * Determines if there is any upload space left in the current blog.php's quota.
  *
  * @since 3.0.0
  * @return bool True if space is available, false otherwise.
@@ -2746,7 +2746,7 @@ function get_subdirectory_reserved_names() {
 	$names = array(
 		'page',
 		'comments',
-		'blog',
+		'blog.php',
 		'files',
 		'feed',
 		'wp-admin',

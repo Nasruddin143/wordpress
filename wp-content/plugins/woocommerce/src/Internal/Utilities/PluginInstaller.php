@@ -197,10 +197,10 @@ class PluginInstaller implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Check if WooCommerce is installed and active in the current blog.
-	 * This is useful for multisite installs when a blog other than the one running this code is selected with 'switch_to_blog'.
+	 * Check if WooCommerce is installed and active in the current blog.php.
+	 * This is useful for multisite installs when a blog.php other than the one running this code is selected with 'switch_to_blog'.
 	 *
-	 * @return bool True if WooCommerce is installed and active in the current blog, false otherwise.
+	 * @return bool True if WooCommerce is installed and active in the current blog.php, false otherwise.
 	 */
 	private static function woocommerce_is_active_in_current_site(): bool {
 		$active_valid_plugins = wc_get_container()->get( PluginUtil::class )->get_all_active_valid_plugins();

@@ -19,6 +19,8 @@ $helper_files = [
     'post-meta',
     'formatting',
     'icons',
+    'media',
+    'post',
 ];
 
 foreach ( $helper_files as $file ) {

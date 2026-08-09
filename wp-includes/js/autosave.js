@@ -221,7 +221,7 @@ window.autosave = function() {
 			 * @since 3.9.0
 			 *
 			 * @return {boolean|Object} False if no sessionStorage in the browser or an Object
-			 *                          containing all postData for this blog.
+			 *                          containing all postData for this blog.php.
 			 */
 			function getStorage() {
 				var stored_obj = false;
@@ -240,7 +240,7 @@ window.autosave = function() {
 			}
 
 			/**
-			 * Sets the storage for this blog. Confirms that the data was saved
+			 * Sets the storage for this blog.php. Confirms that the data was saved
 			 * successfully.
 			 *
 			 * @since 3.9.0

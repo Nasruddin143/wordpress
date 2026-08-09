@@ -80,6 +80,84 @@
 
 }
 
+/**
+ * ==========================================
+ * Live Search
+ * ==========================================
+ */
+
+.ws-search {
+
+    position: relative;
+
+}
+
+.ws-search-results {
+
+    position: absolute;
+
+    top: 100%;
+
+    left: 0;
+
+    right: 0;
+
+    margin-top: .5rem;
+
+    background: #fff;
+
+    border: 1px solid var(--ws-color-border);
+
+    border-radius: var(--ws-radius);
+
+    box-shadow: var(--ws-shadow);
+
+    max-height: 420px;
+
+    overflow-y: auto;
+
+    z-index: 999;
+
+}
+
+.ws-search-spinner {
+
+    position: absolute;
+
+    right: 60px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+}
+
+.ws-search-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    padding: .875rem 1rem;
+
+    border-bottom: 1px solid var(--ws-color-border);
+
+}
+
+.ws-search-item:last-child {
+
+    border-bottom: 0;
+
+}
+
+.ws-search-item:hover {
+
+    background: #f8f9fa;
+
+}
+
 @media (max-width: 991px) {
 
     .ws-search {
@@ -94,4 +172,22 @@
 
     }
 
+}
+.ws-search-form {
+    width: 100%;
+}
+
+.ws-search-form__field {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+}
+
+.ws-search-form__input {
+    flex: 1;
+    min-width: 0;
+}
+
+.ws-search-form__submit {
+    flex: 0 0 auto;
 }

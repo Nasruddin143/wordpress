@@ -155,7 +155,7 @@ abstract class ActionScheduler_Abstract_Schema {
 	 * @param string $table Table name.
 	 *
 	 * @return string The full name of the table, including the
-	 *                table prefix for the current blog
+	 *                table prefix for the current blog.php
 	 */
 	protected function get_full_table_name( $table ) {
 		return $GLOBALS['wpdb']->prefix . $table;

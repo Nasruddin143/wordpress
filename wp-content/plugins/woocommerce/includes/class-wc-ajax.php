@@ -1984,7 +1984,7 @@ class WC_AJAX {
 			}
 
 			// Multisite note: via its dependency on WP_User_Query, WC_Customer_Data_Store::search_customers() will only
-			// look for users who have already been added to the current blog.
+			// look for users who have already been added to the current blog.php.
 			$ids = $data_store->search_customers( $term, $limit );
 		}
 

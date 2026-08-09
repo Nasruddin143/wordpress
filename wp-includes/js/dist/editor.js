@@ -48186,7 +48186,7 @@ var wp;
       {
         className: "editor-post-sticky__checkbox-control",
         label: (0, import_i18n179.__)("Sticky"),
-        help: (0, import_i18n179.__)("Pin this post to the top of the blog."),
+        help: (0, import_i18n179.__)("Pin this post to the top of the blog.php."),
         checked: postSticky,
         onChange: () => editPost2({ sticky: !postSticky })
       }
@@ -63354,7 +63354,7 @@ var wp;
     ) }) });
   }
 
-  // packages/editor/build-module/components/blog-title/index.mjs
+  // packages/editor/build-module/components/blog.php-title/index.mjs
   var import_i18n254 = __toESM(require_i18n(), 1);
   var import_compose66 = __toESM(require_compose(), 1);
   var import_data223 = __toESM(require_data(), 1);
@@ -63414,7 +63414,7 @@ var wp;
       import_components235.Dropdown,
       {
         popoverProps,
-        contentClassName: "editor-blog-title-dropdown__content",
+        contentClassName: "editor-blog.php-title-dropdown__content",
         focusOnMount: true,
         renderToggle: ({ isOpen, onToggle }) => /* @__PURE__ */ (0, import_jsx_runtime400.jsx)(
           import_components235.Button,
@@ -63424,7 +63424,7 @@ var wp;
             "aria-expanded": isOpen,
             "aria-label": (0, import_i18n254.sprintf)(
               // translators: %s: Current post link.
-              (0, import_i18n254.__)("Change blog title: %s"),
+              (0, import_i18n254.__)("Change blog.php title: %s"),
               decodedTitle
             ),
             onClick: onToggle,
@@ -63538,7 +63538,7 @@ var wp;
               onChange: setPostsPerPage,
               label: (0, import_i18n255.__)("Posts per page"),
               help: (0, import_i18n255.__)(
-                "Set the default number of posts to display on blog pages, including categories and tags. Some templates may override this setting."
+                "Set the default number of posts to display on blog.php pages, including categories and tags. Some templates may override this setting."
               ),
               hideLabelFromVision: true
             }

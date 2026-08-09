@@ -14,8 +14,8 @@
  */
 
 /**
- * Get the "dashboard blog", the blog where users without a blog edit their profile data.
- * Dashboard blog functionality was removed in WordPress 3.1, replaced by the user admin.
+ * Get the "dashboard blog.php", the blog.php where users without a blog.php edit their profile data.
+ * Dashboard blog.php functionality was removed in WordPress 3.1, replaced by the user admin.
  *
  * @since MU (3.0.0)
  * @deprecated 3.1.0 Use get_site()
@@ -181,7 +181,7 @@ function validate_email( $email, $check_domain = true) {
  *
  * @global wpdb $wpdb WordPress database abstraction object.
  *
- * @param int    $start      Optional. Offset for retrieving the blog list. Default 0.
+ * @param int    $start      Optional. Offset for retrieving the blog.php list. Default 0.
  * @param int    $num        Optional. Number of blogs to list. Default 10.
  * @param string $deprecated Unused.
  */
@@ -373,10 +373,10 @@ function get_blogaddress_by_domain( $domain, $path ) {
 		if ( $domain != $_SERVER['HTTP_HOST'] ) {
 			$blogname = substr( $domain, 0, strpos( $domain, '.' ) );
 			$url = 'http://' . substr( $domain, strpos( $domain, '.' ) + 1 ) . $path;
-			// We're not installing the main blog.
+			// We're not installing the main blog.php.
 			if ( 'www.' !== $blogname )
 				$url .= $blogname . '/';
-		} else { // Main blog.
+		} else { // Main blog.php.
 			$url = 'http://' . $domain . $path;
 		}
 	}
@@ -384,16 +384,16 @@ function get_blogaddress_by_domain( $domain, $path ) {
 }
 
 /**
- * Create an empty blog.
+ * Create an empty blog.php.
  *
  * @since MU (3.0.0)
  * @deprecated 4.4.0
  *
- * @param string $domain       The new blog's domain.
- * @param string $path         The new blog's path.
- * @param string $weblog_title The new blog's title.
+ * @param string $domain       The new blog.php's domain.
+ * @param string $path         The new blog.php's path.
+ * @param string $weblog_title The new blog.php's title.
  * @param int    $site_id      Optional. Defaults to 1.
- * @return string|int The ID of the newly created blog
+ * @return string|int The ID of the newly created blog.php
  */
 function create_empty_blog( $domain, $path, $weblog_title, $site_id = 1 ) {
 	_deprecated_function( __FUNCTION__, '4.4.0' );
@@ -406,7 +406,7 @@ function create_empty_blog( $domain, $path, $weblog_title, $site_id = 1 ) {
 		return __( '<strong>Error:</strong> Site URL you&#8217;ve entered is already taken.' );
 
 	/*
-	 * Need to back up wpdb table names, and create a new wp_blogs entry for new blog.
+	 * Need to back up wpdb table names, and create a new wp_blogs entry for new blog.php.
 	 * Need to get blog_id from wp_blogs, and create new table names.
 	 * Must restore table names at the end of function.
 	 */
@@ -528,7 +528,7 @@ function wp_get_sites( $args = array() ) {
 }
 
 /**
- * Check whether a usermeta key has to do with the current blog.
+ * Check whether a usermeta key has to do with the current blog.php.
  *
  * @since MU (3.0.0)
  * @deprecated 4.9.0
@@ -537,7 +537,7 @@ function wp_get_sites( $args = array() ) {
  *
  * @param string $key
  * @param int    $user_id Optional. Defaults to current user.
- * @param int    $blog_id Optional. Defaults to current blog.
+ * @param int    $blog_id Optional. Defaults to current blog.php.
  * @return bool
  */
 function is_user_option_local( $key, $user_id = 0, $blog_id = 0 ) {
@@ -558,7 +558,7 @@ function is_user_option_local( $key, $user_id = 0, $blog_id = 0 ) {
  * Store basic site info in the blogs table.
  *
  * This function creates a row in the wp_blogs table and returns
- * the new blog's ID. It is the first step in creating a new blog.
+ * the new blog.php's ID. It is the first step in creating a new blog.php.
  *
  * @since MU (3.0.0)
  * @deprecated 5.1.0 Use wp_insert_site()
@@ -589,11 +589,11 @@ function insert_blog($domain, $path, $site_id) {
 }
 
 /**
- * Install an empty blog.
+ * Install an empty blog.php.
  *
- * Creates the new blog tables and options. If calling this function
+ * Creates the new blog.php tables and options. If calling this function
  * directly, be sure to use switch_to_blog() first, so that $wpdb
- * points to the new blog.
+ * points to the new blog.php.
  *
  * @since MU (3.0.0)
  * @deprecated 5.1.0
@@ -623,7 +623,7 @@ function install_blog( $blog_id, $blog_title = '' ) {
 	$url = get_blogaddress_by_id( $blog_id );
 
 	// Set everything up.
-	make_db_current_silent( 'blog' );
+	make_db_current_silent( 'blog.php' );
 	populate_options();
 	populate_roles();
 
@@ -661,7 +661,7 @@ function install_blog( $blog_id, $blog_title = '' ) {
 }
 
 /**
- * Set blog defaults.
+ * Set blog.php defaults.
  *
  * This function creates a row in the wp_blogs table.
  *
@@ -735,13 +735,13 @@ function update_user_status( $id, $pref, $value, $deprecated = null ) {
 }
 
 /**
- * Maintains a canonical list of terms by syncing terms created for each blog with the global terms table.
+ * Maintains a canonical list of terms by syncing terms created for each blog.php with the global terms table.
  *
  * @since 3.0.0
  * @since 6.1.0 This function no longer does anything.
  * @deprecated 6.1.0
  *
- * @param int    $term_id    An ID for a term on the current blog.
+ * @param int    $term_id    An ID for a term on the current blog.php.
  * @param string $deprecated Not used.
  * @return int An ID from the global terms table mapped from $term_id.
  */

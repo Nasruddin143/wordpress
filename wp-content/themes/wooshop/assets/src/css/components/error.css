@@ -1,0 +1,80 @@
+/*--------------------------------------------------------------
+# Error States
+--------------------------------------------------------------*/
+
+.ws-error-page {
+    min-height: 50vh;
+}
+
+.ws-error-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    padding: var(--ws-space-3xl) 0;
+    text-align: center;
+}
+
+.ws-error-state__content {
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
+}
+
+.ws-error-state__code {
+    margin: 0 0 var(--ws-space-sm);
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+}
+
+.ws-error-state__title {
+    margin: 0;
+}
+
+.ws-error-state__message {
+    max-width: 60ch;
+    margin: var(--ws-space-md) auto 0;
+}
+
+.ws-error-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--ws-space-sm);
+    margin-top: var(--ws-space-xl);
+}
+
+.ws-error-search {
+    max-width: 560px;
+    margin: var(--ws-space-xl) auto 0;
+}
+
+.ws-error-search__label {
+    margin-bottom: var(--ws-space-sm);
+    font-weight: 600;
+}
+
+.ws-error-state--empty {
+    min-height: 35vh;
+}
+
+@media (max-width: 767px) {
+
+    .ws-error-state {
+        min-height: 40vh;
+        padding: var(--ws-space-2xl) 0;
+    }
+
+    .ws-error-actions {
+        flex-direction: column;
+    }
+
+    .ws-error-actions .ws-button {
+        width: 100%;
+        max-width: 280px;
+    }
+
+}

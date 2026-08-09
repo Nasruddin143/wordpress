@@ -2,55 +2,24 @@
 /**
  * Comments Template
  *
+ * Displays comments and the comment form.
+ *
  * @package WooShop
  */
 
 defined( 'ABSPATH' ) || exit;
 
+/*
+ * Do not load comments for password-protected posts
+ * until the password has been entered.
+ */
 if ( post_password_required() ) {
     return;
 }
-?>
 
-<section id="comments" class="comments-area">
-
-    <?php if ( have_comments() ) : ?>
-
-        <h2 class="comments-title">
-
-            <?php
-            printf(
-                    esc_html(
-                            _n(
-                                    '%1$s Comment',
-                                    '%1$s Comments',
-                                    get_comments_number(),
-                                    'wooshop'
-                            )
-                    ),
-                    number_format_i18n( get_comments_number() )
-            );
-            ?>
-
-        </h2>
-
-        <ol class="comment-list">
-
-            <?php
-            wp_list_comments(
-                    [
-                            'style'      => 'ol',
-                            'short_ping' => true,
-                    ]
-            );
-            ?>
-
-        </ol>
-
-        <?php the_comments_navigation(); ?>
-
-    <?php endif; ?>
-
-    <?php comment_form(); ?>
-
-</section>
+/**
+ * Render the modular comments' template.
+ */
+get_template_part(
+        'template-parts/comments/comments'
+);

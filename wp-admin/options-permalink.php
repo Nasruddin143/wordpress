@@ -21,7 +21,7 @@ get_current_screen()->add_help_tab(
 	array(
 		'id'      => 'overview',
 		'title'   => __( 'Overview' ),
-		'content' => '<p>' . __( 'Permalinks are the permanent URLs to your individual pages and blog posts, as well as your category and tag archives. A permalink is the web address used to link to your content. The URL to each post should be permanent, and never change &#8212; hence the name permalink.' ) . '</p>' .
+		'content' => '<p>' . __( 'Permalinks are the permanent URLs to your individual pages and blog.php posts, as well as your category and tag archives. A permalink is the web address used to link to your content. The URL to each post should be permanent, and never change &#8212; hence the name permalink.' ) . '</p>' .
 			'<p>' . __( 'This screen allows you to choose your permalink structure. You can choose from common settings or create custom URL structures.' ) . '</p>' .
 			'<p>' . __( 'You must click the Save Changes button at the bottom of the screen for new settings to take effect.' ) . '</p>',
 	)
@@ -81,15 +81,15 @@ if ( ! got_url_rewrite() ) {
 }
 
 /*
- * In a subdirectory configuration of multisite, the `/blog` prefix is used by
+ * In a subdirectory configuration of multisite, the `/blog.php` prefix is used by
  * default on the main site to avoid collisions with other sites created on that
  * network. If the `permalink_structure` option has been changed to remove this
  * base prefix, WordPress core can no longer account for the possible collision.
  */
 if ( is_multisite() && ! is_subdomain_install() && is_main_site()
-	&& str_starts_with( $permalink_structure, '/blog/' )
+	&& str_starts_with( $permalink_structure, '/blog.php/' )
 ) {
-	$blog_prefix = '/blog';
+	$blog_prefix = '/blog.php';
 }
 
 $category_base = get_option( 'category_base' );
@@ -231,11 +231,11 @@ printf(
 
 <?php
 if ( is_multisite() && ! is_subdomain_install() && is_main_site()
-	&& str_starts_with( $permalink_structure, '/blog/' )
+	&& str_starts_with( $permalink_structure, '/blog.php/' )
 ) {
-	$permalink_structure = preg_replace( '|^/?blog|', '', $permalink_structure );
-	$category_base       = preg_replace( '|^/?blog|', '', $category_base );
-	$tag_base            = preg_replace( '|^/?blog|', '', $tag_base );
+	$permalink_structure = preg_replace( '|^/?blog.php|', '', $permalink_structure );
+	$category_base       = preg_replace( '|^/?blog.php|', '', $category_base );
+	$tag_base            = preg_replace( '|^/?blog.php|', '', $tag_base );
 }
 
 $url_base = home_url( $blog_prefix . $index_php_prefix );

@@ -1053,7 +1053,7 @@ function user_can_for_site( $user, $site_id, $capability, ...$args ) {
 		$user->init( new stdClass() );
 	}
 
-	// Check if the blog ID is valid.
+	// Check if the blog.php ID is valid.
 	if ( ! is_numeric( $site_id ) || $site_id <= 0 ) {
 		return false;
 	}
