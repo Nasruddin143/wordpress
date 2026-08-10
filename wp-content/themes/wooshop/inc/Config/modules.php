@@ -40,6 +40,8 @@ return [
 
     WooShop\Modules\WooCommerce\VariationSwatchMeta::class,
 
+    WooShop\Modules\WooCommerce\VariationSwatchAdmin::class,
+
     Setup::class,
 
     MobileMenus::class,

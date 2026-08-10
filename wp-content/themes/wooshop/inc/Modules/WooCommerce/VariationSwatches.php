@@ -11,7 +11,7 @@ namespace WooShop\Modules\WooCommerce;
 
 use WooShop\Core\Module;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 class VariationSwatches extends Module
 {
@@ -24,13 +24,13 @@ class VariationSwatches extends Module
     public function register(): void
     {
 
-        if ( ! class_exists( 'WooCommerce' ) ) {
+        if (!class_exists('WooCommerce')) {
             return;
         }
 
         add_filter(
             'wooshop_variation_swatch_type',
-            [ $this, 'get_swatch_type' ],
+            [$this, 'get_swatch_type'],
             10,
             2
         );
@@ -50,7 +50,7 @@ class VariationSwatches extends Module
         string $attribute
     ): string {
 
-        if ( ! empty( $type ) ) {
+        if (!empty($type)) {
             return $type;
         }
 
@@ -105,7 +105,7 @@ class VariationSwatches extends Module
     ): array {
 
         $data = [
-            'type'  => '',
+            'type' => '',
             'value' => $value,
             'color' => '',
             'image' => 0,
@@ -119,7 +119,7 @@ class VariationSwatches extends Module
         /*
          * Custom product attribute.
          */
-        if ( ! $term_id ) {
+        if (!$term_id) {
 
             $data['type'] = apply_filters(
                 'wooshop_variation_swatch_type',
@@ -211,23 +211,23 @@ class VariationSwatches extends Module
             $taxonomy
         );
 
-        if ( ! $taxonomy ) {
+        if (!$taxonomy) {
             return 0;
         }
 
-        if ( ! taxonomy_exists( $taxonomy ) ) {
+        if (!taxonomy_exists($taxonomy)) {
             return 0;
         }
 
         $term = get_term_by(
             'slug',
-            sanitize_title( $value ),
+            sanitize_title($value),
             $taxonomy
         );
 
         if (
-            ! $term ||
-            is_wp_error( $term )
+            !$term ||
+            is_wp_error($term)
         ) {
             return 0;
         }
