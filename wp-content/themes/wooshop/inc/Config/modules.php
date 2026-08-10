@@ -30,17 +30,7 @@ return [
 
     WooShop\Modules\Theme\Footer::class,
 
-    WooShop\Modules\WooCommerce\Integration::class,
-
-    WooShop\Modules\WooCommerce\ProductCard::class,
-
-    WooShop\Modules\WooCommerce\SingleProduct::class,
-
-    WooShop\Modules\WooCommerce\VariationSwatches::class,
-
-    WooShop\Modules\WooCommerce\VariationSwatchMeta::class,
-
-    WooShop\Modules\WooCommerce\VariationSwatchAdmin::class,
+    WooShop\Modules\WooCommerce\Shop\Shop::class,
 
     Setup::class,
 

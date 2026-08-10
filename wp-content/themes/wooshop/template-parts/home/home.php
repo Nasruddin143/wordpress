@@ -1,8 +1,8 @@
 <?php
 /**
- * Homepage Layout
+ * WooShop Homepage
  *
- * Main homepage presentation layer.
+ * Homepage presentation layer.
  *
  * @package WooShop
  */
@@ -11,17 +11,37 @@ defined( 'ABSPATH' ) || exit;
 ?>
 
 <main
-    id="primary"
-    class="site-main ws-home-main">
+        id="primary"
+        class="site-main ws-homepage">
 
     <?php
-    /**
-     * Homepage content.
-     *
-     * Individual homepage sections will be attached here
-     * as the WooShop homepage is developed.
-     */
-    do_action( 'wooshop_home' );
+    get_template_part(
+            'template-parts/home/hero'
+    );
+    ?>
+
+    <?php
+    get_template_part(
+            'template-parts/home/categories'
+    );
+    ?>
+
+    <?php
+    get_template_part(
+            'template-parts/home/featured-products'
+    );
+    ?>
+
+    <?php
+    get_template_part(
+            'template-parts/home/promo'
+    );
+    ?>
+
+    <?php
+    get_template_part(
+            'template-parts/home/latest-products'
+    );
     ?>
 
 </main>

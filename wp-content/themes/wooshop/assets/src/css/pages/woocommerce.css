@@ -13,3 +13,25 @@
 .ws-product-tag {
     width: 100%;
 }
+
+/*--------------------------------------------------------------
+# WooCommerce
+--------------------------------------------------------------*/
+
+.ws-woocommerce-main {
+    width: 100%;
+}
+
+.ws-woocommerce-main .ws-container {
+    width: 100%;
+}
+
+.ws-shop,
+.ws-product,
+.ws-product-category,
+.ws-product-tag,
+.ws-cart,
+.ws-checkout,
+.ws-account {
+    width: 100%;
+}

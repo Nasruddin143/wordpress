@@ -1,1 +1,1 @@
-<?php do_action( 'wooshop_header' );
+<?php get_header();

@@ -7,18 +7,24 @@
  * @package WooShop
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 get_header();
 ?>
 
     <main
-        id="primary"
-        class="site-main ws-woocommerce-main">
+            id="primary"
+            class="site-main ws-woocommerce-main">
 
         <div class="ws-container">
 
             <?php
+            /**
+             * WooCommerce content.
+             *
+             * WooCommerce outputs the appropriate
+             * shop/product/archive content here.
+             */
             woocommerce_content();
             ?>
 

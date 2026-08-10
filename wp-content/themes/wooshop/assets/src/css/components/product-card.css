@@ -3,72 +3,12 @@
 --------------------------------------------------------------*/
 
 .ws-product-card {
-    list-style: none;
-}
-
-.ws-product-card__inner {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
+    min-width: 0;
 }
 
-.ws-product-card__media {
-    position: relative;
-    overflow: hidden;
-}
-
-.ws-product-card__image-link {
-    display: block;
-}
-
-.ws-product-card__image img {
+.ws-product-card img {
     display: block;
     width: 100%;
     height: auto;
-}
-
-.ws-product-card__badges {
-    position: absolute;
-    top: var(--ws-space-sm);
-    left: var(--ws-space-sm);
-    z-index: 2;
-}
-
-.ws-product-card__content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--ws-space-xs);
-    padding-block: var(--ws-space-md);
-}
-
-.ws-product-card__category {
-    font-size: 0.8125rem;
-}
-
-.ws-product-card__category a {
-    text-decoration: none;
-}
-
-.ws-product-card__title {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.4;
-}
-
-.ws-product-card__title a {
-    text-decoration: none;
-}
-
-.ws-product-card__rating {
-    min-height: 1.25rem;
-}
-
-.ws-product-card__price {
-    font-weight: 600;
-}
-
-.ws-product-card__actions {
-    margin-top: auto;
 }

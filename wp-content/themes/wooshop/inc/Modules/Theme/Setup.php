@@ -30,6 +30,11 @@ class Setup extends Module
 
         add_action(
             'after_setup_theme',
+            [$this, 'woocommerce_support']
+        );
+
+        add_action(
+            'after_setup_theme',
             [$this, 'register_image_sizes']
         );
 
@@ -258,5 +263,12 @@ class Setup extends Module
         }
 
         return $classes;
+    }
+
+    public function woocommerce_support(): void
+    {
+        add_theme_support(
+            'woocommerce'
+        );
     }
 }

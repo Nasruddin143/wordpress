@@ -1,29 +1,29 @@
+
 /*--------------------------------------------------------------
 # WooCommerce Shop
 --------------------------------------------------------------*/
 
 .ws-shop-main {
-    width: 100%;
+    padding-block: var(--ws-space-2xl);
 }
 
 .ws-shop-header {
     margin-bottom: var(--ws-space-xl);
 }
 
-.ws-product-archive {
-    width: 100%;
-}
-
-.ws-product-archive ul.products {
+.ws-shop-title {
     margin: 0;
-    padding: 0;
 }
 
-.ws-product-card {
-    list-style: none;
+.ws-shop-empty {
+    padding-block: var(--ws-space-2xl);
+    text-align: center;
 }
 
-.ws-product-card__inner {
-    position: relative;
-    width: 100%;
+.ws-shop-empty-title {
+    margin-bottom: var(--ws-space-sm);
+}
+
+.ws-shop-empty-text {
+    margin: 0;
 }

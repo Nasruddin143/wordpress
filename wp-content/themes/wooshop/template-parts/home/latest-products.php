@@ -1,6 +1,6 @@
 <?php
 /**
- * Homepage Featured Products
+ * Homepage Latest Products
  *
  * @package WooShop
  */
@@ -13,12 +13,11 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 
 $products = wc_get_products(
     [
-        'status'   => 'publish',
-        'featured' => true,
-        'limit'    => 8,
-        'orderby'  => 'date',
-        'order'    => 'DESC',
-        'return'   => 'objects',
+        'status' => 'publish',
+        'limit'  => 8,
+        'orderby' => 'date',
+        'order'  => 'DESC',
+        'return' => 'objects',
     ]
 );
 
@@ -28,20 +27,20 @@ if ( empty( $products ) ) {
 ?>
 
 <section
-    class="ws-home-section ws-home-products ws-home-featured"
-    aria-labelledby="ws-featured-products-title">
+    class="ws-home-section ws-home-products ws-home-latest"
+    aria-labelledby="ws-latest-products-title">
 
     <div class="ws-container">
 
         <header class="ws-section-header">
 
             <h2
-                id="ws-featured-products-title"
+                id="ws-latest-products-title"
                 class="ws-section-title">
 
                 <?php
                 esc_html_e(
-                    'Featured Products',
+                    'Latest Products',
                     'wooshop'
                 );
                 ?>

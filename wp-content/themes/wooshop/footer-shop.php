@@ -1,1 +1,1 @@
-<?php do_action( 'wooshop_footer' );
+<?php get_footer();

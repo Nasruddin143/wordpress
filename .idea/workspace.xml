@@ -6,11 +6,267 @@
   <component name="ChangeListManager">
     <list default="true" id="0cf4435d-a12c-40d4-b37d-a97da26a87d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/build/js/app.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/build/js/app.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai-provider-for-openai/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai-provider-for-openai/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai-provider-for-openai/assets/images/openai.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai-provider-for-openai/plugin.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai-provider-for-openai/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai-provider-for-openai/src/Metadata/OpenAiModelMetadataDirectory.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai-provider-for-openai/src/Models/OpenAiImageGenerationModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai-provider-for-openai/src/Models/OpenAiTextGenerationModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai-provider-for-openai/src/Provider/OpenAiProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai-provider-for-openai/src/autoload.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/ai.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/assets/images/showcase-image-generation.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/admin/ai-request-logs-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/admin/ai-request-logs.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/admin/ai-request-logs.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/admin/ai-request-logs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/admin/dashboard-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/admin/dashboard.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/admin/dashboard.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/admin/settings-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/admin/settings.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/admin/settings.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/abilities-explorer-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/abilities-explorer.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/abilities-explorer.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/abilities-explorer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/alt-text-generation-bulk.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/alt-text-generation-bulk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/alt-text-generation-media-editor.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/alt-text-generation-media-editor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/alt-text-generation-media.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/alt-text-generation-media.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/alt-text-generation.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/alt-text-generation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/comment-moderation.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/comment-moderation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/connector-approval-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/connector-approval.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/connector-approval.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/connector-approval.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/content-classification-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/content-classification.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/content-classification.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/content-classification.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/content-resizing-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/content-resizing.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/content-resizing.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/content-resizing.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/editorial-notes.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/editorial-notes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/editorial-updates.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/editorial-updates.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/example-experiment-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/example-experiment.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/example-experiment.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/example-experiment.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/excerpt-generation.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/excerpt-generation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/meta-description-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/meta-description.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/meta-description.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/meta-description.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/suggest-reply-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/suggest-reply.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/suggest-reply.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/suggest-reply.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/summarization-bulk.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/summarization-bulk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/summarization-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/summarization.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/summarization.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/summarization.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/title-generation-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/title-generation.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/title-generation.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/title-generation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/type-ahead-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/type-ahead.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/type-ahead.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/experiments/type-ahead.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/features/image-generation-rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/features/image-generation.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/features/image-generation.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/features/image-generation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/index.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build-scripts/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/admin/dataviews.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/build.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/constants.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/modules.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/modules/boot/index.min.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/modules/registry.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/pages.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/pages/ai/loader.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/pages/ai/page-wp-admin.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/pages/ai/page.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/routes.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/routes/ai-home/content.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/routes/ai-home/content.min.asset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/routes/ai-home/content.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/routes/registry.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/scripts.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/scripts/registry.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/styles.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/build/styles/registry.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Comment_Moderation/Comment_Analysis.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Comment_Moderation/system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Content/Content.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Content_Classification/Content_Classification.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Content_Classification/system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Content_Resizing/Content_Resizing.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Content_Resizing/system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Editorial_Notes/Editorial_Notes.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Editorial_Notes/system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Editorial_Updates/Editorial_Updates.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Editorial_Updates/system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Excerpt_Generation/Excerpt_Generation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Excerpt_Generation/system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Image/Alt_Text_Generation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Image/Generate_Image.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Image/Generate_Image_Prompt.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Image/Import_Base64_Image.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Image/alt-text-system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Image/image-prompt-system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Meta_Description/Meta_Description.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Meta_Description/SEO_Integration.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Meta_Description/system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Settings/Settings.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Show_In_Abilities.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Suggest_Reply/Suggest_Reply.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Suggest_Reply/system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Summarization/Summarization.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Summarization/system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Title_Generation/Title_Generation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Title_Generation/system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Type_Ahead/Type_Ahead.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Type_Ahead/system-instruction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Users/Users.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abilities/Utilities/Posts.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abstracts/Abstract_Ability.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Abstracts/Abstract_Feature.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Admin/Activation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Admin/Dashboard/AI_Capabilities_Widget.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Admin/Dashboard/AI_Status_Widget.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Admin/Dashboard/Dashboard_Widgets.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Admin/Deactivation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Admin/Upgrades.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Admin/Upgrades/Abstract_Upgrade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Admin/Upgrades/V0_5_0.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Admin/Upgrades/V0_6_0.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Admin/Upgrades/V1_0_0.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Asset_Loader.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/CLI/Alt_Text_Command.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Connector_Approval/Admin_Notice.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Connector_Approval/Approvals_Store.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Connector_Approval/Caller_Identifier.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Connector_Approval/Connector_Key_Index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Connector_Approval/Http_Guard.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Connector_Approval/REST_Controller.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Contracts/Feature.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Deprecated.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/AI_Request_Logging/AI_Request_Logging.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Abilities_Explorer/Abilities_Explorer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Abilities_Explorer/Ability_Handler.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Abilities_Explorer/Ability_Table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Abilities_Explorer/Admin_Page.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Alt_Text_Generation/Alt_Text_Generation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Comment_Moderation/Comment_Moderation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Connector_Approval/Admin_Page.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Connector_Approval/Connector_Approval.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Content_Classification/Content_Classification.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Content_Resizing/Content_Resizing.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Editorial_Notes/Editorial_Notes.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Editorial_Updates/Editorial_Updates.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Example_Experiment/Example_Experiment.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Excerpt_Generation/Excerpt_Generation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Experiment_Category.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Experiments.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Key_Encryption/Key_Encryption.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Key_Encryption/Secrets_Bridge.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Meta_Description/Meta_Description.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Suggest_Reply/Suggest_Reply.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Summarization/Summarization.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Title_Generation/Title_Generation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Experiments/Type_Ahead/Type_Ahead.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Features/Feature_Category.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Features/Image_Generation/Image_Generation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Features/Loader.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Features/Registry.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Logging/AI_Request_Log_Manager.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Logging/AI_Request_Log_Page.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Logging/AI_Request_Log_Repository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Logging/AI_Request_Log_Schema.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Logging/Log_Data_Extractor.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Logging/Logging_Http_Transporter.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Logging/Logging_Integration.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Logging/REST/AI_Request_Log_Controller.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Main.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/REST/Models_Controller.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Requirements.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Services/AI_Service.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Services/Guidelines.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Settings/Settings_Page.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Settings/Settings_Registration.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Vendor/Secrets/Secrets.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Vendor/Secrets/Secrets_Audit.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Vendor/Secrets/Secrets_Context.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Vendor/Secrets/Secrets_Exception.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Vendor/Secrets/Secrets_Manager.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Vendor/Secrets/Secrets_Provider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/Vendor/Secrets/Secrets_Provider_Encrypted_Options.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/autoload.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/includes/helpers.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/autoload.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/ClassLoader.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/InstalledVersions.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/autoload_classmap.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/autoload_files.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/autoload_namespaces.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/autoload_psr4.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/autoload_real.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/autoload_static.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/installed.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/installed.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/ai/vendor/composer/platform_check.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/build/css/app.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/build/css/app.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/src/css/components/product-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/src/css/components/product-card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/src/css/pages/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/src/css/pages/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/src/css/pages/shop.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/src/css/pages/shop.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/src/css/pages/woocommerce.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/assets/src/css/pages/woocommerce.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/footer-shop.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/footer-shop.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/front-page.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/front-page.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/functions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/header-shop.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/header-shop.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Config/modules.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Config/modules.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/VariationSwatches.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/VariationSwatches.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/Theme/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/Theme/Header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/Theme/Setup.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/Theme/Setup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/Bootstrap.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/Helpers/Loader.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/Helpers/Price.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/Helpers/Product.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/Helpers/Rating.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/Helpers/Sale.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/Helpers/Stock.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/Hooks.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/Integration.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/ProductCard.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/SingleProduct.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/VariationSwatchAdmin.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/VariationSwatchMeta.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/inc/Modules/WooCommerce/VariationSwatches.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/home/categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/home/categories.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/home/featured-products.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/home/featured-products.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/home/hero.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/home/hero.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/home/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/template-parts/home/home.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/woocommerce.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/woocommerce.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/woocommerce/archive-product.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/woocommerce/archive-product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/wooshop/woocommerce/content-product.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/wooshop/woocommerce/content-product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/uploads/wc-logs/wc-analytics-order-import-2026-08-10-d826c3398128c976957c40c2cf72f8a0.log" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/uploads/wc-logs/wc-analytics-order-import-2026-08-10-d826c3398128c976957c40c2cf72f8a0.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,61 +294,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0003649534298424" />
-      <entry key="MS500" value="1.2053276751880164" />
-      <entry key="S2" value="1.6731500346383912" />
-      <entry key="S5" value="1.8535810186691788" />
-      <entry key="S10" value="1.9238944845972297" />
-      <entry key="S30" value="1.9739694065325382" />
-      <entry key="S60" value="1.9900789442867335" />
-      <entry key="M2" value="2.0498739012104434" />
-      <entry key="M5" value="2.3350284329626634" />
-      <entry key="M10" value="2.850015323674116" />
-      <entry key="M15" value="3.427836105614876" />
-      <entry key="M30" value="5.3818171660256" />
-      <entry key="H1" value="9.743472323122065" />
-      <entry key="H2" value="17.32853517562779" />
-      <entry key="H4" value="27.428497513245333" />
-      <entry key="D1" value="46.72292490431716" />
-      <entry key="W1" value="52.03257230442382" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000000462421" />
+      <entry key="S2" value="1.0026077115298748" />
+      <entry key="S5" value="1.092577152568192" />
+      <entry key="S10" value="1.304264938118397" />
+      <entry key="S30" value="1.6725903569757312" />
+      <entry key="S60" value="1.820116063112948" />
+      <entry key="M2" value="1.9056031296135985" />
+      <entry key="M5" value="1.9677219725412067" />
+      <entry key="M10" value="2.1517313816847814" />
+      <entry key="M15" value="2.5429799552126324" />
+      <entry key="M30" value="4.25506329864052" />
+      <entry key="H1" value="8.392329118145131" />
+      <entry key="H2" value="16.139879094986487" />
+      <entry key="H4" value="26.970296944698205" />
+      <entry key="D1" value="48.70246252880685" />
+      <entry key="W1" value="54.86907045518586" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="2.943249660573346E-130" />
-      <entry key="S10" value="2.816122481059628E-65" />
-      <entry key="S30" value="6.243798203720258E-22" />
-      <entry key="S60" value="4.328680775687504E-11" />
-      <entry key="M2" value="1.1698089227760482E-5" />
-      <entry key="M5" value="0.024426763783961147" />
-      <entry key="M10" value="0.3670995534105527" />
-      <entry key="M15" value="0.9651375339098981" />
-      <entry key="M30" value="2.772244736872588" />
-      <entry key="H1" value="5.236851242586679" />
-      <entry key="H2" value="9.15170884363542" />
-      <entry key="H4" value="16.208143884133747" />
-      <entry key="D1" value="33.65393330443992" />
-      <entry key="W1" value="39.006229150893724" />
+      <entry key="S5" value="1.373168653259364E-159" />
+      <entry key="S10" value="4.619341495082507E-80" />
+      <entry key="S30" value="6.4484564128110896E-27" />
+      <entry key="S60" value="1.3571604846470678E-13" />
+      <entry key="M2" value="6.339416338758309E-7" />
+      <entry key="M5" value="0.006451582896890262" />
+      <entry key="M10" value="0.15489932430847697" />
+      <entry key="M15" value="0.5073756157992738" />
+      <entry key="M30" value="2.058737543304689" />
+      <entry key="H1" value="4.9143997895507" />
+      <entry key="H2" value="9.382847634302122" />
+      <entry key="H4" value="16.876152239028276" />
+      <entry key="D1" value="35.87101407736334" />
+      <entry key="W1" value="41.87684649450376" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="3.649534382003946E-4" />
-      <entry key="MS500" value="0.21141489846661413" />
-      <entry key="S2" value="0.9524718191564462" />
-      <entry key="S5" value="1.453982732411783" />
-      <entry key="S10" value="1.698750415556401" />
-      <entry key="S30" value="1.892456661241939" />
-      <entry key="S60" value="1.9482794734197413" />
-      <entry key="M2" value="2.027258608012808" />
-      <entry key="M5" value="2.347241943356086" />
-      <entry key="M10" value="3.208665143810596" />
-      <entry key="M15" value="4.385832505818359" />
-      <entry key="M30" value="8.148639887386405" />
-      <entry key="H1" value="14.976386558110033" />
-      <entry key="H2" value="26.47726738672478" />
-      <entry key="H4" value="43.634286871456716" />
-      <entry key="D1" value="80.37612751555793" />
-      <entry key="W1" value="91.03868260571089" />
+      <entry key="MS100" value="0.013139006488339289" />
+      <entry key="MS500" value="0.4204482076360032" />
+      <entry key="S2" value="0.8069841977391898" />
+      <entry key="S5" value="0.9957309169513836" />
+      <entry key="S10" value="1.2381863766732109" />
+      <entry key="S30" value="1.64033027570679" />
+      <entry key="S60" value="1.8019207166858486" />
+      <entry key="M2" value="1.895905708142877" />
+      <entry key="M5" value="1.970038553754219" />
+      <entry key="M10" value="2.303396439497255" />
+      <entry key="M15" value="3.046579458254066" />
+      <entry key="M30" value="6.3090891973114696" />
+      <entry key="H1" value="13.302286287249947" />
+      <entry key="H2" value="25.51912446080515" />
+      <entry key="H4" value="43.84365076127395" />
+      <entry key="D1" value="84.57262773697974" />
+      <entry key="W1" value="96.74577903736893" />
     </decayedShown>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="$PROJECT_DIR$/../../bin/php/php8.3.28/php.exe" />
@@ -108,28 +364,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;wooshop&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "wooshop",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.jshint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.jshint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "php.override.implement.member.chooser.php.doc": "NONE",
+    "to.speed.mode.migration.done": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp64\www\wordpress\wp-content\themes\wooshop\template-parts\blog" />
@@ -156,6 +413,7 @@
       <workItem from="1786211705482" duration="7506000" />
       <workItem from="1786267837897" duration="29814000" />
       <workItem from="1786361034470" duration="1516000" />
+      <workItem from="1786376321223" duration="7067000" />
     </task>
     <servers />
   </component>

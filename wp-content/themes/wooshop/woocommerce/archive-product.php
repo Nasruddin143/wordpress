@@ -1,15 +1,15 @@
 <?php
 /**
- * Product Archive Template
+ * WooCommerce Product Archive
  *
- * Displays WooCommerce product archives and the shop page.
+ * Shop, product category and product tag archives.
  *
  * @package WooShop
  */
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-get_header('shop');
+get_header( 'shop' );
 ?>
 
     <main
@@ -20,76 +20,65 @@ get_header('shop');
 
             <?php
             /**
-             * WooCommerce archive header.
+             * Before shop content.
              */
-            do_action('woocommerce_before_main_content');
+            do_action( 'woocommerce_before_main_content' );
             ?>
 
-            <header class="ws-shop-header">
-
-                <?php
-                do_action('woocommerce_shop_loop_header');
-                ?>
-
-            </header>
+            <?php
+            get_template_part(
+                    'template-parts/woocommerce/shop/archive-header'
+            );
+            ?>
 
             <?php
-            if (woocommerce_product_loop()) :
-
-                /**
-                 * Before product loop.
-                 */
-                do_action('woocommerce_before_shop_loop');
+            if ( woocommerce_product_loop() ) :
                 ?>
 
-                <div class="ws-product-archive">
-
-                    <?php
-                    woocommerce_product_loop_start();
-
-                    if (wc_get_loop_prop('total')) :
-
-                        while (have_posts()) :
-
-                            the_post();
-
-                            do_action(
-                                    'woocommerce_shop_loop'
-                            );
-
-                            wc_get_template_part(
-                                    'content',
-                                    'product'
-                            );
-
-                        endwhile;
-
-                    endif;
-
-                    woocommerce_product_loop_end();
-                    ?>
-
-                </div>
+                <?php
+                do_action( 'woocommerce_before_shop_loop' );
+                ?>
 
                 <?php
-                /**
-                 * After product loop.
-                 */
-                do_action('woocommerce_after_shop_loop');
+                get_template_part(
+                        'template-parts/woocommerce/shop/loop-start'
+                );
+                ?>
 
-            else :
+                <?php
+                while ( have_posts() ) :
+                    the_post();
 
-                /**
-                 * No products found.
-                 */
-                do_action('woocommerce_no_products_found');
+                    do_action( 'woocommerce_shop_loop' );
 
-            endif;
+                    wc_get_template_part(
+                            'content',
+                            'product'
+                    );
 
-            /**
-             * WooCommerce archive footer.
-             */
-            do_action('woocommerce_after_main_content');
+                endwhile;
+                ?>
+
+                <?php
+                get_template_part(
+                        'template-parts/woocommerce/shop/loop-end'
+                );
+                ?>
+
+                <?php
+                do_action( 'woocommerce_after_shop_loop' );
+                ?>
+
+            <?php else : ?>
+
+                <?php
+                do_action( 'woocommerce_no_products_found' );
+                ?>
+
+            <?php endif; ?>
+
+            <?php
+            do_action( 'woocommerce_after_main_content' );
             ?>
 
         </div>
@@ -97,4 +86,4 @@ get_header('shop');
     </main>
 
 <?php
-get_footer('shop');
+get_footer( 'shop' );

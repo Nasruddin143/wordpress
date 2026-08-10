@@ -152,6 +152,40 @@ class Header extends Module
             $classes[] = 'ws-page';
         }
 
+        if ( class_exists( 'WooCommerce' ) ) {
+
+            if ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) {
+                $classes[] = 'ws-woocommerce';
+            }
+
+            if ( function_exists( 'is_shop' ) && is_shop() ) {
+                $classes[] = 'ws-shop';
+            }
+
+            if ( function_exists( 'is_product' ) && is_product() ) {
+                $classes[] = 'ws-product';
+            }
+
+            if ( function_exists( 'is_product_category' ) && is_product_category() ) {
+                $classes[] = 'ws-product-category';
+            }
+
+            if ( function_exists( 'is_product_tag' ) && is_product_tag() ) {
+                $classes[] = 'ws-product-tag';
+            }
+
+            if ( function_exists( 'is_cart' ) && is_cart() ) {
+                $classes[] = 'ws-cart';
+            }
+
+            if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+                $classes[] = 'ws-checkout';
+            }
+
+            if ( function_exists( 'is_account_page' ) && is_account_page() ) {
+                $classes[] = 'ws-account';
+            }
+        }
 
         return $classes;
     }
