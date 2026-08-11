@@ -2547,7 +2547,7 @@ class WooPaymentsService {
 	 * Check if the store has a working WPCOM connection.
 	 *
 	 * The store is considered to have a working WPCOM connection if:
-	 * - The store is connected to WPCOM (blog.php ID and tokens are set).
+	 * - The store is connected to WPCOM (blog ID and tokens are set).
 	 * - The store connection has a connected owner (connection owner is set).
 	 *
 	 * @return bool Whether the store has a working WPCOM connection.

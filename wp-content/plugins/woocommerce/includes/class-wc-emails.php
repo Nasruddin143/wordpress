@@ -931,7 +931,7 @@ class WC_Emails {
 	}
 
 	/**
-	 * Get blog.php name formatted for emails.
+	 * Get blog name formatted for emails.
 	 *
 	 * @return string
 	 */

@@ -16,6 +16,10 @@
     "fs-extra": "^11",
     "postcss": "^8",
     "postcss-cli": "^11",
-    "postcss-import": "^16"
+    "postcss-import": "^16",
+    "sass": "^1.102.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8"
   }
 }

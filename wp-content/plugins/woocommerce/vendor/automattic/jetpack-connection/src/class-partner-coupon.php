@@ -48,7 +48,7 @@ class Partner_Coupon {
 	public static $last_check_transient = 'jetpack_partner_coupon_last_check';
 
 	/**
-	 * Callable that executes a blog.php-authenticated request.
+	 * Callable that executes a blog-authenticated request.
 	 *
 	 * @var callable
 	 */
@@ -102,7 +102,7 @@ class Partner_Coupon {
 	/**
 	 * Constructor.
 	 *
-	 * @param callable $request_as_blog Callable that executes a blog.php-authenticated request.
+	 * @param callable $request_as_blog Callable that executes a blog-authenticated request.
 	 */
 	public function __construct( $request_as_blog ) {
 		$this->request_as_blog = $request_as_blog;

@@ -296,7 +296,7 @@ class PushTokenRestController extends RestApiControllerBase {
 	}
 
 	/**
-	 * Validates that the request is signed with a Jetpack blog.php token,
+	 * Validates that the request is signed with a Jetpack blog token,
 	 * ensuring only WPCOM can access this endpoint.
 	 *
 	 * @since 10.8.0

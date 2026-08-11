@@ -445,7 +445,7 @@ class Client {
 	}
 
 	/**
-	 * Query the WordPress.com REST API using the blog.php token
+	 * Query the WordPress.com REST API using the blog token
 	 *
 	 * @param string            $path The API endpoint relative path.
 	 * @param string            $version The API version.

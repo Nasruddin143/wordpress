@@ -1,6 +1,6 @@
 <?php
 /**
- * A static in-process cache for blog.php data.
+ * A static in-process cache for blog data.
  *
  * @package automattic/jetpack-status
  */
@@ -8,7 +8,7 @@
 namespace Automattic\Jetpack\Status;
 
 /**
- * A static in-process cache for blog.php data.
+ * A static in-process cache for blog data.
  *
  * For internal use only. Do not use this externally.
  */

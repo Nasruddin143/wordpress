@@ -33,7 +33,7 @@ class Loader
 
         $this->container = new Container();
 
-        Application::set_container( $this->container );
+        Application::set_container($this->container);
 
         $this->register_services();
 
@@ -81,26 +81,24 @@ class Loader
          */
         $this->container->set(
             AssetManager::class,
-            function (Container $container) {
+            function () {
 
-                $assets = new AssetManager();
-                /** @var Config $config */
-                $config = $container->get(Config::class);
-                $asset_config = $config->get('assets', []);
+                return new AssetManager();
 
-                foreach (($asset_config['global']['styles'] ?? []) as $asset) {
-                    $assets->registerStyle($asset['handle'], $asset['src'], $asset['deps'] ?? [], $asset['media'] ?? 'all');
-                }
-                foreach (($asset_config['global']['scripts'] ?? []) as $asset) {
-                    $assets->registerScript($asset['handle'], $asset['src'], $asset['deps'] ?? [], $asset['strategy'] ?? 'defer', $asset['footer'] ?? true);
-                }
-                foreach (($asset_config['editor']['styles'] ?? []) as $asset) {
-                    $assets->registerEditorStyle($asset['handle'], $asset['src'], $asset['deps'] ?? []);
-                }
-                foreach (($asset_config['editor']['scripts'] ?? []) as $asset) {
-                    $assets->registerEditorScript($asset['handle'], $asset['src'], $asset['deps'] ?? []);
-                }
-                return $assets;
+            }
+        );
+
+        /*
+         * Smart Asset Loader.
+         */
+        $this->container->set(
+            AssetLoader::class,
+            function ( Container $container ) {
+
+                return new AssetLoader(
+                    $container
+                );
+
             }
         );
 
@@ -145,9 +143,9 @@ class Loader
 
         $this->container->set(
             Icon::class,
-            function ( $container ) {
+            function ($container) {
 
-                return new Icon( $container );
+                return new Icon($container);
 
             }
         );
@@ -158,9 +156,14 @@ class Loader
      *
      * @return void
      */
-    protected
-    function register_hooks(): void
+    protected function register_hooks(): void
     {
+        /**
+         * @var AssetLoader $assetLoader
+         */
+        $assetLoader = $this->container->get(
+            AssetLoader::class
+        );
 
         /**
          * @var AssetManager $assets
@@ -169,6 +172,21 @@ class Loader
             AssetManager::class
         );
 
+        /*
+         * Smart asset registration.
+         *
+         * Priority 10:
+         * Determine which assets are required
+         * and register them with AssetManager.
+         */
+        $assetLoader->register();
+
+        /*
+         * Asset enqueue.
+         *
+         * Priority 20:
+         * Enqueue everything registered above.
+         */
         add_action(
             'wp_enqueue_scripts',
             [
@@ -178,6 +196,9 @@ class Loader
             20
         );
 
+        /*
+         * Block editor assets.
+         */
         add_action(
             'enqueue_block_editor_assets',
             [

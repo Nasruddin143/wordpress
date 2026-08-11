@@ -119,7 +119,7 @@ class REST_Connector {
 			)
 		);
 
-		// The endpoint verifies blog.php connection and blog.php token validity.
+		// The endpoint verifies blog connection and blog token validity.
 		register_rest_route(
 			'jetpack/v4',
 			'/connection/check',
@@ -569,9 +569,9 @@ class REST_Connector {
 	 *
 	 * @since 1.30.1
 	 *
-	 * @since 5.1.0 Modified the permission check to accept requests signed with blog.php tokens.
+	 * @since 5.1.0 Modified the permission check to accept requests signed with blog tokens.
 	 *
-	 * @return bool|WP_Error True if user is able to disconnect the site or the request is signed with a blog.php token (aka a direct request from WPCOM).
+	 * @return bool|WP_Error True if user is able to disconnect the site or the request is signed with a blog token (aka a direct request from WPCOM).
 	 */
 	public static function disconnect_site_permission_check() {
 		if ( current_user_can( 'jetpack_disconnect' ) ) {
@@ -1025,7 +1025,7 @@ class REST_Connector {
 	}
 
 	/**
-	 * The endpoint verifies blog.php connection and blog.php token validity.
+	 * The endpoint verifies blog connection and blog token validity.
 	 *
 	 * @since 2.7.0
 	 *

@@ -814,7 +814,7 @@ class WC_REST_Orders_V2_Controller extends WC_REST_CRUD_Controller {
 					throw new WC_REST_Exception( 'woocommerce_rest_invalid_customer_id', __( 'Customer ID is invalid.', 'woocommerce' ), 400 );
 				}
 
-				// Make sure customer is part of blog.php.
+				// Make sure customer is part of blog.
 				if ( is_multisite() && ! is_user_member_of_blog( $request['customer_id'] ) ) {
 					add_user_to_blog( get_current_blog_id(), $request['customer_id'], 'customer' );
 				}

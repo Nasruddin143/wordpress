@@ -1,152 +1,173 @@
-import {build} from 'esbuild';
-import {execSync} from 'child_process';
-import chokidar from 'chokidar';
 import fs from 'fs-extra';
 import path from 'path';
+import {fileURLToPath} from 'url';
+import chokidar from 'chokidar';
+import * as sass from 'sass';
+import postcss from 'postcss';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+import {build} from 'esbuild';
+import process from "../../../wp-includes/js/tinymce/plugins/paste/plugin.js";
 
-const watch = process.argv.includes('--watch');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const paths = {
-    css: {
-        src: 'assets/src/css/app.css',
-        dest: 'assets/build/css'
-    },
+const ROOT = __dirname;
 
-    js: {
-        src: 'assets/src/js/app.js',
-        dest: 'assets/build/js'
-    },
+const SRC = path.join(ROOT, 'assets', 'src');
+const BUILD = path.join(ROOT, 'assets', 'build');
 
-    images: {
-        src: 'assets/src/images',
-        dest: 'assets/build/images'
-    },
+const SRC_CSS = path.join(SRC, 'css');
+const SRC_SCSS = path.join(SRC, 'scss');
+const SRC_JS = path.join(SRC, 'js');
 
-    fonts: {
-        src: 'assets/src/fonts',
-        dest: 'assets/build/fonts'
-    }
-};
+const BUILD_CSS = path.join(BUILD, 'css');
+const BUILD_JS = path.join(BUILD, 'js');
 
 /**
- * Build CSS.
+ * CSS entry points.
  */
-function buildCSS() {
+const cssEntries = ['app', 'shop', 'single-product', 'cart', 'checkout', 'my-account',];
 
-    console.log('Building CSS...');
+/**
+ * JavaScript entry points.
+ */
+const jsEntries = ['app', 'shop', 'single-product', 'cart', 'checkout', 'my-account',];
 
-    fs.ensureDirSync(paths.css.dest);
-
-    execSync(
-        `npx postcss "${paths.css.src}" -o "${paths.css.dest}/app.min.css"`,
-
-        {
-            stdio: 'inherit'
-        }
-    );
-
+/**
+ * Ensure build directories exist.
+ */
+async function prepare() {
+    await fs.ensureDir(BUILD_CSS);
+    await fs.ensureDir(BUILD_JS);
 }
 
 /**
- * Build JavaScript.
+ * Compile SCSS.
+ *
+ * @param {string} input
+ * @returns {Promise<string>}
  */
-async function buildJS() {
-
-    console.log('Building JS...');
-
-    fs.ensureDirSync(paths.js.dest);
-
-    await build({
-
-        entryPoints: [
-
-            paths.js.src
-
-        ],
-
-        outfile: path.join(
-            paths.js.dest,
-
-            'app.min.js'
-        ),
-
-        bundle: true,
-
-        minify: true,
-
-        sourcemap: watch,
-
-        target: 'es2018'
-
+async function compileScss(input) {
+    const result = sass.compile(input, {
+        loadPaths: [SRC_SCSS, path.join(ROOT, 'node_modules'),], style: 'expanded', sourceMap: false,
     });
 
+    return result.css;
 }
 
 /**
- * Copy assets.
+ * Process CSS with PostCSS.
+ *
+ * @param {string} css
+ * @returns {Promise<string>}
  */
-function copyAssets() {
+async function processCss(css) {
+    const result = await postcss([autoprefixer(), cssnano(),]).process(css, {
+        from: undefined,
+    });
 
-    console.log('Copying assets...');
+    return result.css;
+}
 
-    if (fs.existsSync(paths.images.src)) {
+/**
+ * Build CSS entry.
+ *
+ * @param {string} name
+ */
+async function buildCss(name) {
+    const scssEntry = path.join(SRC_SCSS, `${name}.scss`);
+    const cssEntry = path.join(SRC_CSS, `${name}.css`);
 
-        fs.copySync(
-            paths.images.src,
-            paths.images.dest,
-            { overwrite: true }
-        );
+    let css = '';
 
+    if (await fs.pathExists(scssEntry)) {
+        css = await compileScss(scssEntry);
+    } else if (await fs.pathExists(cssEntry)) {
+        css = await fs.readFile(cssEntry, 'utf8');
+    } else {
+        console.warn(`CSS entry not found: ${name}`);
+        return;
     }
 
-    if (fs.existsSync(paths.fonts.src)) {
+    const processed = await processCss(css);
 
-        fs.copySync(
-            paths.fonts.src,
-            paths.fonts.dest,
-            { overwrite: true }
-        );
+    const output = path.join(BUILD_CSS, `${name}.min.css`);
 
+    await fs.writeFile(output, processed);
+
+    console.log(`CSS  ✓ ${name}.min.css`);
+}
+
+/**
+ * Build JavaScript entry.
+ *
+ * @param {string} name
+ */
+async function buildJs(name) {
+    const input = path.join(SRC_JS, `${name}.js`);
+
+    if (!(await fs.pathExists(input))) {
+        console.warn(`JS entry not found: ${name}.js`);
+        return;
     }
 
+    const output = path.join(BUILD_JS, `${name}.min.js`);
+
+    await build({
+        entryPoints: [input],
+        bundle: true,
+        minify: true,
+        sourcemap: false,
+        format: 'iife',
+        target: ['es2018',],
+        outfile: output,
+    });
+
+    console.log(`JS   ✓ ${name}.min.js`);
 }
 
 /**
- * Build everything.
+ * Build all assets.
  */
-async function compile() {
+async function buildAll() {
+    await prepare();
 
-    buildCSS();
+    for (const entry of cssEntries) {
+        await buildCss(entry);
+    }
 
-    await buildJS();
+    for (const entry of jsEntries) {
+        await buildJs(entry);
+    }
 
-    copyAssets();
-
-    console.log('WooShop build complete.');
-
+    console.log('WooShop assets built successfully.');
 }
 
 /**
- * Watch mode.
+ * Watch source files.
  */
-if (watch) {
+function watch() {
+    const watcher = chokidar.watch([`${SRC_CSS}/**/*`, `${SRC_SCSS}/**/*`, `${SRC_JS}/**/*`,], {
+        ignoreInitial: true,
+    });
 
-    compile();
+    let timer;
 
-    chokidar.watch('assets/src').on(
-        'all',
+    watcher.on('all', () => {
+        clearTimeout(timer);
 
-        async () => {
+        timer = setTimeout(async () => {
+            console.log('Changes detected...');
+            await buildAll();
+        }, 100);
+    });
 
-            console.clear();
+    console.log('Watching WooShop assets...');
+}
 
-            await compile();
+await buildAll();
 
-        }
-    );
-
-} else {
-
-    compile();
-
+if (process.argv.includes('--watch')) {
+    watch();
 }

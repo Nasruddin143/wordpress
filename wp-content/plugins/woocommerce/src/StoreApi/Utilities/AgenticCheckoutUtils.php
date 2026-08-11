@@ -332,7 +332,7 @@ class AgenticCheckoutUtils {
 	}
 
 	/**
-	 * Validate that the request is signed with Jetpack blog.php token.
+	 * Validate that the request is signed with Jetpack blog token.
 	 *
 	 * @since 10.6.0
 	 *
@@ -347,7 +347,7 @@ class AgenticCheckoutUtils {
 
 		return new \WP_Error(
 			'rest_forbidden',
-			__( 'This endpoint requires Jetpack blog.php token authentication.', 'woocommerce' ),
+			__( 'This endpoint requires Jetpack blog token authentication.', 'woocommerce' ),
 			array( 'status' => 401 )
 		);
 	}

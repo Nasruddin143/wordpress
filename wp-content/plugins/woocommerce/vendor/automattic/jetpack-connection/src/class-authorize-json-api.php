@@ -119,7 +119,7 @@ class Authorize_Json_Api {
 			);
 		} elseif ( ! hash_equals( $signature, $environment['signature'] ) ) {
 			if ( is_ssl() ) {
-				// If we signed an HTTP request on the Jetpack Servers, but got redirected to HTTPS by the local blog.php, check the HTTP signature as well.
+				// If we signed an HTTP request on the Jetpack Servers, but got redirected to HTTPS by the local blog, check the HTTP signature as well.
 				$signature = $jetpack_signature->sign_current_request(
 					array(
 						'scheme' => 'http',

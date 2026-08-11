@@ -1,151 +1,174 @@
 <?php
 /**
- * Theme Condition Resolver
+ * WooShop Condition Helper.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-class Condition
-{
+class Condition {
 
     /**
-     * Registered conditions.
+     * Get the current frontend asset context.
      *
-     * @var array<string,callable>
+     * @return string
      */
-    protected array $conditions = [];
+    public static function asset_context(): string {
 
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-
-        $this->register_defaults();
-    }
-
-    /**
-     * Register default conditions.
-     */
-    protected function register_defaults(): void
-    {
-
-        $this->add('front_page', 'is_front_page');
-
-        $this->add('home', 'is_home');
-
-        $this->add('singular', 'is_singular');
-
-        $this->add('page', 'is_page');
-
-        $this->add('single', 'is_single');
-
-        $this->add('archive', 'is_archive');
-
-        $this->add('search', 'is_search');
-
-        $this->add('404', 'is_404');
-
-        $this->add(
-            'logged_in',
-            'is_user_logged_in'
-        );
-
-        $this->add(
-            'logged_out',
-            static function (): bool {
-
-                return !is_user_logged_in();
-
-            }
-        );
-
-        $this->add(
-            'admin',
-            'is_admin'
-        );
-    }
-
-    /**
-     * Register condition.
-     */
-    public function add(string $name, callable $callback): void
-    {
-
-        $this->conditions[$name] = $callback;
-    }
-
-    /**
-     * Determine whether a condition passes.
-     */
-    public function check(string $condition): bool
-    {
-
-        if (!isset(
-            $this->conditions[$condition]
-        )) {
-
-            return false;
+        if ( function_exists( 'is_product' ) && is_product() ) {
+            return 'product';
         }
 
-        return (bool)call_user_func(
-            $this->conditions[$condition]
-        );
-    }
-
-    /**
-     * Determine whether every condition passes.
-     */
-    public function matches(array $conditions): bool
-    {
-
-        foreach ($conditions as $condition) {
-
-            if (!$this->check($condition)) {
-
-                return false;
-            }
+        if ( function_exists( 'is_cart' ) && is_cart() ) {
+            return 'cart';
         }
 
-        return true;
+        if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+            return 'checkout';
+        }
+
+        if ( function_exists( 'is_account_page' ) && is_account_page() ) {
+            return 'my-account';
+        }
+
+        if ( function_exists( 'is_shop' ) && is_shop() ) {
+            return 'shop';
+        }
+
+        if (
+            function_exists( 'is_product_category' )
+            && is_product_category()
+        ) {
+            return 'shop';
+        }
+
+        if (
+            function_exists( 'is_product_tag' )
+            && is_product_tag()
+        ) {
+            return 'shop';
+        }
+
+        return 'global';
     }
 
     /**
-     * Check if a condition exists.
+     * Get frontend asset contexts.
+     *
+     * @return array<int,string>
      */
-    public function has(string $condition): bool
+    public function assetContexts(): array
     {
+        $contexts = [
+            'global',
+        ];
 
-        return isset(
-            $this->conditions[$condition]
-        );
-    }
+        /*
+         * WooCommerce product.
+         */
+        if (
+            function_exists( 'is_product' )
+            && is_product()
+        ) {
 
-    /**
-     * Global assets.
-     */
-    public function global(): bool {
+            $contexts[] = 'product';
 
-        return true;
-    }
+            return $contexts;
+        }
 
-    /**
-     * Editor assets.
-     */
-    public function editor(): bool {
+        /*
+         * WooCommerce cart.
+         */
+        if (
+            function_exists( 'is_cart' )
+            && is_cart()
+        ) {
 
-        return is_admin();
-    }
+            $contexts[] = 'cart';
 
-    /**
-     * Slider assets.
-     */
-    public function slider(): bool {
+            return $contexts;
+        }
 
-        return is_front_page();
+        /*
+         * WooCommerce checkout.
+         */
+        if (
+            function_exists( 'is_checkout' )
+            && is_checkout()
+        ) {
+
+            $contexts[] = 'checkout';
+
+            return $contexts;
+        }
+
+        /*
+         * WooCommerce account.
+         */
+        if (
+            function_exists( 'is_account_page' )
+            && is_account_page()
+        ) {
+
+            $contexts[] = 'my-account';
+
+            return $contexts;
+        }
+
+        /*
+         * WooCommerce shop/archive.
+         */
+        if (
+            function_exists( 'is_shop' )
+            && is_shop()
+        ) {
+
+            $contexts[] = 'shop';
+
+            return $contexts;
+        }
+
+        /*
+         * Product category.
+         */
+        if (
+            function_exists( 'is_product_category' )
+            && is_product_category()
+        ) {
+
+            $contexts[] = 'shop';
+
+            return $contexts;
+        }
+
+        /*
+         * Product tag.
+         */
+        if (
+            function_exists( 'is_product_tag' )
+            && is_product_tag()
+        ) {
+
+            $contexts[] = 'shop';
+
+            return $contexts;
+        }
+
+        /*
+         * Single blog post.
+         */
+        if (
+            is_singular( 'post' )
+        ) {
+
+            $contexts[] = 'single-post';
+
+            return $contexts;
+        }
+
+        return $contexts;
     }
 }

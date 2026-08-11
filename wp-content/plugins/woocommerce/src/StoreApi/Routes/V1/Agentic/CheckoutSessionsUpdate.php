@@ -116,13 +116,13 @@ class CheckoutSessionsUpdate extends AbstractCartRoute {
 	/**
 	 * Check if the request is authorized.
 	 *
-	 * Validates Jetpack blog.php token and cart token validity.
+	 * Validates Jetpack blog token and cart token validity.
 	 *
 	 * @param \WP_REST_Request $request Request object.
 	 * @return bool|\WP_Error True if authorized, WP_Error otherwise.
 	 */
 	public function is_authorized( \WP_REST_Request $request ) {
-		// Check Jetpack blog.php token authentication.
+		// Check Jetpack blog token authentication.
 		$auth_check = AgenticCheckoutUtils::validate_jetpack_request();
 		if ( is_wp_error( $auth_check ) ) {
 			return $auth_check;
@@ -155,6 +155,7 @@ class CheckoutSessionsUpdate extends AbstractCartRoute {
 		// This allows the session will be loaded later without any further intervention.
 		if ( true === $this->has_cart_token ) {
 			$request->set_header( 'Cart-Token', $session_id );
+			// phpcs:ignore WooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobalWrite -- $session_id was validated above; this keeps the consumed token in sync with the validated one.
 			$_SERVER['HTTP_CART_TOKEN'] = $session_id;
 		}
 

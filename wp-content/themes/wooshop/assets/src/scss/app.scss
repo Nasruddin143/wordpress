@@ -1,0 +1,15 @@
+@import "bootstrap/foundation";
+@import "bootstrap/components";
+@import "bootstrap/utilities";
+
+/* WooShop base */
+@import "../css/base/variables.css";
+@import "../css/base/reset.css";
+@import "../css/base/typography.css";
+@import "../css/base/accessibility.css";
+@import "../css/base/utilities.css";
+
+/* WooShop layout */
+@import "../css/layout/header.css";
+@import "../css/layout/navigation.css";
+@import "../css/layout/footer.css";

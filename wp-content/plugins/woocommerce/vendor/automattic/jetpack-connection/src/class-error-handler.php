@@ -37,7 +37,7 @@ namespace Automattic\Jetpack\Connection;
  * For each error code we store a maximum of 5 errors for 5 different user ids.
  *
  * A user ID can be:
- * * 0 for blog.php tokens
+ * * 0 for blog tokens
  * * positive integer for user tokens
  * * 'invalid' for malformed tokens
  *

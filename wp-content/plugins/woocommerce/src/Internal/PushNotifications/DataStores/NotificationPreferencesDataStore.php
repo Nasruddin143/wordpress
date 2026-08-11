@@ -15,7 +15,7 @@ use WP_Http;
  *
  * Stores a single versioned envelope per user under the `wc_push_notification_preferences`
  * user meta key. The key is automatically scoped to the current site by `Users::*_site_user_meta`,
- * which prefixes the underlying meta key with the blog.php ID so preferences set on one site in a
+ * which prefixes the underlying meta key with the blog ID so preferences set on one site in a
  * multisite network do not leak to other sites the same user belongs to. Owns schema migration
  * on read and surfaces real DB write failures via `WC_Data_Exception`.
  *

@@ -37,7 +37,7 @@ class Jetpack_Options {
 					'activated',
 					'active_modules',
 					'active_modules_initialized', // (bool) used to determine that all the default modules were activated, so we know how to act on a reconnection.
-					'allowed_xsite_search_ids', // (array) Array of WP.com blog.php ids that are allowed to search the content of this site
+					'allowed_xsite_search_ids', // (array) Array of WP.com blog ids that are allowed to search the content of this site
 					'available_modules',
 					'do_activate',
 					'log',
@@ -98,7 +98,7 @@ class Jetpack_Options {
 			'time_diff',                           // (int)    Offset between Jetpack server's clocks and this server's clocks. Jetpack Server Time = time() + (int) Jetpack_Options::get_option( 'time_diff' )
 			'public',                              // (int|bool) If we think this site is public or not (1, 0), false if we haven't yet tried to figure it out.
 			'videopress',                          // (array)  VideoPress options array.
-			'is_network_site',                     // (int|bool) If we think this site is a network or a single blog.php (1, 0), false if we haven't yet tried to figue it out.
+			'is_network_site',                     // (int|bool) If we think this site is a network or a single blog (1, 0), false if we haven't yet tried to figue it out.
 			'social_links',                        // (array)  The specified links for each social networking site.
 			'identity_crisis_whitelist',           // (array)  An array of options, each having an array of the values whitelisted for it.
 			'gplus_authors',                       // (array)  The Google+ authorship information for connected users.

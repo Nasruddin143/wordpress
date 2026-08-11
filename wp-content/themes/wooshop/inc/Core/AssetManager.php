@@ -83,6 +83,25 @@ class AssetManager
     }
 
     /**
+     * Register multiple styles.
+     *
+     * @param array<string,array> $styles Styles configuration.
+     * @return void
+     */
+    public function registerStyles(array $styles): void
+    {
+        foreach ($styles as $handle => $style) {
+
+            $this->registerStyle(
+                $handle,
+                $style['file'],
+                $style['deps'] ?? [],
+                $style['media'] ?? 'all'
+            );
+        }
+    }
+
+    /**
      * Register script.
      */
     public function registerScript(string $handle, string $file, array $deps = [], string $strategy = 'defer', bool $footer = true): void
@@ -99,6 +118,26 @@ class AssetManager
             'footer' => $footer,
 
         ];
+    }
+
+    /**
+     * Register multiple scripts.
+     *
+     * @param array<string,array> $scripts Scripts configuration.
+     * @return void
+     */
+    public function registerScripts(array $scripts): void
+    {
+        foreach ($scripts as $handle => $script) {
+
+            $this->registerScript(
+                $handle,
+                $script['file'],
+                $script['deps'] ?? [],
+                $script['strategy'] ?? 'defer',
+                $script['footer'] ?? true
+            );
+        }
     }
 
     /**

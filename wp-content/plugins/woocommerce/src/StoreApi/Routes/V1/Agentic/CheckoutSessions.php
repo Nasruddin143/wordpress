@@ -107,7 +107,7 @@ class CheckoutSessions extends AbstractCartRoute {
 	/**
 	 * Check if the request is authorized.
 	 *
-	 * Validates that the request is signed with Jetpack blog.php token.
+	 * Validates that the request is signed with Jetpack blog token.
 	 *
 	 * @return bool|\WP_Error True if authorized, WP_Error otherwise.
 	 */
@@ -119,10 +119,10 @@ class CheckoutSessions extends AbstractCartRoute {
 	 * Check if a nonce is required for the route.
 	 *
 	 * @param \WP_REST_Request $request Request object.
-	 * @return bool False, Jetpack blog.php token auth used instead.
+	 * @return bool False, Jetpack blog token auth used instead.
 	 */
 	protected function requires_nonce( \WP_REST_Request $request ) {
-		// Uses Jetpack blog.php token authentication via is_authorized().
+		// Uses Jetpack blog token authentication via is_authorized().
 		return false;
 	}
 

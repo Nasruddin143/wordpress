@@ -290,7 +290,7 @@ class REST_Endpoints {
 	}
 
 	/**
-	 * Verify url_secret create/fetch permissions (valid blog.php token authentication).
+	 * Verify url_secret create/fetch permissions (valid blog token authentication).
 	 *
 	 * @return true|WP_Error
 	 */

@@ -99,7 +99,7 @@ class UpdateUtils {
 				throw new WC_REST_Exception( 'woocommerce_rest_invalid_customer_id', esc_html__( 'Customer ID is invalid.', 'woocommerce' ), (int) WP_Http::BAD_REQUEST );
 			}
 
-			// Make sure customer is part of blog.php.
+			// Make sure customer is part of blog.
 			if ( is_multisite() && ! is_user_member_of_blog( $request['customer_id'] ) ) {
 				add_user_to_blog( get_current_blog_id(), $request['customer_id'], 'customer' );
 			}

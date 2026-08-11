@@ -271,7 +271,7 @@ class Manager {
 
 		if ( $is_signed ) {
 			// If the site is connected either at a site or user level and the request is signed, expose the methods.
-			// The callback is responsible to determine whether the request is signed with blog.php or user token and act accordingly.
+			// The callback is responsible to determine whether the request is signed with blog or user token and act accordingly.
 			// The actual API methods.
 			$callback = array( $this->xmlrpc_server, 'xmlrpc_methods' );
 
@@ -478,7 +478,7 @@ class Manager {
 		}
 
 		if ( '0' === $user_id ) {
-			$token_type = 'blog.php';
+			$token_type = 'blog';
 			$user_id    = 0;
 		} else {
 			$token_type = 'user';
@@ -631,7 +631,7 @@ class Manager {
 	}
 
 	/**
-	 * Returns true if the site has both a token and a blog.php id, which indicates a site has been registered.
+	 * Returns true if the site has both a token and a blog id, which indicates a site has been registered.
 	 *
 	 * @access public
 	 * @deprecated 1.12.1 Use is_connected instead
@@ -645,7 +645,7 @@ class Manager {
 	}
 
 	/**
-	 * Returns true if the site has both a token and a blog.php id, which indicates a site has been connected.
+	 * Returns true if the site has both a token and a blog id, which indicates a site has been connected.
 	 *
 	 * @access public
 	 * @since 1.21.1
@@ -662,7 +662,7 @@ class Manager {
 			if ( $has_blog_id ) {
 				self::$is_connected = (bool) $this->get_tokens()->get_access_token();
 			} else {
-				// Short-circuit, no need to check for tokens if there's no blog.php ID.
+				// Short-circuit, no need to check for tokens if there's no blog ID.
 				self::$is_connected = false;
 			}
 		}
@@ -1241,7 +1241,7 @@ class Manager {
 	 */
 	public function register( $api_endpoint = 'register' ) {
 		// Clean-up leftover tokens just in-case.
-		// This fixes an edge case that was preventing users to register when the blog.php token was missing but
+		// This fixes an edge case that was preventing users to register when the blog token was missing but
 		// there were still leftover user tokens present.
 		$this->delete_all_connection_tokens( true );
 
@@ -1926,7 +1926,7 @@ class Manager {
 	 */
 	public function restore() {
 		// If this is a site connection we need to trigger a full reconnection as our only secure means of
-		// communication with WPCOM, aka the blog.php token, is compromised.
+		// communication with WPCOM, aka the blog token, is compromised.
 		if ( $this->is_site_connection() ) {
 			return $this->reconnect();
 		}
@@ -1977,7 +1977,7 @@ class Manager {
 	}
 
 	/**
-	 * Perform the API request to validate the blog.php and user tokens.
+	 * Perform the API request to validate the blog and user tokens.
 	 *
 	 * @deprecated 1.24.0 Use Automattic\Jetpack\Connection\Tokens->validate_tokens() instead.
 	 *
@@ -2664,7 +2664,7 @@ class Manager {
 	}
 
 	/**
-	 * Perform the API request to refresh the blog.php token.
+	 * Perform the API request to refresh the blog token.
 	 * Note that we are making this request on behalf of the Jetpack master user,
 	 * given they were (most probably) the ones that registered the site at the first place.
 	 *
@@ -2683,7 +2683,7 @@ class Manager {
 			Constants::get_constant( 'JETPACK__WPCOM_JSON_API_BASE' ),
 			'wpcom',
 			'2',
-			'sites/' . $blog_id . '/jetpack-refresh-blog.php-token'
+			'sites/' . $blog_id . '/jetpack-refresh-blog-token'
 		);
 		$method  = 'POST';
 		$user_id = get_current_user_id();

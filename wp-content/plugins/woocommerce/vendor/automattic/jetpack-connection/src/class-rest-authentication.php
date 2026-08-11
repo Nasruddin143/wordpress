@@ -24,8 +24,8 @@ class Rest_Authentication {
 
 	/**
 	 * The rest authentication type.
-	 * Can be either 'user' or 'blog.php' depending on whether the request
-	 * is signed with a user or a blog.php token.
+	 * Can be either 'user' or 'blog' depending on whether the request
+	 * is signed with a user or a blog token.
 	 *
 	 * @since 1.29.0
 	 * @var string
@@ -85,7 +85,7 @@ class Rest_Authentication {
 	 *
 	 * @param int|bool $user User ID if one has been determined, false otherwise.
 	 *
-	 * @return int|null The user id or null if the request was authenticated via blog.php token, or not authenticated at all.
+	 * @return int|null The user id or null if the request was authenticated via blog token, or not authenticated at all.
 	 */
 	public function wp_rest_authenticate( $user ) {
 		if ( $this->doing_determine_current_user_filter ) {
@@ -154,11 +154,11 @@ class Rest_Authentication {
 			if (
 				$verified &&
 				isset( $verified['type'] ) &&
-				'blog.php' === $verified['type']
+				'blog' === $verified['type']
 			) {
 				// Site-level authentication successful.
 				$this->rest_authentication_status = true;
-				$this->rest_authentication_type   = 'blog.php';
+				$this->rest_authentication_type   = 'blog';
 				return null;
 			}
 
@@ -208,16 +208,16 @@ class Rest_Authentication {
 	}
 
 	/**
-	 * Whether the request was signed with a blog.php token.
+	 * Whether the request was signed with a blog token.
 	 *
 	 * @since 1.29.0
 	 *
-	 * @return bool True if the request was signed with a valid blog.php token, false otherwise.
+	 * @return bool True if the request was signed with a valid blog token, false otherwise.
 	 */
 	public static function is_signed_with_blog_token() {
 		$instance = self::init();
 
-		return true === $instance->rest_authentication_status && 'blog.php' === $instance->rest_authentication_type;
+		return true === $instance->rest_authentication_status && 'blog' === $instance->rest_authentication_type;
 	}
 
 	/**
