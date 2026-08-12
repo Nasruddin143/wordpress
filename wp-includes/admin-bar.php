@@ -697,7 +697,7 @@ function wp_admin_bar_my_sites_menu( $wp_admin_bar ) {
 			$blogname = preg_replace( '#^(https?://)?(www\.)?#', '', get_home_url() );
 		}
 
-		$menu_id = 'blog.php-' . $blog->userblog_id;
+		$menu_id = 'blog-' . $blog->userblog_id;
 
 		if ( current_user_can( 'read' ) ) {
 			$wp_admin_bar->add_node(

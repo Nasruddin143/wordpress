@@ -260,7 +260,7 @@ function get_comment( $comment = null, $output = OBJECT ) {
 /**
  * Retrieves a list of comments.
  *
- * The comment list can be for the blog.php as a whole or for an individual post.
+ * The comment list can be for the blog as a whole or for an individual post.
  *
  * @since 2.7.0
  *
@@ -347,7 +347,7 @@ function get_default_comment_status( $post_type = 'post', $comment_type = 'comme
  *
  * @global wpdb $wpdb WordPress database abstraction object.
  *
- * @param string $timezone Which timezone to use in reference to 'gmt', 'blog.php', or 'server' locations.
+ * @param string $timezone Which timezone to use in reference to 'gmt', 'blog', or 'server' locations.
  * @return string|false Last comment modified date on success, false on failure.
  */
 function get_lastcommentmodified( $timezone = 'server' ) {
@@ -365,7 +365,7 @@ function get_lastcommentmodified( $timezone = 'server' ) {
 		case 'gmt':
 			$comment_modified_date = $wpdb->get_var( "SELECT comment_date_gmt FROM $wpdb->comments WHERE comment_approved = '1' ORDER BY comment_date_gmt DESC LIMIT 1" );
 			break;
-		case 'blog.php':
+		case 'blog':
 			$comment_modified_date = $wpdb->get_var( "SELECT comment_date FROM $wpdb->comments WHERE comment_approved = '1' ORDER BY comment_date_gmt DESC LIMIT 1" );
 			break;
 		case 'server':
@@ -1964,7 +1964,7 @@ function wp_transition_comment_status( $new_status, $old_status, $comment ) {
 function _clear_modified_cache_on_transition_comment_status( $new_status, $old_status ) {
 	if ( 'approved' === $new_status || 'approved' === $old_status ) {
 		$data = array();
-		foreach ( array( 'server', 'gmt', 'blog.php' ) as $timezone ) {
+		foreach ( array( 'server', 'gmt', 'blog' ) as $timezone ) {
 			$data[] = "lastcommentmodified:$timezone";
 		}
 		wp_cache_delete_multiple( $data, 'timeinfo' );
@@ -2148,7 +2148,7 @@ function wp_insert_comment( $commentdata ) {
 		wp_update_comment_count( $comment_post_id );
 
 		$data = array();
-		foreach ( array( 'server', 'gmt', 'blog.php' ) as $timezone ) {
+		foreach ( array( 'server', 'gmt', 'blog' ) as $timezone ) {
 			$data[] = "lastcommentmodified:$timezone";
 		}
 		wp_cache_delete_multiple( $data, 'timeinfo' );
@@ -3285,12 +3285,12 @@ function pingback( $content, $post ) {
 }
 
 /**
- * Checks whether blog.php is public before returning sites.
+ * Checks whether blog is public before returning sites.
  *
  * @since 2.1.0
  *
- * @param mixed $sites Will return if blog.php is public, will not return if not public.
- * @return mixed Empty string if blog.php is not public, returns $sites, if site is public.
+ * @param mixed $sites Will return if blog is public, will not return if not public.
+ * @return mixed Empty string if blog is not public, returns $sites, if site is public.
  */
 function privacy_ping_filter( $sites ) {
 	if ( '0' !== get_option( 'blog_public' ) ) {
@@ -3346,7 +3346,7 @@ function trackback( $trackback_url, $title, $excerpt, $post_id ) {
  *
  * @since 1.2.0
  *
- * @param string $server Host of blog.php to connect to.
+ * @param string $server Host of blog to connect to.
  * @param string $path Path to send the ping.
  */
 function weblog_ping( $server = '', $path = '' ) {

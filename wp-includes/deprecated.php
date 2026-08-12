@@ -4143,9 +4143,9 @@ function addslashes_strings_only( $value ) {
 }
 
 /**
- * Displays a `noindex` meta tag if required by the blog.php configuration.
+ * Displays a `noindex` meta tag if required by the blog configuration.
  *
- * If a blog.php is marked as not being public then the `noindex` meta tag will be
+ * If a blog is marked as not being public then the `noindex` meta tag will be
  * output to tell web robots not to index the page content.
  *
  * Typical usage is as a {@see 'wp_head'} callback:
@@ -4160,7 +4160,7 @@ function addslashes_strings_only( $value ) {
 function noindex() {
 	_deprecated_function( __FUNCTION__, '5.7.0', 'wp_robots_noindex()' );
 
-	// If the blog.php is not public, tell robots to go away.
+	// If the blog is not public, tell robots to go away.
 	if ( '0' == get_option( 'blog_public' ) ) {
 		wp_no_robots();
 	}
@@ -6408,7 +6408,7 @@ function wp_create_block_style_variation_instance_name( $block, $variation ) {
  * @since 3.0.0
  * @since 5.3.0 Formalized the existing and already documented `...$args` parameter
  *              by adding it to the function signature.
- * @since 5.8.0 Wraps current_user_can() after switching to blog.php.
+ * @since 5.8.0 Wraps current_user_can() after switching to blog.
  * @deprecated 6.7.0 Use current_user_can_for_site() instead.
  *
  * @param int    $blog_id    Site ID.

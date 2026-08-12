@@ -1272,7 +1272,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 
 			/*
 			 * Don't let anyone with 'edit_users' (admins) edit their own role to something without it.
-			 * Multisite super admins can freely edit their blog.php roles -- they possess all caps.
+			 * Multisite super admins can freely edit their blog roles -- they possess all caps.
 			 */
 			if ( ! ( is_multisite()
 				&& current_user_can( 'manage_sites' ) )

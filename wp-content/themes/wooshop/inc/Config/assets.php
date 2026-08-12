@@ -219,4 +219,30 @@ return [
 
     ],
 
+    /*
+     * Editor Assets.
+     */
+    'editor' => [
+
+        'styles' => [
+
+            [
+                'handle' => 'wooshop-editor',
+                'src'    => 'assets/build/css/editor.min.css',
+                'deps'   => [],
+            ],
+
+        ],
+
+        'scripts' => [
+
+            [
+                'handle' => 'wooshop-editor',
+                'src'    => 'assets/build/js/editor.min.js',
+                'deps'   => [],
+            ],
+
+        ],
+
+    ],
 ];

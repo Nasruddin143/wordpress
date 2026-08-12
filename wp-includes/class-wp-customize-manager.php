@@ -5639,7 +5639,7 @@ final class WP_Customize_Manager {
 			array(
 				'title'           => __( 'Homepage Settings' ),
 				'priority'        => 120,
-				'description'     => __( 'You can choose what&#8217;s displayed on the homepage of your site. It can be posts in reverse chronological order (classic blog.php), or a fixed/static page. To set a static homepage, you first need to create two Pages. One will become the homepage, and the other will be where your posts are displayed.' ),
+				'description'     => __( 'You can choose what&#8217;s displayed on the homepage of your site. It can be posts in reverse chronological order (classic blog), or a fixed/static page. To set a static homepage, you first need to create two Pages. One will become the homepage, and the other will be where your posts are displayed.' ),
 				'active_callback' => array( $this, 'has_published_pages' ),
 			)
 		);
@@ -6147,7 +6147,7 @@ final class WP_Customize_Manager {
 	 *
 	 * This method exists because the partial object and context data are passed
 	 * into a partial's render_callback so we cannot use get_custom_logo() as
-	 * the render_callback directly since it expects a blog.php ID as the first
+	 * the render_callback directly since it expects a blog ID as the first
 	 * argument.
 	 *
 	 * @see WP_Customize_Manager::register_controls()

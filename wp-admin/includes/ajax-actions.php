@@ -318,7 +318,7 @@ function wp_ajax_autocomplete_user() {
 		$field = 'user_login';
 	}
 
-	// Exclude current users of this blog.php.
+	// Exclude current users of this blog.
 	if ( isset( $_REQUEST['site_id'] ) ) {
 		$id = absint( $_REQUEST['site_id'] );
 	} else {

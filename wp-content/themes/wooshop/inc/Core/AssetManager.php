@@ -83,25 +83,6 @@ class AssetManager
     }
 
     /**
-     * Register multiple styles.
-     *
-     * @param array<string,array> $styles Styles configuration.
-     * @return void
-     */
-    public function registerStyles(array $styles): void
-    {
-        foreach ($styles as $handle => $style) {
-
-            $this->registerStyle(
-                $handle,
-                $style['file'],
-                $style['deps'] ?? [],
-                $style['media'] ?? 'all'
-            );
-        }
-    }
-
-    /**
      * Register script.
      */
     public function registerScript(string $handle, string $file, array $deps = [], string $strategy = 'defer', bool $footer = true): void
@@ -120,25 +101,6 @@ class AssetManager
         ];
     }
 
-    /**
-     * Register multiple scripts.
-     *
-     * @param array<string,array> $scripts Scripts configuration.
-     * @return void
-     */
-    public function registerScripts(array $scripts): void
-    {
-        foreach ($scripts as $handle => $script) {
-
-            $this->registerScript(
-                $handle,
-                $script['file'],
-                $script['deps'] ?? [],
-                $script['strategy'] ?? 'defer',
-                $script['footer'] ?? true
-            );
-        }
-    }
 
     /**
      * Enqueue all registered styles.
@@ -320,10 +282,11 @@ class AssetManager
     public function registerEditorStyle(
         string $handle,
         string $file,
-        array $deps = []
-    ): void {
+        array  $deps = []
+    ): void
+    {
 
-        $this->editorStyles[ $handle ] = [
+        $this->editorStyles[$handle] = [
 
             'file' => $file,
 
@@ -338,10 +301,11 @@ class AssetManager
     public function registerEditorScript(
         string $handle,
         string $file,
-        array $deps = []
-    ): void {
+        array  $deps = []
+    ): void
+    {
 
-        $this->editorScripts[ $handle ] = [
+        $this->editorScripts[$handle] = [
 
             'file' => $file,
 
@@ -353,13 +317,14 @@ class AssetManager
     /**
      * Enqueue Editor Assets.
      */
-    public function enqueueEditor(): void {
+    public function enqueueEditor(): void
+    {
 
-        foreach ( $this->editorStyles as $handle => $style ) {
+        foreach ($this->editorStyles as $handle => $style) {
 
-            $file = $this->file( $style['file'] );
+            $file = $this->file($style['file']);
 
-            if ( ! file_exists( $file ) ) {
+            if (!file_exists($file)) {
                 continue;
             }
 
@@ -367,20 +332,20 @@ class AssetManager
 
                 $handle,
 
-                $this->url( $style['file'] ),
+                $this->url($style['file']),
 
                 $style['deps'],
 
-                $this->version( $file )
+                $this->version($file)
 
             );
         }
 
-        foreach ( $this->editorScripts as $handle => $script ) {
+        foreach ($this->editorScripts as $handle => $script) {
 
-            $file = $this->file( $script['file'] );
+            $file = $this->file($script['file']);
 
-            if ( ! file_exists( $file ) ) {
+            if (!file_exists($file)) {
                 continue;
             }
 
@@ -388,11 +353,11 @@ class AssetManager
 
                 $handle,
 
-                $this->url( $script['file'] ),
+                $this->url($script['file']),
 
                 $script['deps'],
 
-                $this->version( $file ),
+                $this->version($file),
 
                 true
 

@@ -34,8 +34,8 @@ function get_bloginfo_rss( $show = '' ) {
 	 * @see convert_chars()
 	 * @see get_bloginfo()
 	 *
-	 * @param string $info Converted string value of the blog.php information.
-	 * @param string $show The type of blog.php information to retrieve.
+	 * @param string $info Converted string value of the blog information.
+	 * @param string $show The type of blog information to retrieve.
 	 */
 	return apply_filters( 'get_bloginfo_rss', convert_chars( $info ), $show );
 }
@@ -61,8 +61,8 @@ function bloginfo_rss( $show = '' ) {
 	 *
 	 * @see get_bloginfo()
 	 *
-	 * @param string $rss_container RSS container for the blog.php information.
-	 * @param string $show          The type of blog.php information to retrieve.
+	 * @param string $rss_container RSS container for the blog information.
+	 * @param string $show          The type of blog information to retrieve.
 	 */
 	echo apply_filters( 'bloginfo_rss', get_bloginfo_rss( $show ), $show );
 }
@@ -92,7 +92,7 @@ function get_default_feed() {
 }
 
 /**
- * Retrieves the blog.php title for the feed title.
+ * Retrieves the blog title for the feed title.
  *
  * @since 2.2.0
  * @since 4.4.0 The optional `$sep` parameter was deprecated and renamed to `$deprecated`.
@@ -107,19 +107,19 @@ function get_wp_title_rss( $deprecated = '&#8211;' ) {
 	}
 
 	/**
-	 * Filters the blog.php title for use as the feed title.
+	 * Filters the blog title for use as the feed title.
 	 *
 	 * @since 2.2.0
 	 * @since 4.4.0 The `$sep` parameter was deprecated and renamed to `$deprecated`.
 	 *
-	 * @param string $title      The current blog.php title.
+	 * @param string $title      The current blog title.
 	 * @param string $deprecated Unused.
 	 */
 	return apply_filters( 'get_wp_title_rss', wp_get_document_title(), $deprecated );
 }
 
 /**
- * Displays the blog.php title for display of the feed title.
+ * Displays the blog title for display of the feed title.
  *
  * @since 2.2.0
  * @since 4.4.0 The optional `$sep` parameter was deprecated and renamed to `$deprecated`.
@@ -133,14 +133,14 @@ function wp_title_rss( $deprecated = '&#8211;' ) {
 	}
 
 	/**
-	 * Filters the blog.php title for display of the feed title.
+	 * Filters the blog title for display of the feed title.
 	 *
 	 * @since 2.2.0
 	 * @since 4.4.0 The `$sep` parameter was deprecated and renamed to `$deprecated`.
 	 *
 	 * @see get_wp_title_rss()
 	 *
-	 * @param string $wp_title_rss The current blog.php title.
+	 * @param string $wp_title_rss The current blog title.
 	 * @param string $deprecated   Unused.
 	 */
 	echo apply_filters( 'wp_title_rss', get_wp_title_rss(), $deprecated );
@@ -442,7 +442,7 @@ function the_category_rss( $type = null ) {
 }
 
 /**
- * Displays the HTML type based on the blog.php setting.
+ * Displays the HTML type based on the blog setting.
  *
  * The two possible values are either 'xhtml' or 'html'.
  *

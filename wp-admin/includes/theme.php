@@ -316,7 +316,7 @@ function get_theme_feature_list( $api = true ) {
 	$features = array(
 
 		__( 'Subject' )  => array(
-			'blog.php'           => __( 'Blog' ),
+			'blog'           => __( 'Blog' ),
 			'e-commerce'     => __( 'E-Commerce' ),
 			'education'      => __( 'Education' ),
 			'entertainment'  => __( 'Entertainment' ),

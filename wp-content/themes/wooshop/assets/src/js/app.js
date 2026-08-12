@@ -1,3 +1,1 @@
-import './components/bootstrap';
-
-import './modules/navigation';
+import './modules/navigation.js';

@@ -511,7 +511,7 @@ function rest_get_url_prefix() {
  * @todo Check if this is even necessary
  * @global WP_Rewrite $wp_rewrite WordPress rewrite component.
  *
- * @param int|null $blog_id Optional. Blog ID. Default of null returns URL for current blog.php.
+ * @param int|null $blog_id Optional. Blog ID. Default of null returns URL for current blog.
  * @param string   $path    Optional. REST route. Default '/'.
  * @param string   $scheme  Optional. Sanitization scheme. Default 'rest'.
  * @return string Full URL to the endpoint.

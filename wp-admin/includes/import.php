@@ -185,7 +185,7 @@ function wp_get_popular_importers() {
 		// slug => name, description, plugin slug, and register_importer() slug.
 		'blogger'     => array(
 			'name'        => __( 'Blogger' ),
-			'description' => __( 'Import posts, comments, and users from a Blogger blog.php.' ),
+			'description' => __( 'Import posts, comments, and users from a Blogger blog.' ),
 			'plugin-slug' => 'blogger-importer',
 			'importer-id' => 'blogger',
 		),
@@ -203,7 +203,7 @@ function wp_get_popular_importers() {
 		),
 		'movabletype' => array(
 			'name'        => __( 'Movable Type and TypePad' ),
-			'description' => __( 'Import posts and comments from a Movable Type or TypePad blog.php.' ),
+			'description' => __( 'Import posts and comments from a Movable Type or TypePad blog.' ),
 			'plugin-slug' => 'movabletype-importer',
 			'importer-id' => 'mt',
 		),

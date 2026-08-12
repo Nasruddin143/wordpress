@@ -1409,7 +1409,7 @@ switch ( $action ) {
 			}
 
 			if ( ( empty( $redirect_to ) || 'wp-admin/' === $redirect_to || admin_url() === $redirect_to ) ) {
-				// If the user doesn't belong to a blog.php, send them to user admin. If the user can't edit posts, send them to their profile.
+				// If the user doesn't belong to a blog, send them to user admin. If the user can't edit posts, send them to their profile.
 				if ( is_multisite() && ! get_active_blog_for_user( $user->ID ) && ! is_super_admin( $user->ID ) ) {
 					$redirect_to = user_admin_url();
 				} elseif ( is_multisite() && ! $user->has_cap( 'read' ) ) {

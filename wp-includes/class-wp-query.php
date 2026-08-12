@@ -4487,9 +4487,9 @@ class WP_Query {
 	}
 
 	/**
-	 * Determines whether the query is for the blog.php homepage.
+	 * Determines whether the query is for the blog homepage.
 	 *
-	 * This is the page which shows the time based blog.php content of your site.
+	 * This is the page which shows the time based blog content of your site.
 	 *
 	 * Depends on the site's "Front page displays" Reading Settings 'show_on_front' and 'page_for_posts'.
 	 *
@@ -4500,7 +4500,7 @@ class WP_Query {
 	 *
 	 * @see WP_Query::is_front_page()
 	 *
-	 * @return bool Whether the query is for the blog.php homepage.
+	 * @return bool Whether the query is for the blog homepage.
 	 */
 	public function is_home() {
 		return (bool) $this->is_home;

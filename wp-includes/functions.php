@@ -2501,7 +2501,7 @@ function _wp_upload_dir( $time = null ) {
 			 * 1) We are not on the main site in a post-MU network, as wp-content/uploads is used
 			 *    there, and
 			 * 2) We are not switched, as ms_upload_constants() hardcodes these constants to reflect
-			 *    the original blog.php ID.
+			 *    the original blog ID.
 			 *
 			 * Rather than UPLOADS, we actually use BLOGUPLOADDIR if it is set, as it is absolute.
 			 * (And it will be set, see ms_upload_constants().) Otherwise, UPLOADS can be used, as
@@ -7594,7 +7594,7 @@ function get_tag_regex( $tag ) {
 
 /**
  * Indicates if a given slug for a character set represents the UTF-8
- * text encoding. If not provided, examines the current blog.php's charset.
+ * text encoding. If not provided, examines the current blog's charset.
  *
  * A charset is considered to represent UTF-8 if it is a case-insensitive
  * match of "UTF-8" with or without the hyphen.
@@ -8765,7 +8765,7 @@ function wp_get_direct_update_https_url() {
  * Gets the size of a directory.
  *
  * A helper function that is used primarily to check whether
- * a blog.php has exceeded its allowed upload space.
+ * a blog has exceeded its allowed upload space.
  *
  * @since MU (3.0.0)
  * @since 5.2.0 $max_execution_time parameter added.

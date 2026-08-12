@@ -21379,7 +21379,7 @@ ${url}
       name: "wordpress",
       title: getTitle("WordPress"),
       icon: embedWordPressIcon,
-      keywords: [(0, import_i18n61.__)("post"), (0, import_i18n61.__)("blog.php")],
+      keywords: [(0, import_i18n61.__)("post"), (0, import_i18n61.__)("blog")],
       description: (0, import_i18n61.__)("Embed a WordPress post."),
       attributes: {
         providerNameSlug: "wordpress"
@@ -49806,7 +49806,7 @@ ${js}
         "This is the Content block, it will display all the blocks in any single post or page."
       ) }),
       /* @__PURE__ */ (0, import_jsx_runtime364.jsx)("p", { children: (0, import_i18n166.__)(
-        "That might be a simple arrangement like consecutive paragraphs in a blog.php post, or a more elaborate composition that includes image galleries, videos, tables, columns, and any other block types."
+        "That might be a simple arrangement like consecutive paragraphs in a blog post, or a more elaborate composition that includes image galleries, videos, tables, columns, and any other block types."
       ) }),
       /* @__PURE__ */ (0, import_jsx_runtime364.jsx)("p", { children: (0, import_i18n166.__)(
         "If there are any Custom Post Types registered at your site, the Content block can display the contents of those entries as well."
@@ -54456,7 +54456,7 @@ ${js}
     title: "Query Loop",
     category: "theme",
     description: "An advanced block that allows displaying post types based on different query parameters and visual configurations.",
-    keywords: ["posts", "list", "blog.php", "blogs", "custom post types"],
+    keywords: ["posts", "list", "blog", "blogs", "custom post types"],
     textdomain: "default",
     attributes: {
       queryId: {

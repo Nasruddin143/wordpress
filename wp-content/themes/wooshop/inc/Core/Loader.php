@@ -29,16 +29,34 @@ class Loader
      */
     public function boot(): void
     {
+        /*
+        * Load global helper functions.
+        */
         require_once get_template_directory() . '/inc/Helpers/loader.php';
 
+        /*
+         * Create service container.
+         */
         $this->container = new Container();
 
+        /*
+         * Make container available to the application.
+         */
         Application::set_container($this->container);
 
+        /*
+         * Register framework services.
+         */
         $this->register_services();
 
+        /*
+         * Register WordPress hooks.
+         */
         $this->register_hooks();
 
+        /*
+         * Load registered modules.
+         */
         $this->load_modules();
     }
 
@@ -49,10 +67,11 @@ class Loader
      */
     protected function register_services(): void
     {
-
         /*
-         * Configuration Repository.
-         */
+        * ---------------------------------------------------------
+        * Configuration Repository.
+        * ---------------------------------------------------------
+        */
         $this->container->set(
             Config::class,
             function () {
@@ -65,7 +84,9 @@ class Loader
         );
 
         /*
+         * ---------------------------------------------------------
          * Condition Resolver.
+         * ---------------------------------------------------------
          */
         $this->container->set(
             Condition::class,
@@ -77,8 +98,10 @@ class Loader
         );
 
         /*
-         * Asset Manager.
-         */
+        * ---------------------------------------------------------
+        * Asset Manager.
+        * ---------------------------------------------------------
+        */
         $this->container->set(
             AssetManager::class,
             function () {
@@ -87,13 +110,64 @@ class Loader
 
             }
         );
+//        $this->container->set(
+//            AssetManager::class,
+//            function (Container $container) {
+//
+//                $assets = new AssetManager();
+//
+//                /** @var Config $config */
+//                $config = $container->get(
+//                    Config::class
+//                );
+//
+//                $assetConfig = $config->get(
+//                    'assets',
+//                    []
+//                );
+//
+//                /*
+//                 * Register editor styles.
+//                 */
+//                foreach (
+//                    $assetConfig['editor']['styles'] ?? []
+//                    as $asset
+//                ) {
+//
+//                    $assets->registerEditorStyle(
+//                        $asset['handle'],
+//                        $asset['src'],
+//                        $asset['deps'] ?? []
+//                    );
+//                }
+//
+//                /*
+//                 * Register editor scripts.
+//                 */
+//                foreach (
+//                    $assetConfig['editor']['scripts'] ?? []
+//                    as $asset
+//                ) {
+//
+//                    $assets->registerEditorScript(
+//                        $asset['handle'],
+//                        $asset['src'],
+//                        $asset['deps'] ?? []
+//                    );
+//                }
+//
+//                return $assets;
+//            }
+//        );
 
         /*
+         * ---------------------------------------------------------
          * Smart Asset Loader.
+         * ---------------------------------------------------------
          */
         $this->container->set(
             AssetLoader::class,
-            function ( Container $container ) {
+            function (Container $container) {
 
                 return new AssetLoader(
                     $container
@@ -103,7 +177,9 @@ class Loader
         );
 
         /*
+         * ---------------------------------------------------------
          * Template Loader.
+         * ---------------------------------------------------------
          */
         $this->container->set(
             TemplateLoader::class,
@@ -115,7 +191,9 @@ class Loader
         );
 
         /*
+         * ---------------------------------------------------------
          * View Renderer.
+         * ---------------------------------------------------------
          */
         $this->container->set(
             View::class,
@@ -130,6 +208,12 @@ class Loader
             }
         );
 
+
+        /*
+         * ---------------------------------------------------------
+         * Icon Manager.
+         * ---------------------------------------------------------
+         */
         $this->container->set(
             Manager::class,
             function () {
@@ -141,6 +225,12 @@ class Loader
             }
         );
 
+
+        /*
+        * ---------------------------------------------------------
+        * Icon Renderer.
+        * ---------------------------------------------------------
+        */
         $this->container->set(
             Icon::class,
             function ($container) {
@@ -151,8 +241,13 @@ class Loader
         );
     }
 
+
     /**
      * Register WordPress hooks.
+     *
+     * Asset registration and enqueueing are intentionally
+     * separated so smart asset detection happens before
+     * assets are enqueued.
      *
      * @return void
      */
@@ -216,7 +311,6 @@ class Loader
     protected
     function load_modules(): void
     {
-
         $manager = new ModuleManager(
             $this->container
         );

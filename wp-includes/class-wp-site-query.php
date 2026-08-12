@@ -303,7 +303,7 @@ class WP_Site_Query {
 		// Reparse query vars, in case they were modified in a 'pre_get_sites' callback.
 		$this->meta_query->parse_query_vars( $this->query_vars );
 		if ( ! empty( $this->meta_query->queries ) ) {
-			$this->meta_query_clauses = $this->meta_query->get_sql( 'blog.php', $wpdb->blogs, 'blog_id', $this );
+			$this->meta_query_clauses = $this->meta_query->get_sql( 'blog', $wpdb->blogs, 'blog_id', $this );
 		}
 
 		$site_data = null;

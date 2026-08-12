@@ -57,7 +57,7 @@ class WP_Object_Cache {
 	protected $global_groups = array();
 
 	/**
-	 * The blog.php prefix to prepend to keys in non-global groups.
+	 * The blog prefix to prepend to keys in non-global groups.
 	 *
 	 * @since 3.5.0
 	 * @var string
@@ -590,9 +590,9 @@ class WP_Object_Cache {
 	}
 
 	/**
-	 * Switches the internal blog.php ID.
+	 * Switches the internal blog ID.
 	 *
-	 * This changes the blog.php ID used to create keys in blog.php specific groups.
+	 * This changes the blog ID used to create keys in blog specific groups.
 	 *
 	 * @since 3.5.0
 	 *
@@ -614,7 +614,7 @@ class WP_Object_Cache {
 	public function reset() {
 		_deprecated_function( __FUNCTION__, '3.5.0', 'WP_Object_Cache::switch_to_blog()' );
 
-		// Clear out non-global caches since the blog.php ID has changed.
+		// Clear out non-global caches since the blog ID has changed.
 		foreach ( array_keys( $this->cache ) as $group ) {
 			if ( ! isset( $this->global_groups[ $group ] ) ) {
 				unset( $this->cache[ $group ] );

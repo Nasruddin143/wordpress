@@ -432,7 +432,7 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 	 * Handles the checkbox column output.
 	 *
 	 * @since 4.3.0
-	 * @since 5.9.0 Renamed `$blog.php` to `$item` to match parent class for PHP 8 named parameter support.
+	 * @since 5.9.0 Renamed `$blog` to `$item` to match parent class for PHP 8 named parameter support.
 	 *
 	 * @param array $item Current site.
 	 */
@@ -566,7 +566,7 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 	 * @param array $blog Current site.
 	 */
 	public function column_users( $blog ) {
-		$user_count = wp_cache_get( $blog['blog_id'] . '_user_count', 'blog.php-details' );
+		$user_count = wp_cache_get( $blog['blog_id'] . '_user_count', 'blog-details' );
 		if ( ! $user_count ) {
 			$blog_users = new WP_User_Query(
 				array(
@@ -577,7 +577,7 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 				)
 			);
 			$user_count = $blog_users->get_total();
-			wp_cache_set( $blog['blog_id'] . '_user_count', $user_count, 'blog.php-details', 12 * HOUR_IN_SECONDS );
+			wp_cache_set( $blog['blog_id'] . '_user_count', $user_count, 'blog-details', 12 * HOUR_IN_SECONDS );
 		}
 
 		printf(
@@ -613,7 +613,7 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 	 * Handles output for the default column.
 	 *
 	 * @since 4.3.0
-	 * @since 5.9.0 Renamed `$blog.php` to `$item` to match parent class for PHP 8 named parameter support.
+	 * @since 5.9.0 Renamed `$blog` to `$item` to match parent class for PHP 8 named parameter support.
 	 *
 	 * @param array  $item        Current site.
 	 * @param string $column_name Current column name.
@@ -728,7 +728,7 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 	 * Generates and displays row action links.
 	 *
 	 * @since 4.3.0
-	 * @since 5.9.0 Renamed `$blog.php` to `$item` to match parent class for PHP 8 named parameter support.
+	 * @since 5.9.0 Renamed `$blog` to `$item` to match parent class for PHP 8 named parameter support.
 	 *
 	 * @param array  $item        Site being acted upon.
 	 * @param string $column_name Current column name.

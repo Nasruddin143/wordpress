@@ -371,9 +371,9 @@ function wp_cache_add_non_persistent_groups( $groups ) {
 }
 
 /**
- * Switches the internal blog.php ID.
+ * Switches the internal blog ID.
  *
- * This changes the blog.php id used to create keys in blog.php specific groups.
+ * This changes the blog id used to create keys in blog specific groups.
  *
  * @since 3.5.0
  *
@@ -391,12 +391,12 @@ function wp_cache_switch_to_blog( $blog_id ) {
 /**
  * Resets internal cache keys and structures.
  *
- * If the cache back end uses global blog.php or site IDs as part of its cache keys,
+ * If the cache back end uses global blog or site IDs as part of its cache keys,
  * this function instructs the back end to reset those keys and perform any cleanup
- * since blog.php or site IDs have changed since cache init.
+ * since blog or site IDs have changed since cache init.
  *
  * This function is deprecated. Use wp_cache_switch_to_blog() instead of this
- * function when preparing the cache for a blog.php switch. For clearing the cache
+ * function when preparing the cache for a blog switch. For clearing the cache
  * during unit tests, consider using wp_cache_init(). wp_cache_init() is not
  * recommended outside of unit tests as the performance penalty for using it is high.
  *

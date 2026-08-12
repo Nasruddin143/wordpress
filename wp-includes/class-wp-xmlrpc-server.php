@@ -524,7 +524,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	}
 
 	/**
-	 * Sets up blog.php options property.
+	 * Sets up blog options property.
 	 *
 	 * Passes property through {@see 'xmlrpc_blog_options'} filter.
 	 *
@@ -683,11 +683,11 @@ class wp_xmlrpc_server extends IXR_Server {
 		);
 
 		/**
-		 * Filters the XML-RPC blog.php options property.
+		 * Filters the XML-RPC blog options property.
 		 *
 		 * @since 2.6.0
 		 *
-		 * @param array $blog_options An array of XML-RPC blog.php options.
+		 * @param array $blog_options An array of XML-RPC blog options.
 		 */
 		$this->blog_options = apply_filters( 'xmlrpc_blog_options', $this->blog_options );
 	}
@@ -705,7 +705,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * }
 	 * @return array|IXR_Error Array contains:
 	 *  - 'isAdmin'
-	 *  - 'isPrimary' - whether the blog.php is the user's primary blog.php
+	 *  - 'isPrimary' - whether the blog is the user's primary blog
 	 *  - 'url'
 	 *  - 'blogid'
 	 *  - 'blogName'
@@ -4238,7 +4238,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	}
 
 	/**
-	 * Retrieves blog.php options.
+	 * Retrieves blog options.
 	 *
 	 * @since 2.6.0
 	 *
@@ -4273,7 +4273,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	}
 
 	/**
-	 * Retrieves blog.php options value from list.
+	 * Retrieves blog options value from list.
 	 *
 	 * @since 2.6.0
 	 *
@@ -4302,7 +4302,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	}
 
 	/**
-	 * Updates blog.php options.
+	 * Updates blog options.
 	 *
 	 * @since 2.6.0
 	 *
@@ -6373,7 +6373,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	}
 
 	/**
-	 * Retrieves the list of categories on a given blog.php.
+	 * Retrieves the list of categories on a given blog.
 	 *
 	 * @since 1.5.0
 	 *
@@ -6613,7 +6613,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	}
 
 	/**
-	 * Retrieves the list of all categories on a blog.php.
+	 * Retrieves the list of all categories on a blog.
 	 *
 	 * @since 1.5.0
 	 *

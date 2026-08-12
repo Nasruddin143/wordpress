@@ -54,7 +54,7 @@ class WP_Network {
 	/**
 	 * The ID of the network's main site.
 	 *
-	 * Named "blog.php" vs. "site" for legacy reasons. A main site is mapped to
+	 * Named "blog" vs. "site" for legacy reasons. A main site is mapped to
 	 * the network when the network is created.
 	 *
 	 * A numeric string, for compatibility reasons.

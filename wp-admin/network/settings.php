@@ -213,7 +213,7 @@ if ( isset( $_GET['updated'] ) ) {
 					<legend class="screen-reader-text"><?php echo $new_registrations_settings_title; ?></legend>
 					<label><input name="registration" type="radio" id="registration1" value="none"<?php checked( $reg, 'none' ); ?> /> <?php _e( 'Registration is disabled' ); ?></label><br />
 					<label><input name="registration" type="radio" id="registration2" value="user"<?php checked( $reg, 'user' ); ?> /> <?php _e( 'User accounts may be registered' ); ?></label><br />
-					<label><input name="registration" type="radio" id="registration3" value="blog"<?php checked( $reg, 'blog.php' ); ?> /> <?php _e( 'Logged in users may register new sites' ); ?></label><br />
+					<label><input name="registration" type="radio" id="registration3" value="blog"<?php checked( $reg, 'blog' ); ?> /> <?php _e( 'Logged in users may register new sites' ); ?></label><br />
 					<label><input name="registration" type="radio" id="registration4" value="all"<?php checked( $reg, 'all' ); ?> /> <?php _e( 'Both sites and user accounts can be registered' ); ?></label>
 					<?php
 					if ( is_subdomain_install() ) {
@@ -406,7 +406,7 @@ if ( isset( $_GET['updated'] ) ) {
 						printf(
 							/* translators: %s: Number of megabytes to limit uploads to. */
 							__( 'Limit total size of files uploaded to %s MB' ),
-							'</label><label><input name="blog_upload_space" type="number" min="0" style="width: 100px" id="blog_upload_space" aria-describedby="blog.php-upload-space-desc" value="' . esc_attr( get_site_option( 'blog_upload_space', 100 ) ) . '" />'
+							'</label><label><input name="blog_upload_space" type="number" min="0" style="width: 100px" id="blog_upload_space" aria-describedby="blog-upload-space-desc" value="' . esc_attr( get_site_option( 'blog_upload_space', 100 ) ) . '" />'
 						);
 						?>
 					</label><br />

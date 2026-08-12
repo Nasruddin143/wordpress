@@ -2,6 +2,8 @@
 /**
  * WooShop Condition Helper.
  *
+ * Determines the current WordPress/WooCommerce request context.
+ *
  * @package WooShop
  */
 
@@ -9,54 +11,15 @@ namespace WooShop\Core;
 
 defined( 'ABSPATH' ) || exit;
 
-class Condition {
-
-    /**
-     * Get the current frontend asset context.
-     *
-     * @return string
-     */
-    public static function asset_context(): string {
-
-        if ( function_exists( 'is_product' ) && is_product() ) {
-            return 'product';
-        }
-
-        if ( function_exists( 'is_cart' ) && is_cart() ) {
-            return 'cart';
-        }
-
-        if ( function_exists( 'is_checkout' ) && is_checkout() ) {
-            return 'checkout';
-        }
-
-        if ( function_exists( 'is_account_page' ) && is_account_page() ) {
-            return 'my-account';
-        }
-
-        if ( function_exists( 'is_shop' ) && is_shop() ) {
-            return 'shop';
-        }
-
-        if (
-            function_exists( 'is_product_category' )
-            && is_product_category()
-        ) {
-            return 'shop';
-        }
-
-        if (
-            function_exists( 'is_product_tag' )
-            && is_product_tag()
-        ) {
-            return 'shop';
-        }
-
-        return 'global';
-    }
+class Condition
+{
 
     /**
      * Get frontend asset contexts.
+     *
+     * The global context is always loaded first.
+     * Additional contexts are appended according to
+     * the current request.
      *
      * @return array<int,string>
      */
@@ -67,7 +30,7 @@ class Condition {
         ];
 
         /*
-         * WooCommerce product.
+         * WooCommerce single product.
          */
         if (
             function_exists( 'is_product' )
@@ -106,7 +69,7 @@ class Condition {
         }
 
         /*
-         * WooCommerce account.
+         * WooCommerce My Account.
          */
         if (
             function_exists( 'is_account_page' )
@@ -119,7 +82,7 @@ class Condition {
         }
 
         /*
-         * WooCommerce shop/archive.
+         * WooCommerce shop.
          */
         if (
             function_exists( 'is_shop' )
@@ -132,7 +95,7 @@ class Condition {
         }
 
         /*
-         * Product category.
+         * WooCommerce product category.
          */
         if (
             function_exists( 'is_product_category' )
@@ -145,7 +108,7 @@ class Condition {
         }
 
         /*
-         * Product tag.
+         * WooCommerce product tag.
          */
         if (
             function_exists( 'is_product_tag' )
@@ -160,9 +123,7 @@ class Condition {
         /*
          * Single blog post.
          */
-        if (
-            is_singular( 'post' )
-        ) {
+        if ( is_singular( 'post' ) ) {
 
             $contexts[] = 'single-post';
 

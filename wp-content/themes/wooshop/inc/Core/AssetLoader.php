@@ -1,9 +1,9 @@
 <?php
 /**
- * Smart Asset Loader.
+ * WooShop Smart Asset Loader.
  *
- * Determines which asset bundles should be registered
- * for the current WordPress request.
+ * Determines which frontend asset bundles should be
+ * registered for the current request.
  *
  * @package WooShop
  */
@@ -14,13 +14,6 @@ defined( 'ABSPATH' ) || exit;
 
 class AssetLoader
 {
-
-    /**
-     * Service container.
-     *
-     * @var Container
-     */
-    protected Container $container;
 
     /**
      * Asset manager.
@@ -50,8 +43,6 @@ class AssetLoader
      */
     public function __construct( Container $container )
     {
-        $this->container = $container;
-
         $this->assets = $container->get(
             AssetManager::class
         );
@@ -66,7 +57,7 @@ class AssetLoader
     }
 
     /**
-     * Register hooks.
+     * Register WordPress hook.
      *
      * @return void
      */
@@ -74,13 +65,16 @@ class AssetLoader
     {
         add_action(
             'wp_enqueue_scripts',
-            [ $this, 'load' ],
+            [
+                $this,
+                'load',
+            ],
             10
         );
     }
 
     /**
-     * Load contextual assets.
+     * Load contextual frontend assets.
      *
      * @return void
      */
@@ -90,40 +84,44 @@ class AssetLoader
 
         foreach ( $contexts as $context ) {
 
-            $this->registerContext(
+            $this->loadContext(
                 $context
             );
         }
     }
 
     /**
-     * Register assets for a context.
+     * Load one asset context.
      *
      * @param string $context Asset context.
+     *
      * @return void
      */
-    protected function registerContext( string $context ): void
+    protected function loadContext( string $context ): void
     {
-        $config = $this->config->get(
+        $assets = $this->config->get(
             'assets',
             []
         );
 
-        if ( empty( $config[ $context ] ) ) {
+        if ( empty( $assets[ $context ] ) ) {
             return;
         }
 
-        $contextConfig = $config[ $context ];
+        $contextAssets = $assets[ $context ];
 
         /*
-         * Register styles.
+         * Styles.
          */
         foreach (
-            $contextConfig['styles'] ?? []
+            $contextAssets['styles'] ?? []
             as $style
         ) {
 
-            if ( empty( $style['handle'] ) || empty( $style['src'] ) ) {
+            if (
+                empty( $style['handle'] )
+                || empty( $style['src'] )
+            ) {
                 continue;
             }
 
@@ -136,14 +134,17 @@ class AssetLoader
         }
 
         /*
-         * Register scripts.
+         * Scripts.
          */
         foreach (
-            $contextConfig['scripts'] ?? []
+            $contextAssets['scripts'] ?? []
             as $script
         ) {
 
-            if ( empty( $script['handle'] ) || empty( $script['src'] ) ) {
+            if (
+                empty( $script['handle'] )
+                || empty( $script['src'] )
+            ) {
                 continue;
             }
 

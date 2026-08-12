@@ -263,7 +263,7 @@ function wp_delete_site( $site_id ) {
 	if ( is_site_meta_supported() ) {
 		$blog_meta_ids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->blogmeta WHERE blog_id = %d ", $old_site->id ) );
 		foreach ( $blog_meta_ids as $mid ) {
-			delete_metadata_by_mid( 'blog.php', $mid );
+			delete_metadata_by_mid( 'blog', $mid );
 		}
 	}
 
@@ -377,7 +377,7 @@ function wp_lazyload_site_meta( array $site_ids ) {
 		return;
 	}
 	$lazyloader = wp_metadata_lazyloader();
-	$lazyloader->queue_objects( 'blog.php', $site_ids );
+	$lazyloader->queue_objects( 'blog', $site_ids );
 }
 
 /**
@@ -403,7 +403,7 @@ function update_site_cache( $sites, $update_meta_cache = true ) {
 
 	}
 	wp_cache_add_multiple( $site_data, 'sites' );
-	wp_cache_add_multiple( $blog_details_data, 'blog.php-details' );
+	wp_cache_add_multiple( $blog_details_data, 'blog-details' );
 
 	if ( $update_meta_cache ) {
 		update_sitemeta_cache( $site_ids );
@@ -426,7 +426,7 @@ function update_sitemeta_cache( $site_ids ) {
 	if ( ! has_filter( 'update_blog_metadata_cache', 'wp_check_site_meta_support_prefilter' ) ) {
 		add_filter( 'update_blog_metadata_cache', 'wp_check_site_meta_support_prefilter' );
 	}
-	return update_meta_cache( 'blog.php', $site_ids );
+	return update_meta_cache( 'blog', $site_ids );
 }
 
 /**
@@ -707,7 +707,7 @@ function wp_initialize_site( $site_id, array $args = array() ) {
 	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 	// Set up the database tables.
-	make_db_current_silent( 'blog.php' );
+	make_db_current_silent( 'blog' );
 
 	$home_scheme    = 'http';
 	$siteurl_scheme = 'http';
@@ -736,7 +736,7 @@ function wp_initialize_site( $site_id, array $args = array() ) {
 		)
 	);
 
-	// Clean blog.php cache after populating options.
+	// Clean blog cache after populating options.
 	clean_blog_cache( $site );
 
 	// Populate the site's roles.
@@ -819,7 +819,7 @@ function wp_uninitialize_site( $site_id ) {
 
 	$uploads = wp_get_upload_dir();
 
-	$tables = $wpdb->tables( 'blog.php' );
+	$tables = $wpdb->tables( 'blog' );
 
 	/**
 	 * Filters the tables to drop when the site is deleted.
@@ -948,7 +948,7 @@ function wp_is_site_initialized( $site_id ) {
 }
 
 /**
- * Clean the blog.php cache
+ * Clean the blog cache
  *
  * @since 3.5.0
  *
@@ -989,10 +989,10 @@ function clean_blog_cache( $blog ) {
 
 	wp_cache_delete( $blog_id, 'sites' );
 	wp_cache_delete( $blog_id, 'site-details' );
-	wp_cache_delete( $blog_id, 'blog.php-details' );
-	wp_cache_delete( $blog_id . 'short', 'blog.php-details' );
-	wp_cache_delete( $domain_path_key, 'blog.php-lookup' );
-	wp_cache_delete( $domain_path_key, 'blog.php-id-cache' );
+	wp_cache_delete( $blog_id, 'blog-details' );
+	wp_cache_delete( $blog_id . 'short', 'blog-details' );
+	wp_cache_delete( $domain_path_key, 'blog-lookup' );
+	wp_cache_delete( $domain_path_key, 'blog-id-cache' );
 	wp_cache_delete( $blog_id, 'blog_meta' );
 
 	/**
@@ -1009,7 +1009,7 @@ function clean_blog_cache( $blog ) {
 	wp_cache_set_sites_last_changed();
 
 	/**
-	 * Fires after the blog.php details cache is cleared.
+	 * Fires after the blog details cache is cleared.
 	 *
 	 * @since 3.4.0
 	 * @deprecated 4.9.0 Use {@see 'clean_site_cache'} instead.
@@ -1040,7 +1040,7 @@ function clean_blog_cache( $blog ) {
  * @return int|false Meta ID on success, false on failure.
  */
 function add_site_meta( $site_id, $meta_key, $meta_value, $unique = false ) {
-	return add_metadata( 'blog.php', $site_id, $meta_key, $meta_value, $unique );
+	return add_metadata( 'blog', $site_id, $meta_key, $meta_value, $unique );
 }
 
 /**
@@ -1062,7 +1062,7 @@ function add_site_meta( $site_id, $meta_key, $meta_value, $unique = false ) {
  * @return bool True on success, false on failure.
  */
 function delete_site_meta( $site_id, $meta_key, $meta_value = '' ) {
-	return delete_metadata( 'blog.php', $site_id, $meta_key, $meta_value );
+	return delete_metadata( 'blog', $site_id, $meta_key, $meta_value );
 }
 
 /**
@@ -1088,7 +1088,7 @@ function delete_site_meta( $site_id, $meta_key, $meta_value = '' ) {
  *               Arrays and objects retain their original type.
  */
 function get_site_meta( $site_id, $key = '', $single = false ) {
-	return get_metadata( 'blog.php', $site_id, $key, $single );
+	return get_metadata( 'blog', $site_id, $key, $single );
 }
 
 /**
@@ -1114,7 +1114,7 @@ function get_site_meta( $site_id, $key = '', $single = false ) {
  *                  is the same as the one that is already in the database.
  */
 function update_site_meta( $site_id, $meta_key, $meta_value, $prev_value = '' ) {
-	return update_metadata( 'blog.php', $site_id, $meta_key, $meta_value, $prev_value );
+	return update_metadata( 'blog', $site_id, $meta_key, $meta_value, $prev_value );
 }
 
 /**
@@ -1126,7 +1126,7 @@ function update_site_meta( $site_id, $meta_key, $meta_value, $prev_value = '' ) 
  * @return bool Whether the site meta key was deleted from the database.
  */
 function delete_site_meta_by_key( $meta_key ) {
-	return delete_metadata( 'blog.php', null, $meta_key, '', true );
+	return delete_metadata( 'blog', null, $meta_key, '', true );
 }
 
 /**
@@ -1266,7 +1266,7 @@ function wp_maybe_transition_site_statuses_on_update( $new_site, $old_site = nul
 	if ( $new_site->public !== $old_site->public ) {
 
 		/**
-		 * Fires after the current blog.php's 'public' setting is updated.
+		 * Fires after the current blog's 'public' setting is updated.
 		 *
 		 * @since MU (3.0.0)
 		 *

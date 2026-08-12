@@ -34,13 +34,13 @@ get_current_screen()->set_help_sidebar(
 );
 
 if ( isset( $_REQUEST['action'] ) && 'add-site' === $_REQUEST['action'] ) {
-	check_admin_referer( 'add-blog.php', '_wpnonce_add-blog.php' );
+	check_admin_referer( 'add-blog', '_wpnonce_add-blog' );
 
-	if ( ! is_array( $_POST['blog.php'] ) ) {
+	if ( ! is_array( $_POST['blog'] ) ) {
 		wp_die( __( 'Cannot create an empty site.' ) );
 	}
 
-	$blog   = $_POST['blog.php'];
+	$blog   = $_POST['blog'];
 	$domain = '';
 
 	$blog['domain'] = trim( $blog['domain'] );
@@ -205,7 +205,7 @@ if ( ! empty( $messages ) ) {
 ?>
 <p><?php echo wp_required_field_message(); ?></p>
 <form method="post" enctype="multipart/form-data" action="<?php echo esc_url( network_admin_url( 'site-new.php?action=add-site' ) ); ?>" novalidate="novalidate">
-<?php wp_nonce_field( 'add-blog.php', '_wpnonce_add-blog.php' ); ?>
+<?php wp_nonce_field( 'add-blog', '_wpnonce_add-blog' ); ?>
 	<table class="form-table" role="presentation">
 		<tr class="form-field form-required">
 			<th scope="row">

@@ -545,7 +545,7 @@ function wp_validate_application_password( $input_user ) {
 
 /**
  * For Multisite blogs, checks if the authenticated user has been marked as a
- * spammer, or if the user's primary blog.php has been marked as spam.
+ * spammer, or if the user's primary blog has been marked as spam.
  *
  * @since 3.7.0
  *
@@ -769,7 +769,7 @@ function get_user_option( $option, $user = 0, $deprecated = '' ) {
 	$prefix = $wpdb->get_blog_prefix();
 	if ( $user->has_prop( $prefix . $option ) ) { // Blog-specific.
 		$result = $user->get( $prefix . $option );
-	} elseif ( $user->has_prop( $option ) ) { // User-specific and cross-blog.php.
+	} elseif ( $user->has_prop( $option ) ) { // User-specific and cross-blog.
 		$result = $user->get( $option );
 	} else {
 		$result = false;
@@ -790,10 +790,10 @@ function get_user_option( $option, $user = 0, $deprecated = '' ) {
 }
 
 /**
- * Updates user option with global blog.php capability.
+ * Updates user option with global blog capability.
  *
  * User options are just like user metadata except that they have support for
- * global blog.php options. If the 'is_global' parameter is false, which it is by default,
+ * global blog options. If the 'is_global' parameter is false, which it is by default,
  * it will prepend the WordPress table prefix to the option name.
  *
  * Deletes the user option if $newvalue is empty.
@@ -805,8 +805,8 @@ function get_user_option( $option, $user = 0, $deprecated = '' ) {
  * @param int    $user_id     User ID.
  * @param string $option_name User option name.
  * @param mixed  $newvalue    User option value.
- * @param bool   $is_global   Optional. Whether option name is global or blog.php specific.
- *                            Default false (blog.php specific).
+ * @param bool   $is_global   Optional. Whether option name is global or blog specific.
+ *                            Default false (blog specific).
  * @return int|bool User meta ID if the option didn't exist, true on successful update,
  *                  false on failure.
  */
@@ -821,10 +821,10 @@ function update_user_option( $user_id, $option_name, $newvalue, $is_global = fal
 }
 
 /**
- * Deletes user option with global blog.php capability.
+ * Deletes user option with global blog capability.
  *
  * User options are just like user metadata except that they have support for
- * global blog.php options. If the 'is_global' parameter is false, which it is by default,
+ * global blog options. If the 'is_global' parameter is false, which it is by default,
  * it will prepend the WordPress table prefix to the option name.
  *
  * @since 3.0.0
@@ -833,8 +833,8 @@ function update_user_option( $user_id, $option_name, $newvalue, $is_global = fal
  *
  * @param int    $user_id     User ID
  * @param string $option_name User option name.
- * @param bool   $is_global   Optional. Whether option name is global or blog.php specific.
- *                            Default false (blog.php specific).
+ * @param bool   $is_global   Optional. Whether option name is global or blog specific.
+ *                            Default false (blog specific).
  * @return bool True on success, false on failure.
  */
 function delete_user_option( $user_id, $option_name, $is_global = false ) {
@@ -1149,14 +1149,14 @@ function get_blogs_of_user( $user_id, $all = false ) {
 }
 
 /**
- * Finds out whether a user is a member of a given blog.php.
+ * Finds out whether a user is a member of a given blog.
  *
  * @since MU (3.0.0)
  *
  * @global wpdb $wpdb WordPress database abstraction object.
  *
  * @param int $user_id Optional. The unique ID of the user. Defaults to the current user.
- * @param int $blog_id Optional. ID of the blog.php to check. Defaults to the current site.
+ * @param int $blog_id Optional. ID of the blog to check. Defaults to the current site.
  * @return bool
  */
 function is_user_member_of_blog( $user_id = 0, $blog_id = 0 ) {
@@ -1689,7 +1689,7 @@ function setup_userdata( $for_user_id = 0 ) {
  *     @type string          $name                    Name attribute of select element. Default 'user'.
  *     @type string          $id                      ID attribute of the select element. Default is the value of `$name`.
  *     @type string          $class                   Class attribute of the select element. Default empty.
- *     @type int             $blog_id                 ID of blog.php (Multisite only). Default is ID of the current blog.php.
+ *     @type int             $blog_id                 ID of blog (Multisite only). Default is ID of the current blog.
  *     @type string          $who                     Deprecated, use `$capability` instead.
  *                                                    Which type of users to query. Accepts only an empty string or
  *                                                    'authors'. Default empty (all users).
@@ -5207,7 +5207,7 @@ function wp_is_application_passwords_available_for_user( $user ) {
  */
 function wp_register_persisted_preferences_meta() {
 	/*
-	 * Create a meta key that incorporates the blog.php prefix so that each site
+	 * Create a meta key that incorporates the blog prefix so that each site
 	 * on a multisite can have distinct user preferences.
 	 */
 	global $wpdb;

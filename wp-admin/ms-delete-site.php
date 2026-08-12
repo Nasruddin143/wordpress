@@ -45,7 +45,7 @@ echo '<div class="wrap">';
 echo '<h1>' . esc_html( $title ) . '</h1>';
 
 if ( isset( $_POST['action'] ) && 'deleteblog' === $_POST['action'] && isset( $_POST['confirmdelete'] ) && '1' === $_POST['confirmdelete'] ) {
-	check_admin_referer( 'delete-blog.php' );
+	check_admin_referer( 'delete-blog' );
 
 	$hash = wp_generate_password( 20, false );
 	update_option( 'delete_blog_hash', $hash, false );
@@ -125,7 +125,7 @@ All at ###SITENAME###
 	<p><?php _e( 'Remember, once deleted your site cannot be restored.' ); ?></p>
 
 	<form method="post" name="deletedirect">
-		<?php wp_nonce_field( 'delete-blog.php' ); ?>
+		<?php wp_nonce_field( 'delete-blog' ); ?>
 		<input type="hidden" name="action" value="deleteblog" />
 		<p><input id="confirmdelete" type="checkbox" name="confirmdelete" value="1" /> <label for="confirmdelete"><strong>
 		<?php
