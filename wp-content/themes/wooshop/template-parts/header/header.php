@@ -2,8 +2,6 @@
 /**
  * Site Header
  *
- * Displays the main site header.
- *
  * @package WooShop
  */
 
@@ -12,21 +10,75 @@ defined( 'ABSPATH' ) || exit;
 
 <header
         id="masthead"
-        class="site-header"
-        role="banner">
+        class="ws-header site-header border-bottom bg-white">
 
-    <div class="ws-container">
+    <div class="container">
 
-        <?php do_action( 'wooshop_header_branding' ); ?>
+        <div class="row align-items-center g-3 py-3">
 
-        <?php do_action( 'wooshop_header_navigation' ); ?>
+            <div class="col-auto d-lg-none">
 
-        <?php do_action( 'wooshop_header_categories' ); ?>
+                <button
+                        type="button"
+                        class="btn btn-outline-secondary ws-mobile-menu-toggle"
+                        data-ws-toggle="mobile-menu"
+                        aria-controls="ws-mobile-menu"
+                        aria-expanded="false">
 
-        <?php do_action( 'wooshop_header_search' ); ?>
+                    <span class="visually-hidden">
+                        <?php esc_html_e( 'Open menu', 'wooshop' ); ?>
+                    </span>
 
-        <?php do_action( 'wooshop_header_actions' ); ?>
+                    <span class="ws-icon ws-icon-menu" aria-hidden="true">
+                        ☰
+                    </span>
+
+                </button>
+
+            </div>
+
+            <div class="col-auto col-lg-3">
+
+                <?php do_action( 'wooshop_header_branding' ); ?>
+
+            </div>
+
+            <div class="col-12 col-lg-6 order-3 order-lg-2">
+
+                <?php do_action( 'wooshop_header_search' ); ?>
+
+            </div>
+
+            <div class="col-auto ms-auto order-2 order-lg-3">
+
+                <?php do_action( 'wooshop_header_actions' ); ?>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+
+                <?php do_action( 'wooshop_header_navigation' ); ?>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+
+                <?php do_action( 'wooshop_header_categories' ); ?>
+
+            </div>
+
+        </div>
 
     </div>
+
+    <?php get_template_part( 'template-parts/header/mobile-menu' ); ?>
 
 </header>

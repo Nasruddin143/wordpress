@@ -1,22 +1,60 @@
-@import "bootstrap/foundation";
+// ============================================================
+// WooShop Application Styles
+// ============================================================
 
-/*
- * Bootstrap utilities.
- */
-@import "bootstrap/scss/utilities";
-@import "bootstrap/scss/utilities/api";
 
-/*
- * WooShop base.
- */
-@import "../../css/base/variables.css";
-@import "../../css/base/reset.css";
-@import "../../css/base/typography.css";
-@import "../../css/base/accessibility.css";
+// ============================================================
+// Bootstrap
+// ============================================================
 
-/*
- * WooShop layout.
- */
-@import "../../css/layout/header.css";
-@import "../../css/layout/navigation.css";
-@import "../../css/layout/footer.css";
+@import "bootstrap/config";
+@import "bootstrap/components";
+@import "bootstrap/utilities";
+
+
+// ============================================================
+// Base
+// ============================================================
+
+@import "base/variables";
+@import "base/reset";
+@import "base/typography";
+@import "base/accessibility";
+
+
+// ============================================================
+// Layout
+// ============================================================
+
+@import "layout/header";
+@import "layout/navigation";
+@import "layout/main";
+@import "layout/footer";
+
+
+// ============================================================
+// Components
+// ============================================================
+
+@import "components/buttons";
+@import "components/forms";
+@import "components/product-card";
+@import "components/search";
+
+
+// ============================================================
+// Pages
+// ============================================================
+
+@import "pages/home";
+@import "pages/shop";
+@import "pages/single-product";
+
+
+// ============================================================
+// WooCommerce
+// ============================================================
+
+@import "woocommerce/products";
+@import "woocommerce/cart";
+@import "woocommerce/checkout";

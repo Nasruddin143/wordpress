@@ -1,304 +1,231 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import {fileURLToPath} from 'url';
 import chokidar from 'chokidar';
 import * as sass from 'sass';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
-import { build } from 'esbuild';
+import {build as esbuild} from 'esbuild';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const ROOT = __dirname;
-
-/*
- * WooShop source/build directories.
+/**
+ * ============================================================
+ * WooShop Build Configuration
+ * ============================================================
  */
-const SRC = path.join(ROOT, 'assets', 'src');
-const BUILD = path.join(ROOT, 'assets', 'build');
 
-const SRC_CSS = path.join(SRC, 'css');
-const SRC_SCSS = path.join(SRC, 'scss');
-const SRC_JS = path.join(SRC, 'js');
+const PATHS = {
+    src: path.resolve(__dirname, 'assets/src'),
+    build: path.resolve(__dirname, 'assets/build'),
 
-const BUILD_CSS = path.join(BUILD, 'css');
-const BUILD_JS = path.join(BUILD, 'js');
+    scss: path.resolve(__dirname, 'assets/src/scss'),
+    css: path.resolve(__dirname, 'assets/build/css'),
+
+    js: path.resolve(__dirname, 'assets/src/js'),
+    jsBuild: path.resolve(__dirname, 'assets/build/js'),
+
+    appScss: path.resolve(__dirname, 'assets/src/scss/app.scss'),
+    appCss: path.resolve(__dirname, 'assets/build/css/app.min.css'),
+
+    appJs: path.resolve(__dirname, 'assets/src/js/app.js'),
+    appJsBuild: path.resolve(__dirname, 'assets/build/js/app.min.js'),
+
+    nodeModules: path.resolve(__dirname, 'node_modules'),
+};
 
 /**
- * CSS entry points.
+ * ============================================================
+ * Ensure Build Directories
+ * ============================================================
  */
-const cssEntries = [
-    'app',
-    'shop',
-    'single-product',
-    'cart',
-    'checkout',
-    'my-account',
-];
 
-/**
- * JavaScript entry points.
- */
-const jsEntries = [
-    'app',
-    'shop',
-    'single-product',
-    'cart',
-    'checkout',
-    'my-account',
-];
-
-/**
- * Ensure build directories exist.
- */
-async function prepare() {
-    await fs.ensureDir(BUILD_CSS);
-    await fs.ensureDir(BUILD_JS);
+async function ensureDirectories() {
+    await fs.ensureDir(PATHS.build);
+    await fs.ensureDir(PATHS.css);
+    await fs.ensureDir(PATHS.jsBuild);
 }
 
 /**
- * Process CSS with PostCSS.
- *
- * @param {string} css CSS source.
- * @param {string} from Source file.
- * @returns {Promise<string>}
+ * ============================================================
+ * Compile SCSS
+ * ============================================================
  */
-async function processCss(css, from) {
 
-    const result = await postcss([
-        autoprefixer(),
-        cssnano(),
-    ]).process(css, {
-        from,
-    });
+async function compileSCSS() {
+    console.log('🎨 Compiling SCSS...');
 
-    return result.css;
-}
+    try {
+        const result = await sass.compileAsync(PATHS.appScss, {
+            style: 'expanded',
 
-async function compileScss(input) {
+            sourceMap: false,
 
-    const result = sass.compile(input, {
+            // Bootstrap is resolved from node_modules.
+            loadPaths: [PATHS.nodeModules,],
 
-        loadPaths: [
-            SRC_SCSS,
-            path.join(
-                ROOT,
-                'node_modules'
-            ),
-        ],
+            quietDeps: true,
+        });
 
-        style: 'expanded',
+        const processed = await postcss([autoprefixer(), cssnano({
+            preset: 'default',
+        }),]).process(result.css, {
+            from: PATHS.appScss, to: PATHS.appCss,
+        });
 
-        sourceMap: false,
-    });
+        await fs.writeFile(PATHS.appCss, processed.css, 'utf8');
 
-    return result.css;
-}
+        console.log(`✅ CSS → ${path.relative(__dirname, PATHS.appCss)}`);
+    } catch (error) {
+        console.error('❌ SCSS compilation failed.');
 
-/**
- * Build CSS entry.
- *
- * @param {string} name Entry name.
- * @returns {Promise<void>}
- */
-async function buildCss(name) {
+        if (error?.formatted) {
+            console.error(error.formatted);
+        } else {
+            console.error(error);
+        }
 
-    const scssEntry = path.join(
-        SRC_SCSS,
-        `${name}.scss`
-    );
-
-    const cssEntry = path.join(
-        SRC_CSS,
-        `${name}.css`
-    );
-
-    let css = '';
-
-    /*
-     * Prefer SCSS.
-     */
-    if (
-        await fs.pathExists(
-            scssEntry
-        )
-    ) {
-
-        css = await compileScss(
-            scssEntry
-        );
-
-        /*
-         * Fallback to plain CSS.
-         */
-    } else if (
-        await fs.pathExists(
-            cssEntry
-        )
-    ) {
-
-        css = await fs.readFile(
-            cssEntry,
-            'utf8'
-        );
-
-    } else {
-
-        console.warn(
-            `CSS entry not found: ${name}`
-        );
-
-        return;
+        throw error;
     }
-
-    const processed = await processCss(
-        css,
-        scssEntry
-    );
-
-    const output = path.join(
-        BUILD_CSS,
-        `${name}.min.css`
-    );
-
-    await fs.writeFile(
-        output,
-        processed
-    );
-
-    console.log(
-        `CSS  ✓ ${name}.min.css`
-    );
 }
 
 /**
- * Build JavaScript entry.
- *
- * @param {string} name Entry name.
- * @returns {Promise<void>}
+ * ============================================================
+ * Compile JavaScript
+ * ============================================================
  */
-async function buildJs(name) {
 
-    const input = path.join(
-        SRC_JS,
-        `${name}.js`
-    );
+async function compileJS() {
+    console.log('⚡ Compiling JavaScript...');
 
-    if (!(await fs.pathExists(input))) {
+    try {
+        await esbuild({
+            entryPoints: [PATHS.appJs], outfile: PATHS.appJsBuild,
 
-        console.warn(
-            `JS entry not found: ${name}.js`
-        );
+            bundle: true, minify: true,
 
-        return;
+            sourcemap: false,
+
+            platform: 'browser', format: 'iife',
+
+            target: ['es2018',],
+
+            legalComments: 'none',
+        });
+
+        console.log(`✅ JS → ${path.relative(__dirname, PATHS.appJsBuild)}`);
+    } catch (error) {
+        console.error('❌ JavaScript compilation failed.');
+        console.error(error);
+
+        throw error;
     }
-
-    const output = path.join(
-        BUILD_JS,
-        `${name}.min.js`
-    );
-
-    await build({
-
-        entryPoints: [
-            input,
-        ],
-
-        bundle: true,
-
-        minify: true,
-
-        sourcemap: false,
-
-        format: 'iife',
-
-        target: [
-            'es2018',
-        ],
-
-        outfile: output,
-    });
-
-    console.log(
-        `JS   ✓ ${name}.min.js`
-    );
 }
 
 /**
- * Build all assets.
- *
- * @returns {Promise<void>}
+ * ============================================================
+ * Full Build
+ * ============================================================
  */
+
 async function buildAll() {
+    console.log('');
+    console.log('======================================');
+    console.log(' WooShop Asset Build');
+    console.log('======================================');
+    console.log('');
 
-    await prepare();
+    await ensureDirectories();
 
-    for (const entry of cssEntries) {
+    await compileSCSS();
+    await compileJS();
 
-        await buildCss(entry);
-    }
-
-    for (const entry of jsEntries) {
-
-        await buildJs(entry);
-    }
-
-    console.log(
-        'WooShop assets built successfully.'
-    );
+    console.log('');
+    console.log('🚀 WooShop build completed.');
+    console.log('');
 }
 
 /**
- * Watch source files.
- *
- * @returns {void}
+ * ============================================================
+ * Watch Mode
+ * ============================================================
  */
+
 function watch() {
+    console.log('');
+    console.log('👀 WooShop watch mode enabled...');
+    console.log('');
 
-    const watcher = chokidar.watch(
-        [
-            `${SRC_CSS}/**/*`,
-            `${SRC_JS}/**/*`,
-        ],
-        {
-            ignoreInitial: true,
+    const scssWatcher = chokidar.watch(PATHS.scss, {
+        ignoreInitial: true,
+    });
+
+    const jsWatcher = chokidar.watch(PATHS.js, {
+        ignoreInitial: true,
+    });
+
+    let scssBuilding = false;
+    let jsBuilding = false;
+
+    scssWatcher.on('all', async (event, file) => {
+        if (scssBuilding) {
+            return;
         }
-    );
 
-    let timer;
+        console.log(`\n🎨 SCSS changed: ${path.relative(__dirname, file)}`);
 
-    watcher.on(
-        'all',
-        () => {
+        scssBuilding = true;
 
-            clearTimeout(timer);
-
-            timer = setTimeout(
-                async () => {
-
-                    console.log(
-                        'Changes detected...'
-                    );
-
-                    await buildAll();
-                },
-                100
-            );
+        try {
+            await compileSCSS();
+        } catch (error) {
+            console.error(error);
+        } finally {
+            scssBuilding = false;
         }
-    );
+    });
 
-    console.log(
-        'Watching WooShop assets...'
-    );
+    jsWatcher.on('all', async (event, file) => {
+        if (jsBuilding) {
+            return;
+        }
+
+        console.log(`\n⚡ JS changed: ${path.relative(__dirname, file)}`);
+
+        jsBuilding = true;
+
+        try {
+            await compileJS();
+        } catch (error) {
+            console.error(error);
+        } finally {
+            jsBuilding = false;
+        }
+    });
+
+    process.on('SIGINT', () => {
+        console.log('\n🛑 Stopping watch mode...');
+
+        scssWatcher.close();
+        jsWatcher.close();
+
+        process.exit(0);
+    });
 }
 
-await buildAll();
+/**
+ * ============================================================
+ * CLI
+ * ============================================================
+ */
 
-if (
-    process.argv.includes('--watch')
-) {
+const command = process.argv[2];
 
+if (command === 'watch') {
+    await buildAll();
     watch();
+} else {
+    await buildAll();
 }

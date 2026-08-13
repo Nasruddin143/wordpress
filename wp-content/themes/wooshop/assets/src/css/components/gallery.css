@@ -1,0 +1,13 @@
+/*--------------------------------------------------------------
+# Product Gallery
+--------------------------------------------------------------*/
+
+.ws-single-product .woocommerce-product-gallery {
+    width: 100%;
+}
+
+.ws-single-product .woocommerce-product-gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+}

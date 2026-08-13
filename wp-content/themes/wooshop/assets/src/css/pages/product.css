@@ -1,0 +1,11 @@
+/*--------------------------------------------------------------
+# WooCommerce Single Product
+--------------------------------------------------------------*/
+
+.ws-product-main {
+    padding-block: var(--ws-space-2xl);
+}
+
+.ws-single-product .product {
+    width: 100%;
+}
