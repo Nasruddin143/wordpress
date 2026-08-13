@@ -4,22 +4,32 @@
   "private": true,
   "description": "WooShop WordPress Hybrid Theme",
   "scripts": {
-    "build": "node build.mjs",
-    "watch": "node build.mjs --watch",
-    "dev": "npm run watch"
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production"
   },
   "devDependencies": {
     "autoprefixer": "^10.5.4",
     "chokidar": "^4.0.3",
+    "copy-webpack-plugin": "^14.0.0",
+    "css-loader": "^7.1.4",
+    "css-minimizer-webpack-plugin": "^8.0.0",
     "cssnano": "^7.1.9",
     "esbuild": "^0.25.12",
     "fs-extra": "^11.4.0",
+    "mini-css-extract-plugin": "^2.10.2",
     "postcss": "^8.5.26",
-    "postcss-cli": "^11",
+    "postcss-cli": "^11.0.1",
     "postcss-import": "^16",
-    "sass": "^1.102.0"
+    "postcss-loader": "^8.2.1",
+    "postcss-preset-env": "^11.3.2",
+    "sass": "^1.102.0",
+    "sass-loader": "^17.0.0",
+    "webpack": "^5.109.2",
+    "webpack-cli": "^7.2.2"
   },
   "dependencies": {
-    "bootstrap": "^5.3.8"
+    "bootstrap": "^5.3.8",
+    "terser-webpack-plugin": "^5.6.1",
+    "webpack-remove-empty-scripts": "^1.1.1"
   }
 }

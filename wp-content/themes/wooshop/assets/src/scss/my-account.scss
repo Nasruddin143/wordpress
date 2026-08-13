@@ -1,8 +1,8 @@
-/*
- * WooShop My Account
- */
+@import "bootstrap/bootstrap-core";
 
-@import "bootstrap/buttons";
-@import "bootstrap/forms";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/alert";
 
-@import "../css/pages/my-account.css";
+@import "woocommerce/my-account";

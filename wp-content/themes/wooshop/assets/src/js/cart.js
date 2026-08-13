@@ -1,1 +1,0 @@
-// WooShop cart JavaScript.

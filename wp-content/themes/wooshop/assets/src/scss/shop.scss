@@ -1,9 +1,8 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/variables-dark";
-@import "bootstrap/scss/maps";
-@import "bootstrap/scss/mixins";
+@import "bootstrap/bootstrap-core";           // silent, needed for mixins
 
-@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
 
-@import "../../css/pages/shop.css";
+@import "pages/shop";
+@import "woocommerce/archive-product";

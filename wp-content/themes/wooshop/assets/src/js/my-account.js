@@ -1,1 +1,0 @@
-// WooShop My Account JavaScript.

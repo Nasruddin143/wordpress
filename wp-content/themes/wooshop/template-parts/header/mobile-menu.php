@@ -5,77 +5,54 @@
  * @package WooShop
  */
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 ?>
 
 <div
-        class="offcanvas offcanvas-start ws-mobile-menu"
-        tabindex="-1"
-        id="wsMobileMenu"
-        aria-labelledby="wsMobileMenuLabel">
+        id="ws-mobile-menu"
+        class="ws-mobile-menu d-lg-none"
+        hidden>
 
-    <!-- Header -->
-    <div class="offcanvas-header">
+    <div class="container py-3">
 
-        <h5
-                class="offcanvas-title"
-                id="wsMobileMenuLabel">
+        <div class="d-flex align-items-center justify-content-between mb-3">
 
-            <?php bloginfo('name'); ?>
+            <h2 class="h5 mb-0">
+                <?php esc_html_e( 'Menu', 'wooshop' ); ?>
+            </h2>
 
-        </h5>
+            <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary ws-mobile-menu-close"
+                    data-ws-toggle="mobile-menu"
+                    aria-controls="ws-mobile-menu">
 
-        <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="offcanvas"
-                aria-label="<?php esc_attr_e('Close', 'wooshop'); ?>">
-        </button>
+                <span aria-hidden="true">×</span>
 
-    </div>
+                <span class="visually-hidden">
+                    <?php esc_html_e( 'Close menu', 'wooshop' ); ?>
+                </span>
 
-    <!-- Body -->
-    <div class="offcanvas-body">
-
-        <!-- Search -->
-        <div class="ws-mobile-search">
-
-            <?php do_action('wooshop_header_search'); ?>
+            </button>
 
         </div>
 
-        <!-- Navigation -->
         <nav
-                class="ws-mobile-navigation"
-                aria-label="<?php esc_attr_e('Mobile Menu', 'wooshop'); ?>">
+                aria-label="<?php esc_attr_e( 'Mobile navigation', 'wooshop' ); ?>">
 
             <?php
             wp_nav_menu(
                     [
                             'theme_location' => 'primary',
-                            'container' => false,
-                            'menu_class' => 'navbar-nav',
-                            'fallback_cb' => false,
-                            'depth' => 2,
+                            'container'      => false,
+                            'menu_class'     => 'navbar-nav list-unstyled mb-0',
+                            'fallback_cb'    => false,
+                            'depth'          => 3,
                     ]
             );
             ?>
 
         </nav>
-
-        <!-- Divider -->
-        <hr>
-
-        <!-- Account Links -->
-        <div class="ws-mobile-account">
-
-            <a href="<?php echo esc_url(wp_login_url()); ?>">
-
-                <?php esc_html_e('My Account', 'wooshop'); ?>
-
-            </a>
-
-        </div>
 
     </div>
 

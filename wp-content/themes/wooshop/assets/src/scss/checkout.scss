@@ -1,8 +1,8 @@
-/*
- * WooShop Checkout
- */
+@import "bootstrap/bootstrap-core";
 
-@import "bootstrap/buttons";
-@import "bootstrap/forms";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
 
-@import "../css/pages/checkout.css";
+@import "woocommerce/checkout";

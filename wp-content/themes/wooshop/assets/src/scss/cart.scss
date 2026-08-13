@@ -1,8 +1,7 @@
-/*
- * WooShop Cart
- */
+@import "bootstrap/bootstrap-core";
 
-@import "bootstrap/buttons";
-@import "bootstrap/forms";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/alert";
 
-@import "../css/pages/cart.css";
+@import "woocommerce/cart";

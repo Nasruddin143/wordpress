@@ -8,42 +8,29 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<div class="ws-header-actions">
+<div class="ws-header-actions d-flex align-items-center gap-2">
 
-    <!-- Account -->
-    <a class="ws-header-action"
-       href="<?php echo esc_url( wp_login_url() ); ?>"
-       aria-label="<?php esc_attr_e( 'My Account', 'wooshop' ); ?>">
+    <a
+            href="<?php echo esc_url( wp_login_url() ); ?>"
+            class="btn btn-link text-decoration-none text-dark p-2">
 
-        <?php echo wooshop_icon( 'user' ); ?>
+        <span aria-hidden="true">♙</span>
 
-        <span class="ws-action-label">
-
+        <span class="visually-hidden">
             <?php esc_html_e( 'Account', 'wooshop' ); ?>
-
         </span>
 
     </a>
 
-    <!-- Wishlist -->
-    <a class="ws-header-action"
-       href="#"
-       aria-label="<?php esc_attr_e( 'Wishlist', 'wooshop' ); ?>">
+    <a
+            href="#"
+            class="btn btn-link text-decoration-none text-dark p-2">
 
-        <?php echo wooshop_icon( 'wishlist' ); ?>
+        <span aria-hidden="true">♡</span>
 
-        <span class="ws-action-count">0</span>
-
-    </a>
-
-    <!-- Cart -->
-    <a class="ws-header-action"
-       href="<?php echo wc_get_cart_url() ?>"
-       aria-label="<?php esc_attr_e( 'Cart', 'wooshop' ); ?>">
-
-        <?php echo wooshop_icon( 'cart' ); ?>
-
-        <span class="ws-action-count"><?php echo WC()->cart->get_cart_contents_count() ?></span>
+        <span class="visually-hidden">
+            <?php esc_html_e( 'Wishlist', 'wooshop' ); ?>
+        </span>
 
     </a>
 

@@ -1,12 +1,8 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/variables-dark";
-@import "bootstrap/scss/maps";
-@import "bootstrap/scss/mixins";
+@import "bootstrap/bootstrap-core";
 
-@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/accordion";
 @import "bootstrap/scss/forms";
-@import "bootstrap/scss/modal";
-@import "bootstrap/scss/close";
+@import "bootstrap/scss/tables";
 
-@import "../../css/pages/single-product.css";
+@import "pages/single-product";
+@import "woocommerce/single-product";

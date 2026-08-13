@@ -1,30 +1,25 @@
 <?php
 /**
- * Header Navigation
- *
- * Displays the primary navigation.
+ * Primary Navigation
  *
  * @package WooShop
  */
 
 defined( 'ABSPATH' ) || exit;
-
-if ( ! has_nav_menu( 'primary' ) ) {
-    return;
-}
 ?>
 
 <nav
-        class="ws-navigation"
-        aria-label="<?php esc_attr_e( 'Primary Navigation', 'wooshop' ); ?>">
+        class="ws-navigation navbar navbar-expand-lg p-0"
+        aria-label="<?php esc_attr_e( 'Primary navigation', 'wooshop' ); ?>">
 
     <?php
     wp_nav_menu(
             [
                     'theme_location' => 'primary',
                     'container'      => false,
-                    'menu_class'     => 'ws-primary-menu',
+                    'menu_class'     => 'navbar-nav flex-row flex-wrap gap-1',
                     'fallback_cb'    => false,
+                    'depth'          => 3,
             ]
     );
     ?>

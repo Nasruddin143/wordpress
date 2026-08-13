@@ -2,54 +2,52 @@
 /**
  * Header Search
  *
- * Displays the site search form.
- *
  * @package WooShop
  */
 
 defined( 'ABSPATH' ) || exit;
-
-$placeholder = $placeholder ?? __( 'Search...', 'wooshop' );
-
-$show_button = $show_button ?? true;
 ?>
 
-<div class="ws-header-search">
+<div class="ws-search">
 
     <form
-            class="ws-search-form"
             role="search"
             method="get"
+            class="ws-search__form"
             action="<?php echo esc_url( home_url( '/' ) ); ?>">
 
         <label
-                class="screen-reader-text"
-                for="ws-search">
+                class="visually-hidden"
+                for="ws-header-search">
 
-            <?php esc_html_e( 'Search for:', 'wooshop' ); ?>
+            <?php esc_html_e( 'Search', 'wooshop' ); ?>
 
         </label>
 
-        <input
-                id="ws-search"
-                class="ws-search-input"
-                type="search"
-                name="s"
-                value="<?php echo esc_attr( get_search_query() ); ?>"
-                placeholder="<?php echo esc_attr( $placeholder ); ?>"
-        >
+        <div class="input-group">
 
-        <?php if ( $show_button ) : ?>
+            <input
+                    id="ws-header-search"
+                    type="search"
+                    class="form-control"
+                    name="s"
+                    value="<?php echo esc_attr( get_search_query() ); ?>"
+                    placeholder="<?php esc_attr_e( 'Search products, posts and more...', 'wooshop' ); ?>"
+                    autocomplete="off">
 
             <button
                     type="submit"
-                    class="ws-search-button">
+                    class="btn btn-primary">
 
-                <?php esc_html_e( 'Search', 'wooshop' ); ?>
+                <span aria-hidden="true">⌕</span>
+
+                <span class="visually-hidden">
+                    <?php esc_html_e( 'Submit search', 'wooshop' ); ?>
+                </span>
 
             </button>
 
-        <?php endif; ?>
+        </div>
 
     </form>
 

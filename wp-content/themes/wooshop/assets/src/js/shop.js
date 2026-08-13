@@ -1,1 +1,0 @@
-// WooShop shop archive JavaScript.
