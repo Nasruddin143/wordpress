@@ -1,62 +1,94 @@
 <?php
 /**
- * The Template for displaying all single products
+ * Single Product Template.
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/single-product.php.
+ * Displays a WooCommerce single product page.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see         https://woocommerce.com/document/template-structure/
- * @package     WooCommerce\Templates
- * @version     1.6.4
+ * @package WooShop
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
-get_header( 'shop' ); ?>
+get_header( 'shop' );
+?>
 
-	<?php
-		/**
-		 * woocommerce_before_main_content hook.
-		 *
-		 * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
-		 * @hooked woocommerce_breadcrumb - 20
-		 */
-		do_action( 'woocommerce_before_main_content' );
-	?>
+    <main
+        id="primary"
+        class="site-main ws-single-product-main">
 
-		<?php while ( have_posts() ) : ?>
-			<?php the_post(); ?>
+        <div class="ws-container">
 
-			<?php wc_get_template_part( 'content', 'single-product' ); ?>
+            <?php
+            /**
+             * WooCommerce content opening.
+             *
+             * Handles breadcrumbs and other registered
+             * WooCommerce integrations.
+             */
+            do_action( 'woocommerce_before_main_content' );
+            ?>
 
-		<?php endwhile; // end of the loop. ?>
+            <?php
+            while ( have_posts() ) :
 
-	<?php
-		/**
-		 * woocommerce_after_main_content hook.
-		 *
-		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
-		 */
-		do_action( 'woocommerce_after_main_content' );
-	?>
+                the_post();
 
-	<?php
-		/**
-		 * woocommerce_sidebar hook.
-		 *
-		 * @hooked woocommerce_get_sidebar - 10
-		 */
-		do_action( 'woocommerce_sidebar' );
-	?>
+                global $product;
+                ?>
+
+                <article
+                    id="product-<?php the_ID(); ?>"
+                    <?php wc_product_class( 'ws-single-product', $product ); ?>
+                >
+
+                    <div class="ws-single-product__layout">
+
+                        <section class="ws-single-product__gallery">
+
+                            <?php
+                            do_action(
+                                'wooshop_single_product_gallery'
+                            );
+                            ?>
+
+                        </section>
+
+                        <section class="ws-single-product__summary">
+
+                            <?php
+                            do_action(
+                                'wooshop_single_product_summary'
+                            );
+                            ?>
+
+                        </section>
+
+                    </div>
+
+                    <section class="ws-single-product__details">
+
+                        <?php
+                        do_action(
+                            'wooshop_single_product_details'
+                        );
+                        ?>
+
+                    </section>
+
+                </article>
+
+            <?php
+
+            endwhile;
+            ?>
+
+            <?php
+            do_action( 'woocommerce_after_main_content' );
+            ?>
+
+        </div>
+
+    </main>
 
 <?php
 get_footer( 'shop' );
-
-/* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

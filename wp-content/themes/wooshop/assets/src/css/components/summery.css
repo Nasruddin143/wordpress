@@ -1,0 +1,15 @@
+/*--------------------------------------------------------------
+# Product Summary
+--------------------------------------------------------------*/
+
+.ws-single-product div.product .summary {
+    width: 100%;
+}
+
+.ws-single-product div.product .product_title {
+    margin-block: 0 var(--ws-space-md);
+}
+
+.ws-single-product div.product .price {
+    margin-block: var(--ws-space-md);
+}

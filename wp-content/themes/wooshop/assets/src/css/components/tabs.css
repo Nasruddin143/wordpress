@@ -1,0 +1,11 @@
+/*--------------------------------------------------------------
+# Product Tabs
+--------------------------------------------------------------*/
+
+.ws-single-product .woocommerce-tabs {
+    margin-top: var(--ws-space-2xl);
+}
+
+.ws-single-product .woocommerce-tabs ul.tabs {
+    margin-bottom: var(--ws-space-lg);
+}
