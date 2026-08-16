@@ -1,0 +1,103 @@
+/**
+ * WooShop Size Guide
+ *
+ * Styles the product Size Guide dialog.
+ *
+ * @package WooShop
+ */
+
+.ws-size-guide {
+  position: fixed;
+  inset: 0;
+  z-index: 1070;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.ws-size-guide.is-open {
+  display: flex;
+}
+
+.ws-size-guide__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.ws-size-guide__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 760px);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  background: var(--bs-white);
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: var(--bs-box-shadow-lg);
+}
+
+.ws-size-guide__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.ws-size-guide__body {
+  padding: 1.25rem;
+}
+
+.ws-size-guide__body table {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+}
+
+.ws-size-guide__body th,
+.ws-size-guide__body td {
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid var(--bs-border-color);
+}
+
+.ws-size-guide__body th {
+  font-weight: 600;
+  background: var(--bs-secondary-bg);
+}
+
+.ws-size-guide-button {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+body.ws-size-guide-open {
+  overflow: hidden;
+}
+
+@media (max-width: 767.98px) {
+
+  .ws-size-guide {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .ws-size-guide__dialog {
+    width: 100%;
+    max-height: 92vh;
+    border-radius:
+            var(--bs-border-radius-lg)
+            var(--bs-border-radius-lg)
+            0
+            0;
+  }
+
+  .ws-size-guide__body {
+    padding: 1rem;
+  }
+
+  .ws-size-guide__body table {
+    font-size: 0.875rem;
+  }
+}

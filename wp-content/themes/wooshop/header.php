@@ -1,43 +1,28 @@
 <?php
 /**
- * Theme Header
+ * Site Header
+ *
+ * Opens the main site wrapper and loads the site header.
  *
  * @package WooShop
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
-
-    <!doctype html>
+<!doctype html>
 <html <?php language_attributes(); ?>>
-
-    <head>
-
-        <meta charset="<?php bloginfo( 'charset' ); ?>">
-
-        <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1"
-        >
-
-        <?php wp_head(); ?>
-
-    </head>
+<head>
+    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php wp_head(); ?>
+</head>
 
 <body <?php body_class(); ?>>
 
 <?php wp_body_open(); ?>
 
-    <a
-            class="skip-link screen-reader-text"
-            href="#primary">
+<div id="page" class="site ws-site">
 
-        <?php esc_html_e( 'Skip to content', 'wooshop' ); ?>
+    <?php get_template_part('template-parts/header/site-header'); ?>
 
-    </a>
-
-<?php do_action( 'wooshop_before_header' ); ?>
-
-<?php do_action( 'wooshop_header' ); ?>
-
-<?php do_action( 'wooshop_after_header' ); ?>
+    <main id="primary" class="site-main ws-main">

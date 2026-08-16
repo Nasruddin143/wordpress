@@ -2,7 +2,7 @@
 /**
  * Footer Widgets
  *
- * Displays footer widget areas.
+ * Displays registered footer widget areas.
  *
  * @package WooShop
  */
@@ -12,20 +12,25 @@ defined( 'ABSPATH' ) || exit;
 
 <div class="ws-footer-widgets">
 
-    <?php for ( $i = 1; $i <= 4; $i++ ) : ?>
+    <?php if ( is_active_sidebar( 'footer-1' ) ) : ?>
 
-        <?php $sidebar = 'footer-' . $i; ?>
+        <?php dynamic_sidebar( 'footer-1' ); ?>
 
-        <?php if ( is_active_sidebar( $sidebar ) ) : ?>
+    <?php else : ?>
 
-            <div class="ws-footer-column">
+        <h5 class="ws-footer-title">
+            <?php esc_html_e( 'WooShop', 'wooshop' ); ?>
+        </h5>
 
-                <?php dynamic_sidebar( $sidebar ); ?>
+        <p class="mb-0">
+            <?php
+            esc_html_e(
+                'Quality products with a simple shopping experience.',
+                'wooshop'
+            );
+            ?>
+        </p>
 
-            </div>
-
-        <?php endif; ?>
-
-    <?php endfor; ?>
+    <?php endif; ?>
 
 </div>

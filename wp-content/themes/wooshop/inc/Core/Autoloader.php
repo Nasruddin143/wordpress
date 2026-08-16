@@ -1,55 +1,72 @@
 <?php
 /**
- * PSR-4 Autoloader
+ * WooShop Autoloader
+ *
+ * Provides PSR-4 style class autoloading for the WooShop theme.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-defined('ABSPATH') || exit;
+defined("ABSPATH") || exit();
 
-class Autoloader
+/**
+ * Class Autoloader.
+ *
+ * Automatically loads WooShop classes from the inc directory.
+ */
+final class Autoloader
 {
-
     /**
-     * Namespace prefix.
+     * WooShop namespace prefix.
+     *
+     * @var string
      */
-    protected const string PREFIX = 'WooShop\\';
+    private const string PREFIX = "WooShop\\";
 
     /**
-     * Base directory.
+     * Base directory for WooShop classes.
+     *
+     * @var string
      */
-    protected static string $base_dir;
+    private const string BASE_DIR = __DIR__ . "/../";
 
     /**
-     * Register autoloader.
+     * Register the WooShop autoloader.
+     *
+     * @return void
      */
     public static function register(): void
     {
-
-        self::$base_dir = trailingslashit(get_template_directory()) . 'inc/';
-
-        spl_autoload_register([self::class, 'autoload']);
+        spl_autoload_register([self::class, "autoload"]);
     }
 
     /**
-     * Load class.
+     * Load a WooShop class file.
+     *
+     * Converts the fully-qualified class name into
+     * the corresponding file path inside the inc directory.
+     *
+     * @param string $class Fully-qualified class name.
+     * @return void
      */
-    protected static function autoload(string $class): void
+    private static function autoload(string $class): void
     {
-
-        if (!str_starts_with($class, self::PREFIX)) {
+        if (strncmp($class, self::PREFIX, strlen(self::PREFIX)) !== 0) {
             return;
         }
 
-        $relative = substr($class, strlen(self::PREFIX));
+        $relative_class = substr($class, strlen(self::PREFIX));
 
-        $file = self::$base_dir .
-            str_replace('\\', DIRECTORY_SEPARATOR, $relative) .
-            '.php';
+        if ("" === $relative_class) {
+            return;
+        }
 
-        if (file_exists($file)) {
+        $file =
+            self::BASE_DIR . str_replace("\\", "/", $relative_class) . ".php";
+
+        if (is_readable($file)) {
             require_once $file;
         }
     }

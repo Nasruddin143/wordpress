@@ -1,0 +1,70 @@
+/**
+ * WooShop Bootstrap
+ *
+ * Loads the Bootstrap Sass modules required by WooShop.
+ *
+ * @package WooShop
+ */
+//@import "bootstrap/scss/bootstrap";
+
+/*
+ * Bootstrap functions.
+ */
+@import "bootstrap/scss/functions";
+
+/*
+ * Bootstrap variables.
+ */
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+
+/*
+ * Bootstrap maps.
+ */
+@import "bootstrap/scss/maps";
+
+/*
+ * Bootstrap mixins.
+ */
+@import "bootstrap/scss/mixins";
+
+/*
+ * Bootstrap utilities.
+ *
+ * This must be loaded before utilities/api because
+ * utilities/api depends on the $utilities map.
+ */
+@import "bootstrap/scss/utilities";
+
+/*
+ * Bootstrap root and base.
+ */
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+
+/*
+ * Bootstrap layout.
+ */
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+
+/*
+ * Bootstrap components.
+ */
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/close";
+
+/*
+ * Bootstrap helpers.
+ */
+@import "bootstrap/scss/helpers";
+
+/*
+ * Bootstrap utility API.
+ */
+@import "bootstrap/scss/utilities/api";

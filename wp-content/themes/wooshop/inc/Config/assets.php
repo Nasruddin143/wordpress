@@ -1,248 +1,252 @@
 <?php
 /**
- * WooShop Asset Configuration.
+ * WooShop Asset Configuration
+ *
+ * Defines globally available theme assets,
+ * component assets, and WooCommerce assets.
+ *
+ * All assets follow the same configuration structure.
  *
  * @package WooShop
  */
 
-defined( 'ABSPATH' ) || exit;
+defined("ABSPATH") || exit();
 
 return [
-
     /*
-     * Global frontend assets.
+     * Global theme assets.
      */
-    'global' => [
-
-        'styles' => [
-
-            [
-                'handle' => 'wooshop-app',
-                'src'    => 'assets/build/css/app.min.css',
-                'deps'   => [],
-                'media'  => 'all',
-            ],
-
+    "styles" => [
+        "bootstrap" => [
+            "style" => "assets/build/css/bootstrap.min.css",
+            "style_deps" => [],
+            "version" => null,
+            "media" => "all",
         ],
 
-        'scripts' => [
+        "app" => [
+            "style" => "assets/build/css/app.min.css",
+            "style_deps" => ["bootstrap"],
+            "version" => null,
+            "media" => "all",
+        ],
+    ],
 
-            [
-                'handle'   => 'wooshop-app',
-                'src'      => 'assets/build/js/app.min.js',
-                'deps'     => [],
-                'strategy' => 'defer',
-                'footer'   => true,
-            ],
-
+    "scripts" => [
+        "bootstrap" => [
+            "script" => "assets/build/js/bootstrap.bundle.min.js",
+            "script_deps" => [],
+            "version" => null,
+            "in_footer" => true,
         ],
 
+        "app" => [
+            "script" => "assets/build/js/app.min.js",
+            "script_deps" => ["bootstrap"],
+            "version" => null,
+            "in_footer" => true,
+        ],
     ],
 
     /*
-     * Shop / product archives.
+     * Component assets.
+     *
+     * Components are loaded only when requested
+     * by their corresponding module.
      */
-    'shop' => [
-
-        'styles' => [
-
-            [
-                'handle' => 'wooshop-shop',
-                'src'    => 'assets/build/css/shop.min.css',
-                'deps'   => [],
-                'media'  => 'all',
-            ],
-
+    "components" => [
+        "product-filters" => [
+            "style" => "assets/build/css/components/product-filters.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/product-filters.min.js",
+            "script_deps" => [],
         ],
 
-        'scripts' => [
-
-            [
-                'handle'   => 'wooshop-shop',
-                'src'      => 'assets/build/js/shop.min.js',
-                'deps'     => [],
-                'strategy' => 'defer',
-                'footer'   => true,
-            ],
-
+        "variation-swatches" => [
+            "style" => "assets/build/css/components/variation-swatches.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/variation-swatches.min.js",
+            "script_deps" => ["jquery", "wc-add-to-cart-variation"],
         ],
 
+        "wishlist" => [
+            "style" => "assets/build/css/components/wishlist.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/wishlist.min.js",
+            "script_deps" => [],
+        ],
+
+        "quick-view" => [
+            "style" => "assets/build/css/components/quick-view.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/quick-view.min.js",
+            "script_deps" => ["jquery", "wc-add-to-cart-variation"],
+        ],
+
+        "reviews" => [
+            "style" => "assets/build/css/components/reviews.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/reviews.min.js",
+            "script_deps" => [],
+        ],
+
+        "size-guide" => [
+            "style" => "assets/build/css/components/size-guide.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/size-guide.min.js",
+            "script_deps" => [],
+        ],
+
+        "compare" => [
+            "style" => "assets/build/css/components/compare.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/compare.min.js",
+            "script_deps" => [],
+        ],
+
+        "mobile-sales" => [
+            "style" => "assets/build/css/components/mobile-sales.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/mobile-sales.min.js",
+            "script_deps" => [],
+        ],
+
+        "product-brands" => [
+            "style" => "assets/build/css/components/product-brands.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/product-brands.min.js",
+            "script_deps" => [],
+        ],
+
+        "stock-scarcity" => [
+            "style" => "assets/build/css/components/stock-scarcity.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/stock-scarcity.min.js",
+            "script_deps" => [],
+        ],
+
+        "free-shipping-bar" => [
+            "style" => "assets/build/css/components/free-shipping-bar.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/free-shipping-bar.min.js",
+            "script_deps" => ["jquery"],
+        ],
+
+        "product-custom-tabs" => [
+            "style" =>
+                "assets/build/css/components/product-custom-tabs.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/product-custom-tabs.min.js",
+            "script_deps" => [],
+        ],
+
+        "product-waitlist" => [
+            "style" => "assets/build/css/components/product-waitlist.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/product-waitlist.min.js",
+            "script_deps" => [],
+        ],
+
+        "product-videos" => [
+            "style" => "assets/build/css/components/product-videos.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/product-videos.min.js",
+            "script_deps" => [],
+        ],
+
+        "sale-countdown" => [
+            "style" => "assets/build/css/components/sale-countdown.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/sale-countdown.min.js",
+            "script_deps" => [],
+        ],
+
+        "social-sharing" => [
+            "style" => "assets/build/css/components/social-sharing.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/social-sharing.min.js",
+            "script_deps" => [],
+        ],
+
+        "payment-icons" => [
+            "style" => "assets/build/css/components/payment-icons.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/payment-icons.min.js",
+            "script_deps" => [],
+        ],
+
+        "mini-cart" => [
+            "style" => "assets/build/css/components/mini-cart.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/mini-cart.min.js",
+            "script_deps" => ["wc-cart-fragments"],
+        ],
+
+        "accessibility" => [
+            "style" => "assets/build/css/components/accessibility.min.css",
+            "style_deps" => [],
+            "script" => null,
+            "script_deps" => [],
+        ],
+
+        "mobile-commerce" => [
+            "style" => "assets/build/css/components/mobile-commerce.min.css",
+            "style_deps" => [],
+            "script" => "assets/build/js/components/mobile-commerce.min.js",
+            "script_deps" => [],
+        ],
     ],
 
     /*
-     * Single WooCommerce product.
+     * WooCommerce assets.
+     *
+     * WooCommerce assets use the exact same
+     * structure as component assets.
+     *
+     * Assets are loaded only when requested
+     * by the corresponding WooCommerce module.
      */
-    'product' => [
-
-        'styles' => [
-
-            [
-                'handle' => 'wooshop-single-product',
-                'src'    => 'assets/build/css/single-product.min.css',
-                'deps'   => [],
-                'media'  => 'all',
-            ],
-
+    "woocommerce" => [
+        "base" => [
+            "style" => "assets/build/css/woocommerce.min.css",
+            "style_deps" => [],
+            "script" => null,
+            "script_deps" => [],
         ],
 
-        'scripts' => [
-
-            [
-                'handle'   => 'wooshop-single-product',
-                'src'      => 'assets/build/js/single-product.min.js',
-                'deps'     => [],
-                'strategy' => 'defer',
-                'footer'   => true,
-            ],
-
+        "shop" => [
+            "style" => "assets/build/css/shop.min.css",
+            "style_deps" => ["wooshop-woocommerce-base-base"],
+            "script" => "assets/build/js/shop.min.js",
+            "script_deps" => [],
         ],
 
-    ],
-
-    /*
-     * Cart.
-     */
-    'cart' => [
-
-        'styles' => [
-
-            [
-                'handle' => 'wooshop-cart',
-                'src'    => 'assets/build/css/cart.min.css',
-                'deps'   => [],
-                'media'  => 'all',
-            ],
-
+        "product" => [
+            "style" => "assets/build/css/product.min.css",
+            "style_deps" => ["wooshop-woocommerce-base-base"],
+            "script" => "assets/build/js/product.min.js",
+            "script_deps" => [],
         ],
 
-        'scripts' => [
-
-            [
-                'handle'   => 'wooshop-cart',
-                'src'      => 'assets/build/js/cart.min.js',
-                'deps'     => [],
-                'strategy' => 'defer',
-                'footer'   => true,
-            ],
-
+        "cart" => [
+            "style" => "assets/build/css/cart.min.css",
+            "style_deps" => ["wooshop-woocommerce-base-base"],
+            "script" => "assets/build/js/cart.min.js",
+            "script_deps" => ["wc-cart-fragments"],
         ],
 
-    ],
-
-    /*
-     * Checkout.
-     */
-    'checkout' => [
-
-        'styles' => [
-
-            [
-                'handle' => 'wooshop-checkout',
-                'src'    => 'assets/build/css/checkout.min.css',
-                'deps'   => [],
-                'media'  => 'all',
-            ],
-
+        "checkout" => [
+            "style" => "assets/build/css/checkout.min.css",
+            "style_deps" => ["wooshop-woocommerce-base-base"],
+            "script" => "assets/build/js/checkout.min.js",
+            "script_deps" => ["wc-checkout"],
         ],
 
-        'scripts' => [
-
-            [
-                'handle'   => 'wooshop-checkout',
-                'src'      => 'assets/build/js/checkout.min.js',
-                'deps'     => [],
-                'strategy' => 'defer',
-                'footer'   => true,
-            ],
-
+        "account" => [
+            "style" => "assets/build/css/account.min.css",
+            "style_deps" => ["wooshop-woocommerce-base-base"],
+            "script" => "assets/build/js/account.min.js",
+            "script_deps" => [],
         ],
-
-    ],
-
-    /*
-     * My Account.
-     */
-    'my-account' => [
-
-        'styles' => [
-
-            [
-                'handle' => 'wooshop-my-account',
-                'src'    => 'assets/build/css/my-account.min.css',
-                'deps'   => [],
-                'media'  => 'all',
-            ],
-
-        ],
-
-        'scripts' => [
-
-            [
-                'handle'   => 'wooshop-my-account',
-                'src'      => 'assets/build/js/my-account.min.js',
-                'deps'     => [],
-                'strategy' => 'defer',
-                'footer'   => true,
-            ],
-
-        ],
-
-    ],
-
-    /*
-     * Blog single post.
-     */
-    'single-post' => [
-
-        'styles' => [
-
-            [
-                'handle' => 'wooshop-single-post',
-                'src'    => 'assets/build/css/single-post.min.css',
-                'deps'   => [],
-                'media'  => 'all',
-            ],
-
-        ],
-
-        'scripts' => [
-
-            [
-                'handle'   => 'wooshop-single-post',
-                'src'      => 'assets/build/js/single-post.min.js',
-                'deps'     => [],
-                'strategy' => 'defer',
-                'footer'   => true,
-            ],
-
-        ],
-
-    ],
-
-    /*
-     * Editor Assets.
-     */
-    'editor' => [
-
-        'styles' => [
-
-            [
-                'handle' => 'wooshop-editor',
-                'src'    => 'assets/build/css/editor.min.css',
-                'deps'   => [],
-            ],
-
-        ],
-
-        'scripts' => [
-
-            [
-                'handle' => 'wooshop-editor',
-                'src'    => 'assets/build/js/editor.min.js',
-                'deps'   => [],
-            ],
-
-        ],
-
     ],
 ];

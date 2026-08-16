@@ -1,0 +1,97 @@
+/**
+ * WooShop Product Brands
+ *
+ * Styles product brand presentation.
+ *
+ * @package WooShop
+ */
+
+.ws-product-brand {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.ws-product-brand__label {
+  font-weight: 600;
+}
+
+.ws-product-brand__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.ws-product-brand__link {
+  color: var(--bs-body-color);
+  text-decoration: none;
+}
+
+.ws-product-brand__link:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.ws-brand-list {
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--bs-border-color);
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.ws-brand-list__header {
+  margin-bottom: 0.75rem;
+}
+
+.ws-brand-list__items {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  scrollbar-width: thin;
+}
+
+.ws-brand-list__item {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.5rem 1rem;
+  color: var(--bs-body-color);
+  background: var(--bs-white);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ws-brand-list__item:hover,
+.ws-brand-list__item:focus-visible {
+  color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.ws-brand-list__item:focus-visible {
+  outline: 2px solid var(--bs-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 767.98px) {
+
+  .ws-product-brand {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ws-brand-list {
+    margin-bottom: 1.5rem;
+  }
+
+  .ws-brand-list__item {
+    min-height: 48px;
+  }
+}

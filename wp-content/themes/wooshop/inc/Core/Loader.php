@@ -1,20 +1,21 @@
 <?php
 /**
- * Theme Loader
+ * WooShop Application Loader
+ *
+ * Boots the core application and registered modules.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-use WooShop\Core\Icons\Icon;
-use WooShop\Core\Icons\Manager;
+defined("ABSPATH") || exit();
 
-defined('ABSPATH') || exit;
-
-class Loader
+/**
+ * Loader class.
+ */
+class Loader extends \WooShop\Core\Container
 {
-
     /**
      * Service container.
      *
@@ -23,310 +24,111 @@ class Loader
     protected Container $container;
 
     /**
-     * Boot framework.
+     * Module manager.
+     *
+     * @var ModuleManager
+     */
+    protected ModuleManager $module_manager;
+
+    /**
+     * Constructor.
+     *
+     * Receives the existing WooShop service container.
+     *
+     * @param Container $container Service container.
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * Register core services.
+     *
+     * AssetsManager loads the existing centralized asset
+     * configuration without performing database queries.
+     *
+     * @return void
+     */
+    public function register_core_services(): void
+    {
+        $config = new Config($this->container);
+
+        $this->container->set('config', $config);
+
+        $this->container->set(Config::class, $config);
+
+        $assets = new AssetsManager();
+
+        $this->container->set("assets", $assets);
+
+        $this->container->set(AssetsManager::class, $assets);
+    }
+
+    /**
+     * Boot the WooShop application.
      *
      * @return void
      */
     public function boot(): void
     {
-        /*
-        * Load global helper functions.
-        */
-        require_once get_template_directory() . '/inc/Helpers/loader.php';
+        $this->register_core_services();
 
-        /*
-         * Create service container.
-         */
-        $this->container = new Container();
-
-        /*
-         * Make container available to the application.
-         */
-        Application::set_container($this->container);
-
-        /*
-         * Register framework services.
-         */
-        $this->register_services();
-
-        /*
-         * Register WordPress hooks.
-         */
-        $this->register_hooks();
-
-        /*
-         * Load registered modules.
-         */
-        $this->load_modules();
+        $this->register_modules();
     }
 
     /**
-     * Register framework services.
+     * Register configured modules through ModuleManager.
+     *
+     * ModuleManager is responsible for resolving the shared
+     * container dependency and calling each module's register().
      *
      * @return void
      */
-    protected function register_services(): void
+    protected function register_modules(): void
     {
+        $modules_file = get_stylesheet_directory() . "/inc/Config/modules.php";
+
+        if (!file_exists($modules_file)) {
+            return;
+        }
+
+        $modules = require $modules_file;
+
+        if (!is_array($modules)) {
+            return;
+        }
+
+        $this->module_manager = new ModuleManager($this->container);
+
+        $this->container->set("module_manager", $this->module_manager);
+
+        $this->container->set(ModuleManager::class, $this->module_manager);
+
         /*
-        * ---------------------------------------------------------
-        * Configuration Repository.
-        * ---------------------------------------------------------
-        */
-        $this->container->set(
-            Config::class,
-            function () {
-
-                return new Config(
-                    get_template_directory() . '/inc/Config'
-                );
-
-            }
-        );
-
-        /*
-         * ---------------------------------------------------------
-         * Condition Resolver.
-         * ---------------------------------------------------------
+         * ModuleManager::register() requires the configured
+         * module array. Do not call it without arguments.
          */
-        $this->container->set(
-            Condition::class,
-            function () {
-
-                return new Condition();
-
-            }
-        );
-
-        /*
-        * ---------------------------------------------------------
-        * Asset Manager.
-        * ---------------------------------------------------------
-        */
-        $this->container->set(
-            AssetManager::class,
-            function () {
-
-                return new AssetManager();
-
-            }
-        );
-//        $this->container->set(
-//            AssetManager::class,
-//            function (Container $container) {
-//
-//                $assets = new AssetManager();
-//
-//                /** @var Config $config */
-//                $config = $container->get(
-//                    Config::class
-//                );
-//
-//                $assetConfig = $config->get(
-//                    'assets',
-//                    []
-//                );
-//
-//                /*
-//                 * Register editor styles.
-//                 */
-//                foreach (
-//                    $assetConfig['editor']['styles'] ?? []
-//                    as $asset
-//                ) {
-//
-//                    $assets->registerEditorStyle(
-//                        $asset['handle'],
-//                        $asset['src'],
-//                        $asset['deps'] ?? []
-//                    );
-//                }
-//
-//                /*
-//                 * Register editor scripts.
-//                 */
-//                foreach (
-//                    $assetConfig['editor']['scripts'] ?? []
-//                    as $asset
-//                ) {
-//
-//                    $assets->registerEditorScript(
-//                        $asset['handle'],
-//                        $asset['src'],
-//                        $asset['deps'] ?? []
-//                    );
-//                }
-//
-//                return $assets;
-//            }
-//        );
-
-        /*
-         * ---------------------------------------------------------
-         * Smart Asset Loader.
-         * ---------------------------------------------------------
-         */
-        $this->container->set(
-            AssetLoader::class,
-            function (Container $container) {
-
-                return new AssetLoader(
-                    $container
-                );
-
-            }
-        );
-
-        /*
-         * ---------------------------------------------------------
-         * Template Loader.
-         * ---------------------------------------------------------
-         */
-        $this->container->set(
-            TemplateLoader::class,
-            function () {
-
-                return new TemplateLoader();
-
-            }
-        );
-
-        /*
-         * ---------------------------------------------------------
-         * View Renderer.
-         * ---------------------------------------------------------
-         */
-        $this->container->set(
-            View::class,
-            function (Container $container) {
-
-                return new View(
-
-                    $container->get(
-                        TemplateLoader::class
-                    )
-                );
-            }
-        );
-
-
-        /*
-         * ---------------------------------------------------------
-         * Icon Manager.
-         * ---------------------------------------------------------
-         */
-        $this->container->set(
-            Manager::class,
-            function () {
-
-                return new Manager(
-                    get_template_directory() . '/inc/Core/Icons/svg'
-                );
-
-            }
-        );
-
-
-        /*
-        * ---------------------------------------------------------
-        * Icon Renderer.
-        * ---------------------------------------------------------
-        */
-        $this->container->set(
-            Icon::class,
-            function ($container) {
-
-                return new Icon($container);
-
-            }
-        );
-    }
-
-
-    /**
-     * Register WordPress hooks.
-     *
-     * Asset registration and enqueueing are intentionally
-     * separated so smart asset detection happens before
-     * assets are enqueued.
-     *
-     * @return void
-     */
-    protected function register_hooks(): void
-    {
-        /**
-         * @var AssetLoader $assetLoader
-         */
-        $assetLoader = $this->container->get(
-            AssetLoader::class
-        );
-
-        /**
-         * @var AssetManager $assets
-         */
-        $assets = $this->container->get(
-            AssetManager::class
-        );
-
-        /*
-         * Smart asset registration.
-         *
-         * Priority 10:
-         * Determine which assets are required
-         * and register them with AssetManager.
-         */
-        $assetLoader->register();
-
-        /*
-         * Asset enqueue.
-         *
-         * Priority 20:
-         * Enqueue everything registered above.
-         */
-        add_action(
-            'wp_enqueue_scripts',
-            [
-                $assets,
-                'enqueue',
-            ],
-            20
-        );
-
-        /*
-         * Block editor assets.
-         */
-        add_action(
-            'enqueue_block_editor_assets',
-            [
-                $assets,
-                'enqueueEditor',
-            ]
-        );
+        $this->module_manager->register($modules);
     }
 
     /**
-     * Load framework modules.
-     *
-     * @return void
-     */
-    protected
-    function load_modules(): void
-    {
-        $manager = new ModuleManager(
-            $this->container
-        );
-
-        $manager->load();
-    }
-
-    /**
-     * Get service container.
+     * Get the service container.
      *
      * @return Container
      */
-    public
-    function get_container(): Container
+    public function get_container(): Container
     {
-
         return $this->container;
+    }
+
+    /**
+     * Get the module manager.
+     *
+     * @return ModuleManager|null
+     */
+    public function get_module_manager(): ?ModuleManager
+    {
+        return $this->module_manager;
     }
 }

@@ -1,8 +1,8 @@
 <?php
 /**
- * Default Content
+ * Default Post Content
  *
- * Displays a standard post/content item.
+ * Displays a standard WordPress post in archive contexts.
  *
  * @package WooShop
  */
@@ -11,79 +11,40 @@ defined( 'ABSPATH' ) || exit;
 ?>
 
 <article
-        id="post-<?php the_ID(); ?>"
-        <?php post_class( 'ws-content-card' ); ?>>
+    id="post-<?php the_ID(); ?>"
+    <?php post_class( 'ws-content-card mb-4' ); ?>
+>
 
-    <header class="entry-header">
-
-        <h2 class="entry-title">
-
-            <a
-                    href="<?php echo esc_url( get_permalink() ); ?>">
-
-                <?php the_title(); ?>
-
-            </a>
-
-        </h2>
+    <header class="entry-header mb-3">
 
         <?php
-        get_template_part(
-                'template-parts/meta/post-meta'
+        the_title(
+            '<h2 class="entry-title h4 mb-2"><a class="text-decoration-none" href="' . esc_url( get_permalink() ) . '">',
+            '</a></h2>'
         );
         ?>
 
-    </header>
-
-    <?php if ( has_post_thumbnail() ) : ?>
-
-        <div class="entry-thumbnail">
-
-            <a
-                    href="<?php echo esc_url( get_permalink() ); ?>">
-
-                <?php
-                the_post_thumbnail(
-                        'wooshop-card'
-                );
-                ?>
-
-            </a>
-
+        <div class="entry-meta small text-body-secondary">
+            <?php echo esc_html( get_the_date() ); ?>
         </div>
 
-    <?php endif; ?>
+    </header>
 
     <div class="entry-content">
 
-        <?php
-        if ( is_singular() ) :
-
-            the_content();
-
-        else :
-
-            the_excerpt();
-
-        endif;
-        ?>
+        <?php the_excerpt(); ?>
 
     </div>
 
-    <?php if ( ! is_singular() ) : ?>
+    <footer class="entry-footer">
 
-        <footer class="entry-footer">
+        <a
+            class="btn btn-outline-primary btn-sm"
+            href="<?php echo esc_url( get_permalink() ); ?>"
+        >
+            <?php esc_html_e( 'Read more', 'wooshop' ); ?>
+        </a>
 
-            <a
-                    class="ws-read-more"
-                    href="<?php echo esc_url( get_permalink() ); ?>">
-
-                <?php esc_html_e( 'Read More', 'wooshop' ); ?>
-
-            </a>
-
-        </footer>
-
-    <?php endif; ?>
+    </footer>
 
 </article>

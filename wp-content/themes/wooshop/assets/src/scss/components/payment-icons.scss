@@ -1,0 +1,95 @@
+/**
+ * WooShop Payment Icons
+ *
+ * Styles the payment-method icon component.
+ *
+ * @package WooShop
+ */
+
+.ws-payment-icons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 1rem;
+}
+
+.ws-payment-icons__label {
+  color: var(--bs-secondary-color);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ws-payment-icons__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.ws-payment-icons__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 46px;
+  height: 30px;
+  padding: 0 0.45rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius-sm);
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+
+.ws-payment-icons__mark {
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ws-payment-icons__item--visa
+.ws-payment-icons__mark {
+  font-style: italic;
+}
+
+.ws-payment-icons__item--mastercard
+.ws-payment-icons__mark {
+  font-size: 0.7rem;
+}
+
+.ws-payment-icons__item--upi
+.ws-payment-icons__mark {
+  font-size: 0.7rem;
+}
+
+.ws-payment-icons__item--cod
+.ws-payment-icons__mark {
+  font-size: 0.6rem;
+}
+
+.ws-payment-icons__item.is-focused {
+  outline: 2px solid var(--bs-primary);
+  outline-offset: 2px;
+}
+
+.ws-payment-icons--footer {
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 575.98px) {
+
+  .ws-payment-icons {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ws-payment-icons__list {
+    width: 100%;
+  }
+
+  .ws-payment-icons__item {
+    min-width: 42px;
+  }
+}

@@ -1,48 +1,44 @@
 <?php
 /**
- * Base Module
+ * WooShop Base Module
+ *
+ * Provides the common foundation for all WooShop modules.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-abstract class Module
-{
+/**
+ * Abstract Module class.
+ */
+abstract class Module {
+
+    /**
+     * Service container.
+     *
+     * @var Container
+     */
     protected Container $container;
 
-    final public function __construct(Container $container)
-    {
+    /**
+     * Constructor.
+     *
+     * @param Container $container Service container.
+     */
+    public function __construct( Container $container ) {
+
         $this->container = $container;
     }
 
+    /**
+     * Register module hooks.
+     *
+     * Every WooShop module must implement this method.
+     *
+     * @return void
+     */
     abstract public function register(): void;
-
-    protected function service(string $id)
-    {
-        return $this->container->get($id);
-    }
-
-    protected function view(): View
-    {
-        return $this->service(
-            View::class
-        );
-    }
-
-    protected function config(): Config
-    {
-        return $this->service(
-            Config::class
-        );
-    }
-
-    protected function assets(): AssetManager
-    {
-        return $this->service(
-            AssetManager::class
-        );
-    }
 }

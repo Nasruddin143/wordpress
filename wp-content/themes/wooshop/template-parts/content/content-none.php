@@ -1,8 +1,8 @@
 <?php
 /**
- * No Content Template
+ * Empty Content State
  *
- * Displays an empty-content state.
+ * Displays a fallback message when no content is available.
  *
  * @package WooShop
  */
@@ -10,84 +10,26 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<section
-        class="ws-error-state ws-error-state--empty"
-        aria-labelledby="ws-no-results-title">
+<section class="ws-content-none py-5 text-center">
 
-    <div class="ws-error-state__content">
+    <header class="page-header mb-3">
 
-        <h1
-                id="ws-no-results-title"
-                class="ws-error-state__title">
-
-            <?php
-            if ( is_search() ) {
-
-                esc_html_e(
-                        'Nothing Found',
-                        'wooshop'
-                );
-
-            } else {
-
-                esc_html_e(
-                        'Nothing Found Here',
-                        'wooshop'
-                );
-            }
-            ?>
-
+        <h1 class="page-title h3">
+            <?php esc_html_e( 'Nothing found', 'wooshop' ); ?>
         </h1>
 
-        <p class="ws-error-state__message">
+    </header>
 
+    <div class="page-content">
+
+        <p>
             <?php
-            if ( is_search() ) {
-
-                esc_html_e(
-                        'Sorry, but nothing matched your search. Please try again with different keywords.',
-                        'wooshop'
-                );
-
-            } else {
-
-                esc_html_e(
-                        'There is currently no content available here.',
-                        'wooshop'
-                );
-            }
+            esc_html_e(
+                'We could not find any content matching your request.',
+                'wooshop'
+            );
             ?>
-
         </p>
-
-        <?php if ( is_search() ) : ?>
-
-            <div class="ws-error-search">
-
-                <?php
-                get_search_form();
-                ?>
-
-            </div>
-
-        <?php endif; ?>
-
-        <div class="ws-error-actions">
-
-            <a
-                    class="ws-button ws-button--primary"
-                    href="<?php echo esc_url( home_url( '/' ) ); ?>">
-
-                <?php
-                esc_html_e(
-                        'Back to Home',
-                        'wooshop'
-                );
-                ?>
-
-            </a>
-
-        </div>
 
     </div>
 

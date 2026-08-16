@@ -1,6 +1,8 @@
 <?php
 /**
- * Theme Footer
+ * Site Footer
+ *
+ * Closes the main content wrapper and loads the site footer.
  *
  * @package WooShop
  */
@@ -8,13 +10,9 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<?php get_template_part( 'template-parts/global/back-to-top' ); ?>
+</main><!-- #primary -->
 
-<?php do_action( 'wooshop_before_footer' ); ?>
-
-<?php do_action( 'wooshop_footer' ); ?>
-
-<?php do_action( 'wooshop_after_footer' ); ?>
+<?php get_template_part( 'template-parts/footer/site-footer' ); ?>
 
 </div><!-- #page -->
 

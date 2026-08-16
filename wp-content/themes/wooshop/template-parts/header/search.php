@@ -2,6 +2,8 @@
 /**
  * Header Search
  *
+ * Displays the primary site search form.
+ *
  * @package WooShop
  */
 
@@ -11,43 +13,39 @@ defined( 'ABSPATH' ) || exit;
 <div class="ws-search">
 
     <form
-            role="search"
-            method="get"
-            class="ws-search__form"
-            action="<?php echo esc_url( home_url( '/' ) ); ?>">
+        role="search"
+        method="get"
+        class="search-form"
+        action="<?php echo esc_url( home_url( '/' ) ); ?>"
+    >
 
-        <label
-                class="visually-hidden"
-                for="ws-header-search">
+        <label class="w-100">
 
-            <?php esc_html_e( 'Search', 'wooshop' ); ?>
+			<span class="visually-hidden">
+				<?php esc_html_e( 'Search for:', 'wooshop' ); ?>
+			</span>
 
-        </label>
+            <div class="input-group">
 
-        <div class="input-group">
-
-            <input
-                    id="ws-header-search"
+                <input
                     type="search"
                     class="form-control"
                     name="s"
                     value="<?php echo esc_attr( get_search_query() ); ?>"
-                    placeholder="<?php esc_attr_e( 'Search products, posts and more...', 'wooshop' ); ?>"
-                    autocomplete="off">
+                    placeholder="<?php esc_attr_e( 'Search products...', 'wooshop' ); ?>"
+                >
 
-            <button
+                <button
                     type="submit"
-                    class="btn btn-primary">
+                    class="btn btn-primary"
+                    aria-label="<?php esc_attr_e( 'Submit search', 'wooshop' ); ?>"
+                >
+                    <?php esc_html_e( 'Search', 'wooshop' ); ?>
+                </button>
 
-                <span aria-hidden="true">⌕</span>
+            </div>
 
-                <span class="visually-hidden">
-                    <?php esc_html_e( 'Submit search', 'wooshop' ); ?>
-                </span>
-
-            </button>
-
-        </div>
+        </label>
 
     </form>
 

@@ -175,7 +175,7 @@ class RegenerateThumbnails {
 	/**
 	 * Enqueues the requires JavaScript file and stylesheet on the plugin's admin page.
 	 *
-	 * @param string $hook_suffix The current page's hook suffix as provided by admin-header.php.
+	 * @param string $hook_suffix The current page's hook suffix as provided by admin-components.php.
 	 */
 	public function admin_enqueues( $hook_suffix ) {
 		if ( $hook_suffix != $this->menu_id ) {

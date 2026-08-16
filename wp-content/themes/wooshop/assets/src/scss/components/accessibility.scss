@@ -1,0 +1,50 @@
+/**
+ * WooShop Accessibility
+ *
+ * Provides accessibility-focused styles for skip links,
+ * keyboard focus, reduced motion, and visually hidden content.
+ *
+ * @package WooShop
+ */
+
+.ws-skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  padding: 0.75rem 1rem;
+  background: var(--bs-dark);
+  color: var(--bs-white);
+  text-decoration: none;
+}
+
+.ws-skip-link:focus {
+  outline: 3px solid var(--bs-warning);
+  outline-offset: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--bs-primary);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--bs-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

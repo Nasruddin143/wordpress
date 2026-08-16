@@ -1,7 +1,19 @@
-module.exports = {
+/**
+ * WooShop PostCSS Configuration
+ *
+ * Processes compiled Sass through Autoprefixer and cssnano.
+ *
+ * @package WooShop
+ */
+
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+
+export default {
     plugins: [
-        require('postcss-preset-env')({stage: 1}),
-        require('autoprefixer'),
-        process.env.NODE_ENV === 'production' ? require('cssnano')({preset: 'default'}) : null,
-    ].filter(Boolean),
+        autoprefixer(),
+        cssnano({
+            preset: 'default',
+        }),
+    ],
 };

@@ -8,53 +8,12 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
-$title       = '';
-$description = '';
-
-if ( is_search() ) {
-
-    $title = sprintf(
-    /* translators: %s: search query. */
-        __( 'Search Results for: %s', 'wooshop' ),
-        get_search_query()
-    );
-
-} else {
-
-    $title       = get_the_archive_title();
-    $description = get_the_archive_description();
-}
 ?>
 
-<header class="ws-archive-header">
+<header class="ws-archive-header mb-5">
 
-    <?php if ( $title ) : ?>
+    <?php the_archive_title( '<h1 class="page-title">', '</h1>' ); ?>
 
-        <h1 class="ws-archive-title">
-
-            <?php
-            echo wp_kses_post(
-                $title
-            );
-            ?>
-
-        </h1>
-
-    <?php endif; ?>
-
-    <?php if ( $description ) : ?>
-
-        <div class="ws-archive-description">
-
-            <?php
-            echo wp_kses_post(
-                wpautop( $description )
-            );
-            ?>
-
-        </div>
-
-    <?php endif; ?>
+    <?php the_archive_description( '<div class="archive-description text-body-secondary">', '</div>' ); ?>
 
 </header>

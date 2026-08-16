@@ -2,7 +2,7 @@
 /**
  * Footer Copyright
  *
- * Displays the copyright information.
+ * Displays copyright and WordPress credit information.
  *
  * @package WooShop
  */
@@ -12,13 +12,21 @@ defined( 'ABSPATH' ) || exit;
 
 <div class="ws-footer-copyright">
 
-    <p>
+    <p class="mb-2">
         &copy;
-        <?php echo esc_html( wp_date( 'Y' ) ); ?>
+        <?php echo esc_html( gmdate( 'Y' ) ); ?>
+        <?php bloginfo( 'name' ); ?>
+    </p>
 
-        <?php echo esc_html( get_bloginfo( 'name' ) ); ?>.
+    <p class="mb-0 small text-body-secondary">
 
-        <?php esc_html_e( 'All rights reserved.', 'wooshop' ); ?>
+        <?php
+        printf(
+        /* translators: %s: WordPress link. */
+            esc_html__( 'Powered by %s', 'wooshop' ),
+            '<a href="' . esc_url( __( 'https://wordpress.org/', 'wooshop' ) ) . '">WordPress</a>'
+        );
+        ?>
 
     </p>
 

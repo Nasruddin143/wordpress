@@ -105,8 +105,8 @@ $exclude_items = array();
 $online_viewer = false;
 
 // Sticky Nav bar
-// true => enable sticky header
-// false => disable sticky header
+// true => enable sticky components
+// false => disable sticky components
 $sticky_navbar = true;
 
 // Maximum file upload size
@@ -3821,7 +3821,7 @@ function fm_show_message()
 }
 
 /**
- * Show page header in Login Form
+ * Show page components in Login Form
  */
 function fm_show_header_login()
 {

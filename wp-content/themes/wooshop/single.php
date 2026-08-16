@@ -2,6 +2,8 @@
 /**
  * Single Post Template
  *
+ * Displays an individual WordPress post.
+ *
  * @package WooShop
  */
 
@@ -10,33 +12,20 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 ?>
 
-    <main
-            id="primary"
-            class="site-main">
+    <div class="container py-5">
 
-        <div class="ws-container">
+        <?php
+        while ( have_posts() ) :
+            the_post();
 
-            <?php
-            while ( have_posts() ) :
-                the_post();
+            get_template_part(
+                    'template-parts/content/content-single'
+            );
 
-                get_template_part(
-                        'template-parts/content/content',
-                        'single'
-                );
+        endwhile;
+        ?>
 
-            endwhile;
-            ?>
-
-            <?php
-            if ( comments_open() || get_comments_number() ) {
-                comments_template();
-            }
-            ?>
-
-        </div>
-
-    </main>
+    </div>
 
 <?php
 get_footer();

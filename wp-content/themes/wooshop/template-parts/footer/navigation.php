@@ -8,24 +8,21 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
-if ( ! has_nav_menu( 'footer' ) ) {
-    return;
-}
 ?>
 
 <nav
-        class="ws-footer-navigation"
-        aria-label="<?php esc_attr_e( 'Footer Navigation', 'wooshop' ); ?>">
+    class="ws-footer-navigation"
+    aria-label="<?php esc_attr_e( 'Footer navigation', 'wooshop' ); ?>"
+>
 
     <?php
     wp_nav_menu(
-            [
-                    'theme_location' => 'footer',
-                    'container'      => false,
-                    'menu_class'     => 'ws-footer-menu',
-                    'fallback_cb'    => false,
-            ]
+        array(
+            'theme_location' => 'footer',
+            'container'      => false,
+            'menu_class'     => 'list-unstyled mb-0',
+            'fallback_cb'    => false,
+        )
     );
     ?>
 

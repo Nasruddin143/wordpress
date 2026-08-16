@@ -1,8 +1,8 @@
 <?php
 /**
- * Single Content
+ * Single Post Content
  *
- * Displays a single post.
+ * Displays a complete WordPress post.
  *
  * @package WooShop
  */
@@ -10,76 +10,44 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-    <article
-            id="post-<?php the_ID(); ?>"
-            <?php post_class( 'ws-single-content' ); ?>>
+<article
+    id="post-<?php the_ID(); ?>"
+    <?php post_class( 'ws-single-content' ); ?>
+>
 
-        <header class="entry-header">
+    <header class="entry-header mb-4">
 
-            <?php
-            the_title(
-                    '<h1 class="entry-title">',
-                    '</h1>'
-            );
-            ?>
+        <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 
-            <?php
-            get_template_part(
-                    'template-parts/meta/post-meta'
-            );
-            ?>
+        <div class="entry-meta small text-body-secondary">
+            <?php echo esc_html( get_the_date() ); ?>
+        </div>
 
-        </header>
+    </header>
 
-        <?php if ( has_post_thumbnail() ) : ?>
+    <?php if ( has_post_thumbnail() ) : ?>
 
-            <div class="entry-thumbnail">
+        <div class="entry-thumbnail mb-4">
 
-                <?php
-                the_post_thumbnail(
-                        'wooshop-large'
-                );
-                ?>
-
-            </div>
-
-        <?php endif; ?>
-
-        <div class="entry-content">
-
-            <?php
-            the_content();
-            ?>
+            <?php the_post_thumbnail( 'large', array( 'class' => 'img-fluid rounded' ) ); ?>
 
         </div>
 
-        <?php if ( get_the_tags() ) : ?>
+    <?php endif; ?>
 
-            <footer class="entry-footer">
+    <div class="entry-content">
 
-                <?php
-                get_template_part(
-                        'template-parts/meta/tags'
-                );
-                ?>
+        <?php
+        the_content();
 
-            </footer>
+        wp_link_pages(
+            array(
+                'before' => '<nav class="page-links mt-4">',
+                'after'  => '</nav>',
+            )
+        );
+        ?>
 
-        <?php endif; ?>
+    </div>
 
-    </article>
-
-<?php
-/*
- * Author information.
- */
-get_template_part(
-        'template-parts/author/author-card'
-);
-
-/*
- * Previous / Next post navigation.
- */
-get_template_part(
-        'template-parts/navigation/post-navigation'
-);
+</article>

@@ -27,7 +27,7 @@ get_header( 'shop' );
 
             <?php
             get_template_part(
-                    'template-parts/woocommerce/shop/archive-header'
+                    'template-parts/woocommerce/shop/archive-components'
             );
             ?>
 

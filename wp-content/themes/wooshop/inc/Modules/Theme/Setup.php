@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme Setup
+ * WordPress theme setup module.
  *
  * @package WooShop
  */
@@ -8,84 +8,33 @@
 namespace WooShop\Modules\Theme;
 
 use WooShop\Core\Module;
-use WooShop\Theme\Design\CSS;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-class Setup extends Module
-{
+/**
+ * Handles WordPress theme setup functionality.
+ */
+class Setup extends Module {
 
     /**
-     * Register module.
+     * Register the module.
      *
      * @return void
      */
-    public function register(): void
-    {
-
-        add_action(
-            'after_setup_theme',
-            [$this, 'setup']
-        );
-
-        add_action(
-            'after_setup_theme',
-            [$this, 'woocommerce_support']
-        );
-
-        add_action(
-            'after_setup_theme',
-            [$this, 'register_image_sizes']
-        );
-
-        add_action(
-            'after_setup_theme',
-            [$this, 'content_width'],
-            0
-        );
-
-        add_filter(
-            'body_class',
-            [$this, 'body_classes']
-        );
-
-        add_action(
-            'wp_head',
-            [CSS::class, 'output'], 1
-        );
+    public function register(): void {
+        add_action( 'after_setup_theme', [ $this, 'setup' ] );
     }
 
     /**
-     * Theme setup.
+     * Configure WordPress theme supports and features.
      *
      * @return void
      */
-    public function setup(): void
-    {
+    public function setup(): void {
+        add_theme_support( 'title-tag' );
 
-        /*
-         * Translation.
-         */
-        load_theme_textdomain('wooshop', get_template_directory() . '/languages');
+        add_theme_support( 'post-thumbnails' );
 
-        /*
-         * RSS feed links.
-         */
-        add_theme_support('automatic-feed-links');
-
-        /*
-         * Document title.
-         */
-        add_theme_support('title-tag');
-
-        /*
-         * Featured images.
-         */
-        add_theme_support('post-thumbnails');
-
-        /*
-         * HTML5.
-         */
         add_theme_support(
             'html5',
             [
@@ -99,176 +48,10 @@ class Setup extends Module
             ]
         );
 
-        /*
-         * Custom logo.
-         */
-        add_theme_support(
-            'custom-logo',
-            [
-                'height' => 80,
-                'width' => 260,
-                'flex-height' => true,
-                'flex-width' => true,
-            ]
-        );
+        add_theme_support( 'custom-logo' );
 
-        /*
-         * Custom background.
-         */
-        add_theme_support('custom-background');
+        add_theme_support( 'automatic-feed-links' );
 
-        /*
-         * Selective refresh.
-         */
-        add_theme_support('customize-selective-refresh-widgets');
-
-        /*
-         * Responsive embeds.
-         */
-        add_theme_support('responsive-embeds');
-
-        /*
-         * Wide & Full alignment.
-         */
-        add_theme_support('align-wide');
-
-        /*
-         * Block styles.
-         */
-        add_theme_support('wp-block-styles');
-
-        /*
-         * Editor styles.
-         */
-        add_theme_support('editor-styles');
-
-        /*
-         * Editor styles CSS.
-         */
-//        add_editor_style(
-//            'assets/build/css/editor.min.css'
-//        );
-
-        /*
-         * Custom Spacing.
-         */
-        add_theme_support(
-            'custom-spacing'
-        );
-
-        /*
-         * Custom Line Height.
-         */
-        add_theme_support(
-            'custom-line-height'
-        );
-
-        /*
-         * Appearance Tools.
-         */
-        add_theme_support(
-            'appearance-tools'
-        );
-
-    }
-
-    /**
-     * Register theme image sizes.
-     *
-     * @return void
-     */
-    public function register_image_sizes(): void
-    {
-        /*
-         * Small card image.
-         */
-        add_image_size(
-            'wooshop-card',
-            400,
-            400,
-            true
-        );
-
-        /*
-         * Medium content image.
-         */
-        add_image_size(
-            'wooshop-medium',
-            768,
-            768,
-            false
-        );
-
-        /*
-         * Large content image.
-         */
-        add_image_size(
-            'wooshop-large',
-            1200,
-            1200,
-            false
-        );
-
-        /*
-         * Wide banner image.
-         */
-        add_image_size(
-            'wooshop-banner',
-            1600,
-            600,
-            true
-        );
-
-        /*
-         * Small thumbnail.
-         */
-        add_image_size(
-            'wooshop-thumbnail',
-            150,
-            150,
-            true
-        );
-    }
-
-    /**
-     * Set content width.
-     *
-     * @return void
-     */
-    public function content_width(): void
-    {
-
-        $GLOBALS['content_width'] = apply_filters(
-            'wooshop_content_width',
-            1200
-        );
-    }
-
-    /**
-     * Add body classes.
-     *
-     * @param array $classes Existing classes.
-     *
-     * @return array
-     */
-    public function body_classes(array $classes): array
-    {
-
-        if (!is_singular()) {
-            $classes[] = 'hfeed';
-        }
-
-        if (!is_active_sidebar('sidebar-1')) {
-            $classes[] = 'no-sidebar';
-        }
-
-        return $classes;
-    }
-
-    public function woocommerce_support(): void
-    {
-        add_theme_support(
-            'woocommerce'
-        );
+        add_theme_support( 'responsive-embeds' );
     }
 }

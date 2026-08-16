@@ -1,21 +1,27 @@
 <?php
 /**
- * Theme Sidebars
+ * WordPress Sidebars.
+ *
+ * Registers widget areas for the WooShop theme.
  *
  * @package WooShop
  */
 
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Config;
 use WooShop\Core\Module;
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Handles WordPress widget areas.
+ */
 class Sidebars extends Module {
 
     /**
      * Register module hooks.
+     *
+     * @return void
      */
     public function register(): void {
 
@@ -26,61 +32,100 @@ class Sidebars extends Module {
     }
 
     /**
-     * Register all configured sidebars.
+     * Register theme widget areas.
+     *
+     * @return void
      */
     public function register_sidebars(): void {
 
-        $config = $this->container->get( Config::class );
-
-        if ( ! $config instanceof Config ) {
-            return;
-        }
-
-        $sidebars = $config->get( 'sidebars' );
-
-        if ( empty( $sidebars ) || ! is_array( $sidebars ) ) {
-            return;
-        }
-
-        foreach ( $sidebars as $sidebar ) {
-
-            $this->register_sidebar( $sidebar );
-        }
-    }
-
-    /**
-     * Register one sidebar.
-     *
-     * @param array $sidebar Sidebar configuration.
-     */
-    protected function register_sidebar( array $sidebar ): void {
-
-        if ( empty( $sidebar['id'] ) || empty( $sidebar['name'] ) ) {
-            return;
-        }
+        register_sidebar(
+            [
+                'name'          => esc_html__( 'Primary Sidebar', 'wooshop' ),
+                'id'            => 'sidebar-primary',
+                'description'   => esc_html__(
+                    'Main sidebar displayed throughout the site.',
+                    'wooshop'
+                ),
+                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
+                'after_widget'  => '</section>',
+                'before_title'  => '<h2 class="widget-title h5 mb-3">',
+                'after_title'   => '</h2>',
+            ]
+        );
 
         register_sidebar(
             [
-                'id'            => sanitize_key( $sidebar['id'] ),
-                'name'          => $sidebar['name'],
-                'description'   => $sidebar['description'] ?? '',
-                'before_widget' => $sidebar['before_widget'] ?? '<section id="%1$s" class="widget %2$s">',
-                'after_widget'  => $sidebar['after_widget'] ?? '</section>',
-                'before_title'  => $sidebar['before_title'] ?? '<h2 class="widget-title">',
-                'after_title'   => $sidebar['after_title'] ?? '</h2>',
+                'name'          => esc_html__( 'Shop Sidebar', 'wooshop' ),
+                'id'            => 'sidebar-shop',
+                'description'   => esc_html__(
+                    'Sidebar used on WooCommerce shop and product archive pages.',
+                    'wooshop'
+                ),
+                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
+                'after_widget'  => '</section>',
+                'before_title'  => '<h2 class="widget-title h5 mb-3">',
+                'after_title'   => '</h2>',
             ]
         );
-    }
 
-    /**
-     * Check whether a sidebar contains widgets.
-     *
-     * @param string $id Sidebar ID.
-     *
-     * @return bool
-     */
-    public static function is_active( string $id ): bool {
+        register_sidebar(
+            [
+                'name'          => esc_html__( 'Footer 1', 'wooshop' ),
+                'id'            => 'footer-1',
+                'description'   => esc_html__(
+                    'First footer widget area.',
+                    'wooshop'
+                ),
+                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
+                'after_widget'  => '</section>',
+                'before_title'  => '<h2 class="widget-title h5 mb-3">',
+                'after_title'   => '</h2>',
+            ]
+        );
 
-        return is_active_sidebar( $id );
+        register_sidebar(
+            [
+                'name'          => esc_html__( 'Footer 2', 'wooshop' ),
+                'id'            => 'footer-2',
+                'description'   => esc_html__(
+                    'Second footer widget area.',
+                    'wooshop'
+                ),
+                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
+                'after_widget'  => '</section>',
+                'before_title'  => '<h2 class="widget-title h5 mb-3">',
+                'after_title'   => '</h2>',
+            ]
+        );
+
+        register_sidebar(
+            [
+                'name'          => esc_html__( 'Footer 3', 'wooshop' ),
+                'id'            => 'footer-3',
+                'description'   => esc_html__(
+                    'Third footer widget area.',
+                    'wooshop'
+                ),
+                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
+                'after_widget'  => '</section>',
+                'before_title'  => '<h2 class="widget-title h5 mb-3">',
+                'after_title'   => '</h2>',
+            ]
+        );
+
+        register_sidebar(
+            [
+                'name'          => esc_html__( 'Footer 4', 'wooshop' ),
+                'id'            => 'footer-4',
+                'description'   => esc_html__(
+                    'Fourth footer widget area.',
+                    'wooshop'
+                ),
+                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
+                'after_widget'  => '</section>',
+                'before_title'  => '<h2 class="widget-title h5 mb-3">',
+                'after_title'   => '</h2>',
+            ]
+        );
     }
 }

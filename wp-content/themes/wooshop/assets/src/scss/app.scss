@@ -1,13 +1,132 @@
-@import "bootstrap/bootstrap-core";
-@import "bootstrap/bootstrap-global";
+/**
+ * WooShop Global Styles
+ *
+ * Contains only styles required globally by the WooShop theme.
+ *
+ * Bootstrap is selectively imported here.
+ * Feature, page, and WooCommerce styles are compiled separately.
+ *
+ * @package WooShop
+ */
 
-@import "base/fonts";
-@import "base/reset";
-@import "base/typography";
+/*
+ * ---------------------------------------------------------
+ * Bootstrap Core
+ * ---------------------------------------------------------
+ */
 
+/*
+ * Bootstrap functions.
+ */
+@import "bootstrap/scss/functions";
+
+/*
+ * WooShop Bootstrap configuration.
+ */
+@import "vendor/bootstrap";
+
+/*
+ * Bootstrap variables and maps.
+ */
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+
+/*
+ * Bootstrap mixins.
+ */
+@import "bootstrap/scss/mixins";
+
+/*
+ * ---------------------------------------------------------
+ * Bootstrap Global Foundation
+ * ---------------------------------------------------------
+ */
+
+/*
+ * Bootstrap CSS root variables.
+ */
+@import "bootstrap/scss/root";
+
+/*
+ * Bootstrap browser normalization.
+ */
+@import "bootstrap/scss/reboot";
+
+/*
+ * Global container and grid system.
+ */
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+
+/*
+ * Global Bootstrap utilities.
+ */
+@import "bootstrap/scss/utilities";
+
+/*
+ * Generate Bootstrap utility classes.
+ */
+@import "bootstrap/scss/utilities/api";
+
+/*
+ * ---------------------------------------------------------
+ * WooShop Global Foundation
+ * ---------------------------------------------------------
+ */
+
+/*
+ * Global theme variables.
+ */
+@import "theme/variables";
+
+/*
+ * Global reset rules.
+ */
+@import "theme/reset";
+
+/*
+ * Global typography.
+ */
+@import "theme/typography";
+
+/*
+ * Global icon definitions.
+ */
+@import "theme/icons";
+
+/*
+ * Global accessibility rules.
+ */
+@import "theme/accessibility";
+
+/*
+ * Global WooShop utilities.
+ */
+@import "theme/utilities";
+
+/*
+ * ---------------------------------------------------------
+ * Global Layout
+ * ---------------------------------------------------------
+ */
+
+/*
+ * Site header.
+ */
 @import "layout/header";
-@import "layout/footer";
-@import "layout/topbar";
 
-@import "components/mega-menu";
-@import "components/mini-cart";
+/*
+ * Site navigation.
+ */
+@import "layout/navigation";
+
+/*
+ * Main page layout.
+ */
+@import "layout/main";
+
+/*
+ * Site footer.
+ */
+@import "layout/footer";

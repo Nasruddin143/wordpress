@@ -1,0 +1,81 @@
+/**
+ * WooShop Social Sharing
+ *
+ * Styles the lightweight product-sharing component.
+ *
+ * @package WooShop
+ */
+
+.ws-social-sharing {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 1rem;
+}
+
+.ws-social-sharing__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--bs-secondary-color);
+}
+
+.ws-social-sharing__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.ws-social-sharing__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 50%;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+          background-color 0.15s ease,
+          color 0.15s ease,
+          border-color 0.15s ease;
+}
+
+.ws-social-sharing__link:hover {
+  background: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: var(--bs-white);
+}
+
+.ws-social-sharing__link:focus-visible {
+  outline: 2px solid var(--bs-primary);
+  outline-offset: 2px;
+}
+
+.ws-social-sharing__message {
+  display: none;
+  font-size: 0.75rem;
+  color: var(--bs-success-text-emphasis);
+}
+
+.ws-social-sharing__message.is-visible {
+  display: inline-block;
+}
+
+@media (max-width: 575.98px) {
+
+  .ws-social-sharing {
+    gap: 0.5rem;
+  }
+
+  .ws-social-sharing__link {
+    width: 34px;
+    height: 34px;
+  }
+}

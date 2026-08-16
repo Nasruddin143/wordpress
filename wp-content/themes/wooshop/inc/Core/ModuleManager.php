@@ -1,96 +1,229 @@
 <?php
 /**
- * Module Manager
+ * WooShop Module Manager
+ *
+ * Resolves, instantiates, registers, and manages WooShop modules.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-defined('ABSPATH') || exit;
+use ReflectionClass;
+use ReflectionException;
+use Throwable;
 
-class ModuleManager
-{
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * ModuleManager class.
+ */
+class ModuleManager {
 
     /**
-     * Container.
+     * Service container.
      *
      * @var Container
      */
     protected Container $container;
 
     /**
-     * Loaded modules.
+     * Module instances.
      *
-     * @var Module[]
+     * @var array
      */
-    protected array $modules = [];
+    protected array $instances = array();
 
     /**
      * Constructor.
      *
      * @param Container $container Service container.
      */
-    public function __construct(Container $container)
-    {
+    public function __construct( Container $container ) {
 
         $this->container = $container;
     }
 
     /**
-     * Register module.
+     * Register modules from configuration.
      *
-     * @param string $class Module class.
+     * @param array $modules Module configuration.
+     * @return void
+     * @throws ReflectionException
      */
-    public function register(string $class): void
-    {
+    public function register( array $modules ): void {
 
-        if ( ! class_exists( $class ) ) {
+        foreach ( $modules as $group => $classes ) {
 
-            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-
-                trigger_error(
-                    sprintf(
-                        'WooShop Module not found: %s',
-                        $class
-                    ),
-                    E_USER_WARNING
-                );
-
+            if ( ! is_array( $classes ) ) {
+                continue;
             }
 
-            return;
+            foreach ( $classes as $class ) {
+
+                $this->load( $class );
+            }
         }
-
-        $module = new $class(
-            $this->container
-        );
-
-        $this->modules[] = $module;
-
-        $this->container->set(
-            $class,
-            $module
-        );
-
-        $module->register();
     }
 
     /**
-     * Load configured modules.
+     * Load and register a module.
+     *
+     * @param string $class Module class.
+     * @return object|null
+     * @throws ReflectionException
      */
-    public function load(): void
+    public function load( string $class ): object|null
     {
 
-        $modules = require get_template_directory() . '/inc/Config/modules.php';
-
-        if (empty($modules) || !is_array($modules)) {
-            return;
+        if ( isset( $this->instances[ $class ] ) ) {
+            return $this->instances[ $class ];
         }
 
-        foreach ($modules as $class) {
-
-            $this->register($class);
+        if ( ! class_exists( $class ) ) {
+            return null;
         }
+
+        $module = $this->resolve( $class );
+
+        if ( ! $module ) {
+            return null;
+        }
+
+        $this->instances[ $class ] = $module;
+
+        if ( $module instanceof Module ) {
+            $module->register();
+        }
+
+        return $module;
+    }
+
+    /**
+     * Resolve a module through constructor dependencies.
+     *
+     * @param string $class Module class.
+     * @return object|null
+     * @throws ReflectionException
+     */
+    protected function resolve( string $class ): ?object
+    {
+
+        try {
+
+            $reflection = new ReflectionClass( $class );
+
+        } catch ( ReflectionException $exception ) {
+
+            return null;
+        }
+
+        if ( ! $reflection->isInstantiable() ) {
+            return null;
+        }
+
+        $constructor = $reflection->getConstructor();
+
+        if ( ! $constructor ) {
+            return $reflection->newInstance();
+        }
+
+        $arguments = array();
+
+        foreach ( $constructor->getParameters() as $parameter ) {
+
+            $type = $parameter->getType();
+
+            if ( ! $type || $type->isBuiltin() ) {
+
+                if ( $parameter->isDefaultValueAvailable() ) {
+
+                    $arguments[] = $parameter->getDefaultValue();
+
+                    continue;
+                }
+
+                return null;
+            }
+
+            $dependency = $type->getName();
+
+            if ( $this->container->has( $dependency ) ) {
+
+                $arguments[] = $this->container->get(
+                    $dependency
+                );
+
+                continue;
+            }
+
+            /*
+             * Try the short service name.
+             */
+            try {
+
+                $dependency_reflection = new ReflectionClass(
+                    $dependency
+                );
+
+                $short_name = strtolower(
+                    $dependency_reflection->getShortName()
+                );
+
+            } catch ( ReflectionException $exception ) {
+
+                return null;
+            }
+
+            if ( ! $this->container->has( $short_name ) ) {
+                return null;
+            }
+
+            $arguments[] = $this->container->get(
+                $short_name
+            );
+        }
+
+        try {
+
+            return $reflection->newInstanceArgs( $arguments );
+
+        } catch ( Throwable $exception ) {
+
+            return null;
+        }
+    }
+
+    /**
+     * Get a loaded module.
+     *
+     * @param string $class Module class.
+     * @return object|null
+     */
+    public function get( string $class ): ?object
+    {
+
+        return $this->instances[ $class ] ?? null;
+    }
+
+    /**
+     * Check whether a module is loaded.
+     *
+     * @param string $class Module class.
+     * @return bool
+     */
+    public function has( string $class ): bool {
+
+        return isset( $this->instances[ $class ] );
+    }
+
+    /**
+     * Get all loaded modules.
+     *
+     * @return array
+     */
+    public function all(): array {
+
+        return $this->instances;
     }
 }

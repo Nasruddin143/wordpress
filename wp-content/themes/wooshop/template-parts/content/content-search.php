@@ -2,6 +2,8 @@
 /**
  * Search Result Content
  *
+ * Displays an individual search result.
+ *
  * @package WooShop
  */
 
@@ -9,72 +11,24 @@ defined( 'ABSPATH' ) || exit;
 ?>
 
 <article
-        id="post-<?php the_ID(); ?>"
-        <?php post_class( 'ws-search-result' ); ?>>
+    id="post-<?php the_ID(); ?>"
+    <?php post_class( 'ws-search-result mb-4 pb-4 border-bottom' ); ?>
+>
 
-    <?php if ( has_post_thumbnail() ) : ?>
+    <header class="entry-header">
 
-        <div class="ws-search-result__thumbnail">
+        <?php
+        the_title(
+            '<h2 class="entry-title h4"><a class="text-decoration-none" href="' . esc_url( get_permalink() ) . '">',
+            '</a></h2>'
+        );
+        ?>
 
-            <a
-                    href="<?php the_permalink(); ?>"
-                    aria-hidden="true"
-                    tabindex="-1">
+    </header>
 
-                <?php
-                the_post_thumbnail(
-                        'medium',
-                        [
-                                'loading' => 'lazy',
-                        ]
-                );
-                ?>
+    <div class="entry-summary">
 
-            </a>
-
-        </div>
-
-    <?php endif; ?>
-
-    <div class="ws-search-result__content">
-
-        <header class="ws-search-result__header">
-
-            <?php
-            the_title(
-                    '<h2 class="ws-search-result__title"><a href="' .
-                    esc_url( get_permalink() ) .
-                    '">',
-                    '</a></h2>'
-            );
-            ?>
-
-        </header>
-
-        <div class="ws-search-result__excerpt">
-
-            <?php
-            the_excerpt();
-            ?>
-
-        </div>
-
-        <a
-                class="ws-search-result__link"
-                href="<?php the_permalink(); ?>">
-
-            <?php
-            esc_html_e(
-                    'Read More',
-                    'wooshop'
-            );
-            ?>
-
-            <span aria-hidden="true">
-                &rarr;
-            </span>
-
-        </a>
+        <?php the_excerpt(); ?>
 
     </div>
 
