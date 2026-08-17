@@ -1,45 +1,36 @@
 <?php
 /**
- * WooShop Theme Assets Module
+ * Theme Assets Module
  *
- * Loads global theme styles and scripts through the
- * centralized AssetsManager.
+ * Registers WooShop global and conditional assets.
  *
  * @package WooShop
  */
 
 namespace WooShop\Modules\Theme;
 
+
 use WooShop\Core\AssetsManager;
-use WooShop\Core\Container;
-use WooShop\Core\Module;
 
-defined("ABSPATH") || exit();
+defined( 'ABSPATH' ) || exit;
 
-/**
- * Class Assets
- *
- * Handles global WooShop theme assets.
- */
-class Assets extends Module
-{
+class Assets {
+
     /**
-     * Assets manager.
+     * Asset manager.
      *
      * @var AssetsManager
      */
-    protected mixed $assets;
+    protected AssetsManager $assets;
 
     /**
      * Constructor.
      *
-     * @param Container $container Service container.
+     * @param AssetsManager $assets Asset manager instance.
      */
-    public function __construct(Container $container)
-    {
-        parent::__construct($container);
+    public function __construct( AssetsManager $assets ) {
 
-        $this->assets = $container->get(AssetsManager::class);
+        $this->assets = $assets;
     }
 
     /**
@@ -49,31 +40,78 @@ class Assets extends Module
      */
     public function register(): void
     {
-        add_action("wp_enqueue_scripts", [$this, "enqueue"], 10);
+
+        add_action(
+            'wp_enqueue_scripts',
+            array( $this, 'enqueue' ),
+            20
+        );
     }
 
     /**
-     * Enqueue global theme assets.
-     *
-     * Bootstrap is loaded first, followed by the
-     * WooShop application CSS and JavaScript.
+     * Enqueue theme assets.
      *
      * @return void
      */
     public function enqueue(): void
     {
-        /*
-         * Global styles.
-         */
-        $this->assets->enqueue_style("bootstrap");
 
-        $this->assets->enqueue_style("app");
+        $this->assets->enqueue_global();
 
-        /*
-         * Global scripts.
-         */
-        $this->assets->enqueue_script("bootstrap");
-
-        $this->assets->enqueue_script("app");
+        $this->load_components();
     }
+
+    /**
+     * Load required component assets.
+     *
+     * @return void
+     */
+    protected function load_components(): void
+    {
+
+        if ( ! class_exists( 'WooCommerce' ) ) {
+            return;
+        }
+
+        /*
+         * Product archive/shop assets.
+         */
+        if ( is_shop() || is_product_category() || is_product_tag() ) {
+
+            $this->assets->load_component( 'product-filters' );
+            $this->assets->load_component( 'variation-swatches' );
+            $this->assets->load_component( 'product-brands' );
+        }
+
+        /*
+         * Single product assets.
+         */
+        if ( is_product() ) {
+
+            $this->assets->load_component( 'variation-swatches' );
+            $this->assets->load_component( 'quick-view' );
+            $this->assets->load_component( 'reviews' );
+            $this->assets->load_component( 'size-guide' );
+            $this->assets->load_component( 'stock-scarcity' );
+            $this->assets->load_component( 'product-custom-tabs' );
+            $this->assets->load_component( 'product-videos' );
+            $this->assets->load_component( 'sale-countdown' );
+            $this->assets->load_component( 'social-sharing' );
+            $this->assets->load_component( 'payment-icons' );
+        }
+
+        /*
+         * Cart-related assets.
+         */
+        if ( is_cart() || is_checkout() ) {
+
+            $this->assets->load_component( 'free-shipping-bar' );
+        }
+
+        /*
+         * Mini cart is required throughout the store.
+         */
+        $this->assets->load_component( 'mini-cart' );
+    }
+
 }

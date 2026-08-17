@@ -1,81 +1,198 @@
 <?php
 /**
- * WooShop Service Container
+ * WooShop Service Container.
  *
- * Stores and resolves shared application services.
+ * Handles service registration, shared instances,
+ * and automatic constructor dependency resolution.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-defined( 'ABSPATH' ) || exit;
+use ReflectionClass;
+use ReflectionException;
+use RuntimeException;
+
+defined("ABSPATH") || exit();
 
 /**
- * Container class.
+ * WooShop dependency injection container.
  */
-class Container {
-
+class Container
+{
     /**
-     * Registered services.
+     * Service bindings.
      *
      * @var array
      */
-    protected array $services = array();
+    protected array $bindings = [];
 
     /**
-     * Register a service.
+     * Shared service instances.
      *
-     * @param string $id      Service identifier.
-     * @param mixed  $service Service instance.
+     * @var array
+     */
+    protected array $instances = [];
+
+    /**
+     * Register a service factory.
+     *
+     * @param string   $abstract Service class or identifier.
+     * @param callable $factory  Service factory.
+     * @param bool     $shared   Whether the service is shared.
      * @return void
      */
-    public function set(string $id, mixed $service ): void {
-
-        $this->services[ $id ] = $service;
+    public function bind(
+        string $abstract,
+        callable $factory,
+        bool $shared = true
+    ): void {
+        $this->bindings[$abstract] = [
+            "factory" => $factory,
+            "shared" => $shared,
+        ];
     }
 
     /**
-     * Retrieve a service.
+     * Register an existing service instance.
      *
-     * @param string $id Service identifier.
-     * @return mixed|null
+     * @param string $abstract Service class or identifier.
+     * @param mixed  $instance Service instance.
+     * @return void
      */
-    public function get( string $id ): mixed
+    public function instance(string $abstract, mixed $instance): void
     {
-
-        return $this->services[ $id ] ?? null;
+        $this->instances[$abstract] = $instance;
     }
 
     /**
-     * Determine whether a service exists.
+     * Determine whether a service is registered.
      *
-     * @param string $id Service identifier.
+     * @param string $abstract Service class or identifier.
      * @return bool
      */
-    public function has( string $id ): bool {
-
-        return isset( $this->services[ $id ] );
+    public function has(string $abstract): bool
+    {
+        return isset($this->bindings[$abstract]) ||
+            isset($this->instances[$abstract]);
     }
 
     /**
-     * Remove a registered service.
+     * Resolve a service.
      *
-     * @param string $id Service identifier.
-     * @return void
+     * @param string $abstract Service class name.
+     * @return mixed
+     * @throws ReflectionException
      */
-    public function remove( string $id ): void {
+    public function get(string $abstract): mixed
+    {
+        /**
+         * The container resolves itself automatically.
+         */
+        if (self::class === $abstract) {
+            return $this;
+        }
 
-        unset( $this->services[ $id ] );
+        /**
+         * Return an existing shared instance.
+         */
+        if (isset($this->instances[$abstract])) {
+            return $this->instances[$abstract];
+        }
+
+        /**
+         * Resolve an explicitly registered binding.
+         */
+        if (isset($this->bindings[$abstract])) {
+            $binding = $this->bindings[$abstract];
+
+            $instance = call_user_func($binding["factory"], $this);
+
+            if ($binding["shared"]) {
+                $this->instances[$abstract] = $instance;
+            }
+
+            return $instance;
+        }
+
+        /**
+         * Resolve a class automatically.
+         */
+        return $this->make($abstract);
     }
 
     /**
-     * Get all registered services.
+     * Create a class and resolve its constructor dependencies.
      *
-     * @return array
+     * @param string $class Class name.
+     * @return object
+     * @throws ReflectionException
      */
-    public function all(): array {
+    public function make(string $class): object
+    {
+        if (!class_exists($class)) {
+            throw new RuntimeException(
+                sprintf('WooShop class "%s" does not exist.', $class)
+            );
+        }
 
-        return $this->services;
+        $reflection = new ReflectionClass($class);
+
+        if (!$reflection->isInstantiable()) {
+            throw new RuntimeException(
+                sprintf('WooShop class "%s" cannot be instantiated.', $class)
+            );
+        }
+
+        $constructor = $reflection->getConstructor();
+
+        /**
+         * Classes without constructors can be created directly.
+         */
+        if (null === $constructor) {
+            return $reflection->newInstance();
+        }
+
+        $arguments = [];
+
+        foreach ($constructor->getParameters() as $parameter) {
+            $type = $parameter->getType();
+
+            /**
+             * Dependencies must have a class/interface type.
+             */
+            if (!$type || $type->isBuiltin()) {
+                if ($parameter->isDefaultValueAvailable()) {
+                    $arguments[] = $parameter->getDefaultValue();
+                    continue;
+                }
+
+                throw new RuntimeException(
+                    sprintf(
+                        'Unable to resolve dependency "%s" for "%s".',
+                        $parameter->getName(),
+                        $class
+                    )
+                );
+            }
+
+            /**
+             * Resolve the named dependency.
+             */
+            $dependency = $type->getName();
+
+            /**
+             * Container is always the current container instance.
+             */
+            if (self::class === $dependency) {
+                $arguments[] = $this;
+                continue;
+            }
+
+            $arguments[] = $this->get($dependency);
+        }
+
+        return $reflection->newInstanceArgs($arguments);
     }
 }

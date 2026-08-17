@@ -11,6 +11,11 @@
 
 namespace WooShop\Core;
 
+use WC_Product;
+use WP_Error;
+use WP_Post;
+use WP_Term;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -23,21 +28,21 @@ class Data {
      *
      * @var array
      */
-    protected $posts = array();
+    protected array $posts = array();
 
     /**
      * Local request-level post collection cache.
      *
      * @var array
      */
-    protected $post_collections = array();
+    protected array $post_collections = array();
 
     /**
      * Local request-level meta cache.
      *
      * @var array
      */
-    protected $meta = array();
+    protected array $meta = array();
 
     /**
      * Retrieve a single post object.
@@ -45,9 +50,10 @@ class Data {
      * Uses get_post() instead of creating a WP_Query instance.
      *
      * @param int $post_id Post ID.
-     * @return \WP_Post|null
+     * @return WP_Post|null
      */
-    public function get_post( $post_id ) {
+    public function get_post(int $post_id ): ?WP_Post
+    {
 
         $post_id = absint( $post_id );
 
@@ -73,7 +79,8 @@ class Data {
      * @param array $args get_posts() arguments.
      * @return array
      */
-    public function get_posts( array $args = array() ) {
+    public function get_posts( array $args = array() ): array
+    {
 
         $defaults = array(
             'post_type'              => 'post',
@@ -101,12 +108,13 @@ class Data {
      *
      * Values are cached locally for the current request.
      *
-     * @param int    $post_id Post ID.
+     * @param int $post_id Post ID.
      * @param string $key     Meta key.
-     * @param bool   $single  Whether to return a single value.
+     * @param bool $single  Whether to return a single value.
      * @return mixed
      */
-    public function get_post_meta( $post_id, $key = '', $single = false ) {
+    public function get_post_meta(int $post_id, string $key = '', bool $single = false ): mixed
+    {
 
         $post_id = absint( $post_id );
 
@@ -134,16 +142,17 @@ class Data {
      *
      * Uses get_term() instead of a custom database query.
      *
-     * @param int    $term_id  Term ID.
+     * @param int $term_id  Term ID.
      * @param string $taxonomy Taxonomy name.
-     * @return \WP_Term|\WP_Error
+     * @return WP_Term|WP_Error
      */
-    public function get_term( $term_id, $taxonomy ) {
+    public function get_term(int $term_id, string $taxonomy ): WP_Term|WP_Error
+    {
 
         $term_id = absint( $term_id );
 
         if ( ! $term_id || ! $taxonomy ) {
-            return new \WP_Error(
+            return new WP_Error(
                 'wooshop_invalid_term',
                 __( 'Invalid term.', 'wooshop' )
             );
@@ -156,9 +165,10 @@ class Data {
      * Retrieve terms using the native WordPress API.
      *
      * @param array $args get_terms() arguments.
-     * @return array|\WP_Error
+     * @return array|WP_Error
      */
-    public function get_terms( array $args = array() ) {
+    public function get_terms( array $args = array() ): WP_Error|array
+    {
 
         return get_terms( $args );
     }
@@ -166,12 +176,13 @@ class Data {
     /**
      * Retrieve user meta.
      *
-     * @param int    $user_id User ID.
+     * @param int $user_id User ID.
      * @param string $key     Meta key.
-     * @param bool   $single  Whether to return a single value.
+     * @param bool $single  Whether to return a single value.
      * @return mixed
      */
-    public function get_user_meta( $user_id, $key = '', $single = false ) {
+    public function get_user_meta(int $user_id, string $key = '', bool $single = false ): mixed
+    {
 
         $user_id = absint( $user_id );
 
@@ -193,7 +204,8 @@ class Data {
      * @param mixed  $default Default value.
      * @return mixed
      */
-    public function get_option( $option, $default = false ) {
+    public function get_option(string $option, mixed $default = false ): mixed
+    {
 
         return get_option( $option, $default );
     }
@@ -203,12 +215,13 @@ class Data {
      *
      * Uses WooCommerce's CRUD layer instead of direct SQL.
      *
-     * @param int|\WC_Product $product Product ID or object.
-     * @return \WC_Product|null
+     * @param WC_Product|int $product Product ID or object.
+     * @return WC_Product|null
      */
-    public function get_product( $product ) {
+    public function get_product(WC_Product|int $product ): ?WC_Product
+    {
 
-        if ( $product instanceof \WC_Product ) {
+        if ( $product instanceof WC_Product ) {
             return $product;
         }
 
@@ -220,7 +233,7 @@ class Data {
 
         $product = wc_get_product( $product_id );
 
-        return $product instanceof \WC_Product ? $product : null;
+        return $product instanceof WC_Product ? $product : null;
     }
 
     /**
@@ -230,7 +243,8 @@ class Data {
      *
      * @return object|null
      */
-    public function get_queried_object() {
+    public function get_queried_object(): ?object
+    {
 
         $object = get_queried_object();
 

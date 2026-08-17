@@ -1,25 +1,18 @@
 <?php
 /**
- * WooShop Assets Manager
+ * Asset Manager
  *
- * Centralized registration and enqueueing of global,
- * component, and WooCommerce assets.
+ * Handles registration and conditional loading of WooShop assets.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-defined("ABSPATH") || exit();
+defined( 'ABSPATH' ) || exit;
 
-/**
- * Class AssetsManager
- *
- * Manages all registered WooShop assets through a
- * single configuration structure.
- */
-class AssetsManager
-{
+class AssetsManager {
+
     /**
      * Theme filesystem path.
      *
@@ -35,308 +28,270 @@ class AssetsManager
     protected string $uri;
 
     /**
-     * Global styles.
+     * Asset configuration.
      *
      * @var array
      */
-    protected array $styles = [];
+    protected array $config = array();
 
     /**
-     * Global scripts.
+     * Registered component assets.
      *
      * @var array
      */
-    protected array $scripts = [];
+    protected mixed $components = array();
 
     /**
-     * Component assets.
+     * Assets that have already been enqueued.
      *
      * @var array
      */
-    protected array $components = [];
-
-    /**
-     * WooCommerce assets.
-     *
-     * @var array
-     */
-    protected array $woocommerce = [];
+    protected array $loaded = array();
 
     /**
      * Constructor.
      *
-     * Loads the centralized asset configuration.
+     * @param array $config Asset configuration.
      */
-    public function __construct()
-    {
+    public function __construct( array $config = array() ) {
+
         $this->path = get_stylesheet_directory();
-        $this->uri = get_stylesheet_directory_uri();
+        $this->uri  = get_stylesheet_directory_uri();
 
-        $this->load_config();
+        $this->config = $config;
+
+        $this->components = $config['components'] ?? array();
     }
 
     /**
-     * Load asset configuration.
+     * Enqueue global theme assets.
      *
      * @return void
      */
-    protected function load_config(): void
+    public function enqueue_global(): void
     {
-        $config_file = $this->path . "/inc/Config/assets.php";
 
-        if (!file_exists($config_file)) {
-            return;
+        if ( ! empty( $this->config['styles'] ) ) {
+
+            foreach ( $this->config['styles'] as $handle => $asset ) {
+
+                $this->enqueue_style(
+                    $handle,
+                    $asset
+                );
+            }
         }
 
-        $config = require $config_file;
+        if ( ! empty( $this->config['scripts'] ) ) {
 
-        if (!is_array($config)) {
-            return;
+            foreach ( $this->config['scripts'] as $handle => $asset ) {
+
+                $this->enqueue_script(
+                    $handle,
+                    $asset
+                );
+            }
         }
-
-        $this->styles = isset($config["styles"]) ? $config["styles"] : [];
-
-        $this->scripts = isset($config["scripts"]) ? $config["scripts"] : [];
-
-        $this->components = isset($config["components"])
-            ? $config["components"]
-            : [];
-
-        $this->woocommerce = isset($config["woocommerce"])
-            ? $config["woocommerce"]
-            : [];
     }
 
     /**
-     * Enqueue a global stylesheet.
+     * Load a component asset group.
      *
-     * @param string $handle Asset handle.
+     * @param string $component Component identifier.
+     *
      * @return void
      */
-    public function enqueue_style(string $handle): void
+    public function load_component(string $component ): void
     {
-        if (empty($this->styles[$handle])) {
+
+        if ( empty( $component ) ) {
             return;
         }
 
-        $asset = $this->styles[$handle];
+        if ( ! isset( $this->components[ $component ] ) ) {
+            return;
+        }
 
-        $this->enqueue_registered_style($handle, $asset);
+        if ( isset( $this->loaded[ $component ] ) ) {
+            return;
+        }
+
+        $asset = $this->components[ $component ];
+
+        if ( ! empty( $asset['css'] ) ) {
+
+            $this->enqueue_style(
+                $component,
+                array(
+                    'src'  => $asset['css'],
+                    'deps' => array( 'wooshop-app' ),
+                )
+            );
+        }
+
+        if ( ! empty( $asset['js'] ) ) {
+
+            $this->enqueue_script(
+                $component,
+                array(
+                    'src'       => $asset['js'],
+                    'deps'      => array( 'wooshop-app' ),
+                    'in_footer' => true,
+                )
+            );
+        }
+
+        $this->loaded[ $component ] = true;
     }
 
     /**
-     * Enqueue a global script.
+     * Enqueue a WooCommerce asset group.
      *
-     * @param string $handle Asset handle.
+     * @param string $key WooCommerce asset key (e.g. 'base', 'shop', 'product').
+     *
      * @return void
      */
-    public function enqueue_script(string $handle): void
+    public function enqueue_woocommerce( string $key ): void
     {
-        if (empty($this->scripts[$handle])) {
+
+        if ( empty( $key ) ) {
             return;
         }
 
-        $asset = $this->scripts[$handle];
+        $woocommerce = $this->config['woocommerce'] ?? array();
 
-        $this->enqueue_registered_script($handle, $asset);
-    }
-
-    /**
-     * Enqueue a WooCommerce asset.
-     *
-     * A single WooCommerce configuration entry may contain
-     * both a stylesheet and a script.
-     *
-     * @param string $handle WooCommerce asset handle.
-     * @return void
-     */
-    public function enqueue_woocommerce(string $handle): void
-    {
-        if (empty($this->woocommerce[$handle])) {
+        if ( ! isset( $woocommerce[ $key ] ) ) {
             return;
         }
 
-        $asset = $this->woocommerce[$handle];
-
-        $style_handle = "wooshop-woocommerce-" . $handle;
-        $script_handle = "wooshop-woocommerce-" . $handle;
-
-        /**
-         * Register and enqueue stylesheet.
-         */
-        if (!empty($asset["style"])) {
-            $this->enqueue_registered_style($style_handle, [
-                "src" => $asset["style"],
-                "style_deps" => isset($asset["style_deps"])
-                    ? $asset["style_deps"]
-                    : [],
-                "version" => isset($asset["version"])
-                    ? $asset["version"]
-                    : null,
-                "media" => isset($asset["media"]) ? $asset["media"] : "all",
-            ]);
-        }
-
-        /**
-         * Register and enqueue script.
-         */
-        if (!empty($asset["script"])) {
-            $this->enqueue_registered_script($script_handle, [
-                "src" => $asset["script"],
-                "script_deps" => isset($asset["script_deps"])
-                    ? $asset["script_deps"]
-                    : [],
-                "version" => isset($asset["version"])
-                    ? $asset["version"]
-                    : null,
-                "in_footer" => isset($asset["in_footer"])
-                    ? $asset["in_footer"]
-                    : true,
-            ]);
-        }
-    }
-
-    /**
-     * Enqueue a component asset.
-     *
-     * Components use the same unified structure as
-     * WooCommerce assets.
-     *
-     * @param string $handle Component handle.
-     * @return void
-     */
-    public function enqueue_component(string $handle): void
-    {
-        if (empty($this->components[$handle])) {
+        if ( isset( $this->loaded[ 'woocommerce-' . $key ] ) ) {
             return;
         }
 
-        $asset = $this->components[$handle];
+        $asset = $woocommerce[ $key ];
 
-        $style_handle = "wooshop-component-" . $handle;
-        $script_handle = "wooshop-component-" . $handle;
+        if ( ! empty( $asset['css'] ) ) {
 
-        /**
-         * Register and enqueue component stylesheet.
-         */
-        if (!empty($asset["style"])) {
-            $this->enqueue_registered_style($style_handle, [
-                "src" => $asset["style"],
-                "style_deps" => isset($asset["style_deps"])
-                    ? $asset["style_deps"]
-                    : [],
-                "version" => isset($asset["version"])
-                    ? $asset["version"]
-                    : null,
-                "media" => isset($asset["media"]) ? $asset["media"] : "all",
-            ]);
+            $this->enqueue_style(
+                'woocommerce-' . $key,
+                array(
+                    'src'  => $asset['css'],
+                    'deps' => array( 'wooshop-app' ),
+                )
+            );
         }
 
-        /**
-         * Register and enqueue component script.
-         */
-        if (!empty($asset["script"])) {
-            $this->enqueue_registered_script($script_handle, [
-                "src" => $asset["script"],
-                "script_deps" => isset($asset["script_deps"])
-                    ? $asset["script_deps"]
-                    : [],
-                "version" => isset($asset["version"])
-                    ? $asset["version"]
-                    : null,
-                "in_footer" => isset($asset["in_footer"])
-                    ? $asset["in_footer"]
-                    : true,
-            ]);
+        if ( ! empty( $asset['js'] ) ) {
+
+            $this->enqueue_script(
+                'woocommerce-' . $key,
+                array(
+                    'src'       => $asset['js'],
+                    'deps'      => array( 'wooshop-app' ),
+                    'in_footer' => true,
+                )
+            );
         }
+
+        $this->loaded[ 'woocommerce-' . $key ] = true;
     }
 
     /**
-     * Register and enqueue a stylesheet.
+     * Enqueue a stylesheet.
      *
      * @param string $handle Asset handle.
      * @param array  $asset  Asset configuration.
+     *
      * @return void
      */
-    protected function enqueue_registered_style(string $handle, array $asset): void
+    protected function enqueue_style(string $handle, array $asset ): void
     {
-        if (empty($asset["src"])) {
+
+        if ( empty( $asset['src'] ) ) {
             return;
         }
 
-        $dependencies = isset($asset["style_deps"]) ? $asset["style_deps"] : [];
+        $path = trailingslashit( $this->path ) . ltrim(
+                $asset['src'],
+                '/'
+            );
+
+        $uri = trailingslashit( $this->uri ) . ltrim(
+                $asset['src'],
+                '/'
+            );
+
+        if ( ! file_exists( $path ) ) {
+            return;
+        }
+
+        $version = $asset['version'] ?? filemtime($path);
+
+        $deps = array_map(
+            static function ( $dep ) {
+                return str_starts_with( $dep, 'wooshop-' ) ? $dep : 'wooshop-' . $dep;
+            },
+            $asset['deps'] ?? array()
+        );
+
+        $media = $asset['media'] ?? 'all';
 
         wp_enqueue_style(
-            $handle,
-            $this->resolve_uri($asset["src"]),
-            $dependencies,
-            $this->get_version($asset),
-            isset($asset["media"]) ? $asset["media"] : "all"
+            'wooshop-' . $handle,
+            $uri,
+            $deps,
+            $version,
+            $media
         );
     }
 
     /**
-     * Register and enqueue a script.
+     * Enqueue a JavaScript file.
      *
      * @param string $handle Asset handle.
      * @param array  $asset  Asset configuration.
+     *
      * @return void
      */
-    protected function enqueue_registered_script(string $handle, array $asset): void
+    protected function enqueue_script(string $handle, array $asset ): void
     {
-        if (empty($asset["src"])) {
+
+        if ( empty( $asset['src'] ) ) {
             return;
         }
 
-        $dependencies = isset($asset["script_deps"])
-            ? $asset["script_deps"]
-            : [];
+        $path = trailingslashit( $this->path ) . ltrim(
+                $asset['src'],
+                '/'
+            );
+
+        $uri = trailingslashit( $this->uri ) . ltrim(
+                $asset['src'],
+                '/'
+            );
+
+        if ( ! file_exists( $path ) ) {
+            return;
+        }
+
+        $version = $asset['version'] ?? filemtime($path);
+
+        $deps = array_map(
+            static function ( $dep ) {
+                return str_starts_with( $dep, 'wooshop-' ) ? $dep : 'wooshop-' . $dep;
+            },
+            $asset['deps'] ?? array()
+        );
+
+        $in_footer = !isset($asset['in_footer']) || $asset['in_footer'];
 
         wp_enqueue_script(
-            $handle,
-            $this->resolve_uri($asset["src"]),
-            $dependencies,
-            $this->get_version($asset),
-            isset($asset["in_footer"]) ? $asset["in_footer"] : true
+            'wooshop-' . $handle,
+            $uri,
+            $deps,
+            $version,
+            $in_footer
         );
     }
 
-    /**
-     * Resolve an asset URI.
-     *
-     * @param string $src Relative asset path.
-     * @return string
-     */
-    protected function resolve_uri(string $src): string
-    {
-        return trailingslashit($this->uri) . ltrim($src, "/");
-    }
-
-    /**
-     * Get the asset version.
-     *
-     * Uses the configured version when available.
-     * Otherwise, uses the asset file modification time.
-     *
-     * @param array $asset Asset configuration.
-     * @return string|false
-     */
-    protected function get_version(array $asset): false|string
-    {
-        if (array_key_exists("version", $asset) && null !== $asset["version"]) {
-            return $asset["version"];
-        }
-
-        if (empty($asset["src"])) {
-            return false;
-        }
-
-        $file = $this->path . "/" . ltrim($asset["src"], "/");
-
-        if (file_exists($file)) {
-            return (string) filemtime($file);
-        }
-
-        return false;
-    }
 }

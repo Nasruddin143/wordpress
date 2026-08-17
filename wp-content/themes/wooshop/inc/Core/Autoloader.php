@@ -1,8 +1,8 @@
 <?php
 /**
- * WooShop Autoloader
+ * WooShop Autoloader.
  *
- * Provides PSR-4 style class autoloading for the WooShop theme.
+ * Provides PSR-4 style class loading for the WooShop namespace.
  *
  * @package WooShop
  */
@@ -12,61 +12,62 @@ namespace WooShop\Core;
 defined("ABSPATH") || exit();
 
 /**
- * Class Autoloader.
- *
- * Automatically loads WooShop classes from the inc directory.
+ * Handles WooShop class autoloading.
  */
-final class Autoloader
+class Autoloader
 {
     /**
-     * WooShop namespace prefix.
+     * Namespace prefix.
      *
      * @var string
      */
-    private const string PREFIX = "WooShop\\";
+    protected string $prefix = "WooShop\\";
 
     /**
-     * Base directory for WooShop classes.
+     * Base directory for the namespace.
      *
      * @var string
      */
-    private const string BASE_DIR = __DIR__ . "/../";
+    protected string $base_dir;
 
     /**
-     * Register the WooShop autoloader.
+     * Constructor.
      *
-     * @return void
+     * @param string $base_dir Base directory for WooShop classes.
      */
-    public static function register(): void
+    public function __construct(string $base_dir)
     {
-        spl_autoload_register([self::class, "autoload"]);
+        $this->base_dir = trailingslashit($base_dir);
     }
 
     /**
-     * Load a WooShop class file.
+     * Register the autoloader.
      *
-     * Converts the fully-qualified class name into
-     * the corresponding file path inside the inc directory.
-     *
-     * @param string $class Fully-qualified class name.
      * @return void
      */
-    private static function autoload(string $class): void
+    public function register(): void
     {
-        if (strncmp($class, self::PREFIX, strlen(self::PREFIX)) !== 0) {
+        spl_autoload_register([$this, "load"]);
+    }
+
+    /**
+     * Load a WooShop class.
+     *
+     * @param string $class Fully qualified class name.
+     * @return void
+     */
+    public function load(string $class): void
+    {
+        if (!str_starts_with($class, $this->prefix)) {
             return;
         }
 
-        $relative_class = substr($class, strlen(self::PREFIX));
-
-        if ("" === $relative_class) {
-            return;
-        }
+        $relative_class = substr($class, strlen($this->prefix));
 
         $file =
-            self::BASE_DIR . str_replace("\\", "/", $relative_class) . ".php";
+            $this->base_dir . str_replace("\\", "/", $relative_class) . ".php";
 
-        if (is_readable($file)) {
+        if (file_exists($file)) {
             require_once $file;
         }
     }

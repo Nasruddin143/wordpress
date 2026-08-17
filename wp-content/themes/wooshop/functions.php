@@ -18,6 +18,11 @@
  * @return void
  */
 
+use WooShop\Core\AssetsManager;
+use WooShop\Core\Loader;
+use WooShop\Core\ModuleManager;
+use WooShop\Core;
+
 defined("ABSPATH") || exit();
 
 add_action("wp_head", function () {
@@ -25,11 +30,11 @@ add_action("wp_head", function () {
     echo "<!-- Template Used: " . basename($template) . " -->";
 });
 
+
 /**
- * WooShop Theme Bootstrap
+ * WooShop Theme Bootstrap.
  *
- * Loads the WooShop autoloader, creates the service container,
- * and boots the core application and registered modules.
+ * Starts the WooShop application.
  *
  * @package WooShop
  */
@@ -37,54 +42,47 @@ add_action("wp_head", function () {
 defined("ABSPATH") || exit();
 
 /**
- * WooShop theme version.
- *
- * @var string
+ * Load the WooShop autoloader.
  */
-define("WOOSHOP_VERSION", "1.0.0");
+require_once get_template_directory() . "/inc/Core/Autoloader.php";
+
+$wooshop_autoloader = new \WooShop\Core\Autoloader(
+    get_template_directory() . "/inc"
+);
+
+$wooshop_autoloader->register();
 
 /**
- * WooShop theme directory.
- *
- * @var string
- */
-define("WOOSHOP_DIR", get_template_directory());
-
-/**
- * WooShop theme URI.
- *
- * @var string
- */
-define("WOOSHOP_URI", get_template_directory_uri());
-
-/**
- * Load the WooShop class autoloader.
- */
-require_once WOOSHOP_DIR . "/inc/Core/Autoloader.php";
-
-/**
- * Register WooShop autoloading.
- */
-\WooShop\Core\Autoloader::register();
-
-/**
- * Create the WooShop service container.
- *
- * The container stores shared core services and does not
- * perform database queries.
- *
- * @var \WooShop\Core\Container
+ * Create the service container.
  */
 $wooshop_container = new \WooShop\Core\Container();
 
 /**
- * Create the WooShop application loader.
- *
- * @var \WooShop\Core\Loader
+ * Register shared AssetsManager.
  */
-$wooshop_loader = new \WooShop\Core\Loader($wooshop_container);
+$wooshop_container->instance(
+    AssetsManager::class,
+    new AssetsManager(require get_template_directory() . "/inc/Config/assets.php")
+);
 
 /**
- * Boot WooShop core services and modules.
+ * Create the module manager.
  */
-$wooshop_loader->boot();
+$wooshop_module_manager = new ModuleManager($wooshop_container);
+
+/**
+ * Create the application loader.
+ */
+$wooshop_loader = new Loader(
+    $wooshop_container,
+    $wooshop_module_manager
+);
+
+/**
+ * Load configured modules.
+ */
+
+    $wooshop_loader->load(
+        require get_template_directory() . "/inc/Config/modules.php"
+    );
+

@@ -1,22 +1,20 @@
 <?php
 /**
- * WooShop Module Manager
+ * WooShop Module Manager.
  *
- * Resolves, instantiates, registers, and manages WooShop modules.
+ * Loads and registers configured WooShop modules.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-use ReflectionClass;
 use ReflectionException;
-use Throwable;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * ModuleManager class.
+ * Manages WooShop modules.
  */
 class ModuleManager {
 
@@ -28,11 +26,18 @@ class ModuleManager {
     protected Container $container;
 
     /**
-     * Module instances.
+     * Registered module classes.
      *
      * @var array
      */
-    protected array $instances = array();
+    protected array $modules = [];
+
+    /**
+     * Loaded module instances.
+     *
+     * @var array
+     */
+    protected array $instances = [];
 
     /**
      * Constructor.
@@ -45,185 +50,67 @@ class ModuleManager {
     }
 
     /**
-     * Register modules from configuration.
+     * Add a module class.
      *
-     * @param array $modules Module configuration.
+     * @param string $module Module class name.
+     * @return void
+     */
+    public function add( string $module ): void {
+
+        if ( ! in_array( $module, $this->modules, true ) ) {
+            $this->modules[] = $module;
+        }
+    }
+
+    /**
+     * Add multiple module classes.
+     *
+     * @param array $modules Module class names.
+     * @return void
+     */
+    public function add_many( array $modules ): void {
+
+        foreach ( $modules as $module ) {
+            $this->add( $module );
+        }
+    }
+
+    /**
+     * Register all configured modules.
+     *
      * @return void
      * @throws ReflectionException
      */
-    public function register( array $modules ): void {
+    public function register(): void {
 
-        foreach ( $modules as $group => $classes ) {
+        foreach ( $this->modules as $module_class ) {
 
-            if ( ! is_array( $classes ) ) {
+            if ( ! class_exists( $module_class ) ) {
                 continue;
             }
 
-            foreach ( $classes as $class ) {
-
-                $this->load( $class );
-            }
-        }
-    }
-
-    /**
-     * Load and register a module.
-     *
-     * @param string $class Module class.
-     * @return object|null
-     * @throws ReflectionException
-     */
-    public function load( string $class ): object|null
-    {
-
-        if ( isset( $this->instances[ $class ] ) ) {
-            return $this->instances[ $class ];
-        }
-
-        if ( ! class_exists( $class ) ) {
-            return null;
-        }
-
-        $module = $this->resolve( $class );
-
-        if ( ! $module ) {
-            return null;
-        }
-
-        $this->instances[ $class ] = $module;
-
-        if ( $module instanceof Module ) {
-            $module->register();
-        }
-
-        return $module;
-    }
-
-    /**
-     * Resolve a module through constructor dependencies.
-     *
-     * @param string $class Module class.
-     * @return object|null
-     * @throws ReflectionException
-     */
-    protected function resolve( string $class ): ?object
-    {
-
-        try {
-
-            $reflection = new ReflectionClass( $class );
-
-        } catch ( ReflectionException $exception ) {
-
-            return null;
-        }
-
-        if ( ! $reflection->isInstantiable() ) {
-            return null;
-        }
-
-        $constructor = $reflection->getConstructor();
-
-        if ( ! $constructor ) {
-            return $reflection->newInstance();
-        }
-
-        $arguments = array();
-
-        foreach ( $constructor->getParameters() as $parameter ) {
-
-            $type = $parameter->getType();
-
-            if ( ! $type || $type->isBuiltin() ) {
-
-                if ( $parameter->isDefaultValueAvailable() ) {
-
-                    $arguments[] = $parameter->getDefaultValue();
-
-                    continue;
-                }
-
-                return null;
-            }
-
-            $dependency = $type->getName();
-
-            if ( $this->container->has( $dependency ) ) {
-
-                $arguments[] = $this->container->get(
-                    $dependency
-                );
-
-                continue;
-            }
-
-            /*
-             * Try the short service name.
-             */
-            try {
-
-                $dependency_reflection = new ReflectionClass(
-                    $dependency
-                );
-
-                $short_name = strtolower(
-                    $dependency_reflection->getShortName()
-                );
-
-            } catch ( ReflectionException $exception ) {
-
-                return null;
-            }
-
-            if ( ! $this->container->has( $short_name ) ) {
-                return null;
-            }
-
-            $arguments[] = $this->container->get(
-                $short_name
+            $module = $this->container->get(
+                $module_class
             );
+
+            if ( ! $module instanceof Module ) {
+                continue;
+            }
+
+            $module->register();
+
+            $this->instances[ $module_class ] = $module;
         }
-
-        try {
-
-            return $reflection->newInstanceArgs( $arguments );
-
-        } catch ( Throwable $exception ) {
-
-            return null;
-        }
     }
 
     /**
-     * Get a loaded module.
+     * Retrieve a registered module instance.
      *
-     * @param string $class Module class.
-     * @return object|null
+     * @param string $module Module class name.
+     * @return Module|null
      */
-    public function get( string $class ): ?object
-    {
+    public function get( string $module ): ?Module {
 
-        return $this->instances[ $class ] ?? null;
-    }
-
-    /**
-     * Check whether a module is loaded.
-     *
-     * @param string $class Module class.
-     * @return bool
-     */
-    public function has( string $class ): bool {
-
-        return isset( $this->instances[ $class ] );
-    }
-
-    /**
-     * Get all loaded modules.
-     *
-     * @return array
-     */
-    public function all(): array {
-
-        return $this->instances;
+        return $this->instances[ $module ] ?? null;
     }
 }

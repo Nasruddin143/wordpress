@@ -31,10 +31,31 @@ class Setup extends Module {
      * @return void
      */
     public function setup(): void {
-        add_theme_support( 'title-tag' );
 
-        add_theme_support( 'post-thumbnails' );
+        /**
+         * Let WordPress manage the document title.
+         */
+        add_theme_support(
+            'title-tag'
+        );
 
+        /**
+         * Enable featured images.
+         */
+        add_theme_support(
+            'post-thumbnails'
+        );
+
+        /**
+         * Enable responsive embedded content.
+         */
+        add_theme_support(
+            'responsive-embeds'
+        );
+
+        /**
+         * Enable HTML5 markup for WordPress components.
+         */
         add_theme_support(
             'html5',
             [
@@ -48,10 +69,27 @@ class Setup extends Module {
             ]
         );
 
+        /**
+         * Enable custom logo support.
+         */
         add_theme_support( 'custom-logo' );
 
+        /**
+         * Enable selective refresh for widgets.
+         */
+        add_theme_support(
+            'customize-selective-refresh-widgets'
+        );
+
+        /**
+         * Enable Feed Links in WordPress.
+         */
         add_theme_support( 'automatic-feed-links' );
 
-        add_theme_support( 'responsive-embeds' );
+        /**
+         * Set the content width used by WordPress embeds and media.
+         */
+        $GLOBALS['content_width'] = 1200;
+
     }
 }

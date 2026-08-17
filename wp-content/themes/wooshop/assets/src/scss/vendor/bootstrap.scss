@@ -1,70 +1,160 @@
 /**
- * WooShop Bootstrap
+ * WooShop Bootstrap Configuration
  *
- * Loads the Bootstrap Sass modules required by WooShop.
+ * Defines WooShop-specific Bootstrap variables before Bootstrap's
+ * variable and component files are loaded by app.scss.
+ *
+ * This file does not import Bootstrap components.
  *
  * @package WooShop
  */
-//@import "bootstrap/scss/bootstrap";
 
 /*
- * Bootstrap functions.
+ * ---------------------------------------------------------
+ * WooShop Bootstrap Configuration
+ * ---------------------------------------------------------
  */
-@import "bootstrap/scss/functions";
 
 /*
- * Bootstrap variables.
+ * Enable Bootstrap features required by WooShop.
  */
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/variables-dark";
+$enable-smooth-scroll: true;
+$enable-rounded: true;
+$enable-shadows: false;
+$enable-gradients: false;
+$enable-transitions: true;
+$enable-reduced-motion: true;
+$enable-grid-classes: true;
+$enable-cssgrid: false;
 
 /*
- * Bootstrap maps.
+ * ---------------------------------------------------------
+ * Container Configuration
+ * ---------------------------------------------------------
  */
-@import "bootstrap/scss/maps";
+
+$container-padding-x: 1rem;
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1320px
+);
 
 /*
- * Bootstrap mixins.
+ * ---------------------------------------------------------
+ * Grid Configuration
+ * ---------------------------------------------------------
  */
-@import "bootstrap/scss/mixins";
+
+$grid-columns: 12;
+$grid-gutter-width: 1.5rem;
+$grid-row-columns: 6;
 
 /*
- * Bootstrap utilities.
- *
- * This must be loaded before utilities/api because
- * utilities/api depends on the $utilities map.
+ * ---------------------------------------------------------
+ * Typography
+ * ---------------------------------------------------------
  */
-@import "bootstrap/scss/utilities";
+
+$font-family-sans-serif:
+        "Inter",
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+$font-size-base: 1rem;
+$font-weight-base: 400;
+$line-height-base: 1.5;
 
 /*
- * Bootstrap root and base.
+ * ---------------------------------------------------------
+ * Border Radius
+ * ---------------------------------------------------------
  */
-@import "bootstrap/scss/root";
-@import "bootstrap/scss/reboot";
-@import "bootstrap/scss/type";
-@import "bootstrap/scss/images";
+
+$border-radius: 0.375rem;
+$border-radius-sm: 0.25rem;
+$border-radius-lg: 0.5rem;
 
 /*
- * Bootstrap layout.
+ * ---------------------------------------------------------
+ * Buttons
+ * ---------------------------------------------------------
  */
-@import "bootstrap/scss/containers";
-@import "bootstrap/scss/grid";
+
+$btn-border-radius: $border-radius;
+$btn-border-radius-sm: $border-radius-sm;
+$btn-border-radius-lg: $border-radius-lg;
+
+$btn-font-weight: 500;
 
 /*
- * Bootstrap components.
+ * ---------------------------------------------------------
+ * Forms
+ * ---------------------------------------------------------
  */
-@import "bootstrap/scss/buttons";
-@import "bootstrap/scss/forms";
-@import "bootstrap/scss/dropdown";
-@import "bootstrap/scss/modal";
-@import "bootstrap/scss/close";
+
+$input-border-radius: $border-radius;
+$input-border-radius-sm: $border-radius-sm;
+$input-border-radius-lg: $border-radius-lg;
+
+$input-btn-padding-y: 0.625rem;
+$input-btn-padding-x: 0.875rem;
 
 /*
- * Bootstrap helpers.
+ * ---------------------------------------------------------
+ * Cards
+ * ---------------------------------------------------------
  */
-@import "bootstrap/scss/helpers";
+
+$card-border-radius: $border-radius;
+$card-border-width: 1px;
 
 /*
- * Bootstrap utility API.
+ * ---------------------------------------------------------
+ * Dropdown
+ * ---------------------------------------------------------
  */
-@import "bootstrap/scss/utilities/api";
+
+$dropdown-border-radius: $border-radius;
+$dropdown-padding-y: 0.5rem;
+
+/*
+ * ---------------------------------------------------------
+ * Modal
+ * ---------------------------------------------------------
+ */
+
+$modal-content-border-radius: $border-radius-lg;
+
+/*
+ * ---------------------------------------------------------
+ * Offcanvas
+ * ---------------------------------------------------------
+ */
+
+$offcanvas-padding-x: 1rem;
+$offcanvas-padding-y: 1rem;
+
+/*
+ * ---------------------------------------------------------
+ * Links
+ * ---------------------------------------------------------
+ */
+
+$link-decoration: none;
+
+/*
+ * ---------------------------------------------------------
+ * Accessibility
+ * ---------------------------------------------------------
+ */
+
+$enable-important-utilities: true;
