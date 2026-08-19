@@ -1,297 +1,612 @@
 <?php
 /**
- * Asset Manager
+ * WooShop Assets Manager
  *
- * Handles registration and conditional loading of WooShop assets.
+ * Centralized asset registration and conditional loading system
+ * for WooShop frontend, components, pages, WooCommerce, admin,
+ * and block editor assets.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Core;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
-class AssetsManager {
+/**
+ * Class AssetsManager
+ *
+ * Handles registration and conditional enqueueing of theme assets.
+ */
+final class AssetsManager {
 
     /**
      * Theme filesystem path.
      *
      * @var string
      */
-    protected string $path;
+    private readonly string $path;
 
     /**
      * Theme URI.
      *
      * @var string
      */
-    protected string $uri;
+    private readonly string $uri;
 
     /**
-     * Asset configuration.
+     * Configuration manager.
      *
-     * @var array
+     * @var Config
      */
-    protected array $config = array();
+    private readonly Config $config;
 
     /**
-     * Registered component assets.
+     * Registered styles.
      *
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
-    protected mixed $components = array();
+    private array $styles = array();
 
     /**
-     * Assets that have already been enqueued.
+     * Registered scripts.
      *
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
-    protected array $loaded = array();
+    private array $scripts = array();
 
     /**
      * Constructor.
      *
-     * @param array $config Asset configuration.
+     * @param Config $config WooShop configuration manager.
      */
-    public function __construct( array $config = array() ) {
-
-        $this->path = get_stylesheet_directory();
-        $this->uri  = get_stylesheet_directory_uri();
+    public function __construct(Config $config) {
 
         $this->config = $config;
 
-        $this->components = $config['components'] ?? array();
+        $this->path = trailingslashit(
+            get_stylesheet_directory()
+        );
+
+        $this->uri = trailingslashit(
+            get_stylesheet_directory_uri()
+        );
     }
 
     /**
-     * Enqueue global theme assets.
+     * Register the asset manager hooks.
      *
      * @return void
      */
-    public function enqueue_global(): void
-    {
+    public function register(): void {
 
-        if ( ! empty( $this->config['styles'] ) ) {
+        add_action(
+            'wp_enqueue_scripts',
+            [$this, 'enqueue_frontend'],
+            20
+        );
 
-            foreach ( $this->config['styles'] as $handle => $asset ) {
+        add_action(
+            'admin_enqueue_scripts',
+            [$this, 'enqueue_admin'],
+            20
+        );
 
-                $this->enqueue_style(
-                    $handle,
-                    $asset
-                );
+        add_action(
+            'enqueue_block_editor_assets',
+            [$this, 'enqueue_editor'],
+            20
+        );
+    }
+
+    /**
+     * Enqueue frontend assets.
+     *
+     * @return void
+     */
+    public function enqueue_frontend(): void {
+
+        $assets = $this->config->get('assets');
+
+        $conditions = $this->config->get('conditions');
+
+        $this->load_group(
+            $assets['frontend'] ?? array(),
+            $conditions
+        );
+
+        $this->load_group(
+            $assets['components'] ?? array(),
+            $conditions
+        );
+
+        $this->load_group(
+            $assets['pages'] ?? array(),
+            $conditions
+        );
+
+        /*
+         * WooCommerce assets are loaded only when WooCommerce
+         * is active and the configured conditions pass.
+         */
+        if (class_exists('WooCommerce')) {
+
+            $this->load_group(
+                $assets['woocommerce'] ?? array(),
+                $conditions
+            );
+        }
+    }
+
+    /**
+     * Enqueue admin assets.
+     *
+     * @return void
+     */
+    public function enqueue_admin(): void {
+
+        $assets = $this->config->get('assets');
+
+        $conditions = $this->config->get('conditions');
+
+        $this->load_group(
+            $assets['admin'] ?? array(),
+            $conditions
+        );
+    }
+
+    /**
+     * Enqueue block editor assets.
+     *
+     * @return void
+     */
+    public function enqueue_editor(): void {
+
+        $assets = $this->config->get('assets');
+
+        $conditions = $this->config->get('conditions');
+
+        $this->load_group(
+            $assets['editor'] ?? array(),
+            $conditions
+        );
+    }
+
+    /**
+     * Load one configured asset group.
+     *
+     * @param mixed $group       Asset group configuration.
+     * @param mixed $conditions Global condition configuration.
+     *
+     * @return void
+     */
+    private function load_group(
+        mixed $group,
+        mixed $conditions
+    ): void {
+
+        if (!is_array($group)) {
+            return;
+        }
+
+        if (!is_array($conditions)) {
+            $conditions = array();
+        }
+
+        $this->load_styles(
+            $group['styles'] ?? array(),
+            $conditions
+        );
+
+        $this->load_scripts(
+            $group['scripts'] ?? array(),
+            $conditions
+        );
+    }
+
+    /**
+     * Load configured styles.
+     *
+     * @param mixed                $styles     Style configuration.
+     * @param array<string, mixed> $conditions Global conditions.
+     *
+     * @return void
+     */
+    private function load_styles(
+        mixed $styles,
+        array $conditions
+    ): void {
+
+        if (!is_array($styles)) {
+            return;
+        }
+
+        foreach ($styles as $handle => $args) {
+
+            if (!is_string($handle) || !is_array($args)) {
+                continue;
+            }
+
+            if (!$this->passes_conditions($args, $conditions)) {
+                continue;
+            }
+
+            $this->register_style(
+                $handle,
+                $args
+            );
+
+            $this->enqueue_style(
+                $handle
+            );
+        }
+    }
+
+    /**
+     * Load configured scripts.
+     *
+     * @param mixed                $scripts    Script configuration.
+     * @param array<string, mixed> $conditions Global conditions.
+     *
+     * @return void
+     */
+    private function load_scripts(
+        mixed $scripts,
+        array $conditions
+    ): void {
+
+        if (!is_array($scripts)) {
+            return;
+        }
+
+        foreach ($scripts as $handle => $args) {
+
+            if (!is_string($handle) || !is_array($args)) {
+                continue;
+            }
+
+            if (!$this->passes_conditions($args, $conditions)) {
+                continue;
+            }
+
+            $this->register_script(
+                $handle,
+                $args
+            );
+
+            $this->enqueue_script(
+                $handle
+            );
+        }
+    }
+
+    /**
+     * Register a stylesheet.
+     *
+     * @param string               $handle Asset handle.
+     * @param array<string, mixed> $args   Asset configuration.
+     *
+     * @return void
+     */
+    public function register_style(
+        string $handle,
+        array $args
+    ): void {
+
+        $this->styles[$handle] = $args;
+
+        wp_register_style(
+            $handle,
+            $this->resolve_uri(
+                (string) ($args['src'] ?? '')
+            ),
+            $this->normalize_dependencies(
+                $args['deps'] ?? array()
+            ),
+            $this->resolve_version($args),
+            (string) ($args['media'] ?? 'all')
+        );
+    }
+
+    /**
+     * Register a JavaScript file.
+     *
+     * @param string               $handle Asset handle.
+     * @param array<string, mixed> $args   Asset configuration.
+     *
+     * @return void
+     */
+    public function register_script(
+        string $handle,
+        array $args
+    ): void {
+
+        $this->scripts[$handle] = $args;
+
+        wp_register_script(
+            $handle,
+            $this->resolve_uri(
+                (string) ($args['src'] ?? '')
+            ),
+            $this->normalize_dependencies(
+                $args['deps'] ?? array()
+            ),
+            $this->resolve_version($args),
+            (bool) ($args['in_footer'] ?? true)
+        );
+    }
+
+    /**
+     * Enqueue a registered stylesheet.
+     *
+     * @param string $handle Asset handle.
+     *
+     * @return void
+     */
+    public function enqueue_style(string $handle): void {
+
+        if (!isset($this->styles[$handle])) {
+            return;
+        }
+
+        wp_enqueue_style($handle);
+    }
+
+    /**
+     * Enqueue a registered script.
+     *
+     * @param string $handle Asset handle.
+     *
+     * @return void
+     */
+    public function enqueue_script(string $handle): void {
+
+        if (!isset($this->scripts[$handle])) {
+            return;
+        }
+
+        $args = $this->scripts[$handle];
+
+        wp_enqueue_script($handle);
+
+        $this->apply_script_strategy(
+            $handle,
+            $args
+        );
+    }
+
+    /**
+     * Evaluate asset conditions.
+     *
+     * Supported format:
+     *
+     * 'conditions' => array(
+     *     'is_shop'    => true,
+     *     'is_product' => false
+     * )
+     *
+     * @param array<string, mixed> $asset     Asset configuration.
+     * @param array<string, mixed> $conditions Condition definitions.
+     *
+     * @return bool
+     */
+    private function passes_conditions(
+        array $asset,
+        array $conditions
+    ): bool {
+
+        $rules = $asset['conditions'] ?? array();
+
+        if ([] === $rules) {
+            return true;
+        }
+
+        if (!is_array($rules)) {
+            return true;
+        }
+
+        foreach ($rules as $condition => $expected) {
+
+            if (!is_string($condition)) {
+                continue;
+            }
+
+            $callback = $conditions[$condition] ?? null;
+
+            if (!is_callable($callback)) {
+                continue;
+            }
+
+            $actual = $this->evaluate_condition(
+                $callback
+            );
+
+            if ((bool) $actual !== (bool) $expected) {
+                return false;
             }
         }
 
-        if ( ! empty( $this->config['scripts'] ) ) {
-
-            foreach ( $this->config['scripts'] as $handle => $asset ) {
-
-                $this->enqueue_script(
-                    $handle,
-                    $asset
-                );
-            }
-        }
+        return true;
     }
 
     /**
-     * Load a component asset group.
+     * Evaluate an asset condition callback.
      *
-     * @param string $component Component identifier.
+     * Supports WordPress function names, closures, and
+     * other valid PHP callables.
      *
-     * @return void
+     * @param callable|string $callback Condition callback.
+     *
+     * @return bool
      */
-    public function load_component(string $component ): void
-    {
+    private function evaluate_condition(
+        mixed $callback
+    ): bool {
 
-        if ( empty( $component ) ) {
-            return;
+        if (!is_callable($callback)) {
+            return false;
         }
 
-        if ( ! isset( $this->components[ $component ] ) ) {
-            return;
-        }
-
-        if ( isset( $this->loaded[ $component ] ) ) {
-            return;
-        }
-
-        $asset = $this->components[ $component ];
-
-        if ( ! empty( $asset['css'] ) ) {
-
-            $this->enqueue_style(
-                $component,
-                array(
-                    'src'  => $asset['css'],
-                    'deps' => array( 'wooshop-app' ),
-                )
-            );
-        }
-
-        if ( ! empty( $asset['js'] ) ) {
-
-            $this->enqueue_script(
-                $component,
-                array(
-                    'src'       => $asset['js'],
-                    'deps'      => array( 'wooshop-app' ),
-                    'in_footer' => true,
-                )
-            );
-        }
-
-        $this->loaded[ $component ] = true;
+        return (bool) call_user_func($callback);
     }
 
     /**
-     * Enqueue a WooCommerce asset group.
+     * Resolve an asset URI.
      *
-     * @param string $key WooCommerce asset key (e.g. 'base', 'shop', 'product').
+     * @param string $src Relative path or absolute URL.
      *
-     * @return void
+     * @return string
      */
-    public function enqueue_woocommerce( string $key ): void
-    {
+    private function resolve_uri(string $src): string {
 
-        if ( empty( $key ) ) {
-            return;
+        if ('' === $src) {
+            return '';
         }
 
-        $woocommerce = $this->config['woocommerce'] ?? array();
-
-        if ( ! isset( $woocommerce[ $key ] ) ) {
-            return;
+        if (
+            str_starts_with($src, 'http://')
+            || str_starts_with($src, 'https://')
+            || str_starts_with($src, '//')
+        ) {
+            return $src;
         }
 
-        if ( isset( $this->loaded[ 'woocommerce-' . $key ] ) ) {
-            return;
-        }
-
-        $asset = $woocommerce[ $key ];
-
-        if ( ! empty( $asset['css'] ) ) {
-
-            $this->enqueue_style(
-                'woocommerce-' . $key,
-                array(
-                    'src'  => $asset['css'],
-                    'deps' => array( 'wooshop-app' ),
-                )
+        return $this->uri . ltrim(
+                $src,
+                '/'
             );
-        }
-
-        if ( ! empty( $asset['js'] ) ) {
-
-            $this->enqueue_script(
-                'woocommerce-' . $key,
-                array(
-                    'src'       => $asset['js'],
-                    'deps'      => array( 'wooshop-app' ),
-                    'in_footer' => true,
-                )
-            );
-        }
-
-        $this->loaded[ 'woocommerce-' . $key ] = true;
     }
 
     /**
-     * Enqueue a stylesheet.
+     * Resolve an asset version.
      *
-     * @param string $handle Asset handle.
-     * @param array  $asset  Asset configuration.
+     * Uses the explicitly configured version when available.
+     * Otherwise, uses the asset file modification timestamp.
      *
-     * @return void
+     * @param array<string, mixed> $args Asset configuration.
+     *
+     * @return string|false
      */
-    protected function enqueue_style(string $handle, array $asset ): void
-    {
+    private function resolve_version(
+        array $args
+    ): string|false {
 
-        if ( empty( $asset['src'] ) ) {
-            return;
+        if (
+            isset($args['version'])
+            && null !== $args['version']
+        ) {
+            return (string) $args['version'];
         }
 
-        $path = trailingslashit( $this->path ) . ltrim(
-                $asset['src'],
+        $src = (string) ($args['src'] ?? '');
+
+        if ('' === $src) {
+            return false;
+        }
+
+        if (
+            str_starts_with($src, 'http://')
+            || str_starts_with($src, 'https://')
+            || str_starts_with($src, '//')
+        ) {
+            return false;
+        }
+
+        $file = $this->path . ltrim(
+                $src,
                 '/'
             );
 
-        $uri = trailingslashit( $this->uri ) . ltrim(
-                $asset['src'],
-                '/'
-            );
-
-        if ( ! file_exists( $path ) ) {
-            return;
+        if (!is_file($file)) {
+            return false;
         }
 
-        $version = $asset['version'] ?? filemtime($path);
+        return (string) filemtime($file);
+    }
 
-        $deps = array_map(
-            static function ( $dep ) {
-                return str_starts_with( $dep, 'wooshop-' ) ? $dep : 'wooshop-' . $dep;
-            },
-            $asset['deps'] ?? array()
-        );
+    /**
+     * Normalize asset dependencies.
+     *
+     * @param mixed $dependencies Dependency list.
+     *
+     * @return array<int, string>
+     */
+    private function normalize_dependencies(
+        mixed $dependencies
+    ): array {
 
-        $media = $asset['media'] ?? 'all';
+        if (is_string($dependencies)) {
+            return '' === $dependencies
+                ? array()
+                : array($dependencies);
+        }
 
-        wp_enqueue_style(
-            'wooshop-' . $handle,
-            $uri,
-            $deps,
-            $version,
-            $media
+        if (!is_array($dependencies)) {
+            return array();
+        }
+
+        return array_values(
+            array_filter(
+                $dependencies,
+                static fn (mixed $dependency): bool =>
+                    is_string($dependency)
+                    && '' !== $dependency
+            )
         );
     }
 
     /**
-     * Enqueue a JavaScript file.
+     * Apply JavaScript loading strategy.
      *
-     * @param string $handle Asset handle.
-     * @param array  $asset  Asset configuration.
+     * @param string               $handle Script handle.
+     * @param array<string, mixed> $args   Script configuration.
      *
      * @return void
      */
-    protected function enqueue_script(string $handle, array $asset ): void
-    {
+    private function apply_script_strategy(
+        string $handle,
+        array $args
+    ): void {
 
-        if ( empty( $asset['src'] ) ) {
+        $strategy = $args['strategy'] ?? null;
+
+        if (
+            !is_string($strategy)
+            || !in_array(
+                $strategy,
+                array('async', 'defer'),
+                true
+            )
+        ) {
             return;
         }
 
-        $path = trailingslashit( $this->path ) . ltrim(
-                $asset['src'],
-                '/'
-            );
-
-        $uri = trailingslashit( $this->uri ) . ltrim(
-                $asset['src'],
-                '/'
-            );
-
-        if ( ! file_exists( $path ) ) {
-            return;
-        }
-
-        $version = $asset['version'] ?? filemtime($path);
-
-        $deps = array_map(
-            static function ( $dep ) {
-                return str_starts_with( $dep, 'wooshop-' ) ? $dep : 'wooshop-' . $dep;
-            },
-            $asset['deps'] ?? array()
-        );
-
-        $in_footer = !isset($asset['in_footer']) || $asset['in_footer'];
-
-        wp_enqueue_script(
-            'wooshop-' . $handle,
-            $uri,
-            $deps,
-            $version,
-            $in_footer
+        wp_script_add_data(
+            $handle,
+            'strategy',
+            $strategy
         );
     }
 
+    /**
+     * Get registered styles.
+     *
+     * @return array<string, array<string, mixed>>
+     */
+    public function get_styles(): array {
+
+        return $this->styles;
+    }
+
+    /**
+     * Get registered scripts.
+     *
+     * @return array<string, array<string, mixed>>
+     */
+    public function get_scripts(): array {
+
+        return $this->scripts;
+    }
 }

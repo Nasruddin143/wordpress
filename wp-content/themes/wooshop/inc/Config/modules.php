@@ -2,138 +2,294 @@
 /**
  * WooShop Module Configuration
  *
- * Defines all modules loaded by the WooShop application.
+ * Defines all WooShop Theme and WooCommerce modules and their
+ * registration state.
+ *
+ * Each module is resolved through the WooShop Container and
+ * managed by the ModuleManager.
  *
  * @package WooShop
  */
 
-defined( 'ABSPATH' ) || exit;
+declare(strict_types=1);
 
-/**
- * Theme Modules Declaration
- */
-use WooShop\Modules\Theme\Accessibility;
-use WooShop\Modules\Theme\Admin;
-use WooShop\Modules\Theme\AdminBar;
-use WooShop\Modules\Theme\Assets;
-use WooShop\Modules\Theme\BlockEditor;
-use WooShop\Modules\Theme\Comments;
-use WooShop\Modules\Theme\Customizer;
-use WooShop\Modules\Theme\Editor;
-use WooShop\Modules\Theme\Embeds;
-use WooShop\Modules\Theme\Excerpt;
-use WooShop\Modules\Theme\Feeds;
-use WooShop\Modules\Theme\Filters;
-use WooShop\Modules\Theme\Hooks;
-use WooShop\Modules\Theme\ImageSizes;
-use WooShop\Modules\Theme\Localization;
-use WooShop\Modules\Theme\Metadata;
-use WooShop\Modules\Theme\MobileCommerce;
-use WooShop\Modules\Theme\Navigation;
-use WooShop\Modules\Theme\Pagination;
-use WooShop\Modules\Theme\Performance;
-use WooShop\Modules\Theme\PostFormats;
-use WooShop\Modules\Theme\PostTypes;
-use WooShop\Modules\Theme\Search;
-use WooShop\Modules\Theme\Security;
-use WooShop\Modules\Theme\Setup;
-use WooShop\Modules\Theme\Sidebars;
-use WooShop\Modules\Theme\Taxonomies;
-use WooShop\Modules\Theme\Template;
-use WooShop\Modules\Theme\Widgets;
-
-
-/**
- * WooCommerce Modules Declaration
- */
-//use WooShop\Modules\WooCommerce\Bootstrap;
-use WooShop\Modules\WooCommerce\Compare;
-use WooShop\Modules\WooCommerce\FreeShippingBar;
-use WooShop\Modules\WooCommerce\MiniCart;
-use WooShop\Modules\WooCommerce\MobileSales;
-use WooShop\Modules\WooCommerce\PaymentIcons;
-use WooShop\Modules\WooCommerce\ProductBrands;
-use WooShop\Modules\WooCommerce\ProductCustomTabs;
-use WooShop\Modules\WooCommerce\ProductFilters;
-use WooShop\Modules\WooCommerce\ProductVideos;
-use WooShop\Modules\WooCommerce\ProductWaitlist;
-use WooShop\Modules\WooCommerce\QuickView;
-use WooShop\Modules\WooCommerce\Reviews;
-use WooShop\Modules\WooCommerce\SaleCountdown;
-use WooShop\Modules\WooCommerce\SizeGuide;
-use WooShop\Modules\WooCommerce\SocialSharing;
-use WooShop\Modules\WooCommerce\StockScarcity;
-use WooShop\Modules\WooCommerce\VariationSwatches;
-use WooShop\Modules\WooCommerce\Wishlist;
-
-
+defined('ABSPATH') || exit;
 
 return array(
 
-    /**
-     * Theme modules.
+    /*
+     * ---------------------------------------------------------
+     * Core Modules
+     * ---------------------------------------------------------
+     *
+     * Core services are bootstrapped separately by Loader.
+     * Keep this group available for future application-level
+     * modules that extend the Core architecture.
+     */
+    'core' => array(),
+
+    /*
+     * ---------------------------------------------------------
+     * Theme Modules
+     * ---------------------------------------------------------
      */
     'theme' => array(
 
-        Assets::class,
-        Accessibility::class,
-        Localization::class,
-        MobileCommerce::class,
-        Setup::class,
-        Navigation::class,
-        Widgets::class,
-        Sidebars::class,
-        Customizer::class,
-        ImageSizes::class,
-        Comments::class,
-        Template::class,
-        Editor::class,
-        Excerpt::class,
-        Pagination::class,
-        Search::class,
-        PostTypes::class,
-        Taxonomies::class,
-        Feeds::class,
-        Performance::class,
-        Security::class,
-        Admin::class,
-        Metadata::class,
-        Hooks::class,
-        Filters::class,
-        AdminBar::class,
-        PostFormats::class,
-        Embeds::class,
-        BlockEditor::class,
+        'accessibility' => array(
+            'class'   => \WooShop\Modules\Theme\Accessibility::class,
+            'enabled' => true,
+        ),
+
+        'admin' => array(
+            'class'   => \WooShop\Modules\Theme\Admin::class,
+            'enabled' => true,
+        ),
+
+        'admin_bar' => array(
+            'class'   => \WooShop\Modules\Theme\AdminBar::class,
+            'enabled' => true,
+        ),
+
+        'assets' => array(
+            'class'   => \WooShop\Modules\Theme\Assets::class,
+            'enabled' => true,
+        ),
+
+        'block_editor' => array(
+            'class'   => \WooShop\Modules\Theme\BlockEditor::class,
+            'enabled' => true,
+        ),
+
+        'comments' => array(
+            'class'   => \WooShop\Modules\Theme\Comments::class,
+            'enabled' => true,
+        ),
+
+        'customizer' => array(
+            'class'   => \WooShop\Modules\Theme\Customizer::class,
+            'enabled' => true,
+        ),
+
+        'editor' => array(
+            'class'   => \WooShop\Modules\Theme\Editor::class,
+            'enabled' => true,
+        ),
+
+        'embeds' => array(
+            'class'   => \WooShop\Modules\Theme\Embeds::class,
+            'enabled' => true,
+        ),
+
+        'excerpt' => array(
+            'class'   => \WooShop\Modules\Theme\Excerpt::class,
+            'enabled' => true,
+        ),
+
+        'feeds' => array(
+            'class'   => \WooShop\Modules\Theme\Feeds::class,
+            'enabled' => true,
+        ),
+
+        'filters' => array(
+            'class'   => \WooShop\Modules\Theme\Filters::class,
+            'enabled' => true,
+        ),
+
+        'hooks' => array(
+            'class'   => \WooShop\Modules\Theme\Hooks::class,
+            'enabled' => true,
+        ),
+
+        'image_sizes' => array(
+            'class'   => \WooShop\Modules\Theme\ImageSizes::class,
+            'enabled' => true,
+        ),
+
+        'localization' => array(
+            'class'   => \WooShop\Modules\Theme\Localization::class,
+            'enabled' => true,
+        ),
+
+        'metadata' => array(
+            'class'   => \WooShop\Modules\Theme\Metadata::class,
+            'enabled' => true,
+        ),
+
+        'mobile_commerce' => array(
+            'class'   => \WooShop\Modules\Theme\MobileCommerce::class,
+            'enabled' => true,
+        ),
+
+        'navigation' => array(
+            'class'   => \WooShop\Modules\Theme\Navigation::class,
+            'enabled' => true,
+        ),
+
+        'pagination' => array(
+            'class'   => \WooShop\Modules\Theme\Pagination::class,
+            'enabled' => true,
+        ),
+
+        'post_formats' => array(
+            'class'   => \WooShop\Modules\Theme\PostFormats::class,
+            'enabled' => true,
+        ),
+
+        'post_types' => array(
+            'class'   => \WooShop\Modules\Theme\PostTypes::class,
+            'enabled' => true,
+        ),
+
+        'search' => array(
+            'class'   => \WooShop\Modules\Theme\Search::class,
+            'enabled' => true,
+        ),
+
+        'security' => array(
+            'class'   => \WooShop\Modules\Theme\Security::class,
+            'enabled' => true,
+        ),
+
+        'setup' => array(
+            'class'   => \WooShop\Modules\Theme\Setup::class,
+            'enabled' => true,
+        ),
+
+        'sidebars' => array(
+            'class'   => \WooShop\Modules\Theme\Sidebars::class,
+            'enabled' => true,
+        ),
+
+        'taxonomies' => array(
+            'class'   => \WooShop\Modules\Theme\Taxonomies::class,
+            'enabled' => true,
+        ),
+
+        'template' => array(
+            'class'   => \WooShop\Modules\Theme\Template::class,
+            'enabled' => true,
+        ),
+
+        'widgets' => array(
+            'class'   => \WooShop\Modules\Theme\Widgets::class,
+            'enabled' => true,
+        ),
 
     ),
 
-    /**
-     * WooCommerce modules.
+    /*
+     * ---------------------------------------------------------
+     * WooCommerce Modules
+     * ---------------------------------------------------------
      *
-     * These will be populated as each feature is implemented.
+     * These modules are loaded only when WooCommerce is active.
      */
     'woocommerce' => array(
 
-        ProductFilters::class,
-        VariationSwatches::class,
-        Wishlist::class,
-        QuickView::class,
-        Reviews::class,
-        SizeGuide::class,
-        Compare::class,
-        MobileSales::class,
-        ProductBrands::class,
-        StockScarcity::class,
-        FreeShippingBar::class,
-        ProductCustomTabs::class,
-        ProductWaitlist::class,
-        ProductVideos::class,
-        SaleCountdown::class,
-        SocialSharing::class,
-        PaymentIcons::class,
-        MiniCart::class,
-        WooShop\Modules\WooCommerce\Assets::class,
-//        Bootstrap::class
+        'assets' => array(
+            'class'   => \WooShop\Modules\WooCommerce\Assets::class,
+            'enabled' => true,
+        ),
+
+        'bootstrap' => array(
+            'class'   => \WooShop\Modules\WooCommerce\Bootstrap::class,
+            'enabled' => true,
+        ),
+
+        'compare' => array(
+            'class'   => \WooShop\Modules\WooCommerce\Compare::class,
+            'enabled' => true,
+        ),
+
+        'free_shipping_bar' => array(
+            'class'   => \WooShop\Modules\WooCommerce\FreeShippingBar::class,
+            'enabled' => true,
+        ),
+
+        'mini_cart' => array(
+            'class'   => \WooShop\Modules\WooCommerce\MiniCart::class,
+            'enabled' => true,
+        ),
+
+        'mobile_sales' => array(
+            'class'   => \WooShop\Modules\WooCommerce\MobileSales::class,
+            'enabled' => true,
+        ),
+
+        'payment_icons' => array(
+            'class'   => \WooShop\Modules\WooCommerce\PaymentIcons::class,
+            'enabled' => true,
+        ),
+
+        'product_brands' => array(
+            'class'   => \WooShop\Modules\WooCommerce\ProductBrands::class,
+            'enabled' => true,
+        ),
+
+        'product_custom_tabs' => array(
+            'class'   => \WooShop\Modules\WooCommerce\ProductCustomTabs::class,
+            'enabled' => true,
+        ),
+
+        'product_filters' => array(
+            'class'   => \WooShop\Modules\WooCommerce\ProductFilters::class,
+            'enabled' => true,
+        ),
+
+        'product_search' => array(
+            'class'   => \WooShop\Modules\WooCommerce\ProductSearch::class,
+            'enabled' => true,
+        ),
+
+        'product_videos' => array(
+            'class'   => \WooShop\Modules\WooCommerce\ProductVideos::class,
+            'enabled' => true,
+        ),
+
+        'product_waitlist' => array(
+            'class'   => \WooShop\Modules\WooCommerce\ProductWaitlist::class,
+            'enabled' => true,
+        ),
+
+        'quick_view' => array(
+            'class'   => \WooShop\Modules\WooCommerce\QuickView::class,
+            'enabled' => true,
+        ),
+
+        'reviews' => array(
+            'class'   => \WooShop\Modules\WooCommerce\Reviews::class,
+            'enabled' => true,
+        ),
+
+        'sale_countdown' => array(
+            'class'   => \WooShop\Modules\WooCommerce\SaleCountdown::class,
+            'enabled' => true,
+        ),
+
+        'size_guide' => array(
+            'class'   => \WooShop\Modules\WooCommerce\SizeGuide::class,
+            'enabled' => true,
+        ),
+
+        'social_sharing' => array(
+            'class'   => \WooShop\Modules\WooCommerce\SocialSharing::class,
+            'enabled' => true,
+        ),
+
+        'stock_scarcity' => array(
+            'class'   => \WooShop\Modules\WooCommerce\StockScarcity::class,
+            'enabled' => true,
+        ),
+
+        'variation_swatches' => array(
+            'class'   => \WooShop\Modules\WooCommerce\VariationSwatches::class,
+            'enabled' => true,
+        ),
+
+        'wishlist' => array(
+            'class'   => \WooShop\Modules\WooCommerce\Wishlist::class,
+            'enabled' => true,
+        ),
 
     ),
 );

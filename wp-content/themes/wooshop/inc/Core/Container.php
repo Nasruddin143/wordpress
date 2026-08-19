@@ -1,198 +1,254 @@
 <?php
 /**
- * WooShop Service Container.
+ * WooShop Service Container
  *
- * Handles service registration, shared instances,
- * and automatic constructor dependency resolution.
+ * Provides lightweight dependency injection and shared service
+ * management for the WooShop theme architecture.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Core;
 
-use ReflectionClass;
-use ReflectionException;
-use RuntimeException;
-
-defined("ABSPATH") || exit();
+defined('ABSPATH') || exit;
 
 /**
- * WooShop dependency injection container.
+ * Class Container
+ *
+ * Manages WooShop service instances and lazy factories.
  */
-class Container
-{
-    /**
-     * Service bindings.
-     *
-     * @var array
-     */
-    protected array $bindings = [];
+final class Container {
 
     /**
-     * Shared service instances.
+     * Registered service instances.
      *
-     * @var array
+     * @var array<string, object>
      */
-    protected array $instances = [];
+    private array $services = array();
 
     /**
-     * Register a service factory.
+     * Registered lazy service factories.
      *
-     * @param string   $abstract Service class or identifier.
-     * @param callable $factory  Service factory.
-     * @param bool     $shared   Whether the service is shared.
-     * @return void
+     * @var array<string, callable>
      */
-    public function bind(
-        string $abstract,
-        callable $factory,
-        bool $shared = true
-    ): void {
-        $this->bindings[$abstract] = [
-            "factory" => $factory,
-            "shared" => $shared,
-        ];
-    }
+    private array $factories = array();
 
     /**
      * Register an existing service instance.
      *
-     * @param string $abstract Service class or identifier.
-     * @param mixed  $instance Service instance.
+     * @param string $id      Service identifier.
+     * @param object $service Service instance.
+     *
      * @return void
      */
-    public function instance(string $abstract, mixed $instance): void
-    {
-        $this->instances[$abstract] = $instance;
+    public function set(string $id, object $service): void {
+
+        $this->services[$id] = $service;
+    }
+
+    /**
+     * Register a lazy service factory.
+     *
+     * @param string   $id      Service identifier.
+     * @param callable $factory Factory callback.
+     *
+     * @return void
+     */
+    public function factory(string $id, callable $factory): void {
+
+        $this->factories[$id] = $factory;
     }
 
     /**
      * Determine whether a service is registered.
      *
-     * @param string $abstract Service class or identifier.
+     * @param string $id Service identifier.
+     *
      * @return bool
      */
-    public function has(string $abstract): bool
-    {
-        return isset($this->bindings[$abstract]) ||
-            isset($this->instances[$abstract]);
+    public function has(string $id): bool {
+
+        return isset($this->services[$id])
+            || isset($this->factories[$id]);
     }
 
     /**
-     * Resolve a service.
+     * Resolve a service from the container.
      *
-     * @param string $abstract Service class name.
-     * @return mixed
-     * @throws ReflectionException
+     * Services are shared automatically after the first resolution.
+     *
+     * @template T of object
+     *
+     * @param class-string<T> $id Service class or identifier.
+     *
+     * @return T
+     *
+     * @throws \RuntimeException When the service cannot be resolved.
      */
-    public function get(string $abstract): mixed
-    {
-        /**
-         * The container resolves itself automatically.
-         */
-        if (self::class === $abstract) {
-            return $this;
+    public function get(string $id): object {
+
+        if (isset($this->services[$id])) {
+            return $this->services[$id];
         }
 
-        /**
-         * Return an existing shared instance.
-         */
-        if (isset($this->instances[$abstract])) {
-            return $this->instances[$abstract];
-        }
+        if (isset($this->factories[$id])) {
 
-        /**
-         * Resolve an explicitly registered binding.
-         */
-        if (isset($this->bindings[$abstract])) {
-            $binding = $this->bindings[$abstract];
+            $service = ($this->factories[$id])($this);
 
-            $instance = call_user_func($binding["factory"], $this);
-
-            if ($binding["shared"]) {
-                $this->instances[$abstract] = $instance;
+            if (!is_object($service)) {
+                throw new \RuntimeException(
+                    sprintf(
+                        'WooShop factory "%s" must return an object.',
+                        $id
+                    )
+                );
             }
 
-            return $instance;
+            $this->services[$id] = $service;
+
+            unset($this->factories[$id]);
+
+            return $service;
         }
 
-        /**
-         * Resolve a class automatically.
-         */
-        return $this->make($abstract);
-    }
-
-    /**
-     * Create a class and resolve its constructor dependencies.
-     *
-     * @param string $class Class name.
-     * @return object
-     * @throws ReflectionException
-     */
-    public function make(string $class): object
-    {
-        if (!class_exists($class)) {
-            throw new RuntimeException(
-                sprintf('WooShop class "%s" does not exist.', $class)
+        if (!class_exists($id)) {
+            throw new \RuntimeException(
+                sprintf(
+                    'WooShop service "%s" does not exist.',
+                    $id
+                )
             );
         }
 
-        $reflection = new ReflectionClass($class);
+        $service = $this->make($id);
+
+        $this->services[$id] = $service;
+
+        return $service;
+    }
+
+    /**
+     * Instantiate a class using constructor dependency injection.
+     *
+     * Dependencies are resolved recursively from the container.
+     *
+     * @template T of object
+     *
+     * @param class-string<T> $class Class name.
+     *
+     * @return T
+     *
+     * @throws \RuntimeException When the class cannot be instantiated.
+     */
+    public function make(string $class): object {
+
+        if (!class_exists($class)) {
+            throw new \RuntimeException(
+                sprintf(
+                    'WooShop class "%s" does not exist.',
+                    $class
+                )
+            );
+        }
+
+        $reflection = new \ReflectionClass($class);
 
         if (!$reflection->isInstantiable()) {
-            throw new RuntimeException(
-                sprintf('WooShop class "%s" cannot be instantiated.', $class)
+            throw new \RuntimeException(
+                sprintf(
+                    'WooShop class "%s" is not instantiable.',
+                    $class
+                )
             );
         }
 
         $constructor = $reflection->getConstructor();
 
-        /**
-         * Classes without constructors can be created directly.
-         */
         if (null === $constructor) {
             return $reflection->newInstance();
         }
 
-        $arguments = [];
+        $arguments = array();
 
         foreach ($constructor->getParameters() as $parameter) {
+
             $type = $parameter->getType();
 
-            /**
-             * Dependencies must have a class/interface type.
-             */
-            if (!$type || $type->isBuiltin()) {
+            if (!$type instanceof \ReflectionNamedType) {
+
                 if ($parameter->isDefaultValueAvailable()) {
                     $arguments[] = $parameter->getDefaultValue();
                     continue;
                 }
 
-                throw new RuntimeException(
+                throw new \RuntimeException(
                     sprintf(
-                        'Unable to resolve dependency "%s" for "%s".',
+                        'Unable to resolve untyped dependency "%s" in "%s".',
                         $parameter->getName(),
                         $class
                     )
                 );
             }
 
-            /**
-             * Resolve the named dependency.
-             */
-            $dependency = $type->getName();
+            if ($type->isBuiltin()) {
 
-            /**
-             * Container is always the current container instance.
-             */
-            if (self::class === $dependency) {
-                $arguments[] = $this;
-                continue;
+                if ($parameter->isDefaultValueAvailable()) {
+                    $arguments[] = $parameter->getDefaultValue();
+                    continue;
+                }
+
+                throw new \RuntimeException(
+                    sprintf(
+                        'Unable to resolve builtin dependency "%s" in "%s".',
+                        $parameter->getName(),
+                        $class
+                    )
+                );
             }
+
+            $dependency = $type->getName();
 
             $arguments[] = $this->get($dependency);
         }
 
         return $reflection->newInstanceArgs($arguments);
+    }
+
+    /**
+     * Remove a service and its factory.
+     *
+     * @param string $id Service identifier.
+     *
+     * @return void
+     */
+    public function remove(string $id): void {
+
+        unset(
+            $this->services[$id],
+            $this->factories[$id]
+        );
+    }
+
+    /**
+     * Get all resolved services.
+     *
+     * @return array<string, object>
+     */
+    public function all(): array {
+
+        return $this->services;
+    }
+
+    /**
+     * Remove all services and factories.
+     *
+     * @return void
+     */
+    public function clear(): void {
+
+        $this->services  = array();
+        $this->factories = array();
     }
 }

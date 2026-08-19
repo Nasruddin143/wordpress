@@ -2,156 +2,215 @@
 /**
  * WooShop Configuration Manager
  *
- * Loads and provides access to static theme configuration files.
- *
- * Configuration is loaded from the inc/Config directory and kept
- * in memory for the current PHP request. No database queries are
- * performed by this class.
+ * Provides centralized, cached access to WooShop configuration
+ * files stored inside the theme's inc/Config directory.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Core;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
- * Config class.
+ * Class Config
+ *
+ * Loads and caches WooShop configuration arrays.
  */
-class Config {
+final class Config {
 
     /**
-     * Service container.
+     * Cached configuration data.
      *
-     * @var Container
+     * @var array<string, array<string, mixed>>
      */
-    protected Container $container;
-
-    /**
-     * Loaded configuration values.
-     *
-     * @var array
-     */
-    protected array $config = array();
+    private array $cache = array();
 
     /**
      * Configuration directory.
      *
      * @var string
      */
-    protected string $config_path;
+    private readonly string $directory;
 
     /**
      * Constructor.
      *
-     * @param Container $container Service container.
+     * @param string|null $directory Optional configuration directory.
      */
-    public function __construct( Container $container ) {
+    public function __construct(?string $directory = null) {
 
-        $this->container   = $container;
-        $this->config_path = get_stylesheet_directory() . '/inc/Config/';
+        $this->directory = trailingslashit(
+            $directory ?? get_theme_file_path('inc/Config')
+        );
     }
 
     /**
-     * Get a configuration value.
+     * Retrieve a configuration file.
      *
-     * Supports dot notation, for example:
-     * assets.styles.bootstrap
+     * Configuration files are loaded only once per request.
      *
-     * @param string $key     Configuration key.
+     * @param string $name Configuration filename without extension.
+     *
+     * @return array<string, mixed>
+     */
+    public function get(string $name): array {
+
+        if (isset($this->cache[$name])) {
+            return $this->cache[$name];
+        }
+
+        $file = $this->get_file_path($name);
+
+        if (!is_file($file)) {
+            $this->cache[$name] = array();
+
+            return array();
+        }
+
+        $config = require $file;
+
+        if (!is_array($config)) {
+            $config = array();
+        }
+
+        $this->cache[$name] = $config;
+
+        return $config;
+    }
+
+    /**
+     * Retrieve a nested configuration value.
+     *
+     * Example:
+     *
+     * $config->get_value(
+     *     'assets',
+     *     'styles.bootstrap.src'
+     * );
+     *
+     * @param string $name    Configuration filename.
+     * @param string $key     Dot-separated configuration path.
      * @param mixed  $default Default value.
      *
      * @return mixed
      */
-    public function get(string $key, mixed $default = null ): mixed
-    {
+    public function get_value(
+        string $name,
+        string $key,
+        mixed $default = null
+    ): mixed {
 
-        $segments = explode( '.', $key );
+        $config = $this->get($name);
 
-        $file = array_shift( $segments );
-
-        if ( ! isset( $this->config[ $file ] ) ) {
-            $this->load( $file );
+        if ('' === $key) {
+            return $config;
         }
 
-        if ( ! isset( $this->config[ $file ] ) ) {
-            return $default;
-        }
+        $value = $config;
 
-        $value = $this->config[ $file ];
+        foreach (explode('.', $key) as $segment) {
 
-        foreach ( $segments as $segment ) {
-
-            if ( ! is_array( $value ) || ! array_key_exists( $segment, $value ) ) {
+            if (
+                !is_array($value)
+                || !array_key_exists($segment, $value)
+            ) {
                 return $default;
             }
 
-            $value = $value[ $segment ];
+            $value = $value[$segment];
         }
 
         return $value;
     }
 
     /**
-     * Load one configuration file.
-     *
-     * The configuration file is loaded only once per request.
-     *
-     * @param string $file Configuration filename without .php.
-     *
-     * @return array
-     */
-    protected function load( string $file ): array {
-
-        if ( isset( $this->config[ $file ] ) ) {
-            return $this->config[ $file ];
-        }
-
-        $file = sanitize_file_name( $file );
-
-        $path = $this->config_path . $file . '.php';
-
-        if ( ! file_exists( $path ) ) {
-
-            $this->config[ $file ] = array();
-
-            return $this->config[ $file ];
-        }
-
-        $value = require $path;
-
-        $this->config[ $file ] = is_array( $value )
-            ? $value
-            : array();
-
-        return $this->config[ $file ];
-    }
-
-    /**
      * Determine whether a configuration file exists.
      *
-     * @param string $file Configuration filename without .php.
+     * @param string $name Configuration filename.
      *
      * @return bool
      */
-    public function has( string $file ): bool {
+    public function exists(string $name): bool {
 
-        $file = sanitize_file_name( $file );
-
-        return file_exists(
-            $this->config_path . $file . '.php'
+        return is_file(
+            $this->get_file_path($name)
         );
     }
 
     /**
-     * Get the complete configuration file.
+     * Determine whether a configuration value exists.
      *
-     * @param string $file Configuration filename without .php.
+     * @param string $name Configuration filename.
+     * @param string $key  Dot-separated configuration path.
      *
-     * @return array
+     * @return bool
      */
-    public function all( string $file ): array {
+    public function has(string $name, string $key = ''): bool {
 
-        return $this->load( $file );
+        if ('' === $key) {
+            return $this->exists($name);
+        }
+
+        $config = $this->get($name);
+        $value  = $config;
+
+        foreach (explode('.', $key) as $segment) {
+
+            if (
+                !is_array($value)
+                || !array_key_exists($segment, $value)
+            ) {
+                return false;
+            }
+
+            $value = $value[$segment];
+        }
+
+        return true;
+    }
+
+    /**
+     * Clear cached configuration.
+     *
+     * @param string|null $name Configuration filename.
+     *
+     * @return void
+     */
+    public function clear(?string $name = null): void {
+
+        if (null === $name) {
+            $this->cache = array();
+
+            return;
+        }
+
+        unset($this->cache[$name]);
+    }
+
+    /**
+     * Get the configuration directory.
+     *
+     * @return string
+     */
+    public function get_directory(): string {
+
+        return $this->directory;
+    }
+
+    /**
+     * Build a configuration file path.
+     *
+     * @param string $name Configuration filename.
+     *
+     * @return string
+     */
+    private function get_file_path(string $name): string {
+
+        $name = sanitize_file_name($name);
+
+        return $this->directory . $name . '.php';
     }
 }

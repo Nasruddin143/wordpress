@@ -1,129 +1,119 @@
 <?php
 /**
- * Accessibility Module
+ * WooShop Accessibility Module
  *
- * Provides WooShop accessibility enhancements for navigation,
- * focus states, skip links, images, and assistive technologies.
+ * Provides accessibility improvements for the WooShop theme,
+ * including navigation landmarks, accessible document titles,
+ * skip links, focus handling, and useful accessibility attributes.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-defined( 'ABSPATH' ) || exit;
+use stdClass;
+use WooShop\Core\Module;
+use WP_Post;
+
+defined('ABSPATH') || exit;
 
 /**
- * Accessibility class.
+ * Class Accessibility
+ *
+ * Handles WooShop accessibility-related functionality.
  */
-class Accessibility {
+final class Accessibility extends Module {
 
     /**
-     * Register accessibility hooks.
+     * Register accessibility functionality.
      *
      * @return void
      */
-    public function register() {
+    public function register(): void {
 
         add_action(
             'wp_body_open',
-            array( $this, 'render_skip_link' ),
+            [$this, 'render_skip_link'],
             5
         );
 
         add_filter(
-            'the_content_more_link',
-            array( $this, 'filter_more_link' )
-        );
-
-        add_filter(
-            'get_search_form',
-            array( $this, 'filter_search_form' )
-        );
-
-        add_filter(
             'nav_menu_link_attributes',
-            array( $this, 'filter_menu_link_attributes' ),
+            [$this, 'filter_menu_link_attributes'],
             10,
             4
         );
 
         add_filter(
-            'wp_get_attachment_image_attributes',
-            array( $this, 'filter_image_attributes' ),
-            10,
-            3
+            'comment_form_defaults',
+            [$this, 'filter_comment_form_defaults']
+        );
+
+        add_filter(
+            'wp_page_menu_args',
+            [$this, 'filter_page_menu_args']
+        );
+
+        add_filter(
+            'get_search_form',
+            [$this, 'filter_search_form']
+        );
+
+        add_action(
+            'wp_enqueue_scripts',
+            [$this, 'enqueue_accessibility_assets'],
+            30
         );
     }
 
     /**
      * Render the primary skip link.
      *
+     * Allows keyboard and assistive-technology users to bypass
+     * repetitive navigation and move directly to main content.
+     *
      * @return void
      */
-    public function render_skip_link() {
+    public function render_skip_link(): void {
 
-        echo '<a class="ws-skip-link visually-hidden-focusable" href="#primary">' .
-            esc_html__( 'Skip to content', 'wooshop' ) .
-            '</a>';
-    }
-
-    /**
-     * Improve the more link accessibility label.
-     *
-     * @param string $link More link HTML.
-     * @return string
-     */
-    public function filter_more_link( $link ) {
-
-        return str_replace(
-            '>',
-            ' aria-label="' .
-            esc_attr__( 'Continue reading', 'wooshop' ) .
-            '">',
-            $link,
-            1
-        );
-    }
-
-    /**
-     * Add an accessible label to the search form.
-     *
-     * @param string $form Search form HTML.
-     * @return string
-     */
-    public function filter_search_form( $form ) {
-
-        if ( false === strpos( $form, 'aria-label=' ) ) {
-
-            $form = str_replace(
-                '<form',
-                '<form aria-label="' .
-                esc_attr__( 'Site search', 'wooshop' ) .
-                '"',
-                $form
+        ?>
+        <a
+            class="visually-hidden-focusable ws-skip-link"
+            href="#primary"
+        >
+            <?php
+            echo esc_html__(
+                'Skip to content',
+                'wooshop'
             );
-        }
-
-        return $form;
+            ?>
+        </a>
+        <?php
     }
 
     /**
      * Add accessibility attributes to navigation links.
      *
-     * @param array    $atts  Link attributes.
-     * @param WP_Post  $item  Menu item.
-     * @param stdClass $args  Menu arguments.
-     * @param int      $depth Menu depth.
-     * @return array
+     * @param array<string, mixed> $atts       Navigation attributes.
+     * @param WP_Post              $item       Menu item.
+     * @param stdClass             $args       Menu arguments.
+     * @param int                  $depth      Menu depth.
+     *
+     * @return array<string, mixed>
      */
     public function filter_menu_link_attributes(
-        $atts,
-        $item,
-        $args,
-        $depth
-    ) {
+        array    $atts,
+        WP_Post  $item,
+        stdClass $args,
+        int      $depth
+    ): array {
 
-        if ( ! empty( $item->current ) ) {
+        if (
+            isset($item->current)
+            && $item->current
+        ) {
             $atts['aria-current'] = 'page';
         }
 
@@ -131,26 +121,118 @@ class Accessibility {
     }
 
     /**
-     * Improve attachment image attributes.
+     * Improve comment form accessibility.
      *
-     * WordPress normally generates alt attributes from attachment metadata.
-     * This ensures the attribute is always present.
+     * @param array<string, mixed> $defaults Comment form defaults.
      *
-     * @param array  $attr       Image attributes.
-     * @param WP_Post $attachment Attachment object.
-     * @param mixed  $size        Requested image size.
-     * @return array
+     * @return array<string, mixed>
      */
-    public function filter_image_attributes(
-        $attr,
-        $attachment,
-        $size
-    ) {
+    public function filter_comment_form_defaults(
+        array $defaults
+    ): array {
 
-        if ( ! isset( $attr['alt'] ) ) {
-            $attr['alt'] = '';
+        if (!isset($defaults['comment_field'])) {
+            return $defaults;
         }
 
-        return $attr;
+        $defaults['comment_field'] = sprintf(
+            '<p class="comment-form-comment">
+				<label for="comment">%s%s</label>
+				<textarea
+					id="comment"
+					name="comment"
+					cols="45"
+					rows="8"
+					required
+				></textarea>
+			</p>',
+            esc_html__(
+                'Comment',
+                'wooshop'
+            ),
+            '<span class="required" aria-hidden="true">*</span>'
+        );
+
+        return $defaults;
+    }
+
+    /**
+     * Add an accessible menu container to WordPress page menus.
+     *
+     * @param array<string, mixed> $args Page menu arguments.
+     *
+     * @return array<string, mixed>
+     */
+    public function filter_page_menu_args(
+        array $args
+    ): array {
+
+        $args['menu_class'] = 'page-menu';
+
+        return $args;
+    }
+
+    /**
+     * Add an accessible label to the WordPress search form.
+     *
+     * @param string $form Search form HTML.
+     *
+     * @return string
+     */
+    public function filter_search_form(
+        string $form
+    ): string {
+
+        if (
+            false !== strpos(
+                $form,
+                'aria-label='
+            )
+        ) {
+            return $form;
+        }
+
+        $form = str_replace(
+            '<form',
+            '<form aria-label="' .
+            esc_attr__(
+                'Site search',
+                'wooshop'
+            ) .
+            '"',
+            $form
+        );
+
+        return $form;
+    }
+
+    /**
+     * Enqueue accessibility component styles.
+     *
+     * The component stylesheet is loaded independently of the
+     * main WooShop stylesheet.
+     *
+     * @return void
+     */
+    public function enqueue_accessibility_assets(): void {
+
+        $src = get_theme_file_uri(
+            'assets/build/css/components/accessibility.min.css'
+        );
+
+        $path = get_theme_file_path(
+            'assets/build/css/components/accessibility.min.css'
+        );
+
+        if (!is_file($path)) {
+            return;
+        }
+
+        wp_enqueue_style(
+            'wooshop-accessibility',
+            $src,
+            array(),
+            (string) filemtime($path)
+        );
     }
 }

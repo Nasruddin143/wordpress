@@ -1,74 +1,136 @@
 <?php
 /**
- * WooShop Autoloader.
+ * WooShop PSR-4 Autoloader
  *
- * Provides PSR-4 style class loading for the WooShop namespace.
+ * Provides lightweight PSR-4 class loading for the WooShop
+ * namespace without relying on Composer.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Core;
 
-defined("ABSPATH") || exit();
+defined('ABSPATH') || exit;
 
 /**
- * Handles WooShop class autoloading.
+ * Class Autoloader
+ *
+ * Loads WooShop classes automatically from the inc directory.
  */
-class Autoloader
-{
-    /**
-     * Namespace prefix.
-     *
-     * @var string
-     */
-    protected string $prefix = "WooShop\\";
+final class Autoloader {
 
     /**
-     * Base directory for the namespace.
+     * WooShop namespace prefix.
      *
      * @var string
      */
-    protected string $base_dir;
+    private const PREFIX = 'WooShop\\';
+
+    /**
+     * Base directory for WooShop classes.
+     *
+     * @var string
+     */
+    private readonly string $base_directory;
 
     /**
      * Constructor.
      *
-     * @param string $base_dir Base directory for WooShop classes.
+     * @param string|null $base_directory Optional base directory.
      */
-    public function __construct(string $base_dir)
-    {
-        $this->base_dir = trailingslashit($base_dir);
+    public function __construct(?string $base_directory = null) {
+
+        $this->base_directory = trailingslashit(
+            $base_directory ?? get_theme_file_path('inc')
+        );
     }
 
     /**
-     * Register the autoloader.
+     * Register the autoloader with PHP.
      *
      * @return void
      */
-    public function register(): void
-    {
-        spl_autoload_register([$this, "load"]);
+    public function register(): void {
+
+        spl_autoload_register(
+            [$this, 'autoload']
+        );
+    }
+
+    /**
+     * Unregister the autoloader.
+     *
+     * @return void
+     */
+    public function unregister(): void {
+
+        spl_autoload_unregister(
+            [$this, 'autoload']
+        );
     }
 
     /**
      * Load a WooShop class.
      *
-     * @param string $class Fully qualified class name.
+     * @param string $class Fully-qualified class name.
+     *
      * @return void
      */
-    public function load(string $class): void
-    {
-        if (!str_starts_with($class, $this->prefix)) {
+    public function autoload(string $class): void {
+
+        if (!str_starts_with($class, self::PREFIX)) {
             return;
         }
 
-        $relative_class = substr($class, strlen($this->prefix));
+        $relative_class = substr(
+            $class,
+            strlen(self::PREFIX)
+        );
 
-        $file =
-            $this->base_dir . str_replace("\\", "/", $relative_class) . ".php";
-
-        if (file_exists($file)) {
-            require_once $file;
+        if ('' === $relative_class) {
+            return;
         }
+
+        $file = $this->resolve_file($relative_class);
+
+        if (null === $file || !is_file($file)) {
+            return;
+        }
+
+        require_once $file;
+    }
+
+    /**
+     * Resolve a class name to a PHP file.
+     *
+     * WooShop uses:
+     *
+     * WooShop\Core\Module
+     *     ↓
+     * inc/Core/Module.php
+     *
+     * WooShop\Modules\WooCommerce\Wishlist
+     *     ↓
+     * inc/Modules/WooCommerce/Wishlist.php
+     *
+     * @param string $relative_class Relative class name.
+     *
+     * @return string|null
+     */
+    private function resolve_file(string $relative_class): ?string {
+
+        $parts = explode('\\', $relative_class);
+
+        if ([] === $parts) {
+            return null;
+        }
+
+        $file = $this->base_directory
+            . implode(DIRECTORY_SEPARATOR, $parts)
+            . '.php';
+
+        return $file;
     }
 }

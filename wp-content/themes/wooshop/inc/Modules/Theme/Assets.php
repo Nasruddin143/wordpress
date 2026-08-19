@@ -1,117 +1,65 @@
 <?php
 /**
- * Theme Assets Module
+ * WooShop Theme Assets Module
  *
- * Registers WooShop global and conditional assets.
+ * Connects the WooShop Theme module system with the centralized
+ * AssetsManager responsible for conditional asset loading.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-
 use WooShop\Core\AssetsManager;
+use WooShop\Core\Config;
+use WooShop\Core\Container;
+use WooShop\Core\Module;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
-class Assets {
+/**
+ * Class Assets
+ *
+ * Registers the WooShop Smart Asset Loading system.
+ */
+final class Assets extends Module {
 
     /**
-     * Asset manager.
+     * WooShop assets manager.
      *
      * @var AssetsManager
      */
-    protected AssetsManager $assets;
+    private readonly AssetsManager $assets_manager;
 
     /**
      * Constructor.
      *
-     * @param AssetsManager $assets Asset manager instance.
+     * @param Container     $container     WooShop service container.
+     * @param Config        $config        WooShop configuration manager.
+     * @param AssetsManager $assets_manager WooShop assets manager.
      */
-    public function __construct( AssetsManager $assets ) {
-
-        $this->assets = $assets;
-    }
-
-    /**
-     * Register module hooks.
-     *
-     * @return void
-     */
-    public function register(): void
-    {
-
-        add_action(
-            'wp_enqueue_scripts',
-            array( $this, 'enqueue' ),
-            20
+    public function __construct(
+        Container $container,
+        Config $config,
+        AssetsManager $assets_manager
+    ) {
+        parent::__construct(
+            $container,
+            $config
         );
+
+        $this->assets_manager = $assets_manager;
     }
 
     /**
-     * Enqueue theme assets.
+     * Register the Theme Assets module.
      *
      * @return void
      */
-    public function enqueue(): void
-    {
+    public function register(): void {
 
-        $this->assets->enqueue_global();
-
-        $this->load_components();
+        $this->assets_manager->register();
     }
-
-    /**
-     * Load required component assets.
-     *
-     * @return void
-     */
-    protected function load_components(): void
-    {
-
-        if ( ! class_exists( 'WooCommerce' ) ) {
-            return;
-        }
-
-        /*
-         * Product archive/shop assets.
-         */
-        if ( is_shop() || is_product_category() || is_product_tag() ) {
-
-            $this->assets->load_component( 'product-filters' );
-            $this->assets->load_component( 'variation-swatches' );
-            $this->assets->load_component( 'product-brands' );
-        }
-
-        /*
-         * Single product assets.
-         */
-        if ( is_product() ) {
-
-            $this->assets->load_component( 'variation-swatches' );
-            $this->assets->load_component( 'quick-view' );
-            $this->assets->load_component( 'reviews' );
-            $this->assets->load_component( 'size-guide' );
-            $this->assets->load_component( 'stock-scarcity' );
-            $this->assets->load_component( 'product-custom-tabs' );
-            $this->assets->load_component( 'product-videos' );
-            $this->assets->load_component( 'sale-countdown' );
-            $this->assets->load_component( 'social-sharing' );
-            $this->assets->load_component( 'payment-icons' );
-        }
-
-        /*
-         * Cart-related assets.
-         */
-        if ( is_cart() || is_checkout() ) {
-
-            $this->assets->load_component( 'free-shipping-bar' );
-        }
-
-        /*
-         * Mini cart is required throughout the store.
-         */
-        $this->assets->load_component( 'mini-cart' );
-    }
-
 }

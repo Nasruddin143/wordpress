@@ -1,81 +1,120 @@
 <?php
 /**
- * WooShop Loader.
+ * WooShop Core Loader
  *
- * Bootstraps the WooShop core services and modules.
+ * Bootstraps the WooShop core architecture by registering the
+ * autoloader, creating the service container, registering core
+ * services, and starting the module manager.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Core;
 
-use ReflectionException;
-
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
- * Handles WooShop application bootstrapping.
+ * Class Loader
+ *
+ * Main entry point for the WooShop application architecture.
  */
-class Loader {
+final class Loader {
 
     /**
      * Service container.
      *
      * @var Container
      */
-    protected Container $container;
+    private readonly Container $container;
+
+    /**
+     * Configuration manager.
+     *
+     * @var Config
+     */
+    private readonly Config $config;
 
     /**
      * Module manager.
      *
      * @var ModuleManager
      */
-    protected ModuleManager $module_manager;
+    private readonly ModuleManager $module_manager;
 
     /**
      * Constructor.
      *
-     * @param Container     $container      Service container.
-     * @param ModuleManager $module_manager Module manager.
+     * Initializes the WooShop dependency graph.
      */
-    public function __construct(
-        Container $container,
-        ModuleManager $module_manager
-    ) {
+    public function __construct() {
 
-        $this->container      = $container;
-        $this->module_manager = $module_manager;
+        $this->container = new Container();
+
+        $this->config = new Config();
+
+        $this->register_core_services();
+
+        $this->module_manager = $this->container->get(
+            ModuleManager::class
+        );
     }
 
     /**
-     * Load WooShop modules.
+     * Register the WooShop application.
      *
-     * @param array $modules Module class names.
+     * This method should be called once from functions.php.
+     *
      * @return void
      */
-    /**
-     * Load WooShop modules.
-     *
-     * @param array $groups Module groups.
-     * @return void
-     * @throws ReflectionException
-     */
-    public function load( array $groups ): void {
-
-        foreach ( $groups as $group => $modules ) {
-
-            if ( 'woocommerce' === $group && ! class_exists( 'WooCommerce' ) ) {
-                continue;
-            }
-
-            $this->module_manager->add_many( $modules );
-        }
+    public function register(): void {
 
         $this->module_manager->register();
     }
 
     /**
-     * Retrieve the service container.
+     * Register core services.
+     *
+     * Core services are registered before any Theme or WooCommerce
+     * module is instantiated.
+     *
+     * @return void
+     */
+    private function register_core_services(): void {
+
+        $this->container->set(
+            Container::class,
+            $this->container
+        );
+
+        $this->container->set(
+            Config::class,
+            $this->config
+        );
+
+        $this->container->factory(
+            AssetsManager::class,
+            function (Container $container): AssetsManager {
+                return new AssetsManager(
+                    $container->get(Config::class)
+                );
+            }
+        );
+
+        $this->container->factory(
+            ModuleManager::class,
+            function (Container $container): ModuleManager {
+                return new ModuleManager(
+                    $container,
+                    $this->config
+                );
+            }
+        );
+    }
+
+    /**
+     * Get the service container.
      *
      * @return Container
      */
@@ -85,11 +124,21 @@ class Loader {
     }
 
     /**
-     * Retrieve the module manager.
+     * Get the configuration manager.
+     *
+     * @return Config
+     */
+    public function config(): Config {
+
+        return $this->config;
+    }
+
+    /**
+     * Get the module manager.
      *
      * @return ModuleManager
      */
-    public function modules(): ModuleManager {
+    public function module_manager(): ModuleManager {
 
         return $this->module_manager;
     }

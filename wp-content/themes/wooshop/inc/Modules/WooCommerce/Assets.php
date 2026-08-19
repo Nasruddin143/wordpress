@@ -1,9 +1,8 @@
 <?php
 /**
- * WooCommerce Assets Module
+ * WooShop WooCommerce Assets Module
  *
- * Conditionally loads WooCommerce assets through
- * the centralized AssetsManager.
+ * Boots the centralized asset manager for WooCommerce.
  *
  * @package WooShop
  */
@@ -11,7 +10,6 @@
 namespace WooShop\Modules\WooCommerce;
 
 use WooShop\Core\AssetsManager;
-use WooShop\Core\Container;
 use WooShop\Core\Module;
 
 defined( 'ABSPATH' ) || exit;
@@ -19,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class Assets
  *
- * Handles conditional WooCommerce asset loading.
+ * Provides the WooCommerce asset integration point.
  */
 class Assets extends Module {
 
@@ -28,84 +26,19 @@ class Assets extends Module {
      *
      * @var AssetsManager
      */
-    protected mixed $assets;
-
-    /**
-     * Constructor.
-     *
-     * @param Container $container Service container.
-     */
-    public function __construct( Container $container ) {
-
-        parent::__construct( $container );
-
-        $this->assets = $container->get(
-            AssetsManager::class
-        );
-    }
+    protected AssetsManager $assets_manager;
 
     /**
      * Register module hooks.
      *
      * @return void
      */
-    public function register(): void
-    {
+    public function register(): void {
 
-        add_action(
-            'wp_enqueue_scripts',
-            array( $this, 'enqueue' ),
-            20
+        $this->assets_manager = $this->container->get(
+            AssetsManager::class
         );
+
     }
 
-    /**
-     * Conditionally enqueue WooCommerce assets.
-     *
-     * @return void
-     */
-    public function enqueue(): void
-    {
-
-        if ( ! class_exists( 'WooCommerce' ) ) {
-            return;
-        }
-
-        if (
-            is_shop() ||
-            is_product_category() ||
-            is_product_tag()
-        ) {
-            $this->assets->enqueue_woocommerce( 'base' );
-            $this->assets->enqueue_woocommerce( 'shop' );
-
-            return;
-        }
-
-        if ( is_product() ) {
-            $this->assets->enqueue_woocommerce( 'base' );
-            $this->assets->enqueue_woocommerce( 'product' );
-
-            return;
-        }
-
-        if ( is_cart() ) {
-            $this->assets->enqueue_woocommerce( 'base' );
-            $this->assets->enqueue_woocommerce( 'cart' );
-
-            return;
-        }
-
-        if ( is_checkout() ) {
-            $this->assets->enqueue_woocommerce( 'base' );
-            $this->assets->enqueue_woocommerce( 'checkout' );
-
-            return;
-        }
-
-        if ( is_account_page() ) {
-            $this->assets->enqueue_woocommerce( 'base' );
-            $this->assets->enqueue_woocommerce( 'account' );
-        }
-    }
 }
