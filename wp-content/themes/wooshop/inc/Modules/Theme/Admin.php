@@ -1,77 +1,79 @@
 <?php
 /**
- * Theme Admin Module.
+ * WooShop Admin Module
  *
- * Handles WooShop-specific WordPress administration functionality.
+ * Provides lightweight WooShop-specific administration hooks
+ * and admin interface enhancements.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
+use WooShop\Core\Config;
 use WooShop\Core\Container;
 use WooShop\Core\Module;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
+ * Class Admin
+ *
  * Handles WooShop administration functionality.
  */
-class Admin extends Module {
+final class Admin extends Module {
 
     /**
-     * Constructor.
-     *
-     * @param Container $container Service container.
-     */
-    public function __construct( Container $container ) {
-
-        parent::__construct( $container );
-    }
-
-    /**
-     * Register module hooks.
+     * Register administration functionality.
      *
      * @return void
      */
     public function register(): void {
 
-        add_action(
-            'admin_enqueue_scripts',
-            [ $this, 'enqueue_admin_assets' ]
-        );
-
         add_filter(
             'admin_body_class',
-            [ $this, 'admin_body_classes' ]
+            [$this, 'filter_admin_body_class']
+        );
+
+        add_action(
+            'admin_head',
+            [$this, 'add_admin_header']
         );
     }
 
     /**
-     * Enqueue theme-specific admin assets.
-     *
-     * Admin assets should remain separate from frontend assets.
-     *
-     * @return void
-     */
-    public function enqueue_admin_assets(): void {
-
-        /**
-         * Admin-specific assets will be registered here
-         * when the WooShop admin UI requires them.
-         */
-    }
-
-    /**
-     * Add WooShop classes to the admin body.
+     * Add WooShop class to the WordPress admin body.
      *
      * @param string $classes Existing admin body classes.
+     *
      * @return string
      */
-    public function admin_body_classes( string $classes ): string {
+    public function filter_admin_body_class(
+        string $classes
+    ): string {
 
         $classes .= ' wooshop-admin';
 
-        return trim( $classes );
+        return trim($classes);
+    }
+
+    /**
+     * Add WooShop admin header metadata.
+     *
+     * Provides a lightweight admin marker without adding
+     * unnecessary markup or database queries.
+     *
+     * @return void
+     */
+    public function add_admin_header(): void {
+
+        ?>
+        <meta
+                name="wooshop-admin"
+                content="true"
+        >
+        <?php
     }
 }

@@ -1,47 +1,88 @@
 <?php
 /**
- * WordPress Pagination.
+ * WooShop Pagination Module
  *
- * Provides reusable pagination functionality for the WooShop theme.
+ * Provides centralized pagination configuration and rendering
+ * for archive, search, blog, and other paginated theme templates.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles WordPress pagination functionality.
- */
-class Pagination extends Module {
-
+final class Pagination
+{
     /**
-     * Register the module.
+     * Register the pagination module.
      *
      * @return void
      */
-    public function register(): void {
-        // Pagination does not require global hooks.
+    public function register(): void
+    {
+        add_filter(
+            'get_the_posts_pagination',
+            [$this, 'filter_posts_pagination']
+        );
     }
 
     /**
-     * Render post pagination.
+     * Filter generated posts pagination markup.
+     *
+     * Adds WooShop-specific classes while preserving the
+     * WordPress pagination structure.
+     *
+     * @param string $output Generated pagination markup.
+     *
+     * @return string
+     */
+    public function filter_posts_pagination(string $output): string
+    {
+        if ($output === '') {
+            return $output;
+        }
+
+        $output = str_replace(
+            'class="navigation',
+            'class="navigation ws-pagination',
+            $output
+        );
+
+        $output = str_replace(
+            'class="nav-links',
+            'class="nav-links ws-pagination-links',
+            $output
+        );
+
+        return $output;
+    }
+
+    /**
+     * Render the WooShop posts pagination.
+     *
+     * This helper is intended for archive, search, blog, and
+     * other templates that require paginated post navigation.
      *
      * @return void
      */
-    public function render(): void {
-
-        the_posts_pagination(
+    public function render(): void
+    {
+        $pagination = get_the_posts_pagination(
             [
-                'mid_size'           => 1,
-                'prev_text'          => esc_html__( 'Previous', 'wooshop' ),
-                'next_text'          => esc_html__( 'Next', 'wooshop' ),
-                'screen_reader_text' => esc_html__( 'Posts navigation', 'wooshop' ),
-                'class'              => 'pagination justify-content-center',
+                'mid_size'           => 2,
+                'prev_text'          => __('Previous', 'wooshop'),
+                'next_text'          => __('Next', 'wooshop'),
+                'screen_reader_text' => __('Posts navigation', 'wooshop'),
             ]
         );
+
+        if (!is_string($pagination) || $pagination === '') {
+            return;
+        }
+
+        echo wp_kses_post($pagination);
     }
 }

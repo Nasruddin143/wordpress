@@ -1,60 +1,53 @@
 <?php
 /**
- * Theme Localization Module.
+ * WooShop Localization Module
  *
- * Handles translation and localization functionality for WooShop.
+ * Handles theme translation and localization setup.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Container;
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles WooShop localization.
- */
-class Localization extends Module {
-
+final class Localization
+{
     /**
-     * Constructor.
+     * WooShop text domain.
      *
-     * @param Container $container Service container.
+     * @var string
      */
-    public function __construct( Container $container ) {
-
-        parent::__construct( $container );
-    }
+    private string $text_domain = 'wooshop';
 
     /**
-     * Register module hooks.
+     * Register the localization module.
      *
      * @return void
      */
-    public function register(): void {
-
+    public function register(): void
+    {
         add_action(
             'after_setup_theme',
-            [ $this, 'load_textdomain' ]
+            [$this, 'load_textdomain']
         );
     }
 
     /**
      * Load the WooShop translation files.
      *
-     * WordPress automatically handles translations for modern themes,
-     * but explicitly registering the theme text domain keeps the
-     * theme architecture predictable.
+     * WordPress 6.7+ automatically loads translations for
+     * themes hosted on WordPress.org. The explicit loader is
+     * retained for custom or locally distributed WooShop builds.
      *
      * @return void
      */
-    public function load_textdomain(): void {
-
+    public function load_textdomain(): void
+    {
         load_theme_textdomain(
-            'wooshop',
+            $this->text_domain,
             get_template_directory() . '/languages'
         );
     }

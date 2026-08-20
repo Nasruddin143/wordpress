@@ -1,61 +1,76 @@
 <?php
 /**
- * WordPress Excerpts.
+ * WooShop Excerpt Module
  *
- * Handles excerpt-related functionality for the WooShop theme.
+ * Provides centralized control over WordPress post excerpts,
+ * including excerpt length and excerpt ending.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles WordPress excerpt functionality.
- */
-class Excerpt extends Module {
+final class Excerpt
+{
+    /**
+     * Default excerpt length in words.
+     *
+     * @var int
+     */
+    private int $excerpt_length = 30;
 
     /**
-     * Register module hooks.
+     * Default excerpt ending.
+     *
+     * @var string
+     */
+    private string $excerpt_more = '…';
+
+    /**
+     * Register the excerpt module.
      *
      * @return void
      */
-    public function register(): void {
-
+    public function register(): void
+    {
         add_filter(
             'excerpt_length',
-            [ $this, 'excerpt_length' ],
-            20
+            [$this, 'filter_excerpt_length'],
+            10
         );
 
         add_filter(
             'excerpt_more',
-            [ $this, 'excerpt_more' ]
+            [$this, 'filter_excerpt_more'],
+            10
         );
     }
 
     /**
-     * Set the default excerpt length.
+     * Filter the default excerpt length.
      *
-     * @param int $length Excerpt word count.
+     * @param int $length Current excerpt length.
+     *
      * @return int
      */
-    public function excerpt_length( int $length ): int {
-
-        return 25;
+    public function filter_excerpt_length(int $length): int
+    {
+        return $this->excerpt_length;
     }
 
     /**
-     * Set the excerpt continuation text.
+     * Filter the default excerpt ending.
      *
-     * @param string $more Excerpt continuation text.
+     * @param string $more Current excerpt ending.
+     *
      * @return string
      */
-    public function excerpt_more( string $more ): string {
-
-        return '&hellip;';
+    public function filter_excerpt_more(string $more): string
+    {
+        return $this->excerpt_more;
     }
 }

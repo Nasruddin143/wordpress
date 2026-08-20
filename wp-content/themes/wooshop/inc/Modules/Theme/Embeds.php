@@ -1,61 +1,128 @@
 <?php
 /**
- * Theme Embeds Module.
+ * WooShop Embeds Module
  *
- * Handles WordPress embed-related theme functionality.
+ * Configures WordPress embed functionality and optimizes
+ * embed-related frontend behavior for the WooShop theme.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Container;
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles WordPress embeds.
- */
-class Embeds extends Module {
-
+final class Embeds
+{
     /**
-     * Constructor.
-     *
-     * @param Container $container Service container.
-     */
-    public function __construct( Container $container ) {
-
-        parent::__construct( $container );
-    }
-
-    /**
-     * Register module hooks.
+     * Register the embeds module.
      *
      * @return void
      */
-    public function register(): void {
+    public function register(): void
+    {
+        add_action(
+            'wp_enqueue_scripts',
+            [$this, 'dequeue_embed_script'],
+            100
+        );
+
+        add_action(
+            'wp_head',
+            [$this, 'disable_embeds_rewrites'],
+            1
+        );
 
         add_filter(
-            'embed_defaults',
-            [ $this, 'embed_defaults' ]
+            'embed_oembed_discover',
+            [$this, 'disable_oembed_discovery']
+        );
+
+        add_filter(
+            'tiny_mce_plugins',
+            [$this, 'disable_embed_tiny_mce_plugin']
         );
     }
 
     /**
-     * Configure default embed dimensions.
+     * Dequeue the WordPress embed script.
      *
-     * The responsive embed wrapper remains controlled by WordPress.
+     * The script is unnecessary when the theme does not require
+     * WordPress's frontend embed JavaScript functionality.
      *
-     * @param array $args Embed arguments.
-     * @return array
+     * @return void
      */
-    public function embed_defaults( array $args ): array {
+    public function dequeue_embed_script(): void
+    {
+        if (!wp_script_is('wp-embed', 'enqueued')) {
+            return;
+        }
 
-        $args['width'] = 1200;
+        wp_dequeue_script('wp-embed');
+    }
 
-        $args['height'] = 675;
+    /**
+     * Disable the frontend embed rewrite endpoint.
+     *
+     * @return void
+     */
+    public function disable_embeds_rewrites(): void
+    {
+        remove_action(
+            'rest_api_init',
+            'wp_oembed_register_route'
+        );
 
-        return $args;
+        remove_filter(
+            'oembed_dataparse',
+            'wp_filter_oembed_result',
+            10
+        );
+
+        remove_action(
+            'wp_head',
+            'wp_oembed_add_discovery_links'
+        );
+
+        remove_action(
+            'wp_head',
+            'wp_oembed_add_host_js'
+        );
+
+        remove_action(
+            'template_redirect',
+            'wp_oembed_add_proxy_discovery_links'
+        );
+    }
+
+    /**
+     * Disable automatic oEmbed discovery.
+     *
+     * @param bool $discover Whether oEmbed discovery is enabled.
+     *
+     * @return bool
+     */
+    public function disable_oembed_discovery(bool $discover): bool
+    {
+        return false;
+    }
+
+    /**
+     * Remove the embed TinyMCE plugin.
+     *
+     * @param array<int, string> $plugins TinyMCE plugins.
+     *
+     * @return array<int, string>
+     */
+    public function disable_embed_tiny_mce_plugin(array $plugins): array
+    {
+        return array_values(
+            array_diff(
+                $plugins,
+                ['wpembed']
+            )
+        );
     }
 }

@@ -1,82 +1,132 @@
 <?php
 /**
- * Block Editor Module.
+ * WooShop Block Editor Module
  *
- * Handles WordPress Block Editor configuration for WooShop.
+ * Configures the WordPress block editor integration for the
+ * WooShop theme while keeping editor assets separate from
+ * frontend assets.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
+use WooShop\Core\Config;
 use WooShop\Core\Container;
 use WooShop\Core\Module;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
- * Handles WordPress Block Editor functionality.
+ * Class BlockEditor
+ *
+ * Handles WooShop block editor functionality.
  */
-class BlockEditor extends Module {
+final class BlockEditor extends Module {
 
     /**
-     * Constructor.
-     *
-     * @param Container $container Service container.
-     */
-    public function __construct( Container $container ) {
-
-        parent::__construct( $container );
-    }
-
-    /**
-     * Register module hooks.
+     * Register block editor functionality.
      *
      * @return void
      */
     public function register(): void {
 
         add_action(
-            'enqueue_block_editor_assets',
-            [ $this, 'enqueue_editor_assets' ]
+            'after_setup_theme',
+            [$this, 'setup_editor_support'],
+            20
         );
 
         add_filter(
             'block_editor_settings_all',
-            [ $this, 'editor_settings' ]
+            [$this, 'filter_editor_settings'],
+            10,
+            2
+        );
+
+        add_filter(
+            'block_categories_all',
+            [$this, 'register_block_category'],
+            10,
+            2
         );
     }
 
     /**
-     * Handle Block Editor assets.
+     * Register theme block editor support.
      *
-     * Asset loading remains delegated to the WooShop asset system.
+     * Keeps editor support aligned with the WooShop theme.
      *
      * @return void
      */
-    public function enqueue_editor_assets(): void {
+    public function setup_editor_support(): void {
 
-        /**
-         * Block Editor-specific assets should be registered
-         * through AssetsManager when required.
-         */
+        add_theme_support(
+            'editor-styles'
+        );
+
+        add_theme_support(
+            'align-wide'
+        );
+
+        add_theme_support(
+            'responsive-embeds'
+        );
+
+        add_theme_support(
+            'wp-block-styles'
+        );
     }
 
     /**
-     * Configure Block Editor settings.
+     * Filter block editor settings.
      *
-     * @param array $settings Block Editor settings.
-     * @return array
+     * Prevents unnecessary editor-side features from adding
+     * frontend overhead while keeping the editor functional.
+     *
+     * @param array<string, mixed> $settings Editor settings.
+     * @param \WP_Block_Editor_Context $context Editor context.
+     *
+     * @return array<string, mixed>
      */
-    public function editor_settings( array $settings ): array {
+    public function filter_editor_settings(
+        array $settings,
+        \WP_Block_Editor_Context $context
+    ): array {
 
-        /**
-         * Keep WordPress defaults intact.
-         *
-         * Theme-specific editor settings can be added here
-         * when the WooShop design system requires them.
-         */
+        $settings['styles'][] = array(
+            'css' => ':root{--wooshop-editor:1;}',
+        );
 
         return $settings;
+    }
+
+    /**
+     * Register the WooShop block category.
+     *
+     * @param array<int, array<string, string>> $categories
+     *        Existing block categories.
+     * @param \WP_Block_Editor_Context $context
+     *        Block editor context.
+     *
+     * @return array<int, array<string, string>>
+     */
+    public function register_block_category(
+        array $categories,
+        \WP_Block_Editor_Context $context
+    ): array {
+
+        $categories[] = array(
+            'slug'  => 'wooshop',
+            'title' => esc_html__(
+                'WooShop',
+                'wooshop'
+            ),
+            'icon'  => 'cart',
+        );
+
+        return $categories;
     }
 }

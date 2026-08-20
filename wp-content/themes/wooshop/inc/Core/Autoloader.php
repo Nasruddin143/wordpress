@@ -12,21 +12,21 @@ declare(strict_types=1);
 
 namespace WooShop\Core;
 
-defined('ABSPATH') || exit;
+defined("ABSPATH") || exit();
 
 /**
  * Class Autoloader
  *
  * Loads WooShop classes automatically from the inc directory.
  */
-final class Autoloader {
-
+final class Autoloader
+{
     /**
      * WooShop namespace prefix.
      *
      * @var string
      */
-    private const PREFIX = 'WooShop\\';
+    private const string PREFIX = "WooShop\\";
 
     /**
      * Base directory for WooShop classes.
@@ -40,10 +40,10 @@ final class Autoloader {
      *
      * @param string|null $base_directory Optional base directory.
      */
-    public function __construct(?string $base_directory = null) {
-
+    public function __construct(?string $base_directory = null)
+    {
         $this->base_directory = trailingslashit(
-            $base_directory ?? get_theme_file_path('inc')
+            $base_directory ?? get_theme_file_path("inc")
         );
     }
 
@@ -52,11 +52,9 @@ final class Autoloader {
      *
      * @return void
      */
-    public function register(): void {
-
-        spl_autoload_register(
-            [$this, 'autoload']
-        );
+    public function register(): void
+    {
+        spl_autoload_register([$this, "autoload"]);
     }
 
     /**
@@ -64,11 +62,9 @@ final class Autoloader {
      *
      * @return void
      */
-    public function unregister(): void {
-
-        spl_autoload_unregister(
-            [$this, 'autoload']
-        );
+    public function unregister(): void
+    {
+        spl_autoload_unregister([$this, "autoload"]);
     }
 
     /**
@@ -78,18 +74,15 @@ final class Autoloader {
      *
      * @return void
      */
-    public function autoload(string $class): void {
-
+    public function autoload(string $class): void
+    {
         if (!str_starts_with($class, self::PREFIX)) {
             return;
         }
 
-        $relative_class = substr(
-            $class,
-            strlen(self::PREFIX)
-        );
+        $relative_class = substr($class, strlen(self::PREFIX));
 
-        if ('' === $relative_class) {
+        if ("" === $relative_class) {
             return;
         }
 
@@ -119,17 +112,18 @@ final class Autoloader {
      *
      * @return string|null
      */
-    private function resolve_file(string $relative_class): ?string {
-
-        $parts = explode('\\', $relative_class);
+    private function resolve_file(string $relative_class): ?string
+    {
+        $parts = explode("\\", $relative_class);
 
         if ([] === $parts) {
             return null;
         }
 
-        $file = $this->base_directory
-            . implode(DIRECTORY_SEPARATOR, $parts)
-            . '.php';
+        $file =
+            $this->base_directory .
+            implode(DIRECTORY_SEPARATOR, $parts) .
+            ".php";
 
         return $file;
     }

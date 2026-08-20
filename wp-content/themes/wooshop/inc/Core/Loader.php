@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace WooShop\Core;
 
+use ReflectionException;
+
 defined('ABSPATH') || exit;
 
 /**
@@ -20,33 +22,34 @@ defined('ABSPATH') || exit;
  *
  * Main entry point for the WooShop application architecture.
  */
-final class Loader {
+final readonly class Loader {
 
     /**
      * Service container.
      *
      * @var Container
      */
-    private readonly Container $container;
+    private Container $container;
 
     /**
      * Configuration manager.
      *
      * @var Config
      */
-    private readonly Config $config;
+    private Config $config;
 
     /**
      * Module manager.
      *
      * @var ModuleManager
      */
-    private readonly ModuleManager $module_manager;
+    private ModuleManager $module_manager;
 
     /**
      * Constructor.
      *
      * Initializes the WooShop dependency graph.
+     * @throws ReflectionException
      */
     public function __construct() {
 
@@ -67,6 +70,7 @@ final class Loader {
      * This method should be called once from functions.php.
      *
      * @return void
+     * @throws ReflectionException
      */
     public function register(): void {
 

@@ -1,69 +1,111 @@
 <?php
 /**
- * WordPress Widgets.
+ * WooShop Widgets Module
  *
- * Handles theme-specific widget functionality.
+ * Registers and configures WooShop theme widget functionality.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles WordPress widget functionality.
- */
-class Widgets extends Module {
-
+final class Widgets
+{
     /**
-     * Register module hooks.
+     * Register the widgets' module.
      *
      * @return void
      */
-    public function register(): void {
+    public function register(): void
+    {
+        add_action(
+            'widgets_init',
+            [$this, 'register_widgets']
+        );
 
         add_filter(
-            'widget_text',
-            [ $this, 'allow_html_in_text_widget' ]
+            'widget_display_callback',
+            [$this, 'filter_widget_display'],
+            10,
+            3
         );
 
         add_filter(
             'dynamic_sidebar_params',
-            [ $this, 'add_widget_classes' ]
+            [$this, 'filter_sidebar_params']
         );
     }
 
     /**
-     * Allow WordPress to process shortcodes inside text widgets.
+     * Register WooShop widget areas.
      *
-     * @param string $content Widget content.
-     * @return string
+     * Widget areas themselves are registered by the Sidebars
+     * module. This method remains the dedicated extension point
+     * for widgets that belong specifically to the theme.
+     *
+     * @return void
      */
-    public function allow_html_in_text_widget( string $content ): string {
-
-        return do_shortcode( $content );
+    public function register_widgets(): void
+    {
+        /*
+         * Theme-specific widget registration point.
+         *
+         * WooCommerce widgets remain managed by WooCommerce.
+         */
     }
 
     /**
-     * Add Bootstrap-compatible classes to widgets.
+     * Filter widget display.
      *
-     * @param array $params Sidebar widget parameters.
-     * @return array
+     * Prevents invalid or empty widget objects from being
+     * rendered by the theme.
+     *
+     * @param array<string, mixed>|false $instance Widget instance.
+     * @param array<string, mixed>       $widget   Widget settings.
+     * @param mixed                      $args     Sidebar arguments.
+     *
+     * @return array<string, mixed>|false
      */
-    public function add_widget_classes( array $params ): array {
-
-        if ( empty( $params[0]['before_widget'] ) ) {
-            return $params;
+    public function filter_widget_display(
+        array|false $instance,
+        array $widget,
+        mixed $args
+    ): array|false {
+        if ($instance === false) {
+            return false;
         }
 
-        $params[0]['before_widget'] = str_replace(
-            'class="',
-            'class="widget-item ',
-            $params[0]['before_widget']
-        );
+        return $instance;
+    }
+
+    /**
+     * Add WooShop classes to widget wrappers.
+     *
+     * @param array<string, mixed> $params Sidebar widget parameters.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function filter_sidebar_params(
+        array $params
+    ): array {
+        foreach ($params as &$param) {
+            if (
+                isset($param['before_widget'])
+                && is_string($param['before_widget'])
+            ) {
+                $param['before_widget'] = str_replace(
+                    'class="widget',
+                    'class="widget ws-widget',
+                    $param['before_widget']
+                );
+            }
+        }
+
+        unset($param);
 
         return $params;
     }

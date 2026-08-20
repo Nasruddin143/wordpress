@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace WooShop\Core;
 
-defined('ABSPATH') || exit;
+defined("ABSPATH") || exit();
 
 /**
  * Class AssetsManager
  *
  * Handles registration and conditional enqueueing of theme assets.
  */
-final class AssetsManager {
-
+final class AssetsManager
+{
     /**
      * Theme filesystem path.
      *
@@ -48,31 +48,27 @@ final class AssetsManager {
      *
      * @var array<string, array<string, mixed>>
      */
-    private array $styles = array();
+    private array $styles = [];
 
     /**
      * Registered scripts.
      *
      * @var array<string, array<string, mixed>>
      */
-    private array $scripts = array();
+    private array $scripts = [];
 
     /**
      * Constructor.
      *
      * @param Config $config WooShop configuration manager.
      */
-    public function __construct(Config $config) {
-
+    public function __construct(Config $config)
+    {
         $this->config = $config;
 
-        $this->path = trailingslashit(
-            get_stylesheet_directory()
-        );
+        $this->path = trailingslashit(get_stylesheet_directory());
 
-        $this->uri = trailingslashit(
-            get_stylesheet_directory_uri()
-        );
+        $this->uri = trailingslashit(get_stylesheet_directory_uri());
     }
 
     /**
@@ -80,23 +76,15 @@ final class AssetsManager {
      *
      * @return void
      */
-    public function register(): void {
+    public function register(): void
+    {
+        add_action("wp_enqueue_scripts", [$this, "enqueue_frontend"], 20);
+
+        add_action("admin_enqueue_scripts", [$this, "enqueue_admin"], 20);
 
         add_action(
-            'wp_enqueue_scripts',
-            [$this, 'enqueue_frontend'],
-            20
-        );
-
-        add_action(
-            'admin_enqueue_scripts',
-            [$this, 'enqueue_admin'],
-            20
-        );
-
-        add_action(
-            'enqueue_block_editor_assets',
-            [$this, 'enqueue_editor'],
+            "enqueue_block_editor_assets",
+            [$this, "enqueue_editor"],
             20
         );
     }
@@ -106,37 +94,24 @@ final class AssetsManager {
      *
      * @return void
      */
-    public function enqueue_frontend(): void {
+    public function enqueue_frontend(): void
+    {
+        $assets = $this->config->get("assets");
 
-        $assets = $this->config->get('assets');
+        $conditions = $this->config->get("conditions");
 
-        $conditions = $this->config->get('conditions');
+        $this->load_group($assets["frontend"] ?? [], $conditions);
 
-        $this->load_group(
-            $assets['frontend'] ?? array(),
-            $conditions
-        );
+        $this->load_group($assets["components"] ?? [], $conditions);
 
-        $this->load_group(
-            $assets['components'] ?? array(),
-            $conditions
-        );
-
-        $this->load_group(
-            $assets['pages'] ?? array(),
-            $conditions
-        );
+        $this->load_group($assets["pages"] ?? [], $conditions);
 
         /*
          * WooCommerce assets are loaded only when WooCommerce
          * is active and the configured conditions pass.
          */
-        if (class_exists('WooCommerce')) {
-
-            $this->load_group(
-                $assets['woocommerce'] ?? array(),
-                $conditions
-            );
+        if (class_exists("WooCommerce")) {
+            $this->load_group($assets["woocommerce"] ?? [], $conditions);
         }
     }
 
@@ -145,16 +120,13 @@ final class AssetsManager {
      *
      * @return void
      */
-    public function enqueue_admin(): void {
+    public function enqueue_admin(): void
+    {
+        $assets = $this->config->get("assets");
 
-        $assets = $this->config->get('assets');
+        $conditions = $this->config->get("conditions");
 
-        $conditions = $this->config->get('conditions');
-
-        $this->load_group(
-            $assets['admin'] ?? array(),
-            $conditions
-        );
+        $this->load_group($assets["admin"] ?? [], $conditions);
     }
 
     /**
@@ -162,16 +134,13 @@ final class AssetsManager {
      *
      * @return void
      */
-    public function enqueue_editor(): void {
+    public function enqueue_editor(): void
+    {
+        $assets = $this->config->get("assets");
 
-        $assets = $this->config->get('assets');
+        $conditions = $this->config->get("conditions");
 
-        $conditions = $this->config->get('conditions');
-
-        $this->load_group(
-            $assets['editor'] ?? array(),
-            $conditions
-        );
+        $this->load_group($assets["editor"] ?? [], $conditions);
     }
 
     /**
@@ -182,28 +151,19 @@ final class AssetsManager {
      *
      * @return void
      */
-    private function load_group(
-        mixed $group,
-        mixed $conditions
-    ): void {
-
+    private function load_group(mixed $group, mixed $conditions): void
+    {
         if (!is_array($group)) {
             return;
         }
 
         if (!is_array($conditions)) {
-            $conditions = array();
+            $conditions = [];
         }
 
-        $this->load_styles(
-            $group['styles'] ?? array(),
-            $conditions
-        );
+        $this->load_styles($group["styles"] ?? [], $conditions);
 
-        $this->load_scripts(
-            $group['scripts'] ?? array(),
-            $conditions
-        );
+        $this->load_scripts($group["scripts"] ?? [], $conditions);
     }
 
     /**
@@ -214,17 +174,13 @@ final class AssetsManager {
      *
      * @return void
      */
-    private function load_styles(
-        mixed $styles,
-        array $conditions
-    ): void {
-
+    private function load_styles(mixed $styles, array $conditions): void
+    {
         if (!is_array($styles)) {
             return;
         }
 
         foreach ($styles as $handle => $args) {
-
             if (!is_string($handle) || !is_array($args)) {
                 continue;
             }
@@ -233,14 +189,9 @@ final class AssetsManager {
                 continue;
             }
 
-            $this->register_style(
-                $handle,
-                $args
-            );
+            $this->register_style($handle, $args);
 
-            $this->enqueue_style(
-                $handle
-            );
+            $this->enqueue_style($handle);
         }
     }
 
@@ -252,17 +203,13 @@ final class AssetsManager {
      *
      * @return void
      */
-    private function load_scripts(
-        mixed $scripts,
-        array $conditions
-    ): void {
-
+    private function load_scripts(mixed $scripts, array $conditions): void
+    {
         if (!is_array($scripts)) {
             return;
         }
 
         foreach ($scripts as $handle => $args) {
-
             if (!is_string($handle) || !is_array($args)) {
                 continue;
             }
@@ -271,14 +218,9 @@ final class AssetsManager {
                 continue;
             }
 
-            $this->register_script(
-                $handle,
-                $args
-            );
+            $this->register_script($handle, $args);
 
-            $this->enqueue_script(
-                $handle
-            );
+            $this->enqueue_script($handle);
         }
     }
 
@@ -290,23 +232,16 @@ final class AssetsManager {
      *
      * @return void
      */
-    public function register_style(
-        string $handle,
-        array $args
-    ): void {
-
+    public function register_style(string $handle, array $args): void
+    {
         $this->styles[$handle] = $args;
 
         wp_register_style(
             $handle,
-            $this->resolve_uri(
-                (string) ($args['src'] ?? '')
-            ),
-            $this->normalize_dependencies(
-                $args['deps'] ?? array()
-            ),
+            $this->resolve_uri((string) ($args["src"] ?? "")),
+            $this->normalize_dependencies($args["deps"] ?? []),
             $this->resolve_version($args),
-            (string) ($args['media'] ?? 'all')
+            (string) ($args["media"] ?? "all")
         );
     }
 
@@ -318,23 +253,16 @@ final class AssetsManager {
      *
      * @return void
      */
-    public function register_script(
-        string $handle,
-        array $args
-    ): void {
-
+    public function register_script(string $handle, array $args): void
+    {
         $this->scripts[$handle] = $args;
 
         wp_register_script(
             $handle,
-            $this->resolve_uri(
-                (string) ($args['src'] ?? '')
-            ),
-            $this->normalize_dependencies(
-                $args['deps'] ?? array()
-            ),
+            $this->resolve_uri((string) ($args["src"] ?? "")),
+            $this->normalize_dependencies($args["deps"] ?? []),
             $this->resolve_version($args),
-            (bool) ($args['in_footer'] ?? true)
+            (bool) ($args["in_footer"] ?? true)
         );
     }
 
@@ -345,8 +273,8 @@ final class AssetsManager {
      *
      * @return void
      */
-    public function enqueue_style(string $handle): void {
-
+    public function enqueue_style(string $handle): void
+    {
         if (!isset($this->styles[$handle])) {
             return;
         }
@@ -361,8 +289,8 @@ final class AssetsManager {
      *
      * @return void
      */
-    public function enqueue_script(string $handle): void {
-
+    public function enqueue_script(string $handle): void
+    {
         if (!isset($this->scripts[$handle])) {
             return;
         }
@@ -371,10 +299,7 @@ final class AssetsManager {
 
         wp_enqueue_script($handle);
 
-        $this->apply_script_strategy(
-            $handle,
-            $args
-        );
+        $this->apply_script_strategy($handle, $args);
     }
 
     /**
@@ -392,12 +317,9 @@ final class AssetsManager {
      *
      * @return bool
      */
-    private function passes_conditions(
-        array $asset,
-        array $conditions
-    ): bool {
-
-        $rules = $asset['conditions'] ?? array();
+    private function passes_conditions(array $asset, array $conditions): bool
+    {
+        $rules = $asset["conditions"] ?? [];
 
         if ([] === $rules) {
             return true;
@@ -408,7 +330,6 @@ final class AssetsManager {
         }
 
         foreach ($rules as $condition => $expected) {
-
             if (!is_string($condition)) {
                 continue;
             }
@@ -419,11 +340,9 @@ final class AssetsManager {
                 continue;
             }
 
-            $actual = $this->evaluate_condition(
-                $callback
-            );
+            $actual = $this->evaluate_condition($callback);
 
-            if ((bool) $actual !== (bool) $expected) {
+            if ($actual !== (bool) $expected) {
                 return false;
             }
         }
@@ -441,10 +360,8 @@ final class AssetsManager {
      *
      * @return bool
      */
-    private function evaluate_condition(
-        mixed $callback
-    ): bool {
-
+    private function evaluate_condition(mixed $callback): bool
+    {
         if (!is_callable($callback)) {
             return false;
         }
@@ -459,24 +376,21 @@ final class AssetsManager {
      *
      * @return string
      */
-    private function resolve_uri(string $src): string {
-
-        if ('' === $src) {
-            return '';
+    private function resolve_uri(string $src): string
+    {
+        if ("" === $src) {
+            return "";
         }
 
         if (
-            str_starts_with($src, 'http://')
-            || str_starts_with($src, 'https://')
-            || str_starts_with($src, '//')
+            str_starts_with($src, "http://") ||
+            str_starts_with($src, "https://") ||
+            str_starts_with($src, "//")
         ) {
             return $src;
         }
 
-        return $this->uri . ltrim(
-                $src,
-                '/'
-            );
+        return $this->uri . ltrim($src, "/");
     }
 
     /**
@@ -489,35 +403,27 @@ final class AssetsManager {
      *
      * @return string|false
      */
-    private function resolve_version(
-        array $args
-    ): string|false {
-
-        if (
-            isset($args['version'])
-            && null !== $args['version']
-        ) {
-            return (string) $args['version'];
+    private function resolve_version(array $args): string|false
+    {
+        if (isset($args["version"]) && null !== $args["version"]) {
+            return (string) $args["version"];
         }
 
-        $src = (string) ($args['src'] ?? '');
+        $src = (string) ($args["src"] ?? "");
 
-        if ('' === $src) {
+        if ("" === $src) {
             return false;
         }
 
         if (
-            str_starts_with($src, 'http://')
-            || str_starts_with($src, 'https://')
-            || str_starts_with($src, '//')
+            str_starts_with($src, "http://") ||
+            str_starts_with($src, "https://") ||
+            str_starts_with($src, "//")
         ) {
             return false;
         }
 
-        $file = $this->path . ltrim(
-                $src,
-                '/'
-            );
+        $file = $this->path . ltrim($src, "/");
 
         if (!is_file($file)) {
             return false;
@@ -533,26 +439,21 @@ final class AssetsManager {
      *
      * @return array<int, string>
      */
-    private function normalize_dependencies(
-        mixed $dependencies
-    ): array {
-
+    private function normalize_dependencies(mixed $dependencies): array
+    {
         if (is_string($dependencies)) {
-            return '' === $dependencies
-                ? array()
-                : array($dependencies);
+            return "" === $dependencies ? [] : [$dependencies];
         }
 
         if (!is_array($dependencies)) {
-            return array();
+            return [];
         }
 
         return array_values(
             array_filter(
                 $dependencies,
-                static fn (mixed $dependency): bool =>
-                    is_string($dependency)
-                    && '' !== $dependency
+                static fn(mixed $dependency): bool => is_string($dependency) &&
+                    "" !== $dependency
             )
         );
     }
@@ -565,29 +466,17 @@ final class AssetsManager {
      *
      * @return void
      */
-    private function apply_script_strategy(
-        string $handle,
-        array $args
-    ): void {
-
-        $strategy = $args['strategy'] ?? null;
+    private function apply_script_strategy(string $handle, array $args): void
+    {
+        $strategy = $args["strategy"] ?? null;
 
         if (
-            !is_string($strategy)
-            || !in_array(
-                $strategy,
-                array('async', 'defer'),
-                true
-            )
+            !in_array($strategy, ["async", "defer"], true)
         ) {
             return;
         }
 
-        wp_script_add_data(
-            $handle,
-            'strategy',
-            $strategy
-        );
+        wp_script_add_data($handle, "strategy", $strategy);
     }
 
     /**
@@ -595,8 +484,8 @@ final class AssetsManager {
      *
      * @return array<string, array<string, mixed>>
      */
-    public function get_styles(): array {
-
+    public function get_styles(): array
+    {
         return $this->styles;
     }
 
@@ -605,8 +494,8 @@ final class AssetsManager {
      *
      * @return array<string, array<string, mixed>>
      */
-    public function get_scripts(): array {
-
+    public function get_scripts(): array
+    {
         return $this->scripts;
     }
 }

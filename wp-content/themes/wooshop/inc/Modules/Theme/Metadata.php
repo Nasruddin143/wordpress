@@ -1,63 +1,86 @@
 <?php
 /**
- * Theme Metadata Module.
+ * WooShop Metadata Module
  *
- * Handles theme-level WordPress metadata functionality.
+ * Handles theme-level metadata and document head metadata
+ * that is not managed by WordPress core or SEO plugins.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Container;
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles WooShop metadata functionality.
- */
-class Metadata extends Module {
-
+final class Metadata
+{
     /**
-     * Constructor.
-     *
-     * @param Container $container Service container.
-     */
-    public function __construct( Container $container ) {
-
-        parent::__construct( $container );
-    }
-
-    /**
-     * Register module hooks.
+     * Register the metadata module.
      *
      * @return void
      */
-    public function register(): void {
-
+    public function register(): void
+    {
         add_action(
             'wp_head',
-            [ $this, 'output_metadata' ],
+            [$this, 'render_metadata'],
             1
         );
     }
 
     /**
-     * Output theme-level metadata.
+     * Render WooShop theme metadata.
      *
-     * Keep SEO metadata out of this module when an SEO plugin
-     * is responsible for it.
+     * Only lightweight, theme-level metadata is rendered here.
+     * Page titles, descriptions, canonical URLs, Open Graph
+     * metadata, and structured data should remain under WordPress
+     * core or a dedicated SEO/WooCommerce module.
      *
      * @return void
      */
-    public function output_metadata(): void {
+    public function render_metadata(): void
+    {
+        if (is_admin()) {
+            return;
+        }
 
-        /**
-         * Reserved for genuinely theme-owned metadata.
-         *
-         * SEO title, description, Open Graph and schema markup
-         * should be handled by the site's SEO system.
-         */
+        $this->render_generator_metadata();
+    }
+
+    /**
+     * Render the WooShop generator metadata.
+     *
+     * @return void
+     */
+    private function render_generator_metadata(): void
+    {
+        printf(
+            '<meta name="generator" content="%s">' . "\n",
+            esc_attr(
+                sprintf(
+                /* translators: %s: WooShop theme version. */
+                    __('WooShop %s', 'wooshop'),
+                    $this->get_theme_version()
+                )
+            )
+        );
+    }
+
+    /**
+     * Retrieve the current WooShop theme version.
+     *
+     * @return string
+     */
+    private function get_theme_version(): string
+    {
+        $theme = wp_get_theme();
+
+        $version = $theme->get('Version');
+
+        return is_string($version) && $version !== ''
+            ? $version
+            : '1.0.0';
     }
 }

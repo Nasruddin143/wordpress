@@ -1,127 +1,139 @@
 <?php
 /**
- * Mobile Commerce Module
+ * WooShop Mobile Commerce Module
  *
- * Provides mobile-first WooCommerce conversion enhancements.
+ * Provides theme-level mobile commerce support, including
+ * mobile viewport configuration, touch-friendly behavior,
+ * and mobile commerce body classes.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
-/**
- * MobileCommerce class.
- */
-class MobileCommerce {
-
+final class MobileCommerce
+{
     /**
-     * Register module hooks.
+     * Register the mobile commerce module.
      *
      * @return void
      */
-    public function register() {
-
+    public function register(): void
+    {
         add_action(
-            'wp_enqueue_scripts',
-            array( $this, 'enqueue_assets' ),
-            30
+                'wp_head',
+                [$this, 'render_viewport_meta'],
+                1
         );
 
-        add_action(
-            'wp_footer',
-            array( $this, 'render_mobile_product_bar' ),
-            20
+        add_filter(
+                'body_class',
+                [$this, 'add_mobile_commerce_body_class']
+        );
+
+        add_filter(
+                'wp_nav_menu_args',
+                [$this, 'filter_mobile_navigation_args']
         );
     }
 
     /**
-     * Enqueue mobile commerce assets.
+     * Render the mobile viewport metadata.
+     *
+     * WordPress themes should provide a responsive viewport
+     * declaration so WooShop layouts render correctly on
+     * mobile commerce devices.
      *
      * @return void
      */
-    public function enqueue_assets() {
-
-        if ( ! class_exists( 'WooCommerce' ) ) {
+    public function render_viewport_meta(): void
+    {
+        if (is_admin()) {
             return;
         }
 
-        if ( ! is_product() ) {
-            return;
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1">' . "\n";
+    }
+
+    /**
+     * Add the mobile commerce body class.
+     *
+     * @param array<int, string> $classes Existing body classes.
+     *
+     * @return array<int, string>
+     */
+    public function add_mobile_commerce_body_class(
+            array $classes
+    ): array {
+        $classes[] = 'ws-mobile-commerce';
+
+        if (function_exists('is_woocommerce') && is_woocommerce()) {
+            $classes[] = 'ws-mobile-commerce-shop';
         }
 
-        wp_enqueue_style(
-            'wooshop-mobile-commerce',
-            get_stylesheet_directory_uri() .
-            '/assets/build/css/components/mobile-commerce.min.css',
-            array( 'wooshop-app' ),
-            filemtime(
-                get_stylesheet_directory() .
-                '/assets/build/css/components/mobile-commerce.min.css'
-            )
-        );
+        if (
+                function_exists('is_cart')
+                && is_cart()
+        ) {
+            $classes[] = 'ws-mobile-commerce-cart';
+        }
 
-        wp_enqueue_script(
-            'wooshop-mobile-commerce',
-            get_stylesheet_directory_uri() .
-            '/assets/build/js/components/mobile-commerce.min.js',
-            array(),
-            filemtime(
-                get_stylesheet_directory() .
-                '/assets/build/js/components/mobile-commerce.min.js'
-            ),
-            true
+        if (
+                function_exists('is_checkout')
+                && is_checkout()
+        ) {
+            $classes[] = 'ws-mobile-commerce-checkout';
+        }
+
+        return array_values(
+                array_unique($classes)
         );
     }
 
     /**
-     * Render the mobile sticky product action bar.
+     * Add mobile navigation attributes.
      *
-     * @return void
+     * Adds a dedicated CSS class to WordPress navigation
+     * menus so the mobile navigation component can target
+     * them without modifying global menu markup elsewhere.
+     *
+     * @param array<string, mixed> $args Navigation arguments.
+     *
+     * @return array<string, mixed>
      */
-    public function render_mobile_product_bar() {
+    public function filter_mobile_navigation_args(
+            array $args
+    ): array {
+        $menu_class = $args['menu_class'] ?? '';
 
-        if ( ! class_exists( 'WooCommerce' ) || ! is_product() ) {
-            return;
+        if (!is_string($menu_class)) {
+            $menu_class = '';
         }
 
-        global $product;
+        $classes = preg_split(
+                '/\s+/',
+                trim($menu_class)
+        );
 
-        if ( ! $product instanceof \WC_Product ) {
-            return;
+        if (!is_array($classes)) {
+            $classes = [];
         }
 
-        if ( ! $product->is_purchasable() || ! $product->is_in_stock() ) {
-            return;
-        }
+        $classes[] = 'ws-mobile-commerce-menu';
 
-        $product_id = $product->get_id();
+        $args['menu_class'] = implode(
+                ' ',
+                array_values(
+                        array_unique(
+                                array_filter($classes)
+                        )
+                )
+        );
 
-        ?>
-        <div
-            class="ws-mobile-product-bar"
-            data-product-id="<?php echo esc_attr( $product_id ); ?>"
-            aria-label="<?php esc_attr_e( 'Mobile product actions', 'wooshop' ); ?>"
-        >
-
-            <div class="ws-mobile-product-bar__inner">
-
-                <div class="ws-mobile-product-bar__price">
-                    <?php echo wp_kses_post( $product->get_price_html() ); ?>
-                </div>
-
-                <button
-                    type="button"
-                    class="btn btn-primary ws-mobile-product-bar__button"
-                    data-ws-mobile-add-to-cart
-                >
-                    <?php esc_html_e( 'Add to cart', 'wooshop' ); ?>
-                </button>
-
-            </div>
-
-        </div>
-        <?php
+        return $args;
     }
 }

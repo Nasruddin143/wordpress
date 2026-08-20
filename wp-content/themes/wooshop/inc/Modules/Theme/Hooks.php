@@ -1,93 +1,105 @@
 <?php
 /**
- * Theme Hooks Module.
+ * WooShop Theme Hooks Module
  *
- * Registers global WordPress hooks used by the WooShop theme.
+ * Registers the core WordPress action and filter hooks used
+ * by the WooShop theme templates and theme modules.
+ *
+ * This module provides centralized hook registration without
+ * placing procedural callbacks in functions.php.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Container;
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles global WooShop theme hooks.
- */
-class Hooks extends Module {
-
+final class Hooks
+{
     /**
-     * Constructor.
-     *
-     * @param Container $container Service container.
-     */
-    public function __construct( Container $container ) {
-
-        parent::__construct( $container );
-    }
-
-    /**
-     * Register module hooks.
+     * Register the theme hooks module.
      *
      * @return void
      */
-    public function register(): void {
+    public function register(): void
+    {
+        add_action(
+            'after_setup_theme',
+            [$this, 'setup_theme_hooks']
+        );
 
         add_action(
             'wp_head',
-            [ $this, 'head' ],
+            [$this, 'render_head_hooks'],
             1
         );
 
         add_action(
             'wp_body_open',
-            [ $this, 'body_open' ],
-            1
+            [$this, 'render_body_open_hooks']
         );
 
         add_action(
             'wp_footer',
-            [ $this, 'footer' ],
-            1
+            [$this, 'render_footer_hooks'],
+            99
         );
     }
 
     /**
-     * Handle the beginning of the document head.
+     * Register hooks used during theme setup.
      *
      * @return void
      */
-    public function head(): void {
-
-        /**
-         * Reserved for theme-level head functionality.
+    public function setup_theme_hooks(): void
+    {
+        /*
+         * Reserved for theme-level setup hooks.
+         *
+         * Feature-specific setup should remain inside
+         * its corresponding WooShop module.
          */
     }
 
     /**
-     * Handle the beginning of the document body.
+     * Execute the WooShop head hook.
+     *
+     * Provides a dedicated extension point before the standard
+     * WordPress wp_head callback output.
      *
      * @return void
      */
-    public function body_open(): void {
-
-        /**
-         * Reserved for theme-level body-open functionality.
-         */
+    public function render_head_hooks(): void
+    {
+        do_action('wooshop_head');
     }
 
     /**
-     * Handle the end of the document body.
+     * Execute the WooShop body-open hook.
+     *
+     * Provides a dedicated extension point immediately after
+     * the opening body element.
      *
      * @return void
      */
-    public function footer(): void {
+    public function render_body_open_hooks(): void
+    {
+        do_action('wooshop_body_open');
+    }
 
-        /**
-         * Reserved for theme-level footer functionality.
-         */
+    /**
+     * Execute the WooShop footer hook.
+     *
+     * Provides a dedicated extension point before the standard
+     * WordPress footer processing is completed.
+     *
+     * @return void
+     */
+    public function render_footer_hooks(): void
+    {
+        do_action('wooshop_footer');
     }
 }

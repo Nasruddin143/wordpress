@@ -1,61 +1,54 @@
 <?php
 /**
- * WordPress theme setup module.
+ * WooShop Theme Setup Module
+ *
+ * Registers the core WordPress theme supports, menus, image
+ * handling, editor support, and other foundational theme setup.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles WordPress theme setup functionality.
- */
-class Setup extends Module {
-
+final class Setup
+{
     /**
-     * Register the module.
+     * Register the theme setup module.
      *
      * @return void
      */
-    public function register(): void {
-        add_action( 'after_setup_theme', [ $this, 'setup' ] );
+    public function register(): void
+    {
+        add_action(
+            'after_setup_theme',
+            [$this, 'setup_theme'],
+            10
+        );
     }
 
     /**
-     * Configure WordPress theme supports and features.
+     * Configure WooShop theme support.
      *
      * @return void
      */
-    public function setup(): void {
-
-        /**
-         * Let WordPress manage the document title.
+    public function setup_theme(): void
+    {
+        /*
+         * Make the theme available for translation.
+         *
+         * The Localization module handles the actual
+         * translation loading.
          */
-        add_theme_support(
-            'title-tag'
-        );
+        add_theme_support('title-tag');
 
-        /**
-         * Enable featured images.
-         */
-        add_theme_support(
-            'post-thumbnails'
-        );
+        add_theme_support('post-thumbnails');
 
-        /**
-         * Enable responsive embedded content.
-         */
-        add_theme_support(
-            'responsive-embeds'
-        );
+        add_theme_support('automatic-feed-links');
 
-        /**
-         * Enable HTML5 markup for WordPress components.
-         */
         add_theme_support(
             'html5',
             [
@@ -69,27 +62,39 @@ class Setup extends Module {
             ]
         );
 
-        /**
-         * Enable custom logo support.
-         */
-        add_theme_support( 'custom-logo' );
-
-        /**
-         * Enable selective refresh for widgets.
-         */
         add_theme_support(
-            'customize-selective-refresh-widgets'
+            'custom-logo',
+            [
+                'height'      => 100,
+                'width'       => 400,
+                'flex-width'  => true,
+                'flex-height' => true,
+            ]
         );
 
-        /**
-         * Enable Feed Links in WordPress.
-         */
-        add_theme_support( 'automatic-feed-links' );
+        add_theme_support(
+            'custom-background',
+            [
+                'default-color' => 'ffffff',
+            ]
+        );
 
-        /**
-         * Set the content width used by WordPress embeds and media.
-         */
-        $GLOBALS['content_width'] = 1200;
+        add_theme_support(
+            'custom-header',
+            [
+                'width'       => 1920,
+                'height'      => 800,
+                'flex-width'  => true,
+                'flex-height' => true,
+            ]
+        );
 
+        add_theme_support('responsive-embeds');
+
+        add_theme_support('align-wide');
+
+        add_theme_support('wp-block-styles');
+
+        add_theme_support('editor-styles');
     }
 }

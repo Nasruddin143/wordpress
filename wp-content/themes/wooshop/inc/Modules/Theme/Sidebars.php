@@ -1,129 +1,99 @@
 <?php
 /**
- * WordPress Sidebars.
+ * WooShop Sidebars Module
  *
- * Registers widget areas for the WooShop theme.
+ * Registers the widget areas used by the WooShop theme.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles WordPress widget areas.
- */
-class Sidebars extends Module {
-
+final class Sidebars
+{
     /**
-     * Register module hooks.
+     * Register the sidebars module.
      *
      * @return void
      */
-    public function register(): void {
-
+    public function register(): void
+    {
         add_action(
             'widgets_init',
-            [ $this, 'register_sidebars' ]
+            [$this, 'register_sidebars']
         );
     }
 
     /**
-     * Register theme widget areas.
+     * Register WooShop widget areas.
      *
      * @return void
      */
-    public function register_sidebars(): void {
-
-        register_sidebar(
-            [
-                'name'          => esc_html__( 'Primary Sidebar', 'wooshop' ),
-                'id'            => 'sidebar-primary',
-                'description'   => esc_html__(
-                    'Main sidebar displayed throughout the site.',
-                    'wooshop'
-                ),
-                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
-                'after_widget'  => '</section>',
-                'before_title'  => '<h2 class="widget-title h5 mb-3">',
-                'after_title'   => '</h2>',
-            ]
+    public function register_sidebars(): void
+    {
+        $this->register_sidebar(
+            'sidebar-primary',
+            __('Primary Sidebar', 'wooshop'),
+            __('Main sidebar widget area.', 'wooshop')
         );
 
-        register_sidebar(
-            [
-                'name'          => esc_html__( 'Shop Sidebar', 'wooshop' ),
-                'id'            => 'sidebar-shop',
-                'description'   => esc_html__(
-                    'Sidebar used on WooCommerce shop and product archive pages.',
-                    'wooshop'
-                ),
-                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
-                'after_widget'  => '</section>',
-                'before_title'  => '<h2 class="widget-title h5 mb-3">',
-                'after_title'   => '</h2>',
-            ]
+        $this->register_sidebar(
+            'sidebar-shop',
+            __('Shop Sidebar', 'wooshop'),
+            __('WooCommerce shop and product archive sidebar.', 'wooshop')
         );
 
-        register_sidebar(
-            [
-                'name'          => esc_html__( 'Footer 1', 'wooshop' ),
-                'id'            => 'footer-1',
-                'description'   => esc_html__(
-                    'First footer widget area.',
-                    'wooshop'
-                ),
-                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
-                'after_widget'  => '</section>',
-                'before_title'  => '<h2 class="widget-title h5 mb-3">',
-                'after_title'   => '</h2>',
-            ]
+        $this->register_sidebar(
+            'sidebar-footer-1',
+            __('Footer Column 1', 'wooshop'),
+            __('First footer widget area.', 'wooshop')
         );
 
-        register_sidebar(
-            [
-                'name'          => esc_html__( 'Footer 2', 'wooshop' ),
-                'id'            => 'footer-2',
-                'description'   => esc_html__(
-                    'Second footer widget area.',
-                    'wooshop'
-                ),
-                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
-                'after_widget'  => '</section>',
-                'before_title'  => '<h2 class="widget-title h5 mb-3">',
-                'after_title'   => '</h2>',
-            ]
+        $this->register_sidebar(
+            'sidebar-footer-2',
+            __('Footer Column 2', 'wooshop'),
+            __('Second footer widget area.', 'wooshop')
         );
 
-        register_sidebar(
-            [
-                'name'          => esc_html__( 'Footer 3', 'wooshop' ),
-                'id'            => 'footer-3',
-                'description'   => esc_html__(
-                    'Third footer widget area.',
-                    'wooshop'
-                ),
-                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
-                'after_widget'  => '</section>',
-                'before_title'  => '<h2 class="widget-title h5 mb-3">',
-                'after_title'   => '</h2>',
-            ]
+        $this->register_sidebar(
+            'sidebar-footer-3',
+            __('Footer Column 3', 'wooshop'),
+            __('Third footer widget area.', 'wooshop')
         );
 
+        $this->register_sidebar(
+            'sidebar-footer-4',
+            __('Footer Column 4', 'wooshop'),
+            __('Fourth footer widget area.', 'wooshop')
+        );
+    }
+
+    /**
+     * Register a single WooShop sidebar.
+     *
+     * @param string $id          Sidebar identifier.
+     * @param string $name        Sidebar display name.
+     * @param string $description Sidebar description.
+     *
+     * @return void
+     */
+    private function register_sidebar(
+        string $id,
+        string $name,
+        string $description
+    ): void {
         register_sidebar(
             [
-                'name'          => esc_html__( 'Footer 4', 'wooshop' ),
-                'id'            => 'footer-4',
-                'description'   => esc_html__(
-                    'Fourth footer widget area.',
-                    'wooshop'
-                ),
-                'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
+                'id'            => $id,
+                'name'          => $name,
+                'description'   => $description,
+                'before_widget' => '<section id="%1$s" class="widget %2$s">',
                 'after_widget'  => '</section>',
-                'before_title'  => '<h2 class="widget-title h5 mb-3">',
+                'before_title'  => '<h2 class="widget-title">',
                 'after_title'   => '</h2>',
             ]
         );

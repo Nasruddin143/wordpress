@@ -1,48 +1,53 @@
 <?php
 /**
- * WordPress Post Types.
+ * WooShop Post Types Module
  *
- * Provides a centralized class for registering WooShop custom post types.
+ * Provides centralized registration support for WooShop theme
+ * post types without coupling custom post type definitions to
+ * functions.php.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles custom post type registration.
- */
-class PostTypes extends Module {
-
+final class PostTypes
+{
     /**
-     * Register module hooks.
+     * Register the post types module.
      *
      * @return void
      */
-    public function register(): void {
-
+    public function register(): void
+    {
         add_action(
             'init',
-            [ $this, 'register_post_types' ]
+            [$this, 'register_post_types']
         );
     }
 
     /**
      * Register WooShop custom post types.
      *
+     * WooCommerce product functionality and product registration
+     * remain the responsibility of WooCommerce.
+     *
+     * Theme-specific post types can be added here when required.
+     *
      * @return void
      */
-    public function register_post_types(): void {
-
-        /**
-         * Custom post types will be registered here.
+    public function register_post_types(): void
+    {
+        /*
+         * No custom post types are registered by the base
+         * WooShop theme at this stage.
          *
-         * WooCommerce-specific post types and feature-specific
-         * post types should remain inside their respective modules.
+         * Feature-specific post types should be registered
+         * by their corresponding feature module.
          */
     }
 }

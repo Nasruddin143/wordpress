@@ -1,48 +1,51 @@
 <?php
 /**
- * WordPress Taxonomies.
+ * WooShop Taxonomies Module
  *
- * Provides centralized registration for WooShop custom taxonomies.
+ * Provides centralized registration support for theme-specific
+ * taxonomies without modifying WooCommerce-owned taxonomies.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles custom taxonomy registration.
- */
-class Taxonomies extends Module {
-
+final class Taxonomies
+{
     /**
-     * Register module hooks.
+     * Register the taxonomies' module.
      *
      * @return void
      */
-    public function register(): void {
-
+    public function register(): void
+    {
         add_action(
             'init',
-            [ $this, 'register_taxonomies' ]
+            [$this, 'register_taxonomies']
         );
     }
 
     /**
-     * Register WooShop custom taxonomies.
+     * Register WooShop theme taxonomies.
+     *
+     * WooCommerce product categories, product tags, product
+     * attributes, and other WooCommerce taxonomies remain under
+     * WooCommerce-specific modules.
      *
      * @return void
      */
-    public function register_taxonomies(): void {
-
-        /**
-         * Custom taxonomies will be registered here.
+    public function register_taxonomies(): void
+    {
+        /*
+         * No custom theme taxonomies are registered by the
+         * base WooShop theme at this stage.
          *
-         * WooCommerce taxonomies and feature-specific taxonomies
-         * must remain inside their respective modules.
+         * Feature-specific taxonomies should be registered
+         * by their corresponding feature module.
          */
     }
 }

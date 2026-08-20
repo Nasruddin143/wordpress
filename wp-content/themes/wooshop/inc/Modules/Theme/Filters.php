@@ -1,71 +1,101 @@
 <?php
 /**
- * Theme Filters Module.
+ * WooShop Theme Filters Module
  *
- * Registers global WordPress filters used by the WooShop theme.
+ * Registers general WordPress filters used by the WooShop theme.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Container;
-use WooShop\Core\Module;
+use WP_Post;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
-/**
- * Handles global WooShop theme filters.
- */
-class Filters extends Module {
-
+final class Filters
+{
     /**
-     * Constructor.
-     *
-     * @param Container $container Service container.
-     */
-    public function __construct( Container $container ) {
-
-        parent::__construct( $container );
-    }
-
-    /**
-     * Register module filters.
+     * Register the theme filters module.
      *
      * @return void
      */
-    public function register(): void {
+    public function register(): void
+    {
+        add_filter(
+            'body_class',
+            [$this, 'filter_body_class']
+        );
 
         add_filter(
-            'nav_menu_link_attributes',
-            [ $this, 'navigation_link_attributes' ],
-            10,
-            4
+            'post_class',
+            [$this, 'filter_post_class']
+        );
+
+        add_filter(
+            'get_search_form',
+            [$this, 'filter_search_form']
         );
     }
 
     /**
-     * Add accessibility attributes to navigation links.
+     * Filter the body classes.
      *
-     * Only applies attributes when they are required.
+     * Adds the WooShop theme class to the document body.
      *
-     * @param array    $atts     Navigation link attributes.
-     * @param WP_Post  $item     Navigation menu item.
-     * @param stdClass $args     Navigation menu arguments.
-     * @param int      $depth    Menu depth.
-     * @return array
+     * @param array<int, string> $classes Existing body classes.
+     *
+     * @return array<int, string>
      */
-    public function navigation_link_attributes(
-        array $atts,
-        \WP_Post $item,
-        \stdClass $args,
-        int $depth
+    public function filter_body_class(array $classes): array
+    {
+        $classes[] = 'wooshop';
+
+        return array_values(
+            array_unique($classes)
+        );
+    }
+
+    /**
+     * Filter post classes.
+     *
+     * Adds a consistent WooShop post class.
+     *
+     * @param array<int, string> $classes Existing post classes.
+     * @param array<int, mixed>  $class   Additional classes.
+     * @param int|WP_Post|null   $post    Post object or post ID.
+     *
+     * @return array<int, string>
+     */
+    public function filter_post_class(
+        array $classes,
+        array $class = [],
+        mixed $post = null
     ): array {
+        $classes[] = 'ws-post';
 
-        if ( empty( $atts['href'] ) ) {
-            $atts['aria-disabled'] = 'true';
-        }
+        return array_values(
+            array_unique($classes)
+        );
+    }
 
-        return $atts;
+    /**
+     * Filter the WordPress search form.
+     *
+     * Adds the WooShop search-form class to the generated form.
+     *
+     * @param string $form Generated search form.
+     *
+     * @return string
+     */
+    public function filter_search_form(string $form): string
+    {
+        return str_replace(
+            'search-form',
+            'search-form ws-search-form',
+            $form
+        );
     }
 }

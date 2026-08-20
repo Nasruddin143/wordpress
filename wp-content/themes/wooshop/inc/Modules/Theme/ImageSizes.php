@@ -1,59 +1,67 @@
 <?php
 /**
- * WordPress Image Sizes.
+ * WooShop Image Sizes Module
  *
- * Registers custom image sizes used by the WooShop theme.
+ * Registers WooShop-specific image sizes and configures
+ * WordPress image size behavior used by the theme.
  *
  * @package WooShop
  */
 
+declare(strict_types=1);
+
 namespace WooShop\Modules\Theme;
 
-use WooShop\Core\Module;
+defined('ABSPATH') || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Handles WooShop image sizes.
- */
-class ImageSizes extends Module {
-
+final class ImageSizes
+{
     /**
-     * Register module hooks.
+     * Register the image sizes module.
      *
      * @return void
      */
-    public function register(): void {
-
+    public function register(): void
+    {
         add_action(
             'after_setup_theme',
-            [ $this, 'register_image_sizes' ]
+            [$this, 'register_image_sizes']
         );
 
         add_filter(
             'image_size_names_choose',
-            [ $this, 'add_image_size_names' ]
+            [$this, 'register_editor_image_sizes']
         );
     }
 
     /**
-     * Register custom image sizes.
+     * Register WooShop custom image sizes.
      *
      * @return void
      */
-    public function register_image_sizes(): void {
+    public function register_image_sizes(): void
+    {
+        /*
+         * General content image.
+         */
+        add_image_size(
+            'wooshop-content',
+            1200,
+            800,
+            false
+        );
 
-        /**
+        /*
          * Product card image.
          */
         add_image_size(
-            'wooshop-product-card',
+            'wooshop-product',
             600,
             600,
             true
         );
 
-        /**
+        /*
          * Product thumbnail image.
          */
         add_image_size(
@@ -63,27 +71,37 @@ class ImageSizes extends Module {
             true
         );
 
-        /**
+        /*
          * Product gallery image.
          */
         add_image_size(
             'wooshop-product-gallery',
-            1200,
-            1200,
+            1000,
+            1000,
             true
         );
 
-        /**
-         * Blog/archive card image.
+        /*
+         * Category image.
          */
         add_image_size(
-            'wooshop-post-card',
-            800,
-            500,
+            'wooshop-category',
+            600,
+            600,
             true
         );
 
-        /**
+        /*
+         * Brand image.
+         */
+        add_image_size(
+            'wooshop-brand',
+            400,
+            250,
+            true
+        );
+
+        /*
          * Hero/banner image.
          */
         add_image_size(
@@ -95,22 +113,29 @@ class ImageSizes extends Module {
     }
 
     /**
-     * Add custom image sizes to the WordPress image selector.
+     * Register WooShop image sizes in the editor.
      *
-     * @param array $sizes Available image sizes.
-     * @return array
+     * @param array<string, string> $sizes Available image sizes.
+     *
+     * @return array<string, string>
      */
-    public function add_image_size_names( array $sizes ): array {
-
-        return array_merge(
-            $sizes,
-            [
-                'wooshop-product-card'    => esc_html__( 'WooShop Product Card', 'wooshop' ),
-                'wooshop-product-thumb'   => esc_html__( 'WooShop Product Thumbnail', 'wooshop' ),
-                'wooshop-product-gallery' => esc_html__( 'WooShop Product Gallery', 'wooshop' ),
-                'wooshop-post-card'       => esc_html__( 'WooShop Post Card', 'wooshop' ),
-                'wooshop-hero'            => esc_html__( 'WooShop Hero', 'wooshop' ),
-            ]
+    public function register_editor_image_sizes(
+        array $sizes
+    ): array {
+        $sizes['wooshop-content'] = __('WooShop Content', 'wooshop');
+        $sizes['wooshop-product'] = __('WooShop Product', 'wooshop');
+        $sizes['wooshop-product-thumb'] = __(
+            'WooShop Product Thumbnail',
+            'wooshop'
         );
+        $sizes['wooshop-product-gallery'] = __(
+            'WooShop Product Gallery',
+            'wooshop'
+        );
+        $sizes['wooshop-category'] = __('WooShop Category', 'wooshop');
+        $sizes['wooshop-brand'] = __('WooShop Brand', 'wooshop');
+        $sizes['wooshop-hero'] = __('WooShop Hero', 'wooshop');
+
+        return $sizes;
     }
 }

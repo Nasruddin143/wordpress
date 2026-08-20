@@ -12,6 +12,11 @@ declare(strict_types=1);
 
 namespace WooShop\Core;
 
+use ReflectionClass;
+use ReflectionException;
+use ReflectionNamedType;
+use RuntimeException;
+
 defined('ABSPATH') || exit;
 
 /**
@@ -85,7 +90,8 @@ final class Container {
      *
      * @return T
      *
-     * @throws \RuntimeException When the service cannot be resolved.
+     * @throws RuntimeException When the service cannot be resolved.
+     * @throws ReflectionException
      */
     public function get(string $id): object {
 
@@ -98,7 +104,7 @@ final class Container {
             $service = ($this->factories[$id])($this);
 
             if (!is_object($service)) {
-                throw new \RuntimeException(
+                throw new RuntimeException(
                     sprintf(
                         'WooShop factory "%s" must return an object.',
                         $id
@@ -114,7 +120,7 @@ final class Container {
         }
 
         if (!class_exists($id)) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
                     'WooShop service "%s" does not exist.',
                     $id
@@ -140,12 +146,12 @@ final class Container {
      *
      * @return T
      *
-     * @throws \RuntimeException When the class cannot be instantiated.
+     * @throws RuntimeException|ReflectionException When the class cannot be instantiated.
      */
     public function make(string $class): object {
 
         if (!class_exists($class)) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
                     'WooShop class "%s" does not exist.',
                     $class
@@ -153,10 +159,10 @@ final class Container {
             );
         }
 
-        $reflection = new \ReflectionClass($class);
+        $reflection = new ReflectionClass($class);
 
         if (!$reflection->isInstantiable()) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
                     'WooShop class "%s" is not instantiable.',
                     $class
@@ -176,14 +182,14 @@ final class Container {
 
             $type = $parameter->getType();
 
-            if (!$type instanceof \ReflectionNamedType) {
+            if (!$type instanceof ReflectionNamedType) {
 
                 if ($parameter->isDefaultValueAvailable()) {
                     $arguments[] = $parameter->getDefaultValue();
                     continue;
                 }
 
-                throw new \RuntimeException(
+                throw new RuntimeException(
                     sprintf(
                         'Unable to resolve untyped dependency "%s" in "%s".',
                         $parameter->getName(),
@@ -199,7 +205,7 @@ final class Container {
                     continue;
                 }
 
-                throw new \RuntimeException(
+                throw new RuntimeException(
                     sprintf(
                         'Unable to resolve builtin dependency "%s" in "%s".',
                         $parameter->getName(),

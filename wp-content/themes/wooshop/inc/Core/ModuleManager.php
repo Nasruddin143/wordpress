@@ -13,15 +13,17 @@ declare(strict_types=1);
 
 namespace WooShop\Core;
 
-defined('ABSPATH') || exit;
+use ReflectionException;
+
+defined("ABSPATH") || exit();
 
 /**
  * Class ModuleManager
  *
  * Central registry and lifecycle manager for WooShop modules.
  */
-final class ModuleManager {
-
+final class ModuleManager
+{
     /**
      * Service container.
      *
@@ -41,7 +43,7 @@ final class ModuleManager {
      *
      * @var array<string, Module>
      */
-    private array $modules = array();
+    private array $modules = [];
 
     /**
      * Constructor.
@@ -49,30 +51,29 @@ final class ModuleManager {
      * @param Container $container WooShop service container.
      * @param Config    $config    Configuration manager.
      */
-    public function __construct(
-        Container $container,
-        Config $config
-    ) {
+    public function __construct(Container $container, Config $config)
+    {
         $this->container = $container;
-        $this->config    = $config;
+        $this->config = $config;
     }
 
     /**
      * Register all configured WooShop modules.
      *
      * @return void
+     * @throws ReflectionException
      */
-    public function register(): void {
-
-        $this->register_group('core');
-        $this->register_group('theme');
+    public function register(): void
+    {
+        $this->register_group("core");
+        $this->register_group("theme");
 
         /*
          * WooCommerce modules are registered only when
          * WooCommerce is available.
          */
-        if (class_exists('WooCommerce')) {
-            $this->register_group('woocommerce');
+        if (class_exists("WooCommerce")) {
+            $this->register_group("woocommerce");
         }
     }
 
@@ -82,59 +83,43 @@ final class ModuleManager {
      * @param string $group Configuration group.
      *
      * @return void
+     * @throws ReflectionException
      */
-    private function register_group(string $group): void {
+    private function register_group(string $group): void
+    {
+        $config = $this->config->get("modules");
 
-        $config = $this->config->get('modules');
-
-        if (
-            !isset($config[$group])
-            || !is_array($config[$group])
-        ) {
+        if (!isset($config[$group]) || !is_array($config[$group])) {
             return;
         }
 
         foreach ($config[$group] as $key => $module_config) {
-
             if (!is_array($module_config)) {
                 continue;
             }
 
-            $this->register_module(
-                (string) $key,
-                $module_config
-            );
+            $this->register_module((string) $key, $module_config);
         }
     }
 
     /**
      * Register one module.
      *
-     * @param string               $key    Module registry key.
+     * @param string $key Module registry key.
      * @param array<string, mixed> $config Module configuration.
      *
      * @return void
+     * @throws ReflectionException
      */
-    private function register_module(
-        string $key,
-        array $config
-    ): void {
-
-        if (
-            isset($config['enabled'])
-            && false === (bool) $config['enabled']
-        ) {
+    private function register_module(string $key, array $config): void
+    {
+        if (isset($config["enabled"]) && false === (bool) $config["enabled"]) {
             return;
         }
 
-        $class = $config['class'] ?? null;
+        $class = $config["class"] ?? null;
 
-        if (
-            !is_string($class)
-            || ''
-            === $class
-            || !class_exists($class)
-        ) {
+        if (!is_string($class) || "" === $class || !class_exists($class)) {
             return;
         }
 
@@ -160,10 +145,7 @@ final class ModuleManager {
         /*
          * Register the module instance itself in the container.
          */
-        $this->container->set(
-            $class,
-            $module
-        );
+        $this->container->set($class, $module);
 
         /*
          * Execute the module registration lifecycle.
@@ -180,13 +162,11 @@ final class ModuleManager {
      *
      * @return T|null
      */
-    public function get(string $key): ?Module {
-
+    public function get(string $key): ?Module
+    {
         $module = $this->modules[$key] ?? null;
 
-        return $module instanceof Module
-            ? $module
-            : null;
+        return $module instanceof Module ? $module : null;
     }
 
     /**
@@ -196,8 +176,8 @@ final class ModuleManager {
      *
      * @return bool
      */
-    public function has(string $key): bool {
-
+    public function has(string $key): bool
+    {
         return isset($this->modules[$key]);
     }
 
@@ -206,8 +186,8 @@ final class ModuleManager {
      *
      * @return array<string, Module>
      */
-    public function all(): array {
-
+    public function all(): array
+    {
         return $this->modules;
     }
 
@@ -217,21 +197,18 @@ final class ModuleManager {
      * Useful for modules that need to be conditionally added
      * outside the static modules.php configuration.
      *
-     * @param string $key   Module registry key.
+     * @param string $key Module registry key.
      * @param string $class Module class.
      *
      * @return Module|null
+     * @throws ReflectionException
      */
-    public function register_single(
-        string $key,
-        string $class
-    ): ?Module {
-
+    public function register_single(string $key, string $class): ?Module
+    {
         if (
-            ''
-            === $key
-            || !class_exists($class)
-            || !is_a($class, Module::class, true)
+            "" === $key ||
+            !class_exists($class) ||
+            !is_a($class, Module::class, true)
         ) {
             return null;
         }
@@ -248,10 +225,7 @@ final class ModuleManager {
 
         $this->modules[$key] = $module;
 
-        $this->container->set(
-            $class,
-            $module
-        );
+        $this->container->set($class, $module);
 
         $module->register();
 
