@@ -1,138 +1,67 @@
 <?php
 /**
- * WooShop Navigation Module
- *
- * Registers WooShop navigation menus and provides centralized
- * navigation-related configuration for the theme.
+ * Navigation Module.
  *
  * @package WooShop
  */
 
-declare(strict_types=1);
-
 namespace WooShop\Modules\Theme;
 
-use stdClass;
-use WP_Post;
+use WooShop\Core\Module;
+use WooShop\Core\ModuleManager;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-final class Navigation
-{
+/**
+ * Navigation module.
+ */
+final class Navigation extends Module {
+
     /**
-     * Registered navigation locations.
+     * Constructor.
      *
-     * @var array<string, string>
+     * @param ModuleManager $manager Module manager.
      */
-    private array $locations = [
-        'primary' => 'Primary Menu',
-        'secondary' => 'Secondary Menu',
-        'footer' => 'Footer Menu',
-        'mobile' => 'Mobile Menu',
-    ];
+    public function __construct( ModuleManager $manager ) {
+        parent::__construct( $manager );
+    }
 
     /**
-     * Register the navigation module.
+     * Register module.
      *
      * @return void
      */
-    public function register(): void
-    {
-        add_action(
-            'after_setup_theme',
-            [$this, 'register_navigation_menus']
-        );
-
-        add_filter(
-            'nav_menu_css_class',
-            [$this, 'filter_menu_item_classes'],
-            10,
-            4
-        );
-
+    public function register(): void {
         add_filter(
             'nav_menu_link_attributes',
-            [$this, 'filter_menu_link_attributes'],
+            array( $this, 'link_attributes' ),
             10,
             4
         );
     }
 
     /**
-     * Register WooShop navigation menu locations.
+     * Modify navigation link attributes.
      *
-     * @return void
-     */
-    public function register_navigation_menus(): void
-    {
-        register_nav_menus($this->locations);
-    }
-
-    /**
-     * Add WooShop classes to navigation menu items.
-     *
-     * @param array<int, string> $classes Menu item classes.
-     * @param WP_Post            $item    Menu item object.
-     * @param stdClass            $args    Menu arguments.
-     * @param int                $depth   Menu depth.
-     *
-     * @return array<int, string>
-     */
-    public function filter_menu_item_classes(
-        array    $classes,
-        WP_Post  $item,
-        stdClass $args,
-        int      $depth
-    ): array {
-        $classes[] = 'ws-menu-item';
-
-        if ($depth > 0) {
-            $classes[] = 'ws-menu-item-depth-' . $depth;
-        }
-
-        return array_values(
-            array_unique($classes)
-        );
-    }
-
-    /**
-     * Add WooShop attributes to navigation links.
-     *
-     * @param array<string, string> $atts  Link attributes.
-     * @param WP_Post               $item  Menu item object.
-     * @param stdClass              $args  Menu arguments.
-     * @param int                   $depth Menu depth.
+     * @param array<string, string> $atts       Attributes.
+     * @param WP_Post               $item       Menu item.
+     * @param stdClass              $args       Menu arguments.
+     * @param int                   $depth      Menu depth.
      *
      * @return array<string, string>
      */
-    public function filter_menu_link_attributes(
-        array    $atts,
-        WP_Post  $item,
-        stdClass $args,
-        int      $depth
+    public function link_attributes(
+        array $atts,
+        \WP_Post $item,
+        \stdClass $args,
+        int $depth
     ): array {
-        $classes = [
-            'ws-menu-link',
-        ];
 
-        if ($depth > 0) {
-            $classes[] = 'ws-menu-link-depth-' . $depth;
+        if ( isset( $args->theme_location ) && 'primary' === $args->theme_location ) {
+            $atts['class'] = isset( $atts['class'] )
+                ? $atts['class'] . ' nav-link'
+                : 'nav-link';
         }
-
-        $existing_class = $atts['class'] ?? '';
-
-        if ($existing_class !== '') {
-            $classes[] = $existing_class;
-        }
-
-        $atts['class'] = implode(
-            ' ',
-            array_values(
-                array_unique(
-                    array_filter($classes)
-                )
-            )
-        );
 
         return $atts;
     }

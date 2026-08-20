@@ -1,101 +1,113 @@
 <?php
 /**
- * WooShop Theme Filters Module
+ * Theme Filters Module.
  *
- * Registers general WordPress filters used by the WooShop theme.
+ * Handles general WordPress filters required by WooShop.
  *
  * @package WooShop
  */
 
-declare(strict_types=1);
-
 namespace WooShop\Modules\Theme;
 
-use WP_Post;
+use WooShop\Core\Module;
+use WooShop\Core\ModuleManager;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-final class Filters
-{
+/**
+ * Theme filters module.
+ */
+final class Filters extends Module {
+
     /**
-     * Register the theme filters module.
+     * Constructor.
+     *
+     * @param ModuleManager $manager Module manager.
+     */
+    public function __construct( ModuleManager $manager ) {
+        parent::__construct( $manager );
+    }
+
+    /**
+     * Register module hooks.
      *
      * @return void
      */
-    public function register(): void
-    {
+    public function register(): void {
+
         add_filter(
             'body_class',
-            [$this, 'filter_body_class']
+            array( $this, 'body_classes' )
         );
 
         add_filter(
-            'post_class',
-            [$this, 'filter_post_class']
+            'excerpt_length',
+            array( $this, 'excerpt_length' )
         );
 
         add_filter(
-            'get_search_form',
-            [$this, 'filter_search_form']
+            'excerpt_more',
+            array( $this, 'excerpt_more' )
         );
     }
 
     /**
-     * Filter the body classes.
-     *
-     * Adds the WooShop theme class to the document body.
+     * Add WooShop body classes.
      *
      * @param array<int, string> $classes Existing body classes.
      *
      * @return array<int, string>
      */
-    public function filter_body_class(array $classes): array
-    {
-        $classes[] = 'wooshop';
+    public function body_classes( array $classes ): array {
 
-        return array_values(
-            array_unique($classes)
-        );
+        $classes[] = 'wooshop-theme';
+
+        if ( is_front_page() ) {
+            $classes[] = 'wooshop-front-page';
+        }
+
+        if ( is_home() ) {
+            $classes[] = 'wooshop-home';
+        }
+
+        if ( is_singular() ) {
+            $classes[] = 'wooshop-singular';
+        }
+
+        if ( is_archive() ) {
+            $classes[] = 'wooshop-archive';
+        }
+
+        if ( is_search() ) {
+            $classes[] = 'wooshop-search';
+        }
+
+        if ( is_404() ) {
+            $classes[] = 'wooshop-404';
+        }
+
+        return array_values( array_unique( $classes ) );
     }
 
     /**
-     * Filter post classes.
+     * Change default excerpt length.
      *
-     * Adds a consistent WooShop post class.
+     * @param int $length Excerpt length.
      *
-     * @param array<int, string> $classes Existing post classes.
-     * @param array<int, mixed>  $class   Additional classes.
-     * @param int|WP_Post|null   $post    Post object or post ID.
-     *
-     * @return array<int, string>
+     * @return int
      */
-    public function filter_post_class(
-        array $classes,
-        array $class = [],
-        mixed $post = null
-    ): array {
-        $classes[] = 'ws-post';
-
-        return array_values(
-            array_unique($classes)
-        );
+    public function excerpt_length( int $length ): int {
+        return 25;
     }
 
     /**
-     * Filter the WordPress search form.
+     * Change excerpt ending.
      *
-     * Adds the WooShop search-form class to the generated form.
-     *
-     * @param string $form Generated search form.
+     * @param string $more Excerpt ending.
      *
      * @return string
      */
-    public function filter_search_form(string $form): string
-    {
-        return str_replace(
-            'search-form',
-            'search-form ws-search-form',
-            $form
-        );
+    public function excerpt_more( string $more ): string {
+        return '&hellip;';
     }
 }

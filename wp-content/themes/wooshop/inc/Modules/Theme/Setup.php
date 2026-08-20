@@ -1,57 +1,61 @@
 <?php
 /**
- * WooShop Theme Setup Module
- *
- * Registers the core WordPress theme supports, menus, image
- * handling, editor support, and other foundational theme setup.
+ * Theme Setup Module.
  *
  * @package WooShop
  */
 
-declare(strict_types=1);
-
 namespace WooShop\Modules\Theme;
 
-defined('ABSPATH') || exit;
+use WooShop\Core\Module;
+use WooShop\Core\ModuleManager;
 
-final class Setup
-{
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Theme setup.
+ */
+final class Setup extends Module {
+
     /**
-     * Register the theme setup module.
+     * Constructor.
      *
-     * @return void
+     * @param ModuleManager $manager Module manager.
      */
-    public function register(): void
-    {
-        add_action(
-            'after_setup_theme',
-            [$this, 'setup_theme'],
-            10
-        );
+    public function __construct( ModuleManager $manager ) {
+        parent::__construct( $manager );
     }
 
     /**
-     * Configure WooShop theme support.
+     * Register module.
      *
      * @return void
      */
-    public function setup_theme(): void
-    {
-        /*
-         * Make the theme available for translation.
-         *
-         * The Localization module handles the actual
-         * translation loading.
-         */
-        add_theme_support('title-tag');
+    public function register(): void {
+        add_action( 'after_setup_theme', array( $this, 'setup' ) );
+    }
 
-        add_theme_support('post-thumbnails');
+    /**
+     * Setup theme features.
+     *
+     * @return void
+     */
+    public function setup(): void {
 
-        add_theme_support('automatic-feed-links');
+        load_theme_textdomain(
+            'wooshop',
+            get_template_directory() . '/languages'
+        );
+
+        add_theme_support( 'automatic-feed-links' );
+
+        add_theme_support( 'title-tag' );
+
+        add_theme_support( 'post-thumbnails' );
 
         add_theme_support(
             'html5',
-            [
+            array(
                 'search-form',
                 'comment-form',
                 'comment-list',
@@ -59,42 +63,34 @@ final class Setup
                 'caption',
                 'style',
                 'script',
-            ]
+            )
         );
 
-        add_theme_support(
-            'custom-logo',
-            [
-                'height'      => 100,
-                'width'       => 400,
-                'flex-width'  => true,
-                'flex-height' => true,
-            ]
+        add_theme_support( 'custom-logo' );
+
+        add_theme_support( 'customize-selective-refresh-widgets' );
+
+        add_theme_support( 'responsive-embeds' );
+
+        add_theme_support( 'wp-block-styles' );
+
+        add_theme_support( 'align-wide' );
+
+        $this->register_menus();
+    }
+
+    /**
+     * Register navigation menus.
+     *
+     * @return void
+     */
+    private function register_menus(): void {
+
+        register_nav_menus(
+            array(
+                'primary' => esc_html__( 'Primary Menu', 'wooshop' ),
+                'footer'  => esc_html__( 'Footer Menu', 'wooshop' ),
+            )
         );
-
-        add_theme_support(
-            'custom-background',
-            [
-                'default-color' => 'ffffff',
-            ]
-        );
-
-        add_theme_support(
-            'custom-header',
-            [
-                'width'       => 1920,
-                'height'      => 800,
-                'flex-width'  => true,
-                'flex-height' => true,
-            ]
-        );
-
-        add_theme_support('responsive-embeds');
-
-        add_theme_support('align-wide');
-
-        add_theme_support('wp-block-styles');
-
-        add_theme_support('editor-styles');
     }
 }

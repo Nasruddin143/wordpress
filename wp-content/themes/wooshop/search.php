@@ -1,68 +1,53 @@
 <?php
 /**
- * Search Results Template
+ * The template for displaying search results pages
  *
- * Displays WordPress search results.
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#search-result
  *
  * @package WooShop
  */
 
-defined( 'ABSPATH' ) || exit;
-
 get_header();
 ?>
 
-    <div class="container py-5">
+	<main id="primary" class="site-main">
 
-        <header class="ws-search-header mb-5">
+		<?php if ( have_posts() ) : ?>
 
-            <h1 class="page-title">
-                <?php
-                printf(
-                /* translators: %s: search query. */
-                    esc_html__( 'Search results for: %s', 'wooshop' ),
-                    '<span>' . esc_html( get_search_query() ) . '</span>'
-                );
-                ?>
-            </h1>
+			<header class="page-header">
+				<h1 class="page-title">
+					<?php
+					/* translators: %s: search query. */
+					printf( esc_html__( 'Search Results for: %s', 'wooshop' ), '<span>' . get_search_query() . '</span>' );
+					?>
+				</h1>
+			</header><!-- .page-header -->
 
-        </header>
+			<?php
+			/* Start the Loop */
+			while ( have_posts() ) :
+				the_post();
 
-        <?php if ( have_posts() ) : ?>
+				/**
+				 * Run the loop for the search to output the results.
+				 * If you want to overload this in a child theme then include a file
+				 * called content-search.php and that will be used instead.
+				 */
+				get_template_part( 'template-parts/content', 'search' );
 
-            <div class="ws-search-results">
+			endwhile;
 
-                <?php while ( have_posts() ) : ?>
+			the_posts_navigation();
 
-                    <?php the_post(); ?>
+		else :
 
-                    <?php
-                    get_template_part(
-                        'template-parts/content/content-search'
-                    );
-                    ?>
+			get_template_part( 'template-parts/content', 'none' );
 
-                <?php endwhile; ?>
+		endif;
+		?>
 
-            </div>
-
-            <?php
-            get_template_part(
-                'template-parts/pagination/pagination'
-            );
-            ?>
-
-        <?php else : ?>
-
-            <?php
-            get_template_part(
-                'template-parts/content/content-none'
-            );
-            ?>
-
-        <?php endif; ?>
-
-    </div>
+	</main><!-- #main -->
 
 <?php
+get_sidebar();
 get_footer();

@@ -1,243 +1,231 @@
 <?php
 /**
- * WooShop Theme Customizer Module
+ * Customizer Module.
  *
- * Registers WooShop Customizer sections and controls for
- * theme branding, layout, and product display settings.
- *
- * The Customizer preview script is loaded only inside
- * the Customizer preview context.
+ * Handles WooShop Customizer settings.
  *
  * @package WooShop
  */
 
-declare(strict_types=1);
-
 namespace WooShop\Modules\Theme;
 
-defined('ABSPATH') || exit;
-
 use WP_Customize_Manager;
-use WP_Customize_Section;
-use WP_Customize_Control;
+use WooShop\Core\Module;
+use WooShop\Core\ModuleManager;
 
-final class Customizer
-{
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Theme customizer module.
+ */
+final class Customizer extends Module {
+
     /**
-     * Register the Customizer module.
+     * Constructor.
+     *
+     * @param ModuleManager $manager Module manager.
+     */
+    public function __construct( ModuleManager $manager ) {
+        parent::__construct( $manager );
+    }
+
+    /**
+     * Register module.
      *
      * @return void
      */
-    public function register(): void
-    {
+    public function register(): void {
+
         add_action(
             'customize_register',
-            [$this, 'register_customizer']
+            array( $this, 'register_controls' )
         );
 
         add_action(
             'customize_preview_init',
-            [$this, 'enqueue_preview_script']
+            array( $this, 'enqueue_preview_script' )
         );
     }
 
     /**
-     * Register WooShop Customizer settings and controls.
+     * Register Customizer controls.
      *
      * @param WP_Customize_Manager $wp_customize Customizer manager.
      *
      * @return void
      */
-    public function register_customizer(
+    public function register_controls(
         WP_Customize_Manager $wp_customize
     ): void {
+
         /*
          * ---------------------------------------------------------
-         * Theme Section
+         * WooShop Theme Panel
          * ---------------------------------------------------------
          */
-
-        $wp_customize->add_section(
+        $wp_customize->add_panel(
             'wooshop_theme',
-            [
-                'title'       => __('Theme', 'wooshop'),
-                'description' => __(
-                    'Configure the main WooShop theme appearance and layout.',
+            array(
+                'title'       => esc_html__( 'WooShop Theme', 'wooshop' ),
+                'description' => esc_html__(
+                    'Configure WooShop theme settings.',
                     'wooshop'
                 ),
-                'priority'    => 30,
-            ]
+                'priority'    => 10,
+            )
         );
 
         /*
          * ---------------------------------------------------------
-         * Branding Controls
+         * Header Section
          * ---------------------------------------------------------
          */
+        $wp_customize->add_section(
+            'wooshop_header',
+            array(
+                'title'    => esc_html__( 'Header', 'wooshop' ),
+                'panel'    => 'wooshop_theme',
+                'priority' => 10,
+            )
+        );
 
+        /*
+         * Header announcement.
+         */
         $wp_customize->add_setting(
-            'wooshop_branding_color',
-            [
-                'default'           => '#212529',
-                'type'              => 'theme_mod',
-                'sanitize_callback' => 'sanitize_hex_color',
-            ]
+            'wooshop_header_announcement',
+            array(
+                'default'           => '',
+                'sanitize_callback' => 'sanitize_text_field',
+                'transport'         => 'refresh',
+            )
         );
 
         $wp_customize->add_control(
-            'wooshop_branding_color',
-            [
-                'label'    => __('Branding Color', 'wooshop'),
-                'section'  => 'wooshop_theme',
-                'type'     => 'color',
-                'settings' => 'wooshop_branding_color',
-            ]
+            'wooshop_header_announcement',
+            array(
+                'label'       => esc_html__(
+                    'Announcement Text',
+                    'wooshop'
+                ),
+                'description' => esc_html__(
+                    'Optional announcement displayed in the header.',
+                    'wooshop'
+                ),
+                'section'     => 'wooshop_header',
+                'type'        => 'text',
+            )
         );
 
         /*
          * ---------------------------------------------------------
-         * Layout Controls
+         * Layout Section
          * ---------------------------------------------------------
          */
+        $wp_customize->add_section(
+            'wooshop_layout',
+            array(
+                'title'    => esc_html__( 'Layout', 'wooshop' ),
+                'panel'    => 'wooshop_theme',
+                'priority' => 20,
+            )
+        );
 
+        /*
+         * Container width.
+         */
         $wp_customize->add_setting(
             'wooshop_container_width',
-            [
-                'default'           => '1200',
-                'type'              => 'theme_mod',
-                'sanitize_callback' => [$this, 'sanitize_container_width'],
-            ]
+            array(
+                'default'           => '1200px',
+                'sanitize_callback' => array( $this, 'sanitize_css_size' ),
+                'transport'         => 'refresh',
+            )
         );
 
         $wp_customize->add_control(
             'wooshop_container_width',
-            [
-                'label'       => __('Container Width', 'wooshop'),
-                'description' => __(
-                    'Set the maximum content container width in pixels.',
+            array(
+                'label'       => esc_html__(
+                    'Container Width',
                     'wooshop'
                 ),
-                'section'     => 'wooshop_theme',
-                'type'        => 'number',
-                'input_attrs' => [
-                    'min'  => 960,
-                    'max'  => 1920,
-                    'step' => 10,
-                ],
-            ]
+                'description' => esc_html__(
+                    'Set the maximum content width.',
+                    'wooshop'
+                ),
+                'section'     => 'wooshop_layout',
+                'type'        => 'text',
+            )
         );
 
         /*
          * ---------------------------------------------------------
-         * Product Controls
+         * Footer Section
          * ---------------------------------------------------------
          */
+        $wp_customize->add_section(
+            'wooshop_footer',
+            array(
+                'title'    => esc_html__( 'Footer', 'wooshop' ),
+                'panel'    => 'wooshop_theme',
+                'priority' => 30,
+            )
+        );
 
         $wp_customize->add_setting(
-            'wooshop_products_per_row',
-            [
-                'default'           => 4,
-                'type'              => 'theme_mod',
-                'sanitize_callback' => [$this, 'sanitize_products_per_row'],
-            ]
+            'wooshop_footer_text',
+            array(
+                'default'           => '',
+                'sanitize_callback' => 'wp_kses_post',
+                'transport'         => 'refresh',
+            )
         );
 
         $wp_customize->add_control(
-            'wooshop_products_per_row',
-            [
-                'label'       => __('Products Per Row', 'wooshop'),
-                'description' => __(
-                    'Set the number of products displayed per row.',
+            'wooshop_footer_text',
+            array(
+                'label'       => esc_html__(
+                    'Footer Text',
                     'wooshop'
                 ),
-                'section'     => 'wooshop_theme',
-                'type'        => 'select',
-                'choices'     => [
-                    2 => __('2 Products', 'wooshop'),
-                    3 => __('3 Products', 'wooshop'),
-                    4 => __('4 Products', 'wooshop'),
-                    5 => __('5 Products', 'wooshop'),
-                    6 => __('6 Products', 'wooshop'),
-                ],
-            ]
+                'section'     => 'wooshop_footer',
+                'type'        => 'textarea',
+            )
         );
     }
 
     /**
-     * Sanitize the theme container width.
+     * Sanitize CSS size value.
      *
-     * @param mixed $value Container width value.
+     * @param string $value CSS size.
      *
-     * @return int
+     * @return string
      */
-    public function sanitize_container_width(mixed $value): int
-    {
-        $value = absint($value);
+    public function sanitize_css_size( string $value ): string {
 
-        if ($value < 960) {
-            return 960;
+        $value = trim( $value );
+
+        if ( preg_match( '/^\d+(?:\.\d+)?(?:px|rem|em|%|vw|vh)$/', $value ) ) {
+            return $value;
         }
 
-        if ($value > 1920) {
-            return 1920;
-        }
-
-        return $value;
+        return '1200px';
     }
 
     /**
-     * Sanitize the number of products displayed per row.
-     *
-     * @param mixed $value Products per row value.
-     *
-     * @return int
-     */
-    public function sanitize_products_per_row(mixed $value): int
-    {
-        $value = absint($value);
-
-        $allowed_values = [
-            2,
-            3,
-            4,
-            5,
-            6,
-        ];
-
-        if (!in_array($value, $allowed_values, true)) {
-            return 4;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Enqueue the Customizer preview JavaScript.
-     *
-     * This script is loaded only in the Customizer preview
-     * and is never registered as a global frontend asset.
+     * Enqueue Customizer preview script.
      *
      * @return void
      */
-    public function enqueue_preview_script(): void
-    {
-        $script_path = get_theme_file_path(
-            '/assets/build/js/customizer.min.js'
-        );
-
-        $script_uri = get_theme_file_uri(
-            '/assets/build/js/customizer.min.js'
-        );
-
-        if (!file_exists($script_path)) {
-            return;
-        }
+    public function enqueue_preview_script(): void {
 
         wp_enqueue_script(
             'wooshop-customizer',
-            $script_uri,
-            ['customize-preview'],
-            (string) filemtime($script_path),
+            get_template_directory_uri()
+            . '/assets/build/js/customizer.min.js',
+            array( 'customize-preview' ),
+            wp_get_theme()->get( 'Version' ),
             true
         );
     }

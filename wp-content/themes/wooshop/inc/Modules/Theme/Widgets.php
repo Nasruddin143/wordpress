@@ -1,112 +1,90 @@
 <?php
 /**
- * WooShop Widgets Module
- *
- * Registers and configures WooShop theme widget functionality.
+ * Widgets Module.
  *
  * @package WooShop
  */
 
-declare(strict_types=1);
-
 namespace WooShop\Modules\Theme;
 
-defined('ABSPATH') || exit;
+use WooShop\Core\Module;
+use WooShop\Core\ModuleManager;
 
-final class Widgets
-{
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Widgets module.
+ */
+final class Widgets extends Module {
+
     /**
-     * Register the widgets' module.
+     * Constructor.
+     *
+     * @param ModuleManager $manager Module manager.
+     */
+    public function __construct( ModuleManager $manager ) {
+        parent::__construct( $manager );
+    }
+
+    /**
+     * Register module.
      *
      * @return void
      */
-    public function register(): void
-    {
-        add_action(
-            'widgets_init',
-            [$this, 'register_widgets']
-        );
-
-        add_filter(
-            'widget_display_callback',
-            [$this, 'filter_widget_display'],
-            10,
-            3
-        );
-
-        add_filter(
-            'dynamic_sidebar_params',
-            [$this, 'filter_sidebar_params']
-        );
+    public function register(): void {
+        add_action( 'widgets_init', array( $this, 'register_sidebars' ) );
     }
 
     /**
-     * Register WooShop widget areas.
-     *
-     * Widget areas themselves are registered by the Sidebars
-     * module. This method remains the dedicated extension point
-     * for widgets that belong specifically to the theme.
+     * Register widget areas.
      *
      * @return void
      */
-    public function register_widgets(): void
-    {
-        /*
-         * Theme-specific widget registration point.
-         *
-         * WooCommerce widgets remain managed by WooCommerce.
-         */
-    }
+    public function register_sidebars(): void {
 
-    /**
-     * Filter widget display.
-     *
-     * Prevents invalid or empty widget objects from being
-     * rendered by the theme.
-     *
-     * @param array<string, mixed>|false $instance Widget instance.
-     * @param array<string, mixed>       $widget   Widget settings.
-     * @param mixed                      $args     Sidebar arguments.
-     *
-     * @return array<string, mixed>|false
-     */
-    public function filter_widget_display(
-        array|false $instance,
-        array $widget,
-        mixed $args
-    ): array|false {
-        if ($instance === false) {
-            return false;
-        }
+        register_sidebar(
+            array(
+                'name'          => esc_html__( 'Sidebar', 'wooshop' ),
+                'id'            => 'sidebar-1',
+                'description'   => esc_html__(
+                    'Add widgets here.',
+                    'wooshop'
+                ),
+                'before_widget' => '<section id="%1$s" class="widget %2$s">',
+                'after_widget'  => '</section>',
+                'before_title'  => '<h2 class="widget-title">',
+                'after_title'   => '</h2>',
+            )
+        );
 
-        return $instance;
-    }
+        register_sidebar(
+            array(
+                'name'          => esc_html__( 'Footer 1', 'wooshop' ),
+                'id'            => 'footer-1',
+                'description'   => esc_html__(
+                    'Add footer widgets here.',
+                    'wooshop'
+                ),
+                'before_widget' => '<section id="%1$s" class="widget %2$s">',
+                'after_widget'  => '</section>',
+                'before_title'  => '<h2 class="widget-title">',
+                'after_title'   => '</h2>',
+            )
+        );
 
-    /**
-     * Add WooShop classes to widget wrappers.
-     *
-     * @param array<string, mixed> $params Sidebar widget parameters.
-     *
-     * @return array<int, array<string, mixed>>
-     */
-    public function filter_sidebar_params(
-        array $params
-    ): array {
-        foreach ($params as &$param) {
-            if (
-                isset($param['before_widget'])
-                && is_string($param['before_widget'])
-            ) {
-                $param['before_widget'] = str_replace(
-                    'class="widget',
-                    'class="widget ws-widget',
-                    $param['before_widget']
-                );
-            }
-        }
-
-        unset($param);
-
-        return $params;
+        register_sidebar(
+            array(
+                'name'          => esc_html__( 'Footer 2', 'wooshop' ),
+                'id'            => 'footer-2',
+                'description'   => esc_html__(
+                    'Add footer widgets here.',
+                    'wooshop'
+                ),
+                'before_widget' => '<section id="%1$s" class="widget %2$s">',
+                'after_widget'  => '</section>',
+                'before_title'  => '<h2 class="widget-title">',
+                'after_title'   => '</h2>',
+            )
+        );
     }
 }

@@ -1,94 +1,74 @@
 <?php
 /**
- * WooShop Template Module
+ * Theme Template Module.
  *
- * Provides centralized template-related configuration and
- * helper methods for the WooShop theme.
+ * Handles general template-related functionality.
  *
  * @package WooShop
  */
 
-declare(strict_types=1);
-
 namespace WooShop\Modules\Theme;
 
-defined('ABSPATH') || exit;
+use WooShop\Core\Module;
+use WooShop\Core\ModuleManager;
 
-final class Template
-{
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Theme template module.
+ */
+final class Template extends Module {
+
     /**
-     * Register the template module.
+     * Constructor.
+     *
+     * @param ModuleManager $manager Module manager.
+     */
+    public function __construct( ModuleManager $manager ) {
+        parent::__construct( $manager );
+    }
+
+    /**
+     * Register module hooks.
      *
      * @return void
      */
-    public function register(): void
-    {
-        add_filter(
-            'template_include',
-            [$this, 'filter_template_include']
-        );
+    public function register(): void {
 
         add_filter(
-            'body_class',
-            [$this, 'filter_body_class']
+            'body_open_gutenberg',
+            array( $this, 'disable_gutenberg_body_open' )
+        );
+
+        add_action(
+            'wp_body_open',
+            array( $this, 'body_open' )
         );
     }
 
     /**
-     * Filter the selected template.
+     * Render content immediately after opening body.
      *
-     * WooShop uses WordPress template hierarchy directly, so
-     * templates are not replaced or redirected by this module.
+     * Keep this hook empty at the foundation level. Feature modules can
+     * attach their own output to `wp_body_open`.
      *
-     * @param string $template Selected template path.
-     *
-     * @return string
+     * @return void
      */
-    public function filter_template_include(
-        string $template
-    ): string {
-        return $template;
+    public function body_open(): void {
+        // Reserved for theme-level body-open integrations.
     }
 
     /**
-     * Add WooShop template context classes to the body.
+     * Disable obsolete Gutenberg body-open hook.
      *
-     * @param array<int, string> $classes Existing body classes.
+     * This method exists for compatibility with themes/plugins that
+     * may attempt to provide a legacy body-open mechanism.
      *
-     * @return array<int, string>
+     * @param mixed $value Filter value.
+     *
+     * @return mixed
      */
-    public function filter_body_class(array $classes): array
-    {
-        if (is_front_page()) {
-            $classes[] = 'ws-front-page';
-        }
-
-        if (is_home()) {
-            $classes[] = 'ws-blog-page';
-        }
-
-        if (is_page()) {
-            $classes[] = 'ws-page';
-        }
-
-        if (is_single()) {
-            $classes[] = 'ws-single';
-        }
-
-        if (is_archive()) {
-            $classes[] = 'ws-archive';
-        }
-
-        if (is_search()) {
-            $classes[] = 'ws-search';
-        }
-
-        if (is_404()) {
-            $classes[] = 'ws-404';
-        }
-
-        return array_values(
-            array_unique($classes)
-        );
+    public function disable_gutenberg_body_open( mixed $value ): mixed {
+        return $value;
     }
 }

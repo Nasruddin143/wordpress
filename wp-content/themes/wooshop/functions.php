@@ -1,25 +1,16 @@
 <?php
 /**
- * WooShop theme bootstrap.
+ * WooShop Theme Functions.
  *
- * Loads the Composer-style theme autoloader and starts
- * the WooShop application through the Core Loader.
- *
- * @return void
+ * @package WooShop
  */
 
-declare(strict_types=1);
+defined( 'ABSPATH' ) || exit;
 
-defined('ABSPATH') || exit;
+require_once get_template_directory() . '/inc/Core/Autoloader.php';
 
-require_once get_theme_file_path(
-    'inc/Core/Autoloader.php'
-);
+WooShop\Core\Autoloader::register();
 
-$autoloader = new \WooShop\Core\Autoloader();
+$loader = new WooShop\Core\Loader();
 
-$autoloader->register();
-
-$loader = new \WooShop\Core\Loader();
-
-$loader->register();
+$loader->boot();

@@ -1,97 +1,72 @@
 <?php
 /**
- * WooShop Feeds Module
+ * Theme Feeds Module.
  *
- * Configures WordPress feed behavior for the WooShop theme.
+ * Handles feed-related theme functionality.
  *
  * @package WooShop
  */
 
-declare(strict_types=1);
-
 namespace WooShop\Modules\Theme;
 
-defined('ABSPATH') || exit;
+use WooShop\Core\Module;
+use WooShop\Core\ModuleManager;
 
-final class Feeds
-{
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Theme feeds module.
+ */
+final class Feeds extends Module {
+
     /**
-     * Register the feeds module.
+     * Constructor.
+     *
+     * @param ModuleManager $manager Module manager.
+     */
+    public function __construct( ModuleManager $manager ) {
+        parent::__construct( $manager );
+    }
+
+    /**
+     * Register module hooks.
      *
      * @return void
      */
-    public function register(): void
-    {
+    public function register(): void {
         add_action(
-            'after_setup_theme',
-            [$this, 'register_feed_support']
-        );
-
-        add_filter(
-            'the_excerpt_rss',
-            [$this, 'filter_excerpt_rss']
-        );
-
-        add_filter(
-            'the_content_feed',
-            [$this, 'filter_content_feed']
-        );
-
-        add_filter(
-            'the_title_rss',
-            [$this, 'filter_title_rss']
+            'wp_head',
+            array( $this, 'add_feed_links' ),
+            5
         );
     }
 
     /**
-     * Register feed support.
+     * Add feed discovery links.
      *
-     * WordPress feeds are supported by default, so this method
-     * provides a dedicated extension point for WooShop feed setup.
+     * WordPress already provides feed functionality, so this module
+     * only ensures the theme exposes the expected feed discovery links.
      *
      * @return void
      */
-    public function register_feed_support(): void
-    {
-        /*
-         * WordPress feed support is enabled by default.
-         * Keep this method available for future feed configuration.
-         */
-    }
+    public function add_feed_links(): void {
 
-    /**
-     * Filter the RSS excerpt.
-     *
-     * @param string $excerpt RSS excerpt.
-     *
-     * @return string
-     */
-    public function filter_excerpt_rss(string $excerpt): string
-    {
-        return wp_strip_all_tags($excerpt);
-    }
+        if ( ! is_singular() && ! is_home() && ! is_archive() ) {
+            return;
+        }
 
-    /**
-     * Filter the RSS post content.
-     *
-     * @param string $content RSS content.
-     *
-     * @return string
-     */
-    public function filter_content_feed(string $content): string
-    {
-        return wp_kses_post($content);
-    }
+        $feed_url = get_bloginfo( 'rss2_url' );
 
-    /**
-     * Filter the RSS post title.
-     *
-     * @param string $title RSS title.
-     *
-     * @return string
-     */
-    public function filter_title_rss(string $title): string
-    {
-        return wp_strip_all_tags($title);
+        if ( '' === $feed_url ) {
+            return;
+        }
+        ?>
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"
+            href="<?php echo esc_url( $feed_url ); ?>"
+        />
+        <?php
     }
 }

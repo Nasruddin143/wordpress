@@ -1,149 +1,72 @@
 <?php
 /**
- * WooShop Core Loader
- *
- * Bootstraps the WooShop core architecture by registering the
- * autoloader, creating the service container, registering core
- * services, and starting the module manager.
+ * WooShop Loader.
  *
  * @package WooShop
  */
 
-declare(strict_types=1);
-
 namespace WooShop\Core;
 
-use ReflectionException;
-
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Class Loader
- *
- * Main entry point for the WooShop application architecture.
+ * Application loader.
  */
-final readonly class Loader {
-
-    /**
-     * Service container.
-     *
-     * @var Container
-     */
-    private Container $container;
-
-    /**
-     * Configuration manager.
-     *
-     * @var Config
-     */
-    private Config $config;
+final class Loader {
 
     /**
      * Module manager.
      *
      * @var ModuleManager
      */
-    private ModuleManager $module_manager;
+    private ModuleManager $ModuleManager;
 
     /**
      * Constructor.
-     *
-     * Initializes the WooShop dependency graph.
-     * @throws ReflectionException
      */
     public function __construct() {
-
-        $this->container = new Container();
-
-        $this->config = new Config();
-
-        $this->register_core_services();
-
-        $this->module_manager = $this->container->get(
-            ModuleManager::class
-        );
+        $this->ModuleManager = new ModuleManager();
     }
 
     /**
-     * Register the WooShop application.
-     *
-     * This method should be called once from functions.php.
-     *
-     * @return void
-     * @throws ReflectionException
-     */
-    public function register(): void {
-
-        $this->module_manager->register();
-    }
-
-    /**
-     * Register core services.
-     *
-     * Core services are registered before any Theme or WooCommerce
-     * module is instantiated.
+     * Load WooShop.
      *
      * @return void
      */
-    private function register_core_services(): void {
+    public function boot(): void {
 
-        $this->container->set(
-            Container::class,
-            $this->container
-        );
+        $this->load_template_functions();
 
-        $this->container->set(
-            Config::class,
-            $this->config
-        );
+        $modules = require get_template_directory() . '/inc/Config/modules.php';
 
-        $this->container->factory(
-            AssetsManager::class,
-            function (Container $container): AssetsManager {
-                return new AssetsManager(
-                    $container->get(Config::class)
-                );
-            }
-        );
+        if ( ! is_array( $modules ) ) {
+            return;
+        }
 
-        $this->container->factory(
-            ModuleManager::class,
-            function (Container $container): ModuleManager {
-                return new ModuleManager(
-                    $container,
-                    $this->config
-                );
-            }
-        );
+        $this->ModuleManager->register( $modules );
     }
 
     /**
-     * Get the service container.
-     *
-     * @return Container
-     */
-    public function container(): Container {
-
-        return $this->container;
-    }
-
-    /**
-     * Get the configuration manager.
-     *
-     * @return Config
-     */
-    public function config(): Config {
-
-        return $this->config;
-    }
-
-    /**
-     * Get the module manager.
+     * Get module manager.
      *
      * @return ModuleManager
      */
-    public function module_manager(): ModuleManager {
+    public function get_ModuleManager(): ModuleManager {
+        return $this->ModuleManager;
+    }
 
-        return $this->module_manager;
+    /**
+     * Load template compatibility functions.
+     *
+     * @return void
+     */
+    private function load_template_functions(): void {
+
+        $file = get_template_directory()
+            . '/inc/Modules/Theme/template-functions.php';
+
+        if ( file_exists( $file ) ) {
+            require_once $file;
+        }
     }
 }

@@ -1,8 +1,6 @@
 <?php
 /**
- * WooShop Base Module
- *
- * Provides the common foundation for all WooShop modules.
+ * Base Module.
  *
  * @package WooShop
  */
@@ -12,48 +10,30 @@ namespace WooShop\Core;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Abstract Class Module
- *
- * Base class inherited by Theme and WooCommerce modules.
+ * Abstract module class.
  */
 abstract class Module {
 
     /**
-     * Service container.
+     * Module manager.
      *
-     * @var Container
+     * @var ModuleManager
      */
-    protected Container $container;
+    protected ModuleManager $manager;
 
     /**
      * Constructor.
      *
-     * @param Container $container WooShop service container.
+     * @param ModuleManager $manager Module manager.
      */
-    public function __construct( Container $container ) {
-
-        $this->container = $container;
-
+    public function __construct( ModuleManager $manager ) {
+        $this->manager = $manager;
     }
 
     /**
-     * Register module functionality.
-     *
-     * Child modules must implement their hooks and functionality here.
+     * Register module hooks.
      *
      * @return void
      */
     abstract public function register(): void;
-
-    /**
-     * Get the service container.
-     *
-     * @return Container
-     */
-    protected function container(): Container {
-
-        return $this->container;
-
-    }
-
 }
