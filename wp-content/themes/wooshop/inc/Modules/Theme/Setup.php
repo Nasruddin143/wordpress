@@ -10,20 +10,32 @@ namespace WooShop\Modules\Theme;
 use WooShop\Core\Module;
 use WooShop\Core\ModuleManager;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Theme setup.
  */
-final class Setup extends Module {
+final class Setup extends Module
+{
+    /**
+     * Theme configuration.
+     *
+     * @var array<string, mixed>
+     */
+    private array $config;
 
     /**
      * Constructor.
      *
      * @param ModuleManager $manager Module manager.
      */
-    public function __construct( ModuleManager $manager ) {
-        parent::__construct( $manager );
+    public function __construct(ModuleManager $manager)
+    {
+        parent::__construct($manager);
+
+        $config = require get_template_directory() . '/inc/Config/theme.php';
+
+        $this->config = is_array($config) ? $config : array();
     }
 
     /**
@@ -31,8 +43,10 @@ final class Setup extends Module {
      *
      * @return void
      */
-    public function register(): void {
-        add_action( 'after_setup_theme', array( $this, 'setup' ) );
+    public function register(): void
+    {
+        add_action('after_setup_theme', array($this, 'setup'));
+        add_action('after_setup_theme', array($this, 'set_content_width'), 0);
     }
 
     /**
@@ -40,42 +54,13 @@ final class Setup extends Module {
      *
      * @return void
      */
-    public function setup(): void {
+    public function setup(): void
+    {
+        $translation_path = $this->config['translation_path'] ?? 'languages';
 
-        load_theme_textdomain(
-            'wooshop',
-            get_template_directory() . '/languages'
-        );
+        load_theme_textdomain('wooshop', get_template_directory() . '/languages');
 
-        add_theme_support( 'automatic-feed-links' );
-
-        add_theme_support( 'title-tag' );
-
-        add_theme_support( 'post-thumbnails' );
-
-        add_theme_support(
-            'html5',
-            array(
-                'search-form',
-                'comment-form',
-                'comment-list',
-                'gallery',
-                'caption',
-                'style',
-                'script',
-            )
-        );
-
-        add_theme_support( 'custom-logo' );
-
-        add_theme_support( 'customize-selective-refresh-widgets' );
-
-        add_theme_support( 'responsive-embeds' );
-
-        add_theme_support( 'wp-block-styles' );
-
-        add_theme_support( 'align-wide' );
-
+        $this->register_supports();
         $this->register_menus();
     }
 
@@ -84,13 +69,69 @@ final class Setup extends Module {
      *
      * @return void
      */
-    private function register_menus(): void {
+    private function register_menus(): void
+    {
+        $menus = $this->config['menus'] ?? array();
 
-        register_nav_menus(
-            array(
-                'primary' => esc_html__( 'Primary Menu', 'wooshop' ),
-                'footer'  => esc_html__( 'Footer Menu', 'wooshop' ),
-            )
+        $locations = array();
+
+        foreach ( $menus as $location => $menu ) {
+
+            if ( ! is_array( $menu ) ) {
+                continue;
+            }
+
+            if ( empty( $menu['label'] ) ) {
+                continue;
+            }
+
+            $locations[ $location ] = $menu['label'];
+        }
+
+        if ( ! empty( $locations ) ) {
+            register_nav_menus( $locations );
+        }
+    }
+
+    private function register_supports(): void
+    {
+        $supports = $this->config['supports'] ?? array();
+
+        foreach ($supports as $feature => $arguments) {
+
+            if (false === $arguments) {
+                continue;
+            }
+
+            /*
+             * Boolean theme supports.
+             */
+            if (true === $arguments) {
+                add_theme_support((string)$feature);
+                continue;
+            }
+
+            /*
+             * Features with arguments.
+             */
+            add_theme_support((string)$feature, ...array_values((array)$arguments));
+        }
+    }
+
+    /**
+     * Set global content width.
+     *
+     * @return void
+     */
+    public function set_content_width(): void {
+
+        $content_width = $this->config['content_width'] ?? 640;
+
+        $content_width = (int) apply_filters(
+            'wooshop_content_width',
+            $content_width
         );
+
+        $GLOBALS['content_width'] = $content_width;
     }
 }

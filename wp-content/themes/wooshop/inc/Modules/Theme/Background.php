@@ -18,12 +18,24 @@ defined( 'ABSPATH' ) || exit;
 final class Background extends Module {
 
     /**
+     * Theme configuration.
+     *
+     * @var array<string, mixed>
+     */
+    private array $config;
+
+    /**
      * Constructor.
      *
      * @param ModuleManager $manager Module manager.
      */
     public function __construct( ModuleManager $manager ) {
         parent::__construct( $manager );
+
+        $config = require get_template_directory()
+            . '/inc/Config/theme.php';
+
+        $this->config = is_array( $config ) ? $config : array();
     }
 
     /**
@@ -45,12 +57,17 @@ final class Background extends Module {
      */
     public function register_background(): void {
 
+        $args = $this->config['custom_background']
+            ?? array();
+
+        $args = apply_filters(
+            'wooshop_custom_background_args',
+            $args
+        );
+
         add_theme_support(
             'custom-background',
-            array(
-                'default-color' => 'ffffff',
-                'default-image' => '',
-            )
+            $args
         );
     }
 }

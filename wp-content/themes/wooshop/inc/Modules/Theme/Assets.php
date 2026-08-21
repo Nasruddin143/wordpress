@@ -95,6 +95,7 @@ final class Asset extends Module {
         $this->enqueue_global_assets();
         $this->enqueue_page_assets();
         $this->enqueue_component_assets();
+        $this->enqueue_comment_reply();
     }
 
     /**
@@ -471,5 +472,21 @@ final class Asset extends Module {
                     is_string( $dependency ) && '' !== $dependency
             )
         );
+    }
+
+    /**
+     * Enqueue native WordPress comment reply script.
+     *
+     * @return void
+     */
+    private function enqueue_comment_reply(): void {
+
+        if (
+            is_singular()
+            && comments_open()
+            && get_option( 'thread_comments' )
+        ) {
+            wp_enqueue_script( 'comment-reply' );
+        }
     }
 }

@@ -18,12 +18,24 @@ defined( 'ABSPATH' ) || exit;
 final class Header extends Module {
 
     /**
+     * Theme configuration.
+     *
+     * @var array<string, mixed>
+     */
+    private array $config;
+
+    /**
      * Constructor.
      *
      * @param ModuleManager $manager Module manager.
      */
     public function __construct( ModuleManager $manager ) {
         parent::__construct( $manager );
+
+        $config = require get_template_directory()
+                . '/inc/Config/theme.php';
+
+        $this->config = is_array( $config ) ? $config : array();
     }
 
     /**
@@ -33,50 +45,55 @@ final class Header extends Module {
      */
     public function register(): void {
         add_action(
-            'after_setup_theme',
-            array( $this, 'register_header' )
+                'after_setup_theme',
+                array( $this, 'register_custom_header' )
+        );
+
+        add_action(
+                'wp_head',
+                array( $this, 'header_style' )
         );
     }
 
     /**
-     * Register custom header.
+     * Register custom header support.
      *
      * @return void
      */
-    public function register_header(): void {
+    public function register_custom_header(): void {
 
-        add_theme_support(
-            'custom-header',
-            array(
-                'default-image'      => '',
-                'default-text-color' => '000000',
-                'width'              => 1920,
-                'height'             => 400,
-                'flex-height'        => true,
-                'flex-width'         => true,
-                'wp-head-callback'   => array( $this, 'header_style' ),
-            )
-        );
+        $args = $this->config['custom_header'] ?? array();
+
+        if ( ! empty( $args ) ) {
+            add_theme_support(
+                    'custom-header',
+                    $args
+            );
+        }
     }
 
     /**
-     * Output custom header CSS.
+     * Output custom header text color styles.
      *
      * @return void
      */
     public function header_style(): void {
 
-        $header_text_color = get_header_textcolor();
-
         if ( ! display_header_text() ) {
             return;
         }
 
+        $color = get_header_textcolor();
+
+        if ( ! $color ) {
+            return;
+        }
+
         ?>
-        <style type="text/css">
-            .site-title,
+        <style>
+            .site-title a,
             .site-description {
-                color: #<?php echo esc_attr( $header_text_color ); ?>;
+                color: #<?php echo esc_attr( $color ); ?>;
             }
         </style>
         <?php

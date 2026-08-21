@@ -14,7 +14,16 @@
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 	</header><!-- .entry-header -->
 
-	<?php wooshop_post_thumbnail(); ?>
+    <?php
+    if ( has_post_thumbnail() ) :
+        the_post_thumbnail(
+                'large',
+                array(
+                        'class' => 'img-fluid w-100',
+                )
+        );
+    endif;
+    ?>
 
 	<div class="entry-content">
 		<?php

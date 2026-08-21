@@ -13,28 +13,34 @@ use WooShop\Modules\Theme\Editor;
 use WooShop\Modules\Theme\Feeds;
 use WooShop\Modules\Theme\Filters;
 use WooShop\Modules\Theme\Header;
+use WooShop\Modules\Theme\Jetpack;
 use WooShop\Modules\Theme\Navigation;
 use WooShop\Modules\Theme\Setup;
 use WooShop\Modules\Theme\Template;
 use WooShop\Modules\Theme\Widgets;
-use WooShop\Modules\Theme\TemplateTags;
 
 defined( 'ABSPATH' ) || exit;
 
 return array(
 
     /*
-     * Theme foundation.
+     * ---------------------------------------------------------
+     * Theme Foundation
+     * ---------------------------------------------------------
      */
     Setup::class,
 
     /*
-     * Theme assets.
+     * ---------------------------------------------------------
+     * Assets
+     * ---------------------------------------------------------
      */
     Asset::class,
 
     /*
-     * WordPress theme integrations.
+     * ---------------------------------------------------------
+     * WordPress Theme Modules
+     * ---------------------------------------------------------
      */
     Navigation::class,
     Widgets::class,
@@ -46,5 +52,5 @@ return array(
     Feeds::class,
     Filters::class,
     Template::class,
-    TemplateTags::class,
+    Jetpack::class,
 );
