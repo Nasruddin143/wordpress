@@ -1,63 +1,56 @@
 <?php
 /**
- * Registered Theme Modules
+ * WooShop Module Configuration.
  *
  * @package WooShop
  */
 
-use WooShop\Modules\Theme\Footer;
-//use WooShop\Modules\Theme\Header\Navigation;
-use WooShop\Modules\Theme\Images;
-use WooShop\Modules\Theme\MobileMenus;
-use WooShop\Modules\Theme\Setup;
-use WooShop\Modules\Theme\Sidebars;
+use WooShop\Modules\Theme\Asset;
+use WooShop\Modules\Theme\Background;
+use WooShop\Modules\Theme\Comments;
+use WooShop\Modules\Theme\Customizer;
+use WooShop\Modules\Theme\Editor;
+use WooShop\Modules\Theme\Feeds;
+use WooShop\Modules\Theme\Filters;
 use WooShop\Modules\Theme\Header;
-use WooShop\Modules\WooCommerce\Bootstrap;
-use WooShop\Modules\WooCommerce\Integration;
+use WooShop\Modules\Theme\Jetpack;
+use WooShop\Modules\Theme\Navigation;
+use WooShop\Modules\Theme\Setup;
+use WooShop\Modules\Theme\Template;
+use WooShop\Modules\Theme\Widgets;
 
+defined( 'ABSPATH' ) || exit;
 
-defined('ABSPATH') || exit;
-
-return [
+return array(
 
     /*
-    |--------------------------------------------------------------------------
-    | Theme
-    |--------------------------------------------------------------------------
-    */
-
-    WooShop\Modules\Theme\Header::class,
-
-    WooShop\Modules\Theme\Footer::class,
-
-    WooShop\Modules\WooCommerce\Shop\Shop::class,
-
+     * ---------------------------------------------------------
+     * Theme Foundation
+     * ---------------------------------------------------------
+     */
     Setup::class,
 
-    MobileMenus::class,
-
-    Sidebars::class,
-
-    Images::class,
-
-    //Editor::class,
-
-    //Navigation::class,
-
-    //Blog::class,
-
-    //Search::class,
-
-    //Comments::class,
-
-    //Accessibility::class,
+    /*
+     * ---------------------------------------------------------
+     * Assets
+     * ---------------------------------------------------------
+     */
+    Asset::class,
 
     /*
-    |--------------------------------------------------------------------------
-    | WooCommerce
-    |--------------------------------------------------------------------------
-    */
-
-    Bootstrap::class,
-
-];
+     * ---------------------------------------------------------
+     * WordPress Theme Modules
+     * ---------------------------------------------------------
+     */
+    Navigation::class,
+    Widgets::class,
+    Editor::class,
+    Customizer::class,
+    Header::class,
+    Background::class,
+    Comments::class,
+    Feeds::class,
+    Filters::class,
+    Template::class,
+    Jetpack::class,
+);

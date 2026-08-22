@@ -1,55 +1,67 @@
 <?php
 /**
- * PSR-4 Autoloader
+ * WooShop Autoloader.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-class Autoloader
-{
+/**
+ * WooShop class autoloader.
+ */
+final class Autoloader {
 
     /**
      * Namespace prefix.
+     *
+     * @var string
      */
-    protected const string PREFIX = 'WooShop\\';
+    private const string PREFIX = 'WooShop\\';
 
     /**
      * Base directory.
+     *
+     * @var string
      */
-    protected static string $base_dir;
+    private const string BASE_DIRECTORY = 'inc/';
 
     /**
      * Register autoloader.
+     *
+     * @return void
      */
-    public static function register(): void
-    {
-
-        self::$base_dir = trailingslashit(get_template_directory()) . 'inc/';
-
-        spl_autoload_register([self::class, 'autoload']);
+    public static function register(): void {
+        spl_autoload_register( array( self::class, 'autoload' ) );
     }
 
     /**
-     * Load class.
+     * Autoload class.
+     *
+     * @param string $class Fully qualified class name.
+     *
+     * @return void
      */
-    protected static function autoload(string $class): void
-    {
+    public static function autoload( string $class ): void {
 
-        if (!str_starts_with($class, self::PREFIX)) {
+        if ( ! str_starts_with( $class, self::PREFIX ) ) {
             return;
         }
 
-        $relative = substr($class, strlen(self::PREFIX));
+        $relative_class = substr(
+            $class,
+            strlen( self::PREFIX )
+        );
 
-        $file = self::$base_dir .
-            str_replace('\\', DIRECTORY_SEPARATOR, $relative) .
-            '.php';
+        $file = get_template_directory()
+            . '/'
+            . self::BASE_DIRECTORY
+            . str_replace( '\\', '/', $relative_class )
+            . '.php';
 
-        if (file_exists($file)) {
+        if ( file_exists( $file ) ) {
             require_once $file;
         }
     }

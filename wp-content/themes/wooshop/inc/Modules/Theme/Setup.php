@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme Setup
+ * Theme Setup Module.
  *
  * @package WooShop
  */
@@ -8,12 +8,35 @@
 namespace WooShop\Modules\Theme;
 
 use WooShop\Core\Module;
-use WooShop\Theme\Design\CSS;
+use WooShop\Core\ModuleManager;
 
 defined('ABSPATH') || exit;
 
-class Setup extends Module
+/**
+ * Theme setup.
+ */
+final class Setup extends Module
 {
+    /**
+     * Theme configuration.
+     *
+     * @var array<string, mixed>
+     */
+    private array $config;
+
+    /**
+     * Constructor.
+     *
+     * @param ModuleManager $manager Module manager.
+     */
+    public function __construct(ModuleManager $manager)
+    {
+        parent::__construct($manager);
+
+        $config = require get_template_directory() . '/inc/Config/theme.php';
+
+        $this->config = is_array($config) ? $config : array();
+    }
 
     /**
      * Register module.
@@ -22,253 +45,107 @@ class Setup extends Module
      */
     public function register(): void
     {
-
-        add_action(
-            'after_setup_theme',
-            [$this, 'setup']
-        );
-
-        add_action(
-            'after_setup_theme',
-            [$this, 'woocommerce_support']
-        );
-
-        add_action(
-            'after_setup_theme',
-            [$this, 'register_image_sizes']
-        );
-
-        add_action(
-            'after_setup_theme',
-            [$this, 'content_width'],
-            0
-        );
-
-        add_filter(
-            'body_class',
-            [$this, 'body_classes']
-        );
-
-        add_action(
-            'wp_head',
-            [CSS::class, 'output'], 1
-        );
+        add_action('after_setup_theme', array($this, 'setup'));
+        add_action('after_setup_theme', array($this, 'set_content_width'), 0);
     }
 
     /**
-     * Theme setup.
+     * Setup theme features.
      *
      * @return void
      */
     public function setup(): void
     {
+        $translation_path = $this->config['translation_path'] ?? 'languages';
 
-        /*
-         * Translation.
-         */
         load_theme_textdomain('wooshop', get_template_directory() . '/languages');
 
-        /*
-         * RSS feed links.
-         */
-        add_theme_support('automatic-feed-links');
-
-        /*
-         * Document title.
-         */
-        add_theme_support('title-tag');
-
-        /*
-         * Featured images.
-         */
-        add_theme_support('post-thumbnails');
-
-        /*
-         * HTML5.
-         */
-        add_theme_support(
-            'html5',
-            [
-                'search-form',
-                'comment-form',
-                'comment-list',
-                'gallery',
-                'caption',
-                'style',
-                'script',
-            ]
-        );
-
-        /*
-         * Custom logo.
-         */
-        add_theme_support(
-            'custom-logo',
-            [
-                'height' => 80,
-                'width' => 260,
-                'flex-height' => true,
-                'flex-width' => true,
-            ]
-        );
-
-        /*
-         * Custom background.
-         */
-        add_theme_support('custom-background');
-
-        /*
-         * Selective refresh.
-         */
-        add_theme_support('customize-selective-refresh-widgets');
-
-        /*
-         * Responsive embeds.
-         */
-        add_theme_support('responsive-embeds');
-
-        /*
-         * Wide & Full alignment.
-         */
-        add_theme_support('align-wide');
-
-        /*
-         * Block styles.
-         */
-        add_theme_support('wp-block-styles');
-
-        /*
-         * Editor styles.
-         */
-        add_theme_support('editor-styles');
-
-        /*
-         * Editor styles CSS.
-         */
-//        add_editor_style(
-//            'assets/build/css/editor.min.css'
-//        );
-
-        /*
-         * Custom Spacing.
-         */
-        add_theme_support(
-            'custom-spacing'
-        );
-
-        /*
-         * Custom Line Height.
-         */
-        add_theme_support(
-            'custom-line-height'
-        );
-
-        /*
-         * Appearance Tools.
-         */
-        add_theme_support(
-            'appearance-tools'
-        );
-
+        $this->register_supports();
+        $this->register_menus();
     }
 
     /**
-     * Register theme image sizes.
+     * Register navigation menus.
      *
      * @return void
      */
-    public function register_image_sizes(): void
+    private function register_menus(): void
     {
-        /*
-         * Small card image.
-         */
-        add_image_size(
-            'wooshop-card',
-            400,
-            400,
-            true
-        );
+        $menus = $this->config['menus'] ?? array();
 
-        /*
-         * Medium content image.
-         */
-        add_image_size(
-            'wooshop-medium',
-            768,
-            768,
-            false
-        );
+        $locations = array();
 
-        /*
-         * Large content image.
-         */
-        add_image_size(
-            'wooshop-large',
-            1200,
-            1200,
-            false
-        );
+        foreach ($menus as $location => $menu) {
 
-        /*
-         * Wide banner image.
-         */
-        add_image_size(
-            'wooshop-banner',
-            1600,
-            600,
-            true
-        );
+            if (!is_array($menu)) {
+                continue;
+            }
 
-        /*
-         * Small thumbnail.
-         */
-        add_image_size(
-            'wooshop-thumbnail',
-            150,
-            150,
-            true
-        );
+            if (empty($menu['label'])) {
+                continue;
+            }
+
+            $locations[$location] = $menu['label'];
+        }
+
+        if (!empty($locations)) {
+            register_nav_menus($locations);
+        }
     }
 
     /**
-     * Set content width.
+     * Register configured theme supports.
      *
      * @return void
      */
-    public function content_width(): void
+    private function register_supports(): void
     {
 
-        $GLOBALS['content_width'] = apply_filters(
-            'wooshop_content_width',
-            1200
-        );
+        $supports = $this->config['supports'] ?? array();
+
+        foreach ($supports as $feature => $arguments) {
+
+            /*
+             * Boolean theme support.
+             */
+            if (true === $arguments) {
+                add_theme_support((string)$feature);
+                continue;
+            }
+
+            /*
+             * Theme support with arguments.
+             *
+             * WordPress expects features such as html5, custom-logo,
+             * custom-background, etc. to receive their configuration
+             * as a single argument.
+             */
+            if (is_array($arguments)) {
+
+                add_theme_support((string)$feature, $arguments);
+                continue;
+
+            }
+
+            /*
+             * Fallback for scalar arguments.
+             */
+            add_theme_support((string)$feature, $arguments);
+        }
     }
 
     /**
-     * Add body classes.
+     * Set global content width.
      *
-     * @param array $classes Existing classes.
-     *
-     * @return array
+     * @return void
      */
-    public function body_classes(array $classes): array
+    public function set_content_width(): void
     {
 
-        if (!is_singular()) {
-            $classes[] = 'hfeed';
-        }
+        $content_width = $this->config['content_width'] ?? 640;
 
-        if (!is_active_sidebar('sidebar-1')) {
-            $classes[] = 'no-sidebar';
-        }
+        $content_width = (int)apply_filters('wooshop_content_width', $content_width);
 
-        return $classes;
-    }
-
-    public function woocommerce_support(): void
-    {
-        add_theme_support(
-            'woocommerce'
-        );
+        $GLOBALS['content_width'] = $content_width;
     }
 }

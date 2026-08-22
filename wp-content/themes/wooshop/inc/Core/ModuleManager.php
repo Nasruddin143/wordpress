@@ -1,96 +1,72 @@
 <?php
 /**
- * Module Manager
+ * Module Manager.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-class ModuleManager
-{
-
-    /**
-     * Container.
-     *
-     * @var Container
-     */
-    protected Container $container;
+/**
+ * Module manager.
+ */
+final class ModuleManager {
 
     /**
-     * Loaded modules.
+     * Registered modules.
      *
-     * @var Module[]
+     * @var array<string, Module>
      */
-    protected array $modules = [];
+    private array $modules = array();
 
     /**
-     * Constructor.
+     * Register modules from configuration.
      *
-     * @param Container $container Service container.
-     */
-    public function __construct(Container $container)
-    {
-
-        $this->container = $container;
-    }
-
-    /**
-     * Register module.
+     * @param array<int, class-string<Module>> $module_classes Module classes.
      *
-     * @param string $class Module class.
+     * @return void
      */
-    public function register(string $class): void
-    {
+    public function register( array $module_classes ): void {
 
-        if ( ! class_exists( $class ) ) {
+        foreach ( $module_classes as $module_class ) {
 
-            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-
-                trigger_error(
-                    sprintf(
-                        'WooShop Module not found: %s',
-                        $class
-                    ),
-                    E_USER_WARNING
-                );
-
+            if ( ! class_exists( $module_class ) ) {
+                continue;
             }
 
-            return;
+            $module = new $module_class( $this );
+
+            if ( ! $module instanceof Module ) {
+                continue;
+            }
+
+            $module->register();
+
+            $this->modules[ $module_class ] = $module;
         }
-
-        $module = new $class(
-            $this->container
-        );
-
-        $this->modules[] = $module;
-
-        $this->container->set(
-            $class,
-            $module
-        );
-
-        $module->register();
     }
 
     /**
-     * Load configured modules.
+     * Get a registered module.
+     *
+     * @param class-string<Module> $module_class Module class.
+     *
+     * @return Module|null
      */
-    public function load(): void
-    {
+    public function get( string $module_class ): ?Module {
+        return $this->modules[ $module_class ] ?? null;
+    }
 
-        $modules = require get_template_directory() . '/inc/Config/modules.php';
-
-        if (empty($modules) || !is_array($modules)) {
-            return;
-        }
-
-        foreach ($modules as $class) {
-
-            $this->register($class);
-        }
+    /**
+     * Check whether a module is registered.
+     *
+     * @param class-string<Module> $module_class Module class.
+     *
+     * @return bool
+     */
+    public function has( string $module_class ): bool {
+        return isset( $this->modules[ $module_class ] );
     }
 }

@@ -1,21 +1,31 @@
 <?php
 /**
- * Theme Footer
+ * The template for displaying the footer
+ *
+ * Contains the closing of the #content div and all content after.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
  * @package WooShop
  */
 
-defined( 'ABSPATH' ) || exit;
 ?>
 
-<?php get_template_part( 'template-parts/global/back-to-top' ); ?>
-
-<?php do_action( 'wooshop_before_footer' ); ?>
-
-<?php do_action( 'wooshop_footer' ); ?>
-
-<?php do_action( 'wooshop_after_footer' ); ?>
-
+	<footer id="colophon" class="site-footer">
+		<div class="site-info">
+			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'wooshop' ) ); ?>">
+				<?php
+				/* translators: %s: CMS name, i.e. WordPress. */
+				printf( esc_html__( 'Proudly powered by %s', 'wooshop' ), 'WordPress' );
+				?>
+			</a>
+			<span class="sep"> | </span>
+				<?php
+				/* translators: 1: Theme name, 2: Theme author. */
+				printf( esc_html__( 'Theme: %1$s by %2$s.', 'wooshop' ), 'wooshop', '<a href="http://sknasruddin.indevs.in">Nasruddin Shaikh</a>' );
+				?>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

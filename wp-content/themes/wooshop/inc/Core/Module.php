@@ -1,48 +1,39 @@
 <?php
 /**
- * Base Module
+ * Base Module.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-abstract class Module
-{
-    protected Container $container;
+/**
+ * Abstract module class.
+ */
+abstract class Module {
 
-    final public function __construct(Container $container)
-    {
-        $this->container = $container;
+    /**
+     * Module manager.
+     *
+     * @var ModuleManager
+     */
+    protected ModuleManager $manager;
+
+    /**
+     * Constructor.
+     *
+     * @param ModuleManager $manager Module manager.
+     */
+    public function __construct( ModuleManager $manager ) {
+        $this->manager = $manager;
     }
 
+    /**
+     * Register module hooks.
+     *
+     * @return void
+     */
     abstract public function register(): void;
-
-    protected function service(string $id)
-    {
-        return $this->container->get($id);
-    }
-
-    protected function view(): View
-    {
-        return $this->service(
-            View::class
-        );
-    }
-
-    protected function config(): Config
-    {
-        return $this->service(
-            Config::class
-        );
-    }
-
-    protected function assets(): AssetManager
-    {
-        return $this->service(
-            AssetManager::class
-        );
-    }
 }

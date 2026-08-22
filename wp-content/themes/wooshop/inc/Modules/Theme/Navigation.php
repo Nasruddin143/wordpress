@@ -1,75 +1,70 @@
 <?php
 /**
- * Navigation Module
+ * Navigation Module.
  *
  * @package WooShop
  */
 
-namespace WooShop\Modules\Theme\Header;
+namespace WooShop\Modules\Theme;
 
+use stdClass;
 use WooShop\Core\Module;
-use WooShop\Core\View;
+use WooShop\Core\ModuleManager;
+use WP_Post;
 
 defined( 'ABSPATH' ) || exit;
 
-class Navigation extends Module
-{
+/**
+ * Navigation module.
+ */
+final class Navigation extends Module {
 
     /**
-     * View renderer.
+     * Constructor.
      *
-     * @var View
+     * @param ModuleManager $manager Module manager.
      */
-    protected View $view;
+    public function __construct( ModuleManager $manager ) {
+        parent::__construct( $manager );
+    }
 
     /**
      * Register module.
      *
      * @return void
      */
-    public function register(): void
-    {
-
-        $this->view = $this->container->get(View::class);
-
-        add_action(
-                'after_setup_theme',
-                [$this, 'register_menus']
-        );
-
-        add_action(
-                'wooshop_header_center',
-                [$this,'render'],
-                10
+    public function register(): void {
+        add_filter(
+            'nav_menu_link_attributes',
+            array( $this, 'link_attributes' ),
+            10,
+            4
         );
     }
 
     /**
-     * Register theme menus.
+     * Modify navigation link attributes.
      *
-     * @return void
-     */
-    public function register_menus(): void
-    {
-
-        register_nav_menus(
-                [
-                        'primary' => __('Primary Menu', 'wooshop'),
-                        'topbar' => __('Top Bar Menu', 'wooshop'),
-                        'mobile' => __('Mobile Menu', 'wooshop'),
-                        'footer' => __('Footer Menu', 'wooshop'),
-                ]
-        );
-    }
-
-    /**
-     * Render navigation.
+     * @param array<string, string> $atts       Attributes.
+     * @param WP_Post               $item       Menu item.
+     * @param stdClass              $args       Menu arguments.
+     * @param int                   $depth      Menu depth.
      *
-     * @return void
+     * @return array<string, string>
      */
-    public function render(): void
-    {
+    public function link_attributes(
+        array    $atts,
+        WP_Post  $item,
+        stdClass $args,
+        int      $depth
+    ): array {
 
-        $this->view->render('header/navigation');
+        if ( isset( $args->theme_location ) && 'primary' === $args->theme_location ) {
+            $atts['class'] = isset( $atts['class'] )
+                ? $atts['class'] . ' nav-link'
+                : 'nav-link';
+        }
+
+        return $atts;
     }
 }

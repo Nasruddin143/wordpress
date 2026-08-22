@@ -1,27 +1,36 @@
 <?php
 /**
- * Primary Navigation
+ * Primary Navigation.
  *
  * @package WooShop
  */
 
+use WooShop\Modules\Theme\BootstrapWalker;
+
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<nav
-        class="ws-navigation navbar navbar-expand-lg p-0"
-        aria-label="<?php esc_attr_e( 'Primary navigation', 'wooshop' ); ?>">
+<nav id="site-navigation" class="main-navigation navbar navbar-expand-lg bg-body-tertiary" aria-label="<?php esc_attr_e( 'Primary Menu', 'wooshop' ); ?>">
 
-    <?php
-    wp_nav_menu(
-            [
-                    'theme_location' => 'primary',
-                    'container'      => false,
-                    'menu_class'     => 'navbar-nav flex-row flex-wrap gap-1',
-                    'fallback_cb'    => false,
-                    'depth'          => 3,
-            ]
-    );
-    ?>
+    <div class="container">
 
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <?php
+            wp_nav_menu(
+                    array(
+                            'theme_location' => 'primary',
+                            'menu_id'        => 'primary-menu-list',
+                            'menu_class'     => 'navbar-nav ms-auto mb-2 mb-lg-0',
+                            'container'      => false,
+                            'fallback_cb'    => false,
+                            'walker'         => new BootstrapWalker(),
+                    )
+            );
+            ?>
+        </div>
+    </div>
 </nav>

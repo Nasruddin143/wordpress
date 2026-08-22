@@ -1,0 +1,46 @@
+.site-header {
+    position: relative;
+    z-index: 1000;
+}
+
+.site-branding {
+    min-width: 0;
+}
+
+.site-branding .custom-logo {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+/* Forces container image to stay bounded */
+.site-logo img,
+.custom-logo-link img {
+    width: 201px !important;
+    height: 50px !important;
+    aspect-ratio: 201 / 50; /* Matches dimensions to avoid distortion */
+}
+
+.main-navigation .navbar-nav {
+    align-items: center;
+}
+
+.main-navigation .menu-item > a {
+    display: block;
+    text-decoration: none;
+}
+
+.desktop-search{
+    width: 350px;
+}
+
+/* Smooth transition for the border color change */
+.custom-search-group {
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Changes the container border when the inner text input is clicked/focused */
+.custom-search-group:focus-within {
+    border-color: var(--bs-primary, #0d6efd) !important; /* Matches Bootstrap's btn-primary color */
+    /*box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important; !* Optional: Adds a matching subtle glow *!*/
+}

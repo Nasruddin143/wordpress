@@ -1,6 +1,6 @@
 <?php
 /**
- * Header Branding
+ * Site Branding.
  *
  * @package WooShop
  */
@@ -8,36 +8,49 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<div class="ws-branding site-branding">
+<div class="site-branding flex-shrink-0">
 
-    <?php if ( has_custom_logo() ) : ?>
+    <?php
+    if ( has_custom_logo() ) :
+        the_custom_logo();
+    else :
+        ?>
 
-        <div class="custom-logo-link">
-            <?php the_custom_logo(); ?>
-        </div>
+        <?php if ( is_front_page() && is_home() ) : ?>
+
+        <h1 class="site-title h3 mb-0">
+            <a
+                class="text-decoration-none"
+                href="<?php echo esc_url( home_url( '/' ) ); ?>"
+                rel="home"
+            >
+                <?php bloginfo( 'name' ); ?>
+            </a>
+        </h1>
 
     <?php else : ?>
 
-        <a
-                class="ws-branding__link text-decoration-none"
+        <p class="site-title h3 mb-0">
+            <a
+                class="text-decoration-none"
                 href="<?php echo esc_url( home_url( '/' ) ); ?>"
-                rel="home">
+                rel="home"
+            >
+                <?php bloginfo( 'name' ); ?>
+            </a>
+        </p>
 
-            <span class="ws-branding__title fw-bold fs-4 text-dark">
-                <?php echo esc_html( get_bloginfo( 'name' ) ); ?>
-            </span>
-
-        </a>
+    <?php endif; ?>
 
         <?php
         $description = get_bloginfo( 'description', 'display' );
 
-        if ( $description ) :
+        if ( $description || is_customize_preview() ) :
             ?>
 
-            <span class="ws-branding__description d-block small text-body-secondary">
+            <p class="site-description mb-0 mt-1 text-body-secondary">
                 <?php echo esc_html( $description ); ?>
-            </span>
+            </p>
 
         <?php endif; ?>
 
