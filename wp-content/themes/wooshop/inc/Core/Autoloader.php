@@ -19,14 +19,14 @@ final class Autoloader {
      *
      * @var string
      */
-    private const PREFIX = 'WooShop\\';
+    private const string PREFIX = 'WooShop\\';
 
     /**
      * Base directory.
      *
      * @var string
      */
-    private const BASE_DIRECTORY = 'inc/';
+    private const string BASE_DIRECTORY = 'inc/';
 
     /**
      * Register autoloader.

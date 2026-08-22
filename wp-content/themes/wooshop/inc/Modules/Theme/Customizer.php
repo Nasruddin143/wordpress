@@ -13,20 +13,22 @@ use WP_Customize_Manager;
 use WooShop\Core\Module;
 use WooShop\Core\ModuleManager;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Theme customizer module.
  */
-final class Customizer extends Module {
+final class Customizer extends Module
+{
 
     /**
      * Constructor.
      *
      * @param ModuleManager $manager Module manager.
      */
-    public function __construct( ModuleManager $manager ) {
-        parent::__construct( $manager );
+    public function __construct(ModuleManager $manager)
+    {
+        parent::__construct($manager);
     }
 
     /**
@@ -34,17 +36,12 @@ final class Customizer extends Module {
      *
      * @return void
      */
-    public function register(): void {
+    public function register(): void
+    {
 
-        add_action(
-            'customize_register',
-            array( $this, 'register_controls' )
-        );
+        add_action('customize_register', array($this, 'register_controls'));
 
-        add_action(
-            'customize_preview_init',
-            array( $this, 'enqueue_preview_script' )
-        );
+        add_action('customize_preview_init', array($this, 'enqueue_preview_script'));
     }
 
     /**
@@ -54,10 +51,8 @@ final class Customizer extends Module {
      *
      * @return void
      */
-    public function register_controls(
-        WP_Customize_Manager $wp_customize
-    ): void {
-
+    public function register_controls(WP_Customize_Manager $wp_customize): void
+    {
         /*
          * ---------------------------------------------------------
          * WooShop Theme Panel
@@ -66,134 +61,68 @@ final class Customizer extends Module {
         $wp_customize->add_panel(
             'wooshop_theme',
             array(
-                'title'       => esc_html__( 'WooShop Theme', 'wooshop' ),
-                'description' => esc_html__(
-                    'Configure WooShop theme settings.',
-                    'wooshop'
-                ),
-                'priority'    => 10,
-            )
-        );
-
-        /*
-         * ---------------------------------------------------------
-         * Header Section
-         * ---------------------------------------------------------
-         */
-        $wp_customize->add_section(
-            'wooshop_header',
-            array(
-                'title'    => esc_html__( 'Header', 'wooshop' ),
-                'panel'    => 'wooshop_theme',
+                'title' => esc_html__('WooShop Theme', 'wooshop'),
+                'description' => esc_html__('Configure WooShop theme settings.', 'wooshop'),
                 'priority' => 10,
             )
         );
 
         /*
-         * Header announcement.
+         * ---------------------------------------------------------
+         * Topbar Section
+         * ---------------------------------------------------------
          */
-        $wp_customize->add_setting(
-            'wooshop_header_announcement',
+        $wp_customize->add_section(
+            'wooshop_topbar',
             array(
-                'default'           => '',
+                'title' => esc_html__('Topbar', 'wooshop'),
+                'panel' => 'wooshop_theme',
+                'priority' => 5,
+            )
+        );
+
+        // Contact Number Setting
+        $wp_customize->add_setting(
+            'wooshop_header_phone',
+            array(
+                'default' => '',
                 'sanitize_callback' => 'sanitize_text_field',
-                'transport'         => 'refresh',
+                'transport' => 'refresh',
             )
         );
 
         $wp_customize->add_control(
-            'wooshop_header_announcement',
+            'wooshop_header_phone',
             array(
-                'label'       => esc_html__(
-                    'Announcement Text',
-                    'wooshop'
-                ),
-                'description' => esc_html__(
-                    'Optional announcement displayed in the header.',
-                    'wooshop'
-                ),
-                'section'     => 'wooshop_header',
-                'type'        => 'text',
+                'label' => esc_html__('Mobile Number', 'wooshop'),
+                'description' => esc_html__('Phone number displayed in the topbar.', 'wooshop'),
+                'section' => 'wooshop_topbar',
+                'type' => 'text',
             )
         );
 
-        /*
-         * ---------------------------------------------------------
-         * Layout Section
-         * ---------------------------------------------------------
-         */
-        $wp_customize->add_section(
-            'wooshop_layout',
-            array(
-                'title'    => esc_html__( 'Layout', 'wooshop' ),
-                'panel'    => 'wooshop_theme',
-                'priority' => 20,
-            )
-        );
-
-        /*
-         * Container width.
-         */
+        // Email Address Setting
         $wp_customize->add_setting(
-            'wooshop_container_width',
+            'wooshop_header_email',
             array(
-                'default'           => '1200px',
-                'sanitize_callback' => array( $this, 'sanitize_css_size' ),
-                'transport'         => 'refresh',
+                'default' => '',
+                'sanitize_callback' => 'sanitize_email',
+                'transport' => 'refresh',
             )
         );
 
         $wp_customize->add_control(
-            'wooshop_container_width',
+            'wooshop_header_email',
             array(
-                'label'       => esc_html__(
-                    'Container Width',
-                    'wooshop'
-                ),
-                'description' => esc_html__(
-                    'Set the maximum content width.',
-                    'wooshop'
-                ),
-                'section'     => 'wooshop_layout',
-                'type'        => 'text',
-            )
-        );
-
-        /*
-         * ---------------------------------------------------------
-         * Footer Section
-         * ---------------------------------------------------------
-         */
-        $wp_customize->add_section(
-            'wooshop_footer',
-            array(
-                'title'    => esc_html__( 'Footer', 'wooshop' ),
-                'panel'    => 'wooshop_theme',
-                'priority' => 30,
-            )
-        );
-
-        $wp_customize->add_setting(
-            'wooshop_footer_text',
-            array(
-                'default'           => '',
-                'sanitize_callback' => 'wp_kses_post',
-                'transport'         => 'refresh',
-            )
-        );
-
-        $wp_customize->add_control(
-            'wooshop_footer_text',
-            array(
-                'label'       => esc_html__(
-                    'Footer Text',
-                    'wooshop'
-                ),
-                'section'     => 'wooshop_footer',
-                'type'        => 'textarea',
+                'label' => esc_html__('Email Address', 'wooshop'),
+                'description' => esc_html__('Email address displayed in the topbar.', 'wooshop'),
+                'section' => 'wooshop_topbar',
+                'type' => 'email',
             )
         );
     }
+
+
 
     /**
      * Sanitize CSS size value.
@@ -202,11 +131,12 @@ final class Customizer extends Module {
      *
      * @return string
      */
-    public function sanitize_css_size( string $value ): string {
+    public function sanitize_css_size(string $value): string
+    {
 
-        $value = trim( $value );
+        $value = trim($value);
 
-        if ( preg_match( '/^\d+(?:\.\d+)?(?:px|rem|em|%|vw|vh)$/', $value ) ) {
+        if (preg_match('/^\d+(?:\.\d+)?(?:px|rem|em|%|vw|vh)$/', $value)) {
             return $value;
         }
 
@@ -218,15 +148,11 @@ final class Customizer extends Module {
      *
      * @return void
      */
-    public function enqueue_preview_script(): void {
+    public function enqueue_preview_script(): void
+    {
 
-        wp_enqueue_script(
-            'wooshop-customizer',
-            get_template_directory_uri()
-            . '/assets/build/js/customizer.min.js',
-            array( 'customize-preview' ),
-            wp_get_theme()->get( 'Version' ),
-            true
+        wp_enqueue_script('wooshop-customizer', get_template_directory_uri() . '/assets/build/js/customizer.min.js',
+            array('customize-preview'), wp_get_theme()->get('Version'), true
         );
     }
 }

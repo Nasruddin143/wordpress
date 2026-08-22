@@ -180,14 +180,21 @@ return array(
 
     /*
      * ---------------------------------------------------------
-     * Scripts
+     * Global Scripts
      * ---------------------------------------------------------
      */
     'scripts' => array(
 
+        'bootstrap' => array(
+            'src'       => 'assets/build/js/bootstrap.bundle.min.js',
+            'deps'      => array(),
+            'version'   => null,
+            'in_footer' => true,
+        ),
+
         'app' => array(
             'src'       => 'assets/build/js/app.min.js',
-            'deps'      => array( 'jquery' ),
+            'deps'      => array( 'bootstrap' ),
             'version'   => null,
             'in_footer' => true,
         ),

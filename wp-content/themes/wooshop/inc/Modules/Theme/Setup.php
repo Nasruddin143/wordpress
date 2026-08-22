@@ -75,36 +75,38 @@ final class Setup extends Module
 
         $locations = array();
 
-        foreach ( $menus as $location => $menu ) {
+        foreach ($menus as $location => $menu) {
 
-            if ( ! is_array( $menu ) ) {
+            if (!is_array($menu)) {
                 continue;
             }
 
-            if ( empty( $menu['label'] ) ) {
+            if (empty($menu['label'])) {
                 continue;
             }
 
-            $locations[ $location ] = $menu['label'];
+            $locations[$location] = $menu['label'];
         }
 
-        if ( ! empty( $locations ) ) {
-            register_nav_menus( $locations );
+        if (!empty($locations)) {
+            register_nav_menus($locations);
         }
     }
 
+    /**
+     * Register configured theme supports.
+     *
+     * @return void
+     */
     private function register_supports(): void
     {
+
         $supports = $this->config['supports'] ?? array();
 
         foreach ($supports as $feature => $arguments) {
 
-            if (false === $arguments) {
-                continue;
-            }
-
             /*
-             * Boolean theme supports.
+             * Boolean theme support.
              */
             if (true === $arguments) {
                 add_theme_support((string)$feature);
@@ -112,9 +114,23 @@ final class Setup extends Module
             }
 
             /*
-             * Features with arguments.
+             * Theme support with arguments.
+             *
+             * WordPress expects features such as html5, custom-logo,
+             * custom-background, etc. to receive their configuration
+             * as a single argument.
              */
-            add_theme_support((string)$feature, ...array_values((array)$arguments));
+            if (is_array($arguments)) {
+
+                add_theme_support((string)$feature, $arguments);
+                continue;
+
+            }
+
+            /*
+             * Fallback for scalar arguments.
+             */
+            add_theme_support((string)$feature, $arguments);
         }
     }
 
@@ -123,14 +139,12 @@ final class Setup extends Module
      *
      * @return void
      */
-    public function set_content_width(): void {
+    public function set_content_width(): void
+    {
 
         $content_width = $this->config['content_width'] ?? 640;
 
-        $content_width = (int) apply_filters(
-            'wooshop_content_width',
-            $content_width
-        );
+        $content_width = (int)apply_filters('wooshop_content_width', $content_width);
 
         $GLOBALS['content_width'] = $content_width;
     }

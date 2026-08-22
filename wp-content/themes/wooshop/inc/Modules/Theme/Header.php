@@ -10,12 +10,13 @@ namespace WooShop\Modules\Theme;
 use WooShop\Core\Module;
 use WooShop\Core\ModuleManager;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Custom header module.
  */
-final class Header extends Module {
+final class Header extends Module
+{
 
     /**
      * Theme configuration.
@@ -29,13 +30,13 @@ final class Header extends Module {
      *
      * @param ModuleManager $manager Module manager.
      */
-    public function __construct( ModuleManager $manager ) {
-        parent::__construct( $manager );
+    public function __construct(ModuleManager $manager)
+    {
+        parent::__construct($manager);
 
-        $config = require get_template_directory()
-                . '/inc/Config/theme.php';
+        $config = require get_template_directory() . '/inc/Config/theme.php';
 
-        $this->config = is_array( $config ) ? $config : array();
+        $this->config = is_array($config) ? $config : array();
     }
 
     /**
@@ -43,16 +44,11 @@ final class Header extends Module {
      *
      * @return void
      */
-    public function register(): void {
-        add_action(
-                'after_setup_theme',
-                array( $this, 'register_custom_header' )
-        );
+    public function register(): void
+    {
+        add_action('after_setup_theme', array($this, 'register_custom_header'));
 
-        add_action(
-                'wp_head',
-                array( $this, 'header_style' )
-        );
+        add_action('wp_head', array($this, 'header_style'));
     }
 
     /**
@@ -60,11 +56,12 @@ final class Header extends Module {
      *
      * @return void
      */
-    public function register_custom_header(): void {
+    public function register_custom_header(): void
+    {
 
         $args = $this->config['custom_header'] ?? array();
 
-        if ( ! empty( $args ) ) {
+        if (!empty($args)) {
             add_theme_support(
                     'custom-header',
                     $args
@@ -77,15 +74,16 @@ final class Header extends Module {
      *
      * @return void
      */
-    public function header_style(): void {
+    public function header_style(): void
+    {
 
-        if ( ! display_header_text() ) {
+        if (!display_header_text()) {
             return;
         }
 
         $color = get_header_textcolor();
 
-        if ( ! $color ) {
+        if (!$color) {
             return;
         }
 
