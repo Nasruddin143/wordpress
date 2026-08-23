@@ -18,17 +18,19 @@ defined('ABSPATH') || exit;
 
     <div class="container-fluid container-xl">
 
-        <div class="d-flex align-items-center justify-content-between py-3">
+        <div class="d-flex align-items-center justify-content-between py-4">
 
             <?php get_template_part('template-parts/header/branding'); ?>
 
             <?php get_template_part('template-parts/header/search'); ?>
 
-            <?php get_template_part('template-parts/header/navigation'); ?>
+            <?php get_template_part('template-parts/header/actions'); ?>
 
         </div>
 
     </div>
+
+    <?php get_template_part('template-parts/header/navigation'); ?>
 
 </div>
 

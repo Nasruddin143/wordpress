@@ -243,4 +243,353 @@ return array(
             'in_footer' => true,
         ),
     ),
+
+    /*
+	 * =========================================================
+	 * WOOCOMMERCE ASSETS
+	 * =========================================================
+	 */
+    'woocommerce' => array(
+
+        /*
+         * -----------------------------------------------------
+         * Global WooCommerce Styles
+         * -----------------------------------------------------
+         */
+        'styles' => array(
+
+            'woocommerce' => array(
+                'src'     => 'assets/build/css/woocommerce.min.css',
+                'deps'    => array( 'app' ),
+                'version' => null,
+                'media'   => 'all',
+            ),
+        ),
+
+        /*
+         * -----------------------------------------------------
+         * Global WooCommerce Scripts
+         * -----------------------------------------------------
+         */
+        'scripts' => array(
+
+            'woocommerce' => array(
+                'src'       => 'assets/build/js/woocommerce.min.js',
+                'deps'      => array( 'app' ),
+                'version'   => null,
+                'in_footer' => true,
+            ),
+        ),
+
+        /*
+         * -----------------------------------------------------
+         * WooCommerce Components
+         * -----------------------------------------------------
+         */
+        'components' => array(
+
+            'product-card' => array(
+                'src'     => 'assets/build/css/woocommerce/product-card.min.css',
+                'deps'    => array( 'woocommerce' ),
+                'version' => null,
+                'media'   => 'all',
+            ),
+
+            'product-gallery' => array(
+                'src'     => 'assets/build/css/woocommerce/product-gallery.min.css',
+                'deps'    => array( 'woocommerce' ),
+                'version' => null,
+                'media'   => 'all',
+            ),
+
+            'cart' => array(
+                'src'     => 'assets/build/css/woocommerce/cart.min.css',
+                'deps'    => array( 'woocommerce' ),
+                'version' => null,
+                'media'   => 'all',
+            ),
+
+            'checkout' => array(
+                'src'     => 'assets/build/css/woocommerce/checkout.min.css',
+                'deps'    => array( 'woocommerce' ),
+                'version' => null,
+                'media'   => 'all',
+            ),
+
+            'account' => array(
+                'src'     => 'assets/build/css/woocommerce/account.min.css',
+                'deps'    => array( 'woocommerce' ),
+                'version' => null,
+                'media'   => 'all',
+            ),
+
+            'product-archive' => array(
+                'src'     => 'assets/build/css/woocommerce/product-archive.min.css',
+                'deps'    => array( 'woocommerce' ),
+                'version' => null,
+                'media'   => 'all',
+            ),
+
+            'single-product' => array(
+                'src'     => 'assets/build/css/woocommerce/single-product.min.css',
+                'deps'    => array( 'woocommerce' ),
+                'version' => null,
+                'media'   => 'all',
+            ),
+        ),
+
+        /*
+         * -----------------------------------------------------
+         * WooCommerce Feature Assets
+         * -----------------------------------------------------
+         */
+        'features' => array(
+
+            'mini-cart' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/mini-cart.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/mini-cart.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'quick-view' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/quick-view.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/quick-view.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'swatches' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/swatches.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/swatches.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'product-filters' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/product-filters.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/product-filters.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'wishlist' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/wishlist.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/wishlist.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'compare' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/compare.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/compare.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'brands' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/brands.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+            ),
+
+            'reviews' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/reviews.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/reviews.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'size-guide' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/size-guide.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/size-guide.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'product-tabs' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/product-tabs.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/product-tabs.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'product-video' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/product-video.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/product-video.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'countdown' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/countdown.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/countdown.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'shipping-bar' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/shipping-bar.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/shipping-bar.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'stock' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/stock.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+            ),
+
+            'waitlist' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/waitlist.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/waitlist.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+
+            'social-share' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/social-share.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+            ),
+
+            'payment-icons' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/payment-icons.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+            ),
+
+            'mobile' => array(
+                'style' => array(
+                    'src'     => 'assets/build/css/woocommerce/features/mobile.min.css',
+                    'deps'    => array( 'woocommerce' ),
+                    'version' => null,
+                    'media'   => 'all',
+                ),
+                'script' => array(
+                    'src'       => 'assets/build/js/woocommerce/features/mobile.min.js',
+                    'deps'      => array( 'woocommerce' ),
+                    'version'   => null,
+                    'in_footer' => true,
+                ),
+            ),
+        ),
+    ),
 );

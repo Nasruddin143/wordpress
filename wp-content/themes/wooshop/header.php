@@ -28,7 +28,3 @@
     <header id="masthead" class="site-header">
         <?php get_template_part('template-parts/header/site-header'); ?>
     </header><!-- #masthead -->
-
-    <main id="primary" class="site-main" role="main">
-
-    </main>

@@ -5,52 +5,44 @@
  * @package WooShop
  */
 
-use WooShop\Modules\Theme\Asset;
-use WooShop\Modules\Theme\Background;
-use WooShop\Modules\Theme\Comments;
-use WooShop\Modules\Theme\Customizer;
-use WooShop\Modules\Theme\Editor;
-use WooShop\Modules\Theme\Feeds;
-use WooShop\Modules\Theme\Filters;
-use WooShop\Modules\Theme\Header;
-use WooShop\Modules\Theme\Jetpack;
-use WooShop\Modules\Theme\Navigation;
-use WooShop\Modules\Theme\Setup;
-use WooShop\Modules\Theme\Template;
-use WooShop\Modules\Theme\Widgets;
-
 defined( 'ABSPATH' ) || exit;
 
 return array(
 
     /*
      * ---------------------------------------------------------
-     * Theme Foundation
-     * ---------------------------------------------------------
-     */
-    Setup::class,
-
-    /*
-     * ---------------------------------------------------------
-     * Assets
-     * ---------------------------------------------------------
-     */
-    Asset::class,
-
-    /*
-     * ---------------------------------------------------------
      * WordPress Theme Modules
      * ---------------------------------------------------------
      */
-    Navigation::class,
-    Widgets::class,
-    Editor::class,
-    Customizer::class,
-    Header::class,
-    Background::class,
-    Comments::class,
-    Feeds::class,
-    Filters::class,
-    Template::class,
-    Jetpack::class,
+    'theme' => array(
+        \WooShop\Modules\Theme\Setup::class,
+        \WooShop\Modules\Theme\Asset::class,
+        \WooShop\Modules\Theme\Navigation::class,
+        \WooShop\Modules\Theme\Widgets::class,
+        \WooShop\Modules\Theme\Editor::class,
+        \WooShop\Modules\Theme\Customizer::class,
+        \WooShop\Modules\Theme\Header::class,
+        \WooShop\Modules\Theme\Background::class,
+        \WooShop\Modules\Theme\Comments::class,
+        \WooShop\Modules\Theme\Feeds::class,
+        \WooShop\Modules\Theme\Filters::class,
+        \WooShop\Modules\Theme\Template::class,
+        \WooShop\Modules\Theme\Jetpack::class,
+        \WooShop\Modules\Theme\Slider::class,
+    ),
+
+    /*
+     * ---------------------------------------------------------
+     * WooCommerce Modules
+     * ---------------------------------------------------------
+     */
+    'woocommerce' => array(
+        \WooShop\Modules\WooCommerce\Setup::class,
+        \WooShop\Modules\WooCommerce\Assets::class,
+        \WooShop\Modules\WooCommerce\Templates::class,
+        \WooShop\Modules\WooCommerce\Accessibility::class,
+        \WooShop\Modules\WooCommerce\Translation::class,
+        \WooShop\Modules\WooCommerce\Filters::class,
+        \WooShop\Modules\WooCommerce\MiniCart::class,
+    ),
 );

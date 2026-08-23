@@ -7,12 +7,13 @@
 
 namespace WooShop\Core;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * WooShop class autoloader.
  */
-final class Autoloader {
+final class Autoloader
+{
 
     /**
      * Namespace prefix.
@@ -33,8 +34,9 @@ final class Autoloader {
      *
      * @return void
      */
-    public static function register(): void {
-        spl_autoload_register( array( self::class, 'autoload' ) );
+    public static function register(): void
+    {
+        spl_autoload_register(array(self::class, 'autoload'));
     }
 
     /**
@@ -44,24 +46,18 @@ final class Autoloader {
      *
      * @return void
      */
-    public static function autoload( string $class ): void {
+    public static function autoload(string $class): void
+    {
 
-        if ( ! str_starts_with( $class, self::PREFIX ) ) {
+        if (!str_starts_with($class, self::PREFIX)) {
             return;
         }
 
-        $relative_class = substr(
-            $class,
-            strlen( self::PREFIX )
-        );
+        $relative_class = substr($class, strlen(self::PREFIX));
 
-        $file = get_template_directory()
-            . '/'
-            . self::BASE_DIRECTORY
-            . str_replace( '\\', '/', $relative_class )
-            . '.php';
+        $file = get_template_directory() . '/' . self::BASE_DIRECTORY . str_replace('\\', '/', $relative_class) . '.php';
 
-        if ( file_exists( $file ) ) {
+        if (file_exists($file)) {
             require_once $file;
         }
     }

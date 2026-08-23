@@ -60,30 +60,30 @@ final class Filters extends Module {
      */
     public function body_classes( array $classes ): array {
 
-        $classes[] = 'wooshop-theme';
+        $classes[] = 'ws-theme';
 
         if ( is_front_page() ) {
-            $classes[] = 'wooshop-front-page';
+            $classes[] = 'ws-front-page';
         }
 
         if ( is_home() ) {
-            $classes[] = 'wooshop-home';
+            $classes[] = 'ws-home';
         }
 
         if ( is_singular() ) {
-            $classes[] = 'wooshop-singular';
+            $classes[] = 'ws-singular';
         }
 
         if ( is_archive() ) {
-            $classes[] = 'wooshop-archive';
+            $classes[] = 'ws-archive';
         }
 
         if ( is_search() ) {
-            $classes[] = 'wooshop-search';
+            $classes[] = 'ws-search';
         }
 
         if ( is_404() ) {
-            $classes[] = 'wooshop-404';
+            $classes[] = 'ws-404';
         }
 
         return array_values( array_unique( $classes ) );

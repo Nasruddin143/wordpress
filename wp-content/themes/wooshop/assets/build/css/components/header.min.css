@@ -34,6 +34,10 @@
     width: 350px;
 }
 
+.desktop-search .form-control {
+    font-size: 14px !important;
+}
+
 /* Smooth transition for the border color change */
 .custom-search-group {
     transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;

@@ -7,12 +7,13 @@
 
 namespace WooShop\Core;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Application loader.
  */
-final class Loader {
+final class Loader
+{
 
     /**
      * Module manager.
@@ -24,7 +25,8 @@ final class Loader {
     /**
      * Constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->ModuleManager = new ModuleManager();
     }
 
@@ -33,17 +35,18 @@ final class Loader {
      *
      * @return void
      */
-    public function boot(): void {
+    public function boot(): void
+    {
 
         $this->load_template_functions();
 
         $modules = require get_template_directory() . '/inc/Config/modules.php';
 
-        if ( ! is_array( $modules ) ) {
+        if (!is_array($modules)) {
             return;
         }
 
-        $this->ModuleManager->register( $modules );
+        $this->ModuleManager->register($modules);
     }
 
     /**
@@ -51,7 +54,8 @@ final class Loader {
      *
      * @return ModuleManager
      */
-    public function get_ModuleManager(): ModuleManager {
+    public function get_ModuleManager(): ModuleManager
+    {
         return $this->ModuleManager;
     }
 
@@ -60,12 +64,12 @@ final class Loader {
      *
      * @return void
      */
-    private function load_template_functions(): void {
+    private function load_template_functions(): void
+    {
 
-        $file = get_template_directory()
-            . '/inc/Modules/Theme/template-functions.php';
+        $file = get_template_directory() . '/inc/Modules/Theme/template-functions.php';
 
-        if ( file_exists( $file ) ) {
+        if (file_exists($file)) {
             require_once $file;
         }
     }

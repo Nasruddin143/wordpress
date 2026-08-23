@@ -7,12 +7,13 @@
 
 namespace WooShop\Core;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Abstract module class.
  */
-abstract class Module {
+abstract class Module
+{
 
     /**
      * Module manager.
@@ -26,7 +27,8 @@ abstract class Module {
      *
      * @param ModuleManager $manager Module manager.
      */
-    public function __construct( ModuleManager $manager ) {
+    public function __construct(ModuleManager $manager)
+    {
         $this->manager = $manager;
     }
 

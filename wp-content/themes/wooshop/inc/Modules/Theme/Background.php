@@ -10,12 +10,13 @@ namespace WooShop\Modules\Theme;
 use WooShop\Core\Module;
 use WooShop\Core\ModuleManager;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Custom background module.
  */
-final class Background extends Module {
+final class Background extends Module
+{
 
     /**
      * Theme configuration.
@@ -29,13 +30,13 @@ final class Background extends Module {
      *
      * @param ModuleManager $manager Module manager.
      */
-    public function __construct( ModuleManager $manager ) {
-        parent::__construct( $manager );
+    public function __construct(ModuleManager $manager)
+    {
+        parent::__construct($manager);
 
-        $config = require get_template_directory()
-            . '/inc/Config/theme.php';
+        $config = require get_template_directory() . '/inc/Config/theme.php';
 
-        $this->config = is_array( $config ) ? $config : array();
+        $this->config = is_array($config) ? $config : array();
     }
 
     /**
@@ -43,11 +44,9 @@ final class Background extends Module {
      *
      * @return void
      */
-    public function register(): void {
-        add_action(
-            'after_setup_theme',
-            array( $this, 'register_background' )
-        );
+    public function register(): void
+    {
+        add_action('after_setup_theme', array($this, 'register_background'));
     }
 
     /**
@@ -55,19 +54,13 @@ final class Background extends Module {
      *
      * @return void
      */
-    public function register_background(): void {
+    public function register_background(): void
+    {
 
-        $args = $this->config['custom_background']
-            ?? array();
+        $args = $this->config['custom_background'] ?? array();
 
-        $args = apply_filters(
-            'wooshop_custom_background_args',
-            $args
-        );
+        $args = apply_filters('wooshop_custom_background_args', $args);
 
-        add_theme_support(
-            'custom-background',
-            $args
-        );
+        add_theme_support('custom-background', $args);
     }
 }

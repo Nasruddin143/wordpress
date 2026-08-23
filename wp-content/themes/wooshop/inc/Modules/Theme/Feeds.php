@@ -12,20 +12,22 @@ namespace WooShop\Modules\Theme;
 use WooShop\Core\Module;
 use WooShop\Core\ModuleManager;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Theme feeds module.
  */
-final class Feeds extends Module {
+final class Feeds extends Module
+{
 
     /**
      * Constructor.
      *
      * @param ModuleManager $manager Module manager.
      */
-    public function __construct( ModuleManager $manager ) {
-        parent::__construct( $manager );
+    public function __construct(ModuleManager $manager)
+    {
+        parent::__construct($manager);
     }
 
     /**
@@ -33,12 +35,9 @@ final class Feeds extends Module {
      *
      * @return void
      */
-    public function register(): void {
-        add_action(
-            'wp_head',
-            array( $this, 'add_feed_links' ),
-            5
-        );
+    public function register(): void
+    {
+        add_action('wp_head', array($this, 'add_feed_links'), 5);
     }
 
     /**
@@ -49,23 +48,24 @@ final class Feeds extends Module {
      *
      * @return void
      */
-    public function add_feed_links(): void {
+    public function add_feed_links(): void
+    {
 
-        if ( ! is_singular() && ! is_home() && ! is_archive() ) {
+        if (!is_singular() && !is_home() && !is_archive()) {
             return;
         }
 
-        $feed_url = get_bloginfo( 'rss2_url' );
+        $feed_url = get_bloginfo('rss2_url');
 
-        if ( '' === $feed_url ) {
+        if ('' === $feed_url) {
             return;
         }
         ?>
         <link
-            rel="alternate"
-            type="application/rss+xml"
-            title="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"
-            href="<?php echo esc_url( $feed_url ); ?>"
+                rel="alternate"
+                type="application/rss+xml"
+                title="<?php echo esc_attr(get_bloginfo('name')); ?>"
+                href="<?php echo esc_url($feed_url); ?>"
         />
         <?php
     }

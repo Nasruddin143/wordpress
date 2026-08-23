@@ -12,20 +12,22 @@ namespace WooShop\Modules\Theme;
 use WooShop\Core\Module;
 use WooShop\Core\ModuleManager;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Theme template module.
  */
-final class Template extends Module {
+final class Template extends Module
+{
 
     /**
      * Constructor.
      *
      * @param ModuleManager $manager Module manager.
      */
-    public function __construct( ModuleManager $manager ) {
-        parent::__construct( $manager );
+    public function __construct(ModuleManager $manager)
+    {
+        parent::__construct($manager);
     }
 
     /**
@@ -33,17 +35,12 @@ final class Template extends Module {
      *
      * @return void
      */
-    public function register(): void {
+    public function register(): void
+    {
 
-        add_filter(
-            'body_open_gutenberg',
-            array( $this, 'disable_gutenberg_body_open' )
-        );
+        add_filter('body_open_gutenberg', array($this, 'disable_gutenberg_body_open'));
 
-        add_action(
-            'wp_body_open',
-            array( $this, 'body_open' )
-        );
+        add_action('wp_body_open', array($this, 'body_open'));
     }
 
     /**
@@ -54,7 +51,8 @@ final class Template extends Module {
      *
      * @return void
      */
-    public function body_open(): void {
+    public function body_open(): void
+    {
         // Reserved for theme-level body-open integrations.
     }
 
@@ -68,7 +66,8 @@ final class Template extends Module {
      *
      * @return mixed
      */
-    public function disable_gutenberg_body_open( mixed $value ): mixed {
+    public function disable_gutenberg_body_open(mixed $value): mixed
+    {
         return $value;
     }
 }

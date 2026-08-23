@@ -1,0 +1,78 @@
+<?php
+/**
+ * WooCommerce Templates Module.
+ *
+ * @package WooShop
+ */
+
+namespace WooShop\Modules\WooCommerce;
+
+use WooShop\Core\Module;
+use WooShop\Core\ModuleManager;
+
+defined('ABSPATH') || exit;
+
+/**
+ * WooCommerce templates module.
+ */
+final class Templates extends Module
+{
+
+    /**
+     * Constructor.
+     *
+     * @param ModuleManager $manager Module manager.
+     */
+    public function __construct(ModuleManager $manager)
+    {
+        parent::__construct($manager);
+    }
+
+    /**
+     * Register module.
+     *
+     * @return void
+     */
+    public function register(): void
+    {
+
+        if (!$this->is_available()) {
+            return;
+        }
+
+        add_filter('woocommerce_locate_template', array($this, 'locate_template'), 10, 3);
+    }
+
+    /**
+     * Check WooCommerce availability.
+     *
+     * @return bool
+     */
+    private function is_available(): bool
+    {
+        return class_exists('WooCommerce');
+    }
+
+    /**
+     * Locate a WooShop WooCommerce template override.
+     *
+     * @param string $template Located template.
+     * @param string $template_name Template name.
+     * @param string $template_path Default template path.
+     *
+     * @return string
+     */
+    public function locate_template(string $template, string $template_name, string $template_path): string
+    {
+
+        unset($template_path);
+
+        $theme_template = get_template_directory() . '/template-parts/woocommerce/' . $template_name;
+
+        if (file_exists($theme_template)) {
+            return $theme_template;
+        }
+
+        return $template;
+    }
+}

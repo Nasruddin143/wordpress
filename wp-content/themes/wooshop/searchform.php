@@ -1,6 +1,6 @@
 <div class="desktop-search">
     <form role="search" method="get" class="search-form" action="<?php echo esc_url(home_url('/')); ?>">
-        <div class="input-group p-1 border rounded-pill bg-white align-items-center shadow-sm custom-search-group">
+        <div class="input-group p-1 border rounded-pill bg-white align-items-center custom-search-group">
             <!-- Text Input Field -->
             <input type="search"
                    class="form-control border-0 bg-transparent ps-3 text-secondary shadow-none"

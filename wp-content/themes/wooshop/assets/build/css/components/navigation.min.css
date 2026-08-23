@@ -1,0 +1,19 @@
+.nav-link {
+    color: #0f0f0f;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding: 18px 15px;
+}
+
+.navbar-collapse li:first-child a {
+    padding-left: 0!important;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: #593196;
+}
+
+.nav-link:focus, .nav-link:hover{
+    color: #593196;
+}

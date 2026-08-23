@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Inter';
+    /* Use 'woff2-variations' or standard 'woff2' for broad support */
+    src: url('../fonts/InterVariable.woff2') format('woff2-variations'),
+    url('../fonts/InterVariable.woff2') format('woff2');
+    font-weight: 100 900;       /* Define the weight range */
+    font-stretch: 75% 125%;     /* Define the width range (if applicable) */
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+
+    font-family: "Inter";
+    color: #0f0f0f;
+}
+
+.btn-view-product {
+    padding: 0.6rem !important;
+    border-radius: 0.3rem !important;
+}
