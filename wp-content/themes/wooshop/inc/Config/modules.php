@@ -44,5 +44,6 @@ return array(
         \WooShop\Modules\WooCommerce\Translation::class,
         \WooShop\Modules\WooCommerce\Filters::class,
         \WooShop\Modules\WooCommerce\MiniCart::class,
+        \WooShop\Modules\WooCommerce\Categories::class,
     ),
 );

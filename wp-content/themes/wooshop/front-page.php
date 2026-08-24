@@ -16,6 +16,8 @@ get_header(); ?>
 
 <?php get_template_part('template-parts/components/info-card'); ?>
 
+<?php get_template_part( 'template-parts/home/categories' ); ?>
+
 <?php get_template_part('template-parts/woocommerce/feature-products'); ?>
 
 <?php get_footer();
