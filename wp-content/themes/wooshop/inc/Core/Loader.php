@@ -2,75 +2,81 @@
 /**
  * WooShop Loader.
  *
+ * Boots the WooShop framework.
+ *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Application loader.
  */
-final class Loader
-{
+final class Loader {
 
     /**
-     * Module manager.
+     * Service container.
      *
-     * @var ModuleManager
+     * @var Container
      */
-    private ModuleManager $ModuleManager;
+    private Container $container;
 
     /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->ModuleManager = new ModuleManager();
-    }
-
-    /**
-     * Load WooShop.
+     * Boot WooShop.
      *
      * @return void
      */
-    public function boot(): void
-    {
-
-        $this->load_template_functions();
-
-        $modules = require get_template_directory() . '/inc/Config/modules.php';
-
-        if (!is_array($modules)) {
-            return;
-        }
-
-        $this->ModuleManager->register($modules);
+    public static function boot(): void {
+        $loader = new self();
+        $loader->initialize();
     }
 
     /**
-     * Get module manager.
-     *
-     * @return ModuleManager
-     */
-    public function get_ModuleManager(): ModuleManager
-    {
-        return $this->ModuleManager;
-    }
-
-    /**
-     * Load template compatibility functions.
+     * Initialize the framework.
      *
      * @return void
      */
-    private function load_template_functions(): void
-    {
+    private function initialize(): void {
+        $this->container = new Container();
 
-        $file = get_template_directory() . '/inc/Modules/Theme/template-functions.php';
+        $this->register_core_services();
+        $this->register_modules();
+    }
 
-        if (file_exists($file)) {
-            require_once $file;
-        }
+    /**
+     * Register core services.
+     *
+     * @return void
+     */
+    private function register_core_services(): void {
+        $config = new Config();
+
+        $this->container->set( 'config', $config );
+
+        $assets = new AssetsManager( $config );
+
+        $this->container->set( 'assets', $assets );
+
+        $assets->register();
+    }
+
+    /**
+     * Register theme modules.
+     *
+     * @return void
+     */
+    private function register_modules(): void {
+        $module_manager = new ModuleManager(
+            $this->container
+        );
+
+        $this->container->set(
+            'modules',
+            $module_manager
+        );
+
+        $module_manager->register();
     }
 }

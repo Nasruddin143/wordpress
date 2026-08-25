@@ -5,6 +5,8 @@
  * @package WooShop
  */
 
+use WooShop\Core\Loader;
+
 defined( 'ABSPATH' ) || exit;
 
 add_action('wp_head', function () {
@@ -12,10 +14,7 @@ add_action('wp_head', function () {
     echo "<!-- Template Used: " . basename($template) . " -->";
 });
 
-require_once get_template_directory() . '/inc/Core/Autoloader.php';
 
-WooShop\Core\Autoloader::register();
+require_once get_template_directory() . '/inc/Core/Loader.php';
 
-$loader = new WooShop\Core\Loader();
-
-$loader->boot();
+Loader::boot();

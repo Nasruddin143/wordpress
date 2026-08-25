@@ -1,6 +1,6 @@
 <?php
 /**
- * Base Module.
+ * WooShop Base Module
  *
  * @package WooShop
  */
@@ -10,26 +10,25 @@ namespace WooShop\Core;
 defined('ABSPATH') || exit;
 
 /**
- * Abstract module class.
+ * Abstract Class Module
  */
 abstract class Module
 {
-
     /**
-     * Module manager.
+     * Service container.
      *
-     * @var ModuleManager
+     * @var Container
      */
-    protected ModuleManager $manager;
+    protected Container $container;
 
     /**
      * Constructor.
      *
-     * @param ModuleManager $manager Module manager.
+     * @param Container $container Service container.
      */
-    public function __construct(ModuleManager $manager)
+    public function __construct(Container $container)
     {
-        $this->manager = $manager;
+        $this->container = $container;
     }
 
     /**

@@ -1,6 +1,10 @@
 <?php
 /**
- * Theme Setup Module.
+ * WooShop Theme Setup Module
+ *
+ * Registers the basic WordPress theme supports,
+ * menus, HTML5 support, editor styles, and related
+ * theme configuration.
  *
  * @package WooShop
  */
@@ -8,144 +12,139 @@
 namespace WooShop\Modules\Theme;
 
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
 
 defined('ABSPATH') || exit;
 
 /**
- * Theme setup.
+ * Class Setup
  */
 final class Setup extends Module
 {
     /**
-     * Theme configuration.
-     *
-     * @var array<string, mixed>
-     */
-    private array $config;
-
-    /**
-     * Constructor.
-     *
-     * @param ModuleManager $manager Module manager.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-
-        $config = require get_template_directory() . '/inc/Config/theme.php';
-
-        $this->config = is_array($config) ? $config : array();
-    }
-
-    /**
-     * Register module.
+     * Register module hooks.
      *
      * @return void
      */
     public function register(): void
     {
-        add_action('after_setup_theme', array($this, 'setup'));
-        add_action('after_setup_theme', array($this, 'set_content_width'), 0);
+        add_action('after_setup_theme', [$this, 'setup']);
     }
 
     /**
-     * Setup theme features.
+     * Configure the WordPress theme.
      *
      * @return void
      */
     public function setup(): void
     {
-        $translation_path = $this->config['translation_path'] ?? 'languages';
+        /*
+         * ---------------------------------------------------------
+         * Translation
+         * ---------------------------------------------------------
+         */
 
         load_theme_textdomain('wooshop', get_template_directory() . '/languages');
 
-        $this->register_supports();
-        $this->register_menus();
-    }
+        /*
+         * ---------------------------------------------------------
+         * Document title
+         * ---------------------------------------------------------
+         */
 
-    /**
-     * Register navigation menus.
-     *
-     * @return void
-     */
-    private function register_menus(): void
-    {
-        $menus = $this->config['menus'] ?? array();
+        add_theme_support('title-tag');
 
-        $locations = array();
+        /*
+         * ---------------------------------------------------------
+         * Post thumbnails
+         * ---------------------------------------------------------
+         */
 
-        foreach ($menus as $location => $menu) {
+        add_theme_support('post-thumbnails');
 
-            if (!is_array($menu)) {
-                continue;
-            }
+        /*
+         * ---------------------------------------------------------
+         * HTML5 markup
+         * ---------------------------------------------------------
+         */
 
-            if (empty($menu['label'])) {
-                continue;
-            }
+        add_theme_support('html5',
+            [
+                'search-form',
+                'comment-form',
+                'comment-list',
+                'gallery',
+                'caption',
+                'style',
+                'script',
+            ]
+        );
 
-            $locations[$location] = $menu['label'];
-        }
+        /*
+         * ---------------------------------------------------------
+         * Custom logo
+         * ---------------------------------------------------------
+         */
 
-        if (!empty($locations)) {
-            register_nav_menus($locations);
-        }
-    }
+        add_theme_support('custom-logo',
+            [
+                'height' => 100,
+                'width' => 300,
+                'flex-height' => false,
+                'flex-width' => false,
+            ]
+        );
 
-    /**
-     * Register configured theme supports.
-     *
-     * @return void
-     */
-    private function register_supports(): void
-    {
+        /*
+         * ---------------------------------------------------------
+         * Automatic feed links
+         * ---------------------------------------------------------
+         */
 
-        $supports = $this->config['supports'] ?? array();
+        add_theme_support('automatic-feed-links');
 
-        foreach ($supports as $feature => $arguments) {
+        /*
+         * ---------------------------------------------------------
+         * Selective refresh widgets
+         * ---------------------------------------------------------
+         */
 
-            /*
-             * Boolean theme support.
-             */
-            if (true === $arguments) {
-                add_theme_support((string)$feature);
-                continue;
-            }
+        add_theme_support('customize-selective-refresh-widgets');
 
-            /*
-             * Theme support with arguments.
-             *
-             * WordPress expects features such as html5, custom-logo,
-             * custom-background, etc. to receive their configuration
-             * as a single argument.
-             */
-            if (is_array($arguments)) {
+        /*
+         * ---------------------------------------------------------
+         * Navigation menus
+         * ---------------------------------------------------------
+         */
 
-                add_theme_support((string)$feature, $arguments);
-                continue;
+        register_nav_menus(
+            [
+                'primary' => __('Primary Menu', 'wooshop'),
+                'footer' => __('Footer Menu', 'wooshop'),
+            ]
+        );
 
-            }
+        /*
+         * ---------------------------------------------------------
+         * Editor styles
+         * ---------------------------------------------------------
+         */
 
-            /*
-             * Fallback for scalar arguments.
-             */
-            add_theme_support((string)$feature, $arguments);
-        }
-    }
+        add_theme_support('editor-styles');
 
-    /**
-     * Set global content width.
-     *
-     * @return void
-     */
-    public function set_content_width(): void
-    {
+        /*
+         * ---------------------------------------------------------
+         * Responsive embeds
+         * ---------------------------------------------------------
+         */
 
-        $content_width = $this->config['content_width'] ?? 640;
+        add_theme_support('responsive-embeds');
 
-        $content_width = (int)apply_filters('wooshop_content_width', $content_width);
+        /*
+         * ---------------------------------------------------------
+         * Wide alignment
+         * ---------------------------------------------------------
+         */
 
-        $GLOBALS['content_width'] = $content_width;
+        add_theme_support('align-wide');
     }
 }

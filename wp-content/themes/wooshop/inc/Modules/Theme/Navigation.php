@@ -1,68 +1,70 @@
 <?php
 /**
- * Navigation Module.
+ * WooShop Navigation Module
+ *
+ * Handles theme navigation functionality.
  *
  * @package WooShop
  */
 
 namespace WooShop\Modules\Theme;
 
-use stdClass;
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
-use WP_Post;
 
 defined('ABSPATH') || exit;
 
 /**
- * Navigation module.
+ * Class Navigation
  */
 final class Navigation extends Module
 {
-
     /**
-     * Constructor.
-     *
-     * @param ModuleManager $manager Module manager.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-    }
-
-    /**
-     * Register module.
+     * Register module hooks.
      *
      * @return void
      */
     public function register(): void
     {
-        add_filter(
-            'nav_menu_link_attributes',
-            array($this, 'link_attributes'),
-            10,
-            4
-        );
+        add_filter('nav_menu_link_attributes', [$this, 'add_link_attributes'], 10, 4);
     }
 
     /**
-     * Modify navigation link attributes.
+     * Add Bootstrap-compatible navigation attributes.
      *
-     * @param array<string, string> $atts Attributes.
-     * @param WP_Post $item Menu item.
-     * @param stdClass $args Menu arguments.
+     * @param array<string, string> $atts Menu link attributes.
+     * @param object $item Menu item.
+     * @param object $args Menu arguments.
      * @param int $depth Menu depth.
      *
      * @return array<string, string>
      */
-    public function link_attributes(array $atts, WP_Post $item, stdClass $args, int $depth): array
+    public function add_link_attributes(array $atts, object $item, object $args, int $depth): array
     {
-
-        if (isset($args->theme_location) && 'primary' === $args->theme_location) {
-            $atts['class'] = isset($atts['class'])
-                ? $atts['class'] . ' nav-link'
-                : 'nav-link';
+        /*
+         * Only modify the primary navigation.
+         */
+        if (!isset($args->theme_location) || $args->theme_location !== 'primary') {
+            return $atts;
         }
+
+        /*
+         * Bootstrap nav-link class.
+         */
+        $existing_class = $atts['class'] ?? '';
+
+        $classes = preg_split('/\s+/', trim($existing_class));
+
+        if (!is_array($classes)) {
+            $classes = [];
+        }
+
+        if (!in_array('nav-link', $classes, true)) {
+            $classes[] = 'nav-link';
+        }
+
+        $atts['class'] = trim(
+            implode(' ', $classes)
+        );
 
         return $atts;
     }

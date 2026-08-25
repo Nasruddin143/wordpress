@@ -1,6 +1,6 @@
 <?php
 /**
- * WooShop Autoloader.
+ * WooShop Autoloader
  *
  * @package WooShop
  */
@@ -10,54 +10,96 @@ namespace WooShop\Core;
 defined('ABSPATH') || exit;
 
 /**
- * WooShop class autoloader.
+ * Class Autoloader
  */
 final class Autoloader
 {
-
     /**
-     * Namespace prefix.
+     * WooShop namespace prefix.
      *
      * @var string
      */
-    private const string PREFIX = 'WooShop\\';
+    private const string NAMESPACE_PREFIX = 'WooShop\\';
 
     /**
-     * Base directory.
+     * WooShop include directory.
      *
      * @var string
      */
-    private const string BASE_DIRECTORY = 'inc/';
+    private string $base_directory;
 
     /**
-     * Register autoloader.
+     * Constructor.
      *
-     * @return void
+     * @param string $base_directory WooShop include directory.
      */
-    public static function register(): void
+    public function __construct(string $base_directory)
     {
-        spl_autoload_register(array(self::class, 'autoload'));
+        $this->base_directory = trailingslashit(
+            $base_directory
+        );
     }
 
     /**
-     * Autoload class.
+     * Register the autoloader.
+     *
+     * @return void
+     */
+    public function register(): void
+    {
+        spl_autoload_register([$this, 'autoload']);
+    }
+
+    /**
+     * Autoload WooShop classes.
      *
      * @param string $class Fully qualified class name.
      *
      * @return void
      */
-    public static function autoload(string $class): void
+    public function autoload(string $class): void
     {
-
-        if (!str_starts_with($class, self::PREFIX)) {
+        if (!str_starts_with($class, self::NAMESPACE_PREFIX)) {
             return;
         }
 
-        $relative_class = substr($class, strlen(self::PREFIX));
+        /*
+         * Remove the WooShop namespace.
+         *
+         * Example:
+         *
+         * WooShop\Core\AssetsManager
+         *
+         * becomes:
+         *
+         * Core\AssetsManager
+         */
 
-        $file = get_template_directory() . '/' . self::BASE_DIRECTORY . str_replace('\\', '/', $relative_class) . '.php';
+        $relative_class = substr($class, strlen(self::NAMESPACE_PREFIX));
 
-        if (file_exists($file)) {
+        /*
+         * Convert namespace separators into directories.
+         *
+         * Core\AssetsManager
+         *
+         * becomes:
+         *
+         * Core/AssetsManager.php
+         */
+
+        $relative_file = str_replace('\\', DIRECTORY_SEPARATOR, $relative_class) . '.php';
+
+        /*
+         * Build absolute file path.
+         */
+
+        $file = $this->base_directory . $relative_file;
+
+        /*
+         * Load class file.
+         */
+
+        if (is_readable($file)) {
             require_once $file;
         }
     }
