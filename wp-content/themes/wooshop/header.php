@@ -12,6 +12,7 @@
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
+
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,10 +22,25 @@
 </head>
 
 <body <?php body_class(); ?>>
+
 <?php wp_body_open(); ?>
+
 <div id="page" class="site">
-    <a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'wooshop'); ?></a>
+
+    <?php get_template_part('template-parts/global/skip-links'); ?>
 
     <header id="masthead" class="site-header">
-        <?php get_template_part('template-parts/header/site-header'); ?>
+
+        <?php
+        /**
+         * Fires inside the site header.
+         *
+         * Hooked by Header::render_header() → loads
+         * template-parts/header/header.php.
+         *
+         * @hooked WooShop\Modules\Theme\Header::render_header — 10
+         */
+        do_action('wooshop_header');
+        ?>
+
     </header><!-- #masthead -->

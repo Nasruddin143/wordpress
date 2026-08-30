@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Bootstrap 5 navigation walker.
  */
-class BootstrapWalker extends Walker_Nav_Menu {
+class NavWalker extends Walker_Nav_Menu {
 
     /**
      * Current menu item.

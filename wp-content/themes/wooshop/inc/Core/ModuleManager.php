@@ -38,13 +38,15 @@ final class ModuleManager
     /**
      * Constructor.
      *
-     * @param Container $container Service container.
-     * @param array<string, mixed> $config Module configuration.
+     * @param Container              $container Service container.
+     * @param array<string, mixed>   $config    Module configuration.
      */
-    public function __construct(Container $container, array $config)
-    {
+    public function __construct(
+        Container $container,
+        array $config
+    ) {
         $this->container = $container;
-        $this->config = $config;
+        $this->config    = $config;
     }
 
     /**

@@ -1,82 +1,134 @@
 <?php
 /**
- * WooShop Loader.
+ * WooShop Loader
  *
- * Boots the WooShop framework.
+ * Bootstraps the WooShop theme framework.
  *
  * @package WooShop
  */
 
 namespace WooShop\Core;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
- * Application loader.
+ * Class Loader
  */
-final class Loader {
-
+final class Loader
+{
     /**
-     * Service container.
+     * Whether WooShop has already been booted.
      *
-     * @var Container
+     * @var bool
      */
-    private Container $container;
+    private static bool $booted = false;
 
     /**
      * Boot WooShop.
      *
      * @return void
      */
-    public static function boot(): void {
-        $loader = new self();
-        $loader->initialize();
-    }
+    public static function boot(): void
+    {
+        if (self::$booted) {
+            return;
+        }
 
-    /**
-     * Initialize the framework.
-     *
-     * @return void
-     */
-    private function initialize(): void {
-        $this->container = new Container();
+        self::$booted = true;
 
-        $this->register_core_services();
-        $this->register_modules();
-    }
+        /*
+         * ---------------------------------------------------------
+         * Theme paths
+         * ---------------------------------------------------------
+         */
 
-    /**
-     * Register core services.
-     *
-     * @return void
-     */
-    private function register_core_services(): void {
-        $config = new Config();
+        $theme_directory = get_template_directory();
 
-        $this->container->set( 'config', $config );
+        $core_directory = $theme_directory . '/inc/Core';
 
-        $assets = new AssetsManager( $config );
+        /*
+         * ---------------------------------------------------------
+         * Bootstrap Autoloader
+         *
+         * Loader.php itself is manually loaded by functions.php.
+         * Therefore Autoloader.php must be loaded manually once
+         * before the WooShop autoloader can load the remaining
+         * Core classes.
+         * ---------------------------------------------------------
+         */
 
-        $this->container->set( 'assets', $assets );
+        $autoloader_file = $core_directory . '/Autoloader.php';
 
-        $assets->register();
-    }
+        if (!is_readable($autoloader_file)) {
+            return;
+        }
 
-    /**
-     * Register theme modules.
-     *
-     * @return void
-     */
-    private function register_modules(): void {
-        $module_manager = new ModuleManager(
-            $this->container
-        );
+        require_once $autoloader_file;
 
-        $this->container->set(
-            'modules',
-            $module_manager
-        );
+        /*
+         * ---------------------------------------------------------
+         * Register Autoloader
+         * ---------------------------------------------------------
+         */
 
-        $module_manager->register();
+        $autoloader = new Autoloader($theme_directory . '/inc');
+
+        $autoloader->register();
+
+        /*
+         * ---------------------------------------------------------
+         * Container
+         * ---------------------------------------------------------
+         */
+
+        $container = new Container();
+
+        /*
+         * ---------------------------------------------------------
+         * Configuration
+         * ---------------------------------------------------------
+         */
+
+        $config = new Config($theme_directory . '/inc/Config');
+
+        $container->set('config', $config);
+
+        /*
+         * ---------------------------------------------------------
+         * Assets Manager
+         * ---------------------------------------------------------
+         */
+
+        $assets_manager = new AssetsManager($container, $config->get('assets'), $config->get('conditions'));
+
+        $container->set('assets', $assets_manager);
+
+        $assets_manager->register();
+
+        /*
+         * ---------------------------------------------------------
+         * Module Manager
+         * ---------------------------------------------------------
+         */
+
+        $module_manager = new ModuleManager($container, $config->get('modules'));
+
+        $container->set('modules', $module_manager);
+
+        /*
+         * ---------------------------------------------------------
+         * Load Modules
+         * ---------------------------------------------------------
+         */
+
+        $module_manager->load();
+
+        /*
+         * ---------------------------------------------------------
+         * Global Container
+         * ---------------------------------------------------------
+         */
+
+        $GLOBALS['wooshop_container'] = $container;
     }
 }

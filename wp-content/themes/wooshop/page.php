@@ -15,23 +15,25 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+    <main id="primary" class="site-main">
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
+        <div class="container-fluid container-xl">
 
-			get_template_part( 'template-parts/content', 'page' );
+            <?php
+            while (have_posts()) :
+                the_post();
 
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
+                get_template_part('template-parts/content', 'page');
 
-		endwhile; // End of the loop.
-		?>
+                // If comments are open, or we have at least one comment, load up the comment template.
+                if (comments_open() || get_comments_number()) :
+                    comments_template();
+                endif;
 
-	</main><!-- #main -->
+            endwhile; // End of the loop.
+            ?>
+        </div>
+    </main><!-- #main -->
 
 <?php
 get_sidebar();

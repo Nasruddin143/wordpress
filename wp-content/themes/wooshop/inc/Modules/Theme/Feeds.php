@@ -1,8 +1,10 @@
 <?php
 /**
- * Theme Feeds Module.
+ * WooShop Feeds Module
  *
- * Handles feed-related theme functionality.
+ * Removes unnecessary feed links from the <head> that
+ * typical WooCommerce stores do not need, keeping the
+ * HTML output clean and reducing HTTP overhead.
  *
  * @package WooShop
  */
@@ -10,26 +12,14 @@
 namespace WooShop\Modules\Theme;
 
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
 
 defined('ABSPATH') || exit;
 
 /**
- * Theme feeds module.
+ * Class Feeds
  */
 final class Feeds extends Module
 {
-
-    /**
-     * Constructor.
-     *
-     * @param ModuleManager $manager Module manager.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-    }
-
     /**
      * Register module hooks.
      *
@@ -37,36 +27,49 @@ final class Feeds extends Module
      */
     public function register(): void
     {
-        add_action('wp_head', array($this, 'add_feed_links'), 5);
+        add_action('init',    [$this, 'remove_feed_links']);
+        add_action('wp_head', [$this, 'remove_rsd_link'], 1);
     }
 
     /**
-     * Add feed discovery links.
+     * Remove comment and extra feed links injected by WordPress.
      *
-     * WordPress already provides feed functionality, so this module
-     * only ensures the theme exposes the expected feed discovery links.
+     * The main RSS feed link is kept; comment feeds and the
+     * Windows Live Writer manifest are removed as they add no
+     * value for a typical e-commerce store.
      *
      * @return void
      */
-    public function add_feed_links(): void
+    public function remove_feed_links(): void
     {
+        // Comment feed.
+        remove_action('wp_head', 'feed_links_extra', 3);
 
-        if (!is_singular() && !is_home() && !is_archive()) {
-            return;
-        }
+        // Windows Live Writer manifest link.
+        remove_action('wp_head', 'wlwmanifest_link');
 
-        $feed_url = get_bloginfo('rss2_url');
+        // EditURI/RSD link (XML-RPC endpoint).
+        remove_action('wp_head', 'rsd_link');
 
-        if ('' === $feed_url) {
-            return;
-        }
-        ?>
-        <link
-                rel="alternate"
-                type="application/rss+xml"
-                title="<?php echo esc_attr(get_bloginfo('name')); ?>"
-                href="<?php echo esc_url($feed_url); ?>"
-        />
-        <?php
+        // Shortlink.
+        remove_action('wp_head', 'wp_shortlink_wp_head');
+
+        // REST API link (output from wp_head; API stays active).
+        remove_action('wp_head', 'rest_output_link_wp_head');
+
+        // oEmbed discovery links.
+        remove_action('wp_head', 'wp_oembed_add_discovery_links');
+        remove_action('wp_head', 'wp_oembed_add_host_js');
+    }
+
+    /**
+     * Remove the RSD link via wp_head hook as a safety net
+     * in case a plugin re-adds it after 'init'.
+     *
+     * @return void
+     */
+    public function remove_rsd_link(): void
+    {
+        remove_action('wp_head', 'rsd_link');
     }
 }

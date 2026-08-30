@@ -1,6 +1,9 @@
 <?php
 /**
- * Custom Header Module.
+ * WooShop Header Module
+ *
+ * Handles all header-related hooks: markup output,
+ * sticky behaviour, body classes, and template parts.
  *
  * @package WooShop
  */
@@ -8,92 +11,93 @@
 namespace WooShop\Modules\Theme;
 
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
 
 defined('ABSPATH') || exit;
 
 /**
- * Custom header module.
+ * Class Header
  */
 final class Header extends Module
 {
-
     /**
-     * Theme configuration.
+     * Cached theme config.
      *
      * @var array<string, mixed>
      */
     private array $config;
 
     /**
-     * Constructor.
-     *
-     * @param ModuleManager $manager Module manager.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-
-        $config = require get_template_directory() . '/inc/Config/theme.php';
-
-        $this->config = is_array($config) ? $config : array();
-    }
-
-    /**
-     * Register module.
+     * Register module hooks.
      *
      * @return void
      */
     public function register(): void
     {
-        add_action('after_setup_theme', array($this, 'register_custom_header'));
+        // Pull theme config once via the container.
+        $this->config = $this->container->get('config')->get('theme');
 
-        add_action('wp_head', array($this, 'header_style'));
+        // Output the header markup inside wp_head.
+        add_action('wooshop_header', [$this, 'render_header']);
+
+        // Add custom body classes.
+        add_filter('body_class', [$this, 'body_classes']);
+
+        // Inject schema markup into <head>.
+        add_action('wp_head', [$this, 'schema_markup']);
     }
 
     /**
-     * Register custom header support.
+     * Render the site header.
+     *
+     * Called from header.php via:  do_action('wooshop_header');
      *
      * @return void
      */
-    public function register_custom_header(): void
+    public function render_header(): void
     {
+        $sticky = $this->config['header']['sticky'] ?? false;
 
-        $args = $this->config['custom_header'] ?? array();
-
-        if (!empty($args)) {
-            add_theme_support(
-                    'custom-header',
-                    $args
-            );
-        }
+        get_template_part('template-parts/header/header', null, ['sticky' => $sticky,]);
     }
 
     /**
-     * Output custom header text color styles.
+     * Add theme-specific body classes.
+     *
+     * @param string[] $classes Existing body classes.
+     *
+     * @return string[]
+     */
+    public function body_classes(array $classes): array
+    {
+        $sticky = $this->config['header']['sticky'] ?? false;
+
+        if ($sticky) {
+            $classes[] = 'has-sticky-header';
+        }
+
+        if (is_singular()) {
+            $classes[] = 'singular';
+        }
+
+        return $classes;
+    }
+
+    /**
+     * Output organization schema JSON-LD in <head>.
      *
      * @return void
      */
-    public function header_style(): void
+    public function schema_markup(): void
     {
+        $schema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            'name' => get_bloginfo('name'),
+            'url' => home_url('/'),
+        ];
 
-        if (!display_header_text()) {
-            return;
-        }
-
-        $color = get_header_textcolor();
-
-        if (!$color) {
-            return;
-        }
-
-        ?>
-        <style>
-            .site-title a,
-            .site-description {
-                color: #<?php echo esc_attr( $color ); ?>;
-            }
-        </style>
-        <?php
+        echo '<script type="application/ld+json">'
+            . wp_json_encode($schema, JSON_UNESCAPED_SLASHES)
+            . '</script>' . PHP_EOL;
     }
 }

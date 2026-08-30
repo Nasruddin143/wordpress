@@ -11,7 +11,6 @@ namespace WooShop\Modules\Theme;
 
 use WP_Customize_Manager;
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
 
 defined('ABSPATH') || exit;
 
@@ -20,17 +19,6 @@ defined('ABSPATH') || exit;
  */
 final class Customizer extends Module
 {
-
-    /**
-     * Constructor.
-     *
-     * @param ModuleManager $manager Module manager.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-    }
-
     /**
      * Register module.
      *

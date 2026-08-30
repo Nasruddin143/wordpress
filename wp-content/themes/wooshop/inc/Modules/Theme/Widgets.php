@@ -1,6 +1,8 @@
 <?php
 /**
- * Widgets Module.
+ * WooShop Widgets Module
+ *
+ * Registers all widget areas defined in theme.php config.
  *
  * @package WooShop
  */
@@ -8,78 +10,61 @@
 namespace WooShop\Modules\Theme;
 
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
 
 defined('ABSPATH') || exit;
 
 /**
- * Theme widgets module.
+ * Class Widgets
  */
 final class Widgets extends Module
 {
-
     /**
-     * Theme configuration.
-     *
-     * @var array<string, mixed>
-     */
-    private array $config;
-
-    /**
-     * Constructor.
-     *
-     * @param ModuleManager $manager Module manager.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-
-        $config = require get_template_directory() . '/inc/Config/theme.php';
-
-        $this->config = is_array($config) ? $config : array();
-    }
-
-    /**
-     * Register module.
+     * Register module hooks.
      *
      * @return void
      */
     public function register(): void
     {
-        add_action('widgets_init', array($this, 'register_sidebars'));
+        add_action('widgets_init', [$this, 'register_sidebars']);
     }
 
     /**
-     * Register widget areas.
+     * Register all widget areas from theme.php config.
+     *
+     * Config shape (inc/Config/theme.php):
+     *
+     *   'widget_areas' => [
+     *       'sidebar-1' => [
+     *           'name'        => 'Sidebar',
+     *           'description' => 'Add widgets here.',
+     *           'before_widget' => '<div id="%1$s" class="widget %2$s">',
+     *           'after_widget'  => '</div>',
+     *           'before_title'  => '<h2 class="widget-title">',
+     *           'after_title'   => '</h2>',
+     *       ],
+     *   ],
      *
      * @return void
      */
     public function register_sidebars(): void
     {
+        $areas = $this->container->get('config')->get('theme')['widget_areas'] ?? [];
 
-        $widget_areas = $this->config['widget_areas'] ?? array();
+        if (empty($areas)) {
+            return;
+        }
 
-        foreach ($widget_areas as $id => $area) {
-
-            if (!is_array($area)) {
-                continue;
-            }
-
-            register_sidebar(
-                array(
-                    'name' => esc_html(
-                        $area['name'] ?? ucfirst((string)$id)
-                    ),
-                    'id' => (string)$id,
-                    'description' => esc_html(
-                        $area['description'] ?? ''
-                    ),
-                    'before_widget' => '<section id="%1$s" class="widget %2$s mb-4">',
-                    'after_widget' => '</section>',
-                    'before_title' => '<h2 class="widget-title h5 mb-3">',
-                    'after_title' => '</h2>',
-                )
-            );
+        foreach ($areas as $id => $area) {
+            register_sidebar([
+                'id'            => sanitize_key($id),
+                'name'          => $area['name']          ?? ucfirst($id),
+                'description'   => $area['description']   ?? '',
+                'before_widget' => $area['before_widget']
+                    ?? '<div id="%1$s" class="widget %2$s">',
+                'after_widget'  => $area['after_widget']  ?? '</div>',
+                'before_title'  => $area['before_title']  ?? '<h2 class="widget-title">',
+                'after_title'   => $area['after_title']   ?? '</h2>',
+            ]);
         }
     }
 }

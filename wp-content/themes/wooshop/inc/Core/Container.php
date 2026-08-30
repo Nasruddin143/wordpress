@@ -1,6 +1,6 @@
 <?php
 /**
- * WooShop Service Container.
+ * WooShop Service Container
  *
  * @package WooShop
  */
@@ -12,26 +12,26 @@ use RuntimeException;
 defined('ABSPATH') || exit;
 
 /**
- * Service container.
+ * Class Container
  */
 final class Container
 {
-
     /**
      * Registered services.
      *
-     * @var array<string,object>
+     * @var array<string, mixed>
      */
-    private array $services = array();
+    private array $services = [];
 
     /**
-     * Register a service.
+     * Set a service.
      *
-     * @param string $id Service identifier.
-     * @param object $service Service instance.
+     * @param string $id      Service identifier.
+     * @param mixed  $service Service instance/value.
+     *
      * @return void
      */
-    public function set(string $id, object $service): void
+    public function set(string $id, mixed $service): void
     {
         $this->services[$id] = $service;
     }
@@ -40,27 +40,29 @@ final class Container
      * Determine whether a service exists.
      *
      * @param string $id Service identifier.
+     *
      * @return bool
      */
     public function has(string $id): bool
     {
-        return isset($this->services[$id]);
+        return array_key_exists($id, $this->services);
     }
 
     /**
-     * Retrieve a service.
+     * Get a service.
      *
-     * @template T of object
+     * @template T
      *
      * @param string $id Service identifier.
-     * @return object
      *
-     * @throws RuntimeException When service does not exist.
+     * @return mixed
      */
-    public function get(string $id): object
+    public function get(string $id): mixed
     {
-        if (!isset($this->services[$id])) {
-            throw new RuntimeException(sprintf( /* translators: %s: Service identifier. */ __('WooShop service "%s" is not registered.', 'wooshop'), $id));
+        if (!$this->has($id)) {
+            throw new RuntimeException(
+                sprintf('WooShop service "%s" is not registered.', $id)
+            );
         }
 
         return $this->services[$id];
@@ -70,20 +72,11 @@ final class Container
      * Remove a service.
      *
      * @param string $id Service identifier.
+     *
      * @return void
      */
     public function remove(string $id): void
     {
         unset($this->services[$id]);
-    }
-
-    /**
-     * Get all registered services.
-     *
-     * @return array<string,object>
-     */
-    public function all(): array
-    {
-        return $this->services;
     }
 }

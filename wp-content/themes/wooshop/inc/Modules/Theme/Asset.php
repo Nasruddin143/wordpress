@@ -9,8 +9,8 @@
 
 namespace WooShop\Modules\Theme;
 
+use WooShop\Core\Container;
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
 
 defined('ABSPATH') || exit;
 
@@ -44,11 +44,11 @@ final class Asset extends Module
     /**
      * Constructor.
      *
-     * @param ModuleManager $manager Module manager.
+     * @param Container $container
      */
-    public function __construct(ModuleManager $manager)
+    public function __construct(Container $container)
     {
-        parent::__construct($manager);
+        parent::__construct($container);
 
         $this->theme_path = get_template_directory();
         $this->theme_uri = get_template_directory_uri();
@@ -361,7 +361,7 @@ final class Asset extends Module
     private function get_version(array $asset): string
     {
 
-        if (isset($asset['version']) && null !== $asset['version'] && '' !== $asset['version']) {
+        if (isset($asset['version']) && '' !== $asset['version']) {
             return (string)$asset['version'];
         }
 

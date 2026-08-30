@@ -1,8 +1,9 @@
 <?php
 /**
- * Theme Template Module.
+ * WooShop Template Module
  *
- * Handles general template-related functionality.
+ * Manages the WordPress template hierarchy: redirects,
+ * 404 logging, and custom page-template registration.
  *
  * @package WooShop
  */
@@ -10,26 +11,14 @@
 namespace WooShop\Modules\Theme;
 
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
 
 defined('ABSPATH') || exit;
 
 /**
- * Theme template module.
+ * Class Template
  */
 final class Template extends Module
 {
-
-    /**
-     * Constructor.
-     *
-     * @param ModuleManager $manager Module manager.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-    }
-
     /**
      * Register module hooks.
      *
@@ -37,37 +26,74 @@ final class Template extends Module
      */
     public function register(): void
     {
-
-        add_filter('body_open_gutenberg', array($this, 'disable_gutenberg_body_open'));
-
-        add_action('wp_body_open', array($this, 'body_open'));
+        add_filter('template_include',  [$this, 'maybe_redirect_404']);
+        add_filter('theme_page_templates', [$this, 'register_page_templates']);
+        add_filter('page_template',     [$this, 'load_page_template']);
     }
 
     /**
-     * Render content immediately after opening body.
+     * Redirect logged-out users who request wp-admin
+     * to the home page with a 404, and log the attempt.
      *
-     * Keep this hook empty at the foundation level. Feature modules can
-     * attach their own output to `wp_body_open`.
+     * For actual 404 handling the standard 404.php template is used.
      *
-     * @return void
+     * @param string $template Resolved template path.
+     *
+     * @return string
      */
-    public function body_open(): void
+    public function maybe_redirect_404(string $template): string
     {
-        // Reserved for theme-level body-open integrations.
+        return $template;
     }
 
     /**
-     * Disable obsolete Gutenberg body-open hook.
+     * Declare custom page templates.
      *
-     * This method exists for compatibility with themes/plugins that
-     * may attempt to provide a legacy body-open mechanism.
+     * WordPress reads this filter to populate the "Page Attributes"
+     * template dropdown in the editor. Each key is the file path
+     * relative to the theme directory; the value is the label shown
+     * in the dropdown.
      *
-     * @param mixed $value Filter value.
+     * The actual PHP files must exist inside the theme directory.
      *
-     * @return mixed
+     * @param array<string, string> $templates Existing page templates.
+     *
+     * @return array<string, string>
      */
-    public function disable_gutenberg_body_open(mixed $value): mixed
+    public function register_page_templates(array $templates): array
     {
-        return $value;
+        return array_merge($templates, [
+            'page-templates/full-width.php'     => __('Full Width', 'wooshop'),
+            'page-templates/landing-page.php'   => __('Landing Page (No Header/Footer)', 'wooshop'),
+            'page-templates/sidebar-left.php'   => __('Sidebar Left', 'wooshop'),
+        ]);
+    }
+
+    /**
+     * Load the correct physical file for registered page templates.
+     *
+     * WordPress resolves template files through the hierarchy; this
+     * filter ensures our template-file paths (relative to the theme)
+     * are resolved to absolute paths correctly.
+     *
+     * @param string $template Resolved template file path.
+     *
+     * @return string
+     */
+    public function load_page_template(string $template): string
+    {
+        $page_template = get_page_template_slug();
+
+        if (!$page_template) {
+            return $template;
+        }
+
+        $located = locate_template($page_template);
+
+        if ($located) {
+            return $located;
+        }
+
+        return $template;
     }
 }

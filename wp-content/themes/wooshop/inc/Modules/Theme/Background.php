@@ -1,6 +1,10 @@
 <?php
 /**
- * Custom Background Module.
+ * WooShop Background Module
+ *
+ * Adds WordPress custom-background support driven by
+ * theme.php config and outputs a body class when an
+ * image is active.
  *
  * @package WooShop
  */
@@ -8,59 +12,63 @@
 namespace WooShop\Modules\Theme;
 
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
 
 defined('ABSPATH') || exit;
 
 /**
- * Custom background module.
+ * Class Background
  */
 final class Background extends Module
 {
-
     /**
-     * Theme configuration.
-     *
-     * @var array<string, mixed>
-     */
-    private array $config;
-
-    /**
-     * Constructor.
-     *
-     * @param ModuleManager $manager Module manager.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-
-        $config = require get_template_directory() . '/inc/Config/theme.php';
-
-        $this->config = is_array($config) ? $config : array();
-    }
-
-    /**
-     * Register module.
+     * Register module hooks.
      *
      * @return void
      */
     public function register(): void
     {
-        add_action('after_setup_theme', array($this, 'register_background'));
+        add_action('after_setup_theme', [$this, 'add_support']);
+        add_filter('body_class',        [$this, 'body_class']);
     }
 
     /**
-     * Register custom background.
+     * Register custom-background theme support from theme.php.
+     *
+     * theme.php structure:
+     *
+     *   'custom_background' => [
+     *       'default-color' => 'ffffff',
+     *       'default-image' => '',
+     *   ],
      *
      * @return void
      */
-    public function register_background(): void
+    public function add_support(): void
     {
+        $config = $this->container->get('config')->get('theme');
+        $args   = $config['custom_background'] ?? [];
 
-        $args = $this->config['custom_background'] ?? array();
+        $defaults = [
+            'default-color' => 'ffffff',
+            'default-image' => '',
+        ];
 
-        $args = apply_filters('wooshop_custom_background_args', $args);
+        add_theme_support('custom-background', array_merge($defaults, $args));
+    }
 
-        add_theme_support('custom-background', $args);
+    /**
+     * Add a body class when a custom background image is set.
+     *
+     * @param string[] $classes Existing body classes.
+     *
+     * @return string[]
+     */
+    public function body_class(array $classes): array
+    {
+        if (get_background_image()) {
+            $classes[] = 'has-background-image';
+        }
+
+        return $classes;
     }
 }

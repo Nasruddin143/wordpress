@@ -23,14 +23,6 @@ final class Slider extends Module
     private const string POST_TYPE = 'slider';
 
     /**
-     * Constructor.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-    }
-
-    /**
      * Register module hooks.
      */
     public function register(): void

@@ -2,7 +2,8 @@
 /**
  * WooShop Navigation Module
  *
- * Handles theme navigation functionality.
+ * Registers nav menus (from theme.php config) and
+ * provides a reusable render helper used by template parts.
  *
  * @package WooShop
  */
@@ -25,47 +26,54 @@ final class Navigation extends Module
      */
     public function register(): void
     {
-        add_filter('nav_menu_link_attributes', [$this, 'add_link_attributes'], 10, 4);
+        // Nav menus are registered in Setup via theme.php.
+        // This module owns runtime rendering and Walker injection.
+        add_filter('wp_nav_menu_args', [$this, 'inject_walker']);
     }
 
     /**
-     * Add Bootstrap-compatible navigation attributes.
+     * Inject a custom Walker into every nav menu call
+     * that does not already specify one.
      *
-     * @param array<string, string> $atts Menu link attributes.
-     * @param object $item Menu item.
-     * @param object $args Menu arguments.
-     * @param int $depth Menu depth.
+     * @param array<string, mixed> $args wp_nav_menu() arguments.
      *
-     * @return array<string, string>
+     * @return array<string, mixed>
      */
-    public function add_link_attributes(array $atts, object $item, object $args, int $depth): array
+    public function inject_walker(array $args): array
     {
-        /*
-         * Only modify the primary navigation.
-         */
-        if (!isset($args->theme_location) || $args->theme_location !== 'primary') {
-            return $atts;
+        if (empty($args['walker']) && class_exists(NavWalker::class)) {
+            $args['walker'] = new NavWalker();
         }
 
-        /*
-         * Bootstrap nav-link class.
-         */
-        $existing_class = $atts['class'] ?? '';
+        return $args;
+    }
 
-        $classes = preg_split('/\s+/', trim($existing_class));
-
-        if (!is_array($classes)) {
-            $classes = [];
+    /**
+     * Render a navigation menu by location.
+     *
+     * Use this static helper from template parts:
+     *
+     *   \WooShop\Modules\Theme\Navigation::render('primary');
+     *
+     * @param string               $location Menu location slug.
+     * @param array<string, mixed> $args     Extra wp_nav_menu() args.
+     *
+     * @return void
+     */
+    public static function render(string $location, array $args = []): void
+    {
+        if (!has_nav_menu($location)) {
+            return;
         }
 
-        if (!in_array('nav-link', $classes, true)) {
-            $classes[] = 'nav-link';
-        }
-
-        $atts['class'] = trim(
-            implode(' ', $classes)
-        );
-
-        return $atts;
+        wp_nav_menu(array_merge([
+            'theme_location' => $location,
+            'menu_id'        => 'primary-menu-list',
+            'menu_class'     => 'navbar-nav me-auto mb-2 mb-lg-0 nav-menu nav-menu--' . sanitize_html_class($location),
+            'container'      => 'nav',
+            'container_class' => false,
+            'fallback_cb'    => false,
+            'depth'          => 3,
+        ], $args));
     }
 }

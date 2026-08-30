@@ -1,21 +1,93 @@
 @font-face {
     font-family: 'Inter';
-    /* Use 'woff2-variations' or standard 'woff2' for broad support */
     src: url('../fonts/InterVariable.woff2') format('woff2-variations'),
     url('../fonts/InterVariable.woff2') format('woff2');
-    font-weight: 100 900;       /* Define the weight range */
-    font-stretch: 75% 125%;     /* Define the width range (if applicable) */
+    font-weight: 100 900;
+    font-stretch: 75% 125%;
     font-style: normal;
     font-display: swap;
 }
 
 body {
-
     font-family: "Inter";
-    color: #0f0f0f;
+    font-weight: 400;
+    font-size: 15px;
+    color:#212529;
+}
+
+.site-header {
+    position: relative;
+    z-index: 1000;
+}
+
+.site-branding {
+    min-width: 0;
+}
+
+.site-branding .custom-logo {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+/* Forces container image to stay bounded */
+.site-logo img,
+.custom-logo-link img {
+    width: 201px !important;
+    height: 50px !important;
+    aspect-ratio: 201 / 50; /* Matches dimensions to avoid distortion */
+}
+
+.main-navigation .navbar-nav {
+    align-items: center;
+}
+
+.main-navigation .menu-item > a {
+    display: block;
+    text-decoration: none;
+}
+
+.desktop-search {
+    width: 350px;
+}
+
+.desktop-search .form-control {
+    font-size: 14px !important;
+}
+
+/* Smooth transition for the border color change */
+.custom-search-group {
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Changes the container border when the inner text input is clicked/focused */
+.custom-search-group:focus-within {
+    border-color: var(--bs-primary, #0d6efd) !important; /* Matches Bootstrap's btn-primary color */
+    /*box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important; !* Optional: Adds a matching subtle glow *!*/
 }
 
 .btn-view-product {
     padding: 0.6rem !important;
     border-radius: 0.3rem !important;
+}
+
+.nav-link {
+    color: #0f0f0f;
+    font-size: 16px;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding: 18px 15px;
+}
+
+.navbar-collapse li:first-child a {
+    padding-left: 0!important;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: #593196;
+}
+
+.nav-link:focus, .nav-link:hover{
+    color: #593196;
 }

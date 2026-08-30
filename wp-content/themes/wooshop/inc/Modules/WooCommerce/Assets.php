@@ -8,7 +8,6 @@
 namespace WooShop\Modules\WooCommerce;
 
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
 
 defined('ABSPATH') || exit;
 
@@ -17,33 +16,6 @@ defined('ABSPATH') || exit;
  */
 final class Assets extends Module
 {
-
-    /**
-     * Theme directory path.
-     *
-     * @var string
-     */
-    private string $theme_path;
-
-    /**
-     * Theme directory URI.
-     *
-     * @var string
-     */
-    private string $theme_uri;
-
-    /**
-     * Constructor.
-     *
-     * @param ModuleManager $manager Module manager.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-
-        $this->theme_path = get_template_directory();
-        $this->theme_uri = get_template_directory_uri();
-    }
 
     /**
      * Register module.
@@ -79,17 +51,19 @@ final class Assets extends Module
      */
     public function register_assets(): void
     {
+        $theme_path = get_template_directory();
+        $theme_uri = get_template_directory_uri();
 
-        $css_file = $this->theme_path . '/assets/build/css/woocommerce.min.css';
+        $css_file = $theme_path . '/assets/build/css/woocommerce.min.css';
 
-        $js_file = $this->theme_path . '/assets/build/js/woocommerce.min.js';
+        $js_file = $theme_path . '/assets/build/js/woocommerce.min.js';
 
         if (file_exists($css_file)) {
-            wp_register_style('wooshop-woocommerce', $this->theme_uri . '/assets/build/css/woocommerce.min.css', array('app'), $this->get_version());
+            wp_register_style('wooshop-woocommerce', $theme_uri . '/assets/build/css/woocommerce.min.css', array('app'), $this->get_version());
         }
 
         if (file_exists($js_file)) {
-            wp_register_script('wooshop-woocommerce', $this->theme_uri . '/assets/build/js/woocommerce.min.js', array('app'), $this->get_version(), true);
+            wp_register_script('wooshop-woocommerce', $theme_uri . '/assets/build/js/woocommerce.min.js', array('app'), $this->get_version(), true);
         }
     }
 

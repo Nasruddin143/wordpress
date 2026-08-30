@@ -8,7 +8,6 @@
 namespace WooShop\Modules\WooCommerce;
 
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
 
 defined('ABSPATH') || exit;
 
@@ -17,17 +16,6 @@ defined('ABSPATH') || exit;
  */
 final class Translation extends Module
 {
-
-    /**
-     * Constructor.
-     *
-     * @param ModuleManager $manager Module manager.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-    }
-
     /**
      * Register module.
      *

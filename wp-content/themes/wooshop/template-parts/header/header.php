@@ -1,6 +1,10 @@
 <?php
 /**
- * Site Header.
+ * The header for our theme
+ *
+ * This is the template that displays all the <head> section and everything up until <div id="content">
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
  * @package WooShop
  */
@@ -24,7 +28,7 @@ defined('ABSPATH') || exit;
 
             <?php get_template_part('template-parts/header/search'); ?>
 
-            <?php get_template_part('template-parts/header/actions'); ?>
+            <?php do_action('wooshop_header_actions'); ?>
 
         </div>
 
@@ -33,4 +37,3 @@ defined('ABSPATH') || exit;
     <?php get_template_part('template-parts/header/navigation'); ?>
 
 </div>
-

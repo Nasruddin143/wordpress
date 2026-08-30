@@ -7,14 +7,32 @@
 
 defined('ABSPATH') || exit; ?>
 
-<footer id="colophon" class="site-footer border-top mt-5">
 
-    <?php get_template_part('template-parts/footer/site-footer'); ?>
+<footer id="colophon" class="site-footer" role="contentinfo">
+    <?php
+    /**
+     * Fires inside the site footer.
+     *
+     * Hooked by Footer::render_footer() → loads
+     * template-parts/footer/footer.php.
+     *
+     * @hooked WooShop\Modules\Theme\Footer::render_footer — 10
+     */
+    do_action('wooshop_footer');
+    ?>
+</footer><!-- #colophon -->
 
-</footer>
-</div>
+</div><!-- #page .site -->
 
-<?php wp_footer(); ?>
+<?php
+/**
+ * Footer schema JSON-LD and MiniCart drawer render here.
+ *
+ * @hooked WooShop\Modules\Theme\Footer::schema_markup          — 99
+ * @hooked WooShop\Modules\WooCommerce\MiniCart::render_drawer  — 5
+ */
+wp_footer();
+?>
 
 </body>
 </html>

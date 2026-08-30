@@ -1,8 +1,6 @@
 <?php
 /**
- * WooShop Configuration Manager.
- *
- * Loads and caches theme configuration files.
+ * WooShop Configuration Loader
  *
  * @package WooShop
  */
@@ -12,97 +10,61 @@ namespace WooShop\Core;
 defined('ABSPATH') || exit;
 
 /**
- * Configuration manager.
+ * Class Config
  */
 final class Config
 {
-
     /**
-     * Configuration cache.
-     *
-     * @var array<string, mixed>
-     */
-    private array $cache = array();
-
-    /**
-     * Theme configuration directory.
+     * Configuration directory.
      *
      * @var string
      */
-    private string $config_path;
+    private string $directory;
+
+    /**
+     * Cached configuration.
+     *
+     * @var array<string, array<string, mixed>>
+     */
+    private array $cache = [];
 
     /**
      * Constructor.
+     *
+     * @param string $directory Configuration directory.
      */
-    public function __construct()
+    public function __construct(string $directory)
     {
-        $this->config_path = get_template_directory() . '/inc/Config';
+        $this->directory = trailingslashit($directory);
     }
 
     /**
-     * Get a configuration file.
+     * Get configuration.
      *
-     * Example:
+     * @param string $name Configuration name.
      *
-     * $config->get( 'assets' );
-     *
-     * Loads:
-     *
-     * inc/Config/assets.php
-     *
-     * @param string $key Configuration key.
-     * @param array<string,mixed> $default Default value.
-     * @return array<string,mixed>
+     * @return array<string, mixed>
      */
-    public function get(string $key, array $default = array()): array
+    public function get(string $name): array
     {
-        if (isset($this->cache[$key])) {
-            return $this->cache[$key];
+        if (isset($this->cache[$name])) {
+            return $this->cache[$name];
         }
 
-        $file = $this->config_path . '/' . $key . '.php';
+        $file = $this->directory . $name . '.php';
 
-        if (!is_file($file) || !is_readable($file)) {
-            $this->cache[$key] = $default;
-
-            return $default;
+        if (!is_readable($file)) {
+            return [];
         }
 
         $config = require $file;
 
         if (!is_array($config)) {
-            $config = $default;
+            return [];
         }
 
-        $this->cache[$key] = $config;
+        $this->cache[$name] = $config;
 
         return $config;
-    }
-
-    /**
-     * Check whether a configuration exists.
-     *
-     * @param string $key Configuration key.
-     * @return bool
-     */
-    public function has(string $key): bool
-    {
-        if (isset($this->cache[$key])) {
-            return true;
-        }
-
-        $file = $this->config_path . '/' . $key . '.php';
-
-        return is_file($file) && is_readable($file);
-    }
-
-    /**
-     * Clear configuration cache.
-     *
-     * @return void
-     */
-    public function clear(): void
-    {
-        $this->cache = array();
     }
 }

@@ -14,7 +14,6 @@ add_action('wp_head', function () {
     echo "<!-- Template Used: " . basename($template) . " -->";
 });
 
-
 require_once get_template_directory() . '/inc/Core/Loader.php';
 
 Loader::boot();

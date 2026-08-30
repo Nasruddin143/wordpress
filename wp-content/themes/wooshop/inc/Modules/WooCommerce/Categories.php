@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Categories Module.
+ * WooCommerce Subcategories Module.
  *
- * Provides product category data for the WooShop theme.
+ * Provides product Category data for the WooShop theme.
  *
  * @package WooShop
  */
@@ -10,7 +10,6 @@
 namespace WooShop\Modules\WooCommerce;
 
 use WooShop\Core\Module;
-use WooShop\Core\ModuleManager;
 use WP_Term;
 
 defined('ABSPATH') || exit;
@@ -20,16 +19,6 @@ defined('ABSPATH') || exit;
  */
 final class Categories extends Module
 {
-
-    /**
-     * Constructor.
-     *
-     * @param ModuleManager $manager Module manager.
-     */
-    public function __construct(ModuleManager $manager)
-    {
-        parent::__construct($manager);
-    }
 
     /**
      * Register module functionality.
@@ -42,7 +31,7 @@ final class Categories extends Module
     }
 
     /**
-     * Register hooks.
+     * Register module hooks.
      *
      * @return void
      */
@@ -56,7 +45,9 @@ final class Categories extends Module
     }
 
     /**
-     * Get product subcategories for the homepage.
+     * Get all product categories for the homepage.
+     *
+     * Parent categories are excluded.
      *
      * @param array<int, WP_Term> $categories Existing categories.
      * @return array<int, WP_Term>
@@ -66,8 +57,7 @@ final class Categories extends Module
         $categories = get_terms(
             [
                 'taxonomy' => 'product_cat',
-                'hide_empty' => false,
-//                'number' => $this->limit,
+                'hide_empty' => true,
                 'orderby' => 'menu_order',
                 'order' => 'ASC',
             ]
@@ -77,13 +67,6 @@ final class Categories extends Module
             return [];
         }
 
-        $categories = array_filter(
-            $categories,
-            static function (WP_Term $category): bool {
-                return 0 !== (int)$category->parent;
-            }
-        );
-
-        return array_values($categories);
+        return array_values(array_filter($categories, static fn(WP_Term $category): bool => (int)$category->parent > 0));
     }
 }

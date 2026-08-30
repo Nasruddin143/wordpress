@@ -5,7 +5,7 @@
  * @package WooShop
  */
 
-use WooShop\Modules\Theme\BootstrapWalker;
+use WooShop\Modules\Theme\NavWalker;
 
 defined( 'ABSPATH' ) || exit;
 ?>
@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
                             'menu_class'     => 'navbar-nav me-auto mb-2 mb-lg-0',
                             'container'      => false,
                             'fallback_cb'    => false,
-                            'walker'         => new BootstrapWalker(),
+                            'walker'         => new NavWalker(),
                     )
             );
             ?>

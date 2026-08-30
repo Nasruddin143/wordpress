@@ -37,7 +37,7 @@ if (empty($categories)) {
 
         </div>
 
-        <div class="row">
+        <div class="row g-3">
 
             <?php foreach ($categories as $category) : ?>
 
@@ -53,58 +53,55 @@ if (empty($categories)) {
 
                 <div class="col-6 col-md-3 col-lg-2">
 
-                    <a
-                            class="card rounded text-decoration-none overflow-hidden"
-                            href="<?php echo esc_url($category_link); ?>"
-                    >
+                    <a class="d-block justify-content-center align-items-center text-decoration-none"
+                       href="<?php echo esc_url($category_link); ?>">
+                        <div class="rounded p-3 bg-light">
 
-                        <?php if ($thumbnail_id) : ?>
+                            <?php if ($thumbnail_id) : ?>
 
-                            <?php
-                            echo wp_get_attachment_image($thumbnail_id, 'woocommerce_thumbnail',
-                                    false,
-                                    [
-                                            'class' => 'card-img-top img-fluid',
-                                            'loading' => 'lazy',
-                                            'alt' => $category->name,
-                                    ]
-                            );
-                            ?>
+                                <?php
+                                echo wp_get_attachment_image($thumbnail_id,
+                                        'woocommerce_thumbnail', false,
+                                        [
+                                                'class' => 'img-fluid',
+                                                'loading' => 'lazy',
+                                                'alt' => $category->name,
+                                        ]
+                                );
+                                ?>
 
-                        <?php else : ?>
+                            <?php else : ?>
 
-                            <div
-                                    class="card-img-top bg-body-secondary d-flex align-items-center justify-content-center"
-                                    aria-hidden="true"
-                            >
+                                <div class="bg-body-secondary d-flex align-items-center justify-content-center"
+                                     aria-hidden="true">
 								<span class="text-body-secondary">
 									<?php esc_html_e('No image', 'wooshop'); ?>
 								</span>
+                                </div>
+
+                            <?php endif; ?>
+
+                            <div class="mb-2 text-center">
+
+                                <h3 class="h6 card-title mb-1">
+                                    <?php echo esc_html($category->name); ?>
+                                </h3>
+
+                                <p class="card-text small text-body-secondary mb-0">
+                                    <?php
+                                    _n(
+                                            '%d product',
+                                            '%d products',
+                                            (int)$category->count,
+                                            'wooshop'
+                                    )
+                                        |> esc_html(...)
+                                        |> (fn($x) => printf( /* translators: %d: number of products. */ $x, (int)$category->count));
+                                    ?>
+                                </p>
+
                             </div>
-
-                        <?php endif; ?>
-
-                        <div class="card-body">
-
-                            <h3 class="h6 card-title mb-1">
-                                <?php echo esc_html($category->name); ?>
-                            </h3>
-
-                            <p class="card-text small text-body-secondary mb-0">
-                                <?php
-                                _n(
-                                        '%d product',
-                                        '%d products',
-                                        (int)$category->count,
-                                        'wooshop'
-                                )
-                                    |> esc_html(...)
-                                    |> (fn($x) => printf( /* translators: %d: number of products. */ $x, (int)$category->count));
-                                ?>
-                            </p>
-
                         </div>
-
                     </a>
 
                 </div>

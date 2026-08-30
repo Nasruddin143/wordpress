@@ -35,9 +35,7 @@ final class Autoloader
      */
     public function __construct(string $base_directory)
     {
-        $this->base_directory = trailingslashit(
-            $base_directory
-        );
+        $this->base_directory = trailingslashit($base_directory);
     }
 
     /**

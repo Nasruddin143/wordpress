@@ -35,11 +35,11 @@ return array(
     'menus' => array(
 
         'primary' => array(
-            'label' => esc_html__('Primary', 'wooshop'),
+            'label' => esc_html__('Primary Menu', 'wooshop'),
         ),
 
         'footer' => array(
-            'label' => esc_html__('Footer', 'wooshop'),
+            'label' => esc_html__('Footer Menu', 'wooshop'),
         ),
     ),
 
@@ -67,8 +67,8 @@ return array(
         'customize-selective-refresh-widgets' => true,
 
         'custom-logo' => array(
-            'height' => 62,
-            'width' => 250,
+            'height' => 50,
+            'width' => 201,
             'flex-width' => false,
             'flex-height' => false,
         ),
