@@ -11,6 +11,7 @@
 namespace WooShop\Modules\Theme;
 
 use WooShop\Core\Module;
+use WP_Post;
 
 defined('ABSPATH') || exit;
 
@@ -29,6 +30,8 @@ final class Navigation extends Module
         // Nav menus are registered in Setup via theme.php.
         // This module owns runtime rendering and Walker injection.
         add_filter('wp_nav_menu_args', [$this, 'inject_walker']);
+
+        add_filter('nav_menu_link_attributes', [$this, 'add_link_attributes'], 10, 4);
     }
 
     /**
@@ -55,8 +58,8 @@ final class Navigation extends Module
      *
      *   \WooShop\Modules\Theme\Navigation::render('primary');
      *
-     * @param string               $location Menu location slug.
-     * @param array<string, mixed> $args     Extra wp_nav_menu() args.
+     * @param string $location Menu location slug.
+     * @param array<string, mixed> $args Extra wp_nav_menu() args.
      *
      * @return void
      */
@@ -68,12 +71,51 @@ final class Navigation extends Module
 
         wp_nav_menu(array_merge([
             'theme_location' => $location,
-            'menu_id'        => 'primary-menu-list',
-            'menu_class'     => 'navbar-nav me-auto mb-2 mb-lg-0 nav-menu nav-menu--' . sanitize_html_class($location),
-            'container'      => 'nav',
+            'menu_id' => 'primary-menu-list',
+            'menu_class' => 'navbar-nav me-auto mb-2 mb-lg-0 nav-menu nav-menu--' . sanitize_html_class($location),
+            'container' => 'nav',
             'container_class' => false,
-            'fallback_cb'    => false,
-            'depth'          => 3,
+            'fallback_cb' => false,
+            'depth' => 3,
         ], $args));
+    }
+
+    /**
+     * Add Bootstrap navigation classes.
+     *
+     * @param array<string, mixed> $atts Menu link attributes.
+     * @param WP_Post $item Menu item.
+     * @param object $args Menu arguments.
+     * @param int $depth Menu depth.
+     *
+     * @return array<string, mixed>
+     */
+    public function add_link_attributes(array $atts, WP_Post $item, object $args, int $depth): array
+    {
+        if (!isset($args->theme_location)) {
+            return $atts;
+        }
+
+        $locations = ['primary', 'footer',];
+
+        if (!in_array($args->theme_location, $locations, true)) {
+            return $atts;
+        }
+
+        $existing_class = $atts['class'] ?? '';
+
+        $classes = preg_split('/\s+/', trim((string)$existing_class));
+
+        if (!is_array($classes)) {
+            $classes = [];
+        }
+
+        if (!in_array('nav-link', $classes, true)) {
+            $classes[] = 'nav-link';
+        }
+
+        $atts['class'] = trim(implode(' ', $classes));
+
+        return $atts;
     }
 }

@@ -83,23 +83,33 @@ return array(
     /*
      * Widget areas.
      */
-    'widget_areas' => array(
+    'widget_areas' => [
 
-        'sidebar-1' => array(
+        'sidebar-1' => [
             'name' => 'Sidebar',
             'description' => 'Add widgets here.',
-        ),
+        ],
 
-        'footer-1' => array(
+        'footer-1' => [
             'name' => 'Footer 1',
             'description' => 'Add widgets here.',
-        ),
+        ],
 
-        'footer-2' => array(
+        'footer-2' => [
             'name' => 'Footer 2',
             'description' => 'Add widgets here.',
-        ),
-    ),
+        ],
+
+        'footer-3' => [
+            'name' => 'Footer 3',
+            'description' => 'Add widgets here.',
+        ],
+
+        'footer-4' => [
+            'name' => 'Footer 4',
+            'description' => 'Add widgets here.',
+        ],
+    ],
 
     /*
      * Custom header.

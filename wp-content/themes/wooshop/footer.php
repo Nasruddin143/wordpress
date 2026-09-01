@@ -8,19 +8,17 @@
 defined('ABSPATH') || exit; ?>
 
 
-<footer id="colophon" class="site-footer" role="contentinfo">
-    <?php
-    /**
-     * Fires inside the site footer.
-     *
-     * Hooked by Footer::render_footer() → loads
-     * template-parts/footer/footer.php.
-     *
-     * @hooked WooShop\Modules\Theme\Footer::render_footer — 10
-     */
-    do_action('wooshop_footer');
-    ?>
-</footer><!-- #colophon -->
+<?php
+/**
+ * Fires inside the site footer.
+ *
+ * Hooked by Footer::render_footer() → loads
+ * template-parts/footer/footer.php.
+ *
+ * @hooked WooShop\Modules\Theme\Footer::render_footer — 10
+ */
+do_action('wooshop_footer'); ?>
+
 
 </div><!-- #page .site -->
 

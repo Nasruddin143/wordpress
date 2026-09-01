@@ -8,11 +8,20 @@
     font-display: swap;
 }
 
+:root {
+    --background-color: #ffffff; /* Background color for the entire website, including individual sections */
+    --default-color: #212529; /* Default color used for the majority of the text content across the entire website */
+    --heading-color: #2d465e; /* Color for headings, subheadings and title throughout the website */
+    --accent-color: #0a4db8; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+    --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+    --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+}
+
 body {
     font-family: "Inter";
     font-weight: 400;
     font-size: 15px;
-    color:#212529;
+    color: var(--default-color);
 }
 
 .site-header {
@@ -81,13 +90,27 @@ body {
 }
 
 .navbar-collapse li:first-child a {
-    padding-left: 0!important;
+    padding-left: 0 !important;
 }
 
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
     color: #593196;
 }
 
-.nav-link:focus, .nav-link:hover{
+.nav-link:focus, .nav-link:hover {
     color: #593196;
+}
+
+.back-to-top {
+    position: fixed;
+    /*visibility: hidden;*/
+    /*opacity: 0;*/
+    right: 15px;
+    bottom: 15px;
+    z-index: 99999;
+    /*background-color: var(--accent-color);*/
+    width: 44px;
+    height: 44px;
+    border-radius: 50px;
+    transition: all 0.4s;
 }

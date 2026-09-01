@@ -195,6 +195,19 @@ return [
             'strategy' => 'defer',
         ],
 
+        /*
+         * -----------------------------------------------------
+         * Miscellaneous
+         * -----------------------------------------------------
+         */
+        'wooshop-back-to-top' => [
+            'path' => 'assets/build/js/back-to-top.min.js',
+            'deps' => [],
+            'condition' => 'back_to_top',
+            'in_footer' => true,
+            'strategy' => 'defer',
+        ],
+
     ],
 ];
 

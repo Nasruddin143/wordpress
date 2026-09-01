@@ -1,0 +1,30 @@
+<?php
+/**
+ * WooShop Back To Top
+ *
+ * @package WooShop
+ */
+
+defined('ABSPATH') || exit;
+?>
+
+<button type="button" class="btn btn-primary back-to-top" id="back-to-top"
+        aria-label="<?php esc_attr_e('Back to top', 'wooshop'); ?>" aria-hidden="true">
+
+    <span aria-hidden="true">
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" class="main-grid-item-icon"
+         fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <line x1="12" x2="12" y1="19" y2="5"/>
+      <polyline points="5 12 12 5 19 12"/>
+    </svg>
+
+    </span>
+
+    <span class="visually-hidden">
+
+        <?php esc_html_e('Back to top', 'wooshop'); ?>
+
+    </span>
+
+</button>

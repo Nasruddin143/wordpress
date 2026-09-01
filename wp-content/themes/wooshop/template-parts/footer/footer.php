@@ -1,6 +1,6 @@
 <?php
 /**
- * Site Footer.
+ * WooShop Footer Template
  *
  * @package WooShop
  */
@@ -8,14 +8,79 @@
 defined('ABSPATH') || exit;
 ?>
 
-<footer id="colophon" class="site-footer border-top mt-5">
+<?php
+/**
+ * WooShop Footer Template Part
+ *
+ * @package WooShop
+ */
 
-    <p>This is footer from template part</p>
+defined('ABSPATH') || exit;
 
-</footer>
-</div>
+$config = $args['config'] ?? [];
 
-<?php wp_footer(); ?>
+if (!is_array($config)) {
+    $config = [];
+}
+?>
 
-</body>
-</html>
+    <footer id="colophon" class="site-footer" role="contentinfo">
+
+        <div class="site-footer__main py-5">
+
+            <div class="container">
+
+                <?php
+                get_template_part(
+                        'template-parts/footer/widgets',
+                        null,
+                        [
+                                'config' => $config,
+                        ]
+                );
+                ?>
+
+            </div>
+
+        </div>
+
+        <div class="site-footer__navigation border-top">
+
+            <div class="container">
+
+                <?php
+                get_template_part(
+                        'template-parts/footer/navigation',
+                        null,
+                        [
+                                'config' => $config,
+                        ]
+                );
+                ?>
+
+            </div>
+
+        </div>
+
+        <div class="site-footer__bottom border-top">
+
+            <div class="container">
+
+                <?php
+                get_template_part(
+                        'template-parts/footer/bottom',
+                        null,
+                        [
+                                'config' => $config,
+                        ]
+                );
+                ?>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+<?php get_template_part('template-parts/footer/back-to-top'); ?>
