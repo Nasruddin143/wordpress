@@ -125,8 +125,7 @@ final class Actions extends Module
          */
         ob_start();
 
-        $count = $this->get_cart_count();
-        ?>
+        $count = $this->get_cart_count();        ?>
 
         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-primary mini-cart-count">
             <?php echo esc_html($count); ?>
