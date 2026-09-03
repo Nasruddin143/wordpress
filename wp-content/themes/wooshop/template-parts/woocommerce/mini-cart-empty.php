@@ -38,7 +38,7 @@ defined('ABSPATH') || exit;
     <a href="<?php echo 'shop'
                 |> wc_get_page_id(...)
                 |> get_permalink(...)
-                |> esc_url(...); ?>" class="btn btn-primary btn-view-product">
+                |> esc_url(...); ?>" class="btn btn-primary btn-cart-actions">
 
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
              class="main-grid-item-icon me-2"
