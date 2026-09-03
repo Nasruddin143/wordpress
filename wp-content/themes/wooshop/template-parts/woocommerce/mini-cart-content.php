@@ -1,104 +1,143 @@
 <?php
 /**
- * WooCommerce Mini Cart Content.
+ * WooShop Mini Cart Content
+ *
+ * Displays WooCommerce cart items inside the
+ * WooShop mini cart.
  *
  * @package WooShop
  */
 
 defined('ABSPATH') || exit;
+
+if (!function_exists('WC') || !WC()->cart) {
+    return;
+}
+
+if (WC()->cart->is_empty()) {
+    get_template_part('template-parts/woocommerce/mini-cart-empty');
+    return;
+}
 ?>
 
-<div class="mini-cart-content p-3">
+<div class="mini-cart-content">
 
-    <?php
-    if (function_exists('woocommerce_mini_cart')) : ?>
+    <div class="mini-cart-items">
 
-        <div class="mini-cart-content">
+        <?php foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
 
-            <div class="mini-cart-items">
+            $_product = $cart_item['data'];
 
-                <?php
-                foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+            if (!$_product || !$_product->exists() || $cart_item['quantity'] <= 0) {
+                continue;
+            }
 
-                    $_product = $cart_item['data'];
+            $product_id = $cart_item['product_id'];
 
-                    if (!$_product || !$_product->exists() || $cart_item['quantity'] <= 0) {
-                        continue;
-                    }
+            $product_name = $_product->get_name();
 
-                    $product_id = $cart_item['product_id'];
+            $product_permalink = $_product->is_visible() ? $_product->get_permalink($cart_item) : '';
 
-                    $product_name = $_product->get_name();
+            $thumbnail = $_product->get_image('woocommerce_thumbnail', ['class' => 'img-fluid',]);
 
-                    $product_permalink = $_product->is_visible() ? $_product->get_permalink($cart_item) : '';
+            $quantity = $cart_item['quantity'];
 
-                    $thumbnail = $_product->get_image('woocommerce_thumbnail', ['class' => 'img-fluid',]);
+            $product_price = WC()->cart->get_product_price($_product);
 
-                    $quantity = $cart_item['quantity'];
+            $remove_url = wc_get_cart_remove_url($cart_item_key); ?>
 
-                    $product_price = WC()->cart->get_product_price($_product);
+            <div class="mini-cart-item d-flex align-items-center mb-4" data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
+                <div class="flex-shrink-0">
+                    <?php if ($product_permalink) : ?>
 
-                    $remove_url = wc_get_cart_remove_url($cart_item_key); ?>
+                        <a href="<?php echo esc_url($product_permalink); ?>">
+                            <?php echo wp_kses_post($thumbnail); ?>
+                        </a>
 
-                    <div class="mini-cart-item" data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
+                    <?php else : ?>
 
-                        <div class="row g-3 align-items-start">
+                        <?php echo wp_kses_post($thumbnail); ?>
 
-                            <div class="col-auto">
+                    <?php endif; ?>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <h3 class="mini-cart-item__title h6">
 
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0 bg-light rounded">
-                                        <?php if ($product_permalink) : ?>
+                        <?php if ($product_permalink) : ?>
 
-                                            <a href="<?php echo esc_url($product_permalink); ?>">
-                                                <?php echo wp_kses_post($thumbnail); ?>
-                                            </a>
+                            <a href="<?php echo esc_url($product_permalink); ?>">
+                                <?php echo esc_html($product_name); ?>
+                            </a>
 
-                                        <?php else : ?>
+                        <?php else : ?>
 
-                                            <?php echo wp_kses_post($thumbnail); ?>
+                            <?php echo esc_html($product_name); ?>
 
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h3 class="h6 mini-cart-item__title">
+                        <?php endif; ?>
 
-                                            <?php if ($product_permalink) : ?>
+                    </h3>
+                </div>
+            </div>
 
-                                                <a href="<?php echo esc_url($product_permalink); ?>">
-                                                    <?php echo esc_html($product_name); ?>
-                                                </a>
+            <div class="mini-cart-item" data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
 
-                                            <?php else : ?>
+                <div class="row g-3 align-items-start">
 
-                                                <?php echo esc_html($product_name); ?>
+                    <div class="col-auto">
 
-                                            <?php endif; ?>
+                        <div class="mini-cart-item__image">
 
-                                        </h3>
-                                    </div>
-                                </div>
+                            <?php if ($product_permalink) : ?>
+
+                                <a href="<?php echo esc_url($product_permalink); ?>">
+                                    <?php echo wp_kses_post($thumbnail); ?>
+                                </a>
+
+                            <?php else : ?>
+
+                                <?php echo wp_kses_post($thumbnail); ?>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col">
+
+                        <div class="mini-cart-item__content">
+
+                            <h3 class="mini-cart-item__title">
+
+                                <?php if ($product_permalink) : ?>
+
+                                    <a href="<?php echo esc_url($product_permalink); ?>">
+                                        <?php echo esc_html($product_name); ?>
+                                    </a>
+
+                                <?php else : ?>
+
+                                    <?php echo esc_html($product_name); ?>
+
+                                <?php endif; ?>
+
+                            </h3>
+
+                            <?php
+                            $variation = wc_get_formatted_cart_item_data($cart_item);
+
+                            if ($variation) {
+                                echo wp_kses_post($variation);
+                            }
+                            ?>
+
+                            <div class="mini-cart-item__price">
+
+                                <?php echo wp_kses_post($product_price); ?>
 
                             </div>
 
-                            <div class="col">
-
-                                <div class="mini-cart-item__content">
-
-                                    <?php $variation = wc_get_formatted_cart_item_data($cart_item);
-
-                                    if ($variation) {
-                                        echo wp_kses_post($variation);
-                                    }
-                                    ?>
-
-                                    <div class="mini-cart-item__price">
-
-                                        <?php echo wp_kses_post($product_price); ?>
-
-                                    </div>
-
-                                    <div class="mini-cart-item__quantity">
+                            <div class="mini-cart-item__quantity">
 
                                 <span class="mini-cart-item__quantity-label">
 
@@ -106,32 +145,11 @@ defined('ABSPATH') || exit;
 
                                 </span>
 
-                                        <span class="mini-cart-item__quantity-value">
+                                <span class="mini-cart-item__quantity-value">
 
                                     <?php echo esc_html($quantity); ?>
 
                                 </span>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-auto">
-
-                                <a href="<?php echo esc_url($remove_url); ?>" class="mini-cart-item__remove"
-                                   aria-label="<?php echo __('Remove %s from cart', 'wooshop')
-                                               |> (fn($x) => sprintf($x, $product_name))
-                                               |> esc_attr(...); ?>">
-
-                            <span aria-hidden="true">
-
-                                &times;
-
-                            </span>
-
-                                </a>
 
                             </div>
 
@@ -139,13 +157,33 @@ defined('ABSPATH') || exit;
 
                     </div>
 
-                <?php } ?>
+                    <div class="col-auto">
+
+                        <a href="<?php echo esc_url($remove_url); ?>" class="mini-cart-item__remove"
+                           aria-label="<?php echo __('Remove %s from cart', 'wooshop')
+                                       |> (fn($x) => sprintf($x, $product_name))
+                                       |> esc_attr(...); ?>">
+                            <span aria-hidden="true">
+
+                                &times;
+
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <div class="mini-cart-summary">
+        <?php } ?>
 
-                <div class="mini-cart-summary__subtotal">
+    </div>
+
+    <div class="mini-cart-summary">
+
+        <div class="mini-cart-summary__subtotal">
 
             <span class="mini-cart-summary__label">
 
@@ -153,38 +191,30 @@ defined('ABSPATH') || exit;
 
             </span>
 
-                    <span class="mini-cart-summary__amount">
+            <span class="mini-cart-summary__amount">
 
                 <?php echo wp_kses_post(WC()->cart->get_cart_subtotal()); ?>
 
             </span>
 
-                </div>
-
-            </div>
-
-            <div class="mini-cart-actions d-flex gap-2 mx-auto">
-
-                <a href="<?php echo esc_url(wc_get_cart_url()); ?>" class="btn btn-outline-dark w-50">
-
-                    <?php esc_html_e('View Cart', 'wooshop'); ?>
-
-                </a>
-
-                <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="btn btn-primary w-50">
-
-                    <?php esc_html_e('Checkout', 'wooshop'); ?>
-
-                </a>
-
-            </div>
-
         </div>
 
-    <?php else:
+    </div>
 
-        esc_html_e('Your cart is currently empty.', 'wooshop');
+    <div class="mini-cart-actions d-flex align-items-center gap-2">
 
-    endif; ?>
+        <a href="<?php echo esc_url(wc_get_cart_url()); ?>" class="btn btn-outline-dark btn-cart-actions w-50">
+
+            <?php esc_html_e('View Cart', 'wooshop'); ?>
+
+        </a>
+
+        <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="btn btn-primary btn-cart-actions w-50">
+
+            <?php esc_html_e('Checkout', 'wooshop'); ?>
+
+        </a>
+
+    </div>
 
 </div>

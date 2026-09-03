@@ -1,0 +1,25 @@
+#wooshop-mini-cart img {
+    width:100px!important;
+    height:100px!important;
+    background-color: color-mix(in srgb, #212529, transparent 95%);
+    border-radius: 8px;
+}
+
+.mini-cart-content .mini-cart-item a {
+    text-decoration: none;
+}
+
+.mini-cart-content .mini-cart-item h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--default-color);
+}
+
+.btn-cart-actions{
+    padding: 0.6rem !important;
+    border-radius: 0.3rem !important;
+}
+
+.offcanvas, .offcanvas-lg, .offcanvas-md, .offcanvas-sm, .offcanvas-xl, .offcanvas-xxl {
+    --bs-offcanvas-width: 450px!important;
+}

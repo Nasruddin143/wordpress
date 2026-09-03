@@ -136,4 +136,7 @@ return [
         return true;
     },
 
+    'mini_cart' => static function (): bool {
+        return true;
+    },
 ];

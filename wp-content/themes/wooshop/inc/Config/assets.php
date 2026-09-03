@@ -47,6 +47,12 @@ return [
             'condition' => 'always',
         ],
 
+        'wooshop_minicart' => [
+            'path' => 'assets/build/css/mini-cart.min.css',
+            'deps' => [],
+            'condition' => 'always',
+        ],
+
         /*
          * -----------------------------------------------------
          * Front Page
@@ -208,6 +214,13 @@ return [
             'strategy' => 'defer',
         ],
 
+        'wooshop-minicart' => [
+            'path' => 'assets/build/js/mini-cart.min.js',
+            'deps' => [],
+            'condition' => 'back_to_top',
+            'in_footer' => true,
+            'strategy' => 'defer',
+        ],
     ],
 ];
 
