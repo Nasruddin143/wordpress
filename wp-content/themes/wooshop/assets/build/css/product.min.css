@@ -1,0 +1,217 @@
+/**
+ * WooShop Product Grid
+ *
+ * @package WooShop
+ */
+
+/* ---------------------------------------------------------
+ * Product Grid
+ * --------------------------------------------------------- */
+
+.woocommerce-shop ul.products {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+/* ---------------------------------------------------------
+ * Product Item
+ * --------------------------------------------------------- */
+
+.woocommerce-shop ul.products li.product {
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ---------------------------------------------------------
+ * Product Card
+ * --------------------------------------------------------- */
+
+.wooshop-product-card .card {
+    height: 100%;
+    background: transparent;
+}
+
+
+/* ---------------------------------------------------------
+ * Product Image
+ * --------------------------------------------------------- */
+
+.wooshop-product-image {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+}
+
+.wooshop-product-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.wooshop-product-card:hover .wooshop-product-image img {
+    transform: scale(1.03);
+}
+
+
+/* ---------------------------------------------------------
+ * WooCommerce Sale Badge
+ * --------------------------------------------------------- */
+
+.wooshop-product-card .onsale {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 2;
+
+    margin: 0;
+    padding: 0.35rem 0.65rem;
+
+    border-radius: 999px;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+
+/* ---------------------------------------------------------
+ * Product Title
+ * --------------------------------------------------------- */
+
+.wooshop-product-card .woocommerce-loop-product__title {
+    margin: 0;
+    padding: 0;
+
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.wooshop-product-card
+.woocommerce-loop-product__title
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.wooshop-product-card
+.woocommerce-loop-product__title
+a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+
+/* ---------------------------------------------------------
+ * Product Rating
+ * --------------------------------------------------------- */
+
+.wooshop-product-card .star-rating {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+
+/* ---------------------------------------------------------
+ * Product Price
+ * --------------------------------------------------------- */
+
+.wooshop-product-card .price {
+    display: block;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.wooshop-product-card .price del {
+    margin-right: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    opacity: 0.65;
+}
+
+.wooshop-product-card .price ins {
+    text-decoration: none;
+}
+
+
+/* ---------------------------------------------------------
+ * Add To Cart
+ * --------------------------------------------------------- */
+
+.wooshop-product-card .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    margin-top: 0.75rem;
+
+    text-align: center;
+}
+
+
+/* ---------------------------------------------------------
+ * Product Link
+ * --------------------------------------------------------- */
+
+.wooshop-product-card a.woocommerce-LoopProduct-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* ---------------------------------------------------------
+ * Tablet
+ * --------------------------------------------------------- */
+
+@media (max-width: 991.98px) {
+
+    .woocommerce-shop ul.products {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+ * Mobile
+ * --------------------------------------------------------- */
+
+@media (max-width: 767.98px) {
+
+    .woocommerce-shop ul.products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .wooshop-product-card .woocommerce-loop-product__title {
+        font-size: 0.95rem;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+ * Small Mobile
+ * --------------------------------------------------------- */
+
+@media (max-width: 575.98px) {
+
+    .woocommerce-shop ul.products {
+        grid-template-columns: 1fr;
+    }
+
+}

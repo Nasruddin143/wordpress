@@ -29,6 +29,7 @@
 
     <?php get_template_part('template-parts/global/skip-links'); ?>
 
+    <!-- #masthead -->
     <header id="masthead" class="site-header">
 
         <?php
@@ -40,7 +41,6 @@
          *
          * @hooked WooShop\Modules\Theme\Header::render_header — 10
          */
-        do_action('wooshop_header');
-        ?>
+        do_action('wooshop_header'); ?>
 
-    </header><!-- #masthead -->
+    </header>

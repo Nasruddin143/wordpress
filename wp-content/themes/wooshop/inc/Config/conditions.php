@@ -93,12 +93,11 @@ return [
     },
 
     'product_archive' => static function (): bool {
-        return function_exists('is_product_category')
-            && (
-                is_product_category()
-                || is_product_tag()
-                || is_product_taxonomy()
-            );
+        return function_exists('is_shop')
+            && (is_shop() || (function_exists('is_product_category')
+                    && is_product_category()) || (function_exists('is_product_tag')
+                    && is_product_tag()) || (function_exists('is_product_taxonomy')
+                    && is_product_taxonomy()));
     },
 
     'cart' => static function (): bool {

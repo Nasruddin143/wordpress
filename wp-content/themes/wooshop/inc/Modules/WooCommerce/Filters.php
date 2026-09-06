@@ -29,25 +29,28 @@ final class Filters extends Module
     public function register(): void
     {
         // Sale badge text.
-        add_filter('woocommerce_sale_flash',              [$this, 'sale_badge'], 10, 3);
+        add_filter('woocommerce_sale_flash', [$this, 'sale_badge'], 10, 3);
 
         // Product tabs on single product pages.
-        add_filter('woocommerce_product_tabs',            [$this, 'reorder_product_tabs'], 98);
+        add_filter('woocommerce_product_tabs', [$this, 'reorder_product_tabs'], 98);
 
         // Related products count and columns.
         add_filter('woocommerce_output_related_products_args', [$this, 'related_products_args']);
 
         // Breadcrumb defaults.
-        add_filter('woocommerce_breadcrumb_defaults',     [$this, 'breadcrumb_defaults']);
+        add_filter('woocommerce_breadcrumb_defaults', [$this, 'breadcrumb_defaults']);
 
         // Add-to-cart button classes.
-        add_filter('woocommerce_loop_add_to_cart_args',   [$this, 'add_to_cart_classes'], 10, 2);
+        add_filter('woocommerce_loop_add_to_cart_args', [$this, 'add_to_cart_classes'], 10, 2);
 
         // Remove cross-sells on cart page.
-        add_action('init',                                [$this, 'remove_cart_cross_sells']);
+        add_action('init', [$this, 'remove_cart_cross_sells']);
 
         // Placeholder image.
-        add_filter('woocommerce_placeholder_img_src',     [$this, 'placeholder_image']);
+        add_filter('woocommerce_placeholder_img_src', [$this, 'placeholder_image']);
+
+        // Pagination with icons.
+        add_filter('woocommerce_pagination_args', [$this, 'pagination_args']);
     }
 
     /**
@@ -55,8 +58,8 @@ final class Filters extends Module
      *
      * Shows "−30%" instead of "Sale!" when the regular price is known.
      *
-     * @param string      $html    Default badge HTML.
-     * @param WP_Post    $post    Post object.
+     * @param string $html Default badge HTML.
+     * @param WP_Post $post Post object.
      * @param WC_Product $product Product object.
      *
      * @return string
@@ -69,15 +72,8 @@ final class Filters extends Module
             foreach ($product->get_children() as $child_id) {
                 $variation = wc_get_product($child_id);
 
-                if (
-                    $variation &&
-                    $variation->is_on_sale() &&
-                    $variation->get_regular_price()
-                ) {
-                    $percentages[] = round(
-                        (($variation->get_regular_price() - $variation->get_sale_price())
-                            / $variation->get_regular_price()) * 100
-                    );
+                if ($variation && $variation->is_on_sale() && $variation->get_regular_price()) {
+                    $percentages[] = round((($variation->get_regular_price() - $variation->get_sale_price()) / $variation->get_regular_price()) * 100);
                 }
             }
 
@@ -88,7 +84,7 @@ final class Filters extends Module
             $pct = max($percentages);
         } else {
             $regular = $product->get_regular_price();
-            $sale    = $product->get_sale_price();
+            $sale = $product->get_sale_price();
 
             if (!$regular || !$sale) {
                 return $html;
@@ -97,10 +93,7 @@ final class Filters extends Module
             $pct = round((($regular - $sale) / $regular) * 100);
         }
 
-        return sprintf(
-            '<span class="onsale">-%d%%</span>',
-            $pct
-        );
+        return sprintf('<span class="onsale">-%d%%</span>', $pct);
     }
 
     /**
@@ -138,8 +131,8 @@ final class Filters extends Module
     {
         $count = $this->container->get('config')->get('theme')['woo_related_products'] ?? 3;
 
-        $args['posts_per_page'] = (int) $count;
-        $args['columns']        = (int) $count;
+        $args['posts_per_page'] = (int)$count;
+        $args['columns'] = (int)$count;
 
         return $args;
     }
@@ -153,11 +146,10 @@ final class Filters extends Module
      */
     public function breadcrumb_defaults(array $defaults): array
     {
-        $defaults['delimiter']   = ' <span aria-hidden="true">/</span> ';
-        $defaults['home']        = _x('Home', 'breadcrumb home label', 'wooshop');
-        $defaults['wrap_before'] = '<nav class="woocommerce-breadcrumb" aria-label="'
-            . esc_attr__('Breadcrumb', 'wooshop') . '">';
-        $defaults['wrap_after']  = '</nav>';
+        $defaults['delimiter'] = ' <span aria-hidden="true">/</span> ';
+        $defaults['home'] = _x('Home', 'breadcrumb home label', 'wooshop');
+        $defaults['wrap_before'] = '<nav class="woocommerce-breadcrumb" aria-label="' . esc_attr__('Breadcrumb', 'wooshop') . '">';
+        $defaults['wrap_after'] = '</nav>';
 
         return $defaults;
     }
@@ -165,8 +157,8 @@ final class Filters extends Module
     /**
      * Add BEM class to loop add-to-cart buttons.
      *
-     * @param array<string, mixed> $args    Button arguments.
-     * @param WC_Product          $product Product object.
+     * @param array<string, mixed> $args Button arguments.
+     * @param WC_Product $product Product object.
      *
      * @return array<string, mixed>
      */
@@ -202,7 +194,7 @@ final class Filters extends Module
      */
     public function placeholder_image(string $src): string
     {
-        $theme_dir  = get_template_directory();
+        $theme_dir = get_template_directory();
         $local_path = '/assets/images/placeholder.png';
 
         if (file_exists($theme_dir . $local_path)) {
@@ -210,5 +202,21 @@ final class Filters extends Module
         }
 
         return $src;
+    }
+
+    /**
+     * Customize WooCommerce pagination arguments.
+     *
+     * @param array<string, mixed> $args Pagination arguments.
+     *
+     * @return array<string, mixed>
+     */
+    public function pagination_args(array $args): array
+    {
+        $args['prev_text'] = '<span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"><polyline points="15 18 9 12 15 6" /></svg></span><span class="visually-hidden">' . esc_html__('Previous', 'wooshop') . '</span>';
+
+        $args['next_text'] = '<span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"><polyline points="9 18 15 12 9 6" /></svg></span><span class="visually-hidden">' . esc_html__('Next', 'wooshop') . '</span>';
+
+        return $args;
     }
 }

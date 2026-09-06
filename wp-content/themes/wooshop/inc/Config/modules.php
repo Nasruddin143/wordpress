@@ -118,5 +118,9 @@ return [
             "class" => \WooShop\Modules\WooCommerce\Categories::class,
             "enabled" => true,
         ],
+        [
+            "class" => \WooShop\Modules\WooCommerce\Shop::class,
+            "enabled" => true,
+        ],
     ],
 ];

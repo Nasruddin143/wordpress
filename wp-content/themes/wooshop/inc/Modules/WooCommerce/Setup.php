@@ -43,7 +43,7 @@ final class Setup extends Module
             'thumbnail_image_width' => 300,
             'single_image_width'    => 600,
             'product_grid'          => [
-                'default_columns' => 3,
+                'default_columns' => 4,
                 'default_rows'    => 4,
                 'min_columns'     => 1,
                 'max_columns'     => 6,

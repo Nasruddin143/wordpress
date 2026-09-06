@@ -1,41 +1,36 @@
 <?php
 /**
- * Single Product Content.
+ * WooShop Single Product Content
  *
  * @package WooShop
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 global $product;
+
+if (!is_a($product, WC_Product::class)) {
+    return;
+}
 ?>
 
-<div
-    id="product-<?php the_ID(); ?>"
-    <?php wc_product_class( 'product', $product ); ?>
->
+<article id="product-<?php the_ID(); ?>" <?php wc_product_class('product-single', $product); ?>>
 
-    <div class="row g-4 g-lg-5">
+    <?php do_action('woocommerce_before_single_product'); ?>
 
-        <div class="col-12 col-lg-6">
+    <div class="row g-4">
 
-            <?php
-            do_action(
-                'woocommerce_before_single_product_summary'
-            );
-            ?>
+        <div class="col-lg-6">
+
+            <?php do_action('woocommerce_before_single_product_summary'); ?>
 
         </div>
 
-        <div class="col-12 col-lg-6">
+        <div class="col-lg-6">
 
-            <div class="summary entry-summary">
+            <div class="product-single__summary">
 
-                <?php
-                do_action(
-                    'woocommerce_single_product_summary'
-                );
-                ?>
+                <?php do_action('woocommerce_single_product_summary'); ?>
 
             </div>
 
@@ -43,18 +38,8 @@ global $product;
 
     </div>
 
-    <div class="row mt-5">
+    <?php do_action('woocommerce_after_single_product_summary'); ?>
 
-        <div class="col-12">
+    <?php do_action('woocommerce_after_single_product'); ?>
 
-            <?php
-            do_action(
-                'woocommerce_after_single_product_summary'
-            );
-            ?>
-
-        </div>
-
-    </div>
-
-</div>
+</article>

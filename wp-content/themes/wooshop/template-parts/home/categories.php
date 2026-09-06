@@ -55,7 +55,7 @@ if (empty($categories)) {
 
                     <a class="d-block justify-content-center align-items-center text-decoration-none"
                        href="<?php echo esc_url($category_link); ?>">
-                        <div class="rounded p-3 bg-light">
+                        <div class="rounded p-3 bg-primary bg-opacity-10">
 
                             <?php if ($thumbnail_id) : ?>
 
@@ -63,7 +63,9 @@ if (empty($categories)) {
                                 echo wp_get_attachment_image($thumbnail_id,
                                         'woocommerce_thumbnail', false,
                                         [
-                                                'class' => 'img-fluid',
+                                                'width'=> 120,
+                                                'height'=> 120,
+                                                'class' => 'rounded mx-auto d-block mb-2',
                                                 'loading' => 'lazy',
                                                 'alt' => $category->name,
                                         ]
@@ -81,17 +83,17 @@ if (empty($categories)) {
 
                             <?php endif; ?>
 
-                            <div class="mb-2 text-center">
+                            <div class="text-center">
 
-                                <h3 class="h6 card-title mb-1">
+                                <h3 class="h6 fw-bold card-title mb-2">
                                     <?php echo esc_html($category->name); ?>
                                 </h3>
 
                                 <p class="card-text small text-body-secondary mb-0">
                                     <?php
                                     _n(
-                                            '%d product',
-                                            '%d products',
+                                            '%d Product',
+                                            '%d Products',
                                             (int)$category->count,
                                             'wooshop'
                                     )

@@ -24,21 +24,21 @@ final class Wishlist extends Module
      *
      * @var string
      */
-    private const USER_META_KEY = '_wooshop_wishlist';
+    private const string USER_META_KEY = '_wooshop_wishlist';
 
     /**
      * WooCommerce session key.
      *
      * @var string
      */
-    private const SESSION_KEY = 'wooshop_wishlist';
+    private const string SESSION_KEY = 'wooshop_wishlist';
 
     /**
      * AJAX nonce action.
      *
      * @var string
      */
-    private const NONCE_ACTION = 'wooshop_wishlist';
+    private const string NONCE_ACTION = 'wooshop_wishlist';
 
     /**
      * Register module.
@@ -51,20 +51,11 @@ final class Wishlist extends Module
             return;
         }
 
-        add_filter(
-            'wooshop_wishlist_url',
-            array($this, 'get_wishlist_url')
-        );
+        add_filter('wooshop_wishlist_url', array($this, 'get_wishlist_url'));
 
-        add_action(
-            'wp_ajax_wooshop_toggle_wishlist',
-            array($this, 'toggle_wishlist')
-        );
+        add_action('wp_ajax_wooshop_toggle_wishlist', array($this, 'toggle_wishlist'));
 
-        add_action(
-            'wp_ajax_nopriv_wooshop_toggle_wishlist',
-            array($this, 'toggle_wishlist')
-        );
+        add_action('wp_ajax_nopriv_wooshop_toggle_wishlist', array($this, 'toggle_wishlist'));
     }
 
     /**
@@ -99,9 +90,7 @@ final class Wishlist extends Module
     public function get_items(): array
     {
         if (is_user_logged_in()) {
-            return $this->get_user_items(
-                get_current_user_id()
-            );
+            return $this->get_user_items(get_current_user_id());
         }
 
         return $this->get_session_items();
@@ -116,11 +105,7 @@ final class Wishlist extends Module
      */
     private function get_user_items(int $user_id): array
     {
-        $items = get_user_meta(
-            $user_id,
-            self::USER_META_KEY,
-            true
-        );
+        $items = get_user_meta($user_id, self::USER_META_KEY, true);
 
         if (!is_array($items)) {
             return [];
@@ -136,17 +121,11 @@ final class Wishlist extends Module
      */
     private function get_session_items(): array
     {
-        if (
-            !function_exists('WC') ||
-            !WC()->session
-        ) {
+        if (!function_exists('WC') || !WC()->session) {
             return [];
         }
 
-        $items = WC()->session->get(
-            self::SESSION_KEY,
-            []
-        );
+        $items = WC()->session->get(self::SESSION_KEY, []);
 
         if (!is_array($items)) {
             return [];
@@ -192,14 +171,9 @@ final class Wishlist extends Module
             return false;
         }
 
-        $items = array_filter(
-            $this->get_items(),
-            static fn(int $item_id): bool => $item_id !== $product_id
-        );
+        $items = array_filter($this->get_items(), static fn(int $item_id): bool => $item_id !== $product_id);
 
-        return $this->save_items(
-            array_values($items)
-        );
+        return $this->save_items(array_values($items));
     }
 
     /**
@@ -211,11 +185,7 @@ final class Wishlist extends Module
      */
     public function has_item(int $product_id): bool
     {
-        return in_array(
-            $product_id,
-            $this->get_items(),
-            true
-        );
+        return in_array($product_id, $this->get_items(), true);
     }
 
     /**
@@ -235,25 +205,12 @@ final class Wishlist extends Module
      */
     public function toggle_wishlist(): void
     {
-        check_ajax_referer(
-            self::NONCE_ACTION,
-            'nonce'
-        );
+        check_ajax_referer(self::NONCE_ACTION, 'nonce');
 
-        $product_id = isset($_POST['product_id'])
-            ? absint($_POST['product_id'])
-            : 0;
+        $product_id = isset($_POST['product_id']) ? absint($_POST['product_id']) : 0;
 
         if (!$this->is_valid_product($product_id)) {
-            wp_send_json_error(
-                array(
-                    'message' => __(
-                        'Invalid product.',
-                        'wooshop'
-                    ),
-                ),
-                400
-            );
+            wp_send_json_error(array('message' => __('Invalid product.', 'wooshop'),), 400);
         }
 
         $added = false;
@@ -266,15 +223,7 @@ final class Wishlist extends Module
         }
 
         if (!$success) {
-            wp_send_json_error(
-                array(
-                    'message' => __(
-                        'Unable to update wishlist.',
-                        'wooshop'
-                    ),
-                ),
-                500
-            );
+            wp_send_json_error(array('message' => __('Unable to update wishlist.', 'wooshop'),), 500);
         }
 
         wp_send_json_success(
@@ -282,15 +231,7 @@ final class Wishlist extends Module
                 'product_id' => $product_id,
                 'added' => $added,
                 'count' => $this->get_count(),
-                'message' => $added
-                    ? __(
-                        'Product added to wishlist.',
-                        'wooshop'
-                    )
-                    : __(
-                        'Product removed from wishlist.',
-                        'wooshop'
-                    ),
+                'message' => $added ? __('Product added to wishlist.', 'wooshop') : __('Product removed from wishlist.', 'wooshop'),
             )
         );
     }
@@ -323,24 +264,14 @@ final class Wishlist extends Module
         $items = $this->sanitize_items($items);
 
         if (is_user_logged_in()) {
-            return false !== update_user_meta(
-                    get_current_user_id(),
-                    self::USER_META_KEY,
-                    $items
-                );
+            return false !== update_user_meta(get_current_user_id(), self::USER_META_KEY, $items);
         }
 
-        if (
-            !function_exists('WC') ||
-            !WC()->session
-        ) {
+        if (!function_exists('WC') || !WC()->session) {
             return false;
         }
 
-        WC()->session->set(
-            self::SESSION_KEY,
-            $items
-        );
+        WC()->session->set(self::SESSION_KEY, $items);
 
         return true;
     }
@@ -354,17 +285,10 @@ final class Wishlist extends Module
      */
     private function sanitize_items(array $items): array
     {
-        $items = array_map(
-            'absint',
-            $items
-        );
+        $items = array_map('absint', $items);
 
-        $items = array_filter(
-            $items
-        );
+        $items = array_filter($items);
 
-        return array_values(
-            array_unique($items)
-        );
+        return array_values(array_unique($items));
     }
 }

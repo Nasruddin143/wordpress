@@ -111,11 +111,21 @@ final class Setup extends Module
         if (!empty($widget_areas)) {
             add_action('widgets_init', function () use ($widget_areas): void {
                 foreach ($widget_areas as $id => $area) {
-                    register_sidebar([
-                        'id' => $id,
-                        'name' => $area['name'] ?? $id,
-                        'description' => $area['description'] ?? '',
-                    ]);
+                    register_sidebar(
+                        [
+                            'id' => $id,
+                            'name' => $area['name'] ?? $id,
+                            'description' => $area['description'] ?? '',
+                            'class'          => '',
+                            'before_widget'  => '<li id="%1$s" class="widget %2$s">',
+                            'after_widget'   => "</li>\n",
+                            'before_title'   => '<h2 class="widgettitle">',
+                            'after_title'    => "</h2>\n",
+                            'before_sidebar' => '',
+                            'after_sidebar'  => '',
+                            'show_in_rest'   => false,
+                        ]
+                    );
                 }
             });
         }

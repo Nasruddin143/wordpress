@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
 ?>
 
 <!--Topbar-->
-<div class="topbar py-2 bg-light">
+<div class="topbar py-2 bg-primary bg-opacity-10">
     <?php get_template_part('template-parts/header/topbar'); ?>
 </div>
 

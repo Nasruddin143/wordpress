@@ -41,9 +41,7 @@ return [
 
         'app' => [
             'path' => 'assets/build/css/app.min.css',
-            'deps' => [
-                'bootstrap',
-            ],
+            'deps' => ['bootstrap',],
             'condition' => 'always',
         ],
 
@@ -61,9 +59,7 @@ return [
 
         'front-page' => [
             'path' => 'assets/build/css/front-page.min.css',
-            'deps' => [
-                'wooshop',
-            ],
+            'deps' => [],
             'condition' => 'front_page',
         ],
 
@@ -75,14 +71,8 @@ return [
 
         'blog' => [
             'path' => 'assets/build/css/blog.min.css',
-            'deps' => [
-                'wooshop',
-            ],
-            'condition' => [
-                'home',
-                'archive',
-                'search',
-            ],
+            'deps' => ['app'],
+            'condition' => ['home', 'archive', 'search',],
         ],
 
         /*
@@ -93,9 +83,7 @@ return [
 
         'woocommerce' => [
             'path' => 'assets/build/css/woocommerce.min.css',
-            'deps' => [
-                'wooshop',
-            ],
+            'deps' => [],
             'condition' => 'woocommerce',
         ],
 
@@ -107,12 +95,21 @@ return [
 
         'product' => [
             'path' => 'assets/build/css/product.min.css',
-            'deps' => [
-                'wooshop-woocommerce',
-            ],
-            'condition' => 'product',
+            'deps' => ['woocommerce'],
+            'condition' => 'product'
         ],
 
+        /*
+         * -----------------------------------------------------
+         * Shop
+         * -----------------------------------------------------
+         */
+
+        'shop' => [
+            'path' => 'assets/build/css/shop.min.css',
+            'deps' => ['woocommerce'],
+            'condition' => 'shop'
+        ],
     ],
 
     /*
@@ -145,9 +142,7 @@ return [
 
         'app' => [
             'path' => 'assets/build/js/app.min.js',
-            'deps' => [
-                'bootstrap',
-            ],
+            'deps' => ['bootstrap',],
             'condition' => 'always',
             'in_footer' => true,
             'strategy' => 'defer',
@@ -161,9 +156,7 @@ return [
 
         'front-page' => [
             'path' => 'assets/build/js/front-page.min.js',
-            'deps' => [
-                'wooshop',
-            ],
+            'deps' => ['wooshop',],
             'condition' => 'front_page',
             'in_footer' => true,
             'strategy' => 'defer',
@@ -177,9 +170,7 @@ return [
 
         'woocommerce' => [
             'path' => 'assets/build/js/woocommerce.min.js',
-            'deps' => [
-                'wooshop',
-            ],
+            'deps' => ['wooshop',],
             'condition' => 'woocommerce',
             'in_footer' => true,
             'strategy' => 'defer',
@@ -193,9 +184,7 @@ return [
 
         'product' => [
             'path' => 'assets/build/js/product.min.js',
-            'deps' => [
-                'wooshop-woocommerce',
-            ],
+            'deps' => ['wooshop-woocommerce',],
             'condition' => 'product',
             'in_footer' => true,
             'strategy' => 'defer',

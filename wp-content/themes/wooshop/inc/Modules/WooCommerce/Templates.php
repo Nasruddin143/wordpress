@@ -23,12 +23,11 @@ final class Templates extends Module
      */
     public function register(): void
     {
-
         if (!$this->is_available()) {
             return;
         }
 
-        add_filter('woocommerce_locate_template', array($this, 'locate_template'), 10, 3);
+        add_filter('woocommerce_locate_template', [$this, 'locate_template'], 10, 4);
     }
 
     /**
@@ -46,14 +45,14 @@ final class Templates extends Module
      *
      * @param string $template Located template.
      * @param string $template_name Template name.
-     * @param string $template_path Default template path.
+     * @param string $template_path WooCommerce template path.
+     * @param string $default_path WooCommerce default template path.
      *
      * @return string
      */
-    public function locate_template(string $template, string $template_name, string $template_path): string
+    public function locate_template(string $template, string $template_name, string $template_path, string $default_path): string
     {
-
-        unset($template_path);
+        unset($template_path, $default_path);
 
         $theme_template = get_template_directory() . '/template-parts/woocommerce/' . $template_name;
 
