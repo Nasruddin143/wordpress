@@ -44,7 +44,7 @@ final class Filters extends Module
         add_filter('woocommerce_loop_add_to_cart_args', [$this, 'add_to_cart_classes'], 10, 2);
 
         // Remove cross-sells on cart page.
-        add_action('init', [$this, 'remove_cart_cross_sells']);
+        //add_action('init', [$this, 'remove_cart_cross_sells']);
 
         // Placeholder image.
         add_filter('woocommerce_placeholder_img_src', [$this, 'placeholder_image']);
@@ -178,10 +178,10 @@ final class Filters extends Module
      *
      * @return void
      */
-    public function remove_cart_cross_sells(): void
-    {
-        remove_action('woocommerce_cart_collaterals', 'woocommerce_cross_sell_display');
-    }
+//    public function remove_cart_cross_sells(): void
+//    {
+//        remove_action('woocommerce_cart_collaterals', 'woocommerce_cross_sell_display');
+//    }
 
     /**
      * Point the missing-image placeholder to a theme asset.

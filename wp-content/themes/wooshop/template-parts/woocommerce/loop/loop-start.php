@@ -8,4 +8,4 @@
 defined('ABSPATH') || exit;
 ?>
 
-<ul class="row products g-3 mb-5">
+<div class="row products g-3 mb-5">

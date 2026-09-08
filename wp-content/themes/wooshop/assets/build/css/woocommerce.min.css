@@ -1,15 +1,11 @@
+
 .woocommerce .products ul, .woocommerce ul.products {
     margin: 0;
-    padding: 0;
+    /* padding: 0; */
 }
 
 .woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
-     /*float: none !important;*/
-     /*margin: 0 !important;*/
-     /*padding: 0 !important;*/
-     /*position: relative !important;*/
-     /*width: auto !important;*/
-     /*margin-left: 0 !important;*/
+    
 }
 
 .woocommerce .woocommerce-ordering {

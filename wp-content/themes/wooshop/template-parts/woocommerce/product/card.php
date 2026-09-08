@@ -15,7 +15,7 @@ if (!is_a($product, WC_Product::class)) {
 
 $product_id = $product->get_id(); ?>
 
-<li <?php wc_product_class('col-6 col-md-4 col-lg-3 product', $product); ?>>
+<div <?php wc_product_class('col-6 col-md-4 col-lg-3 product', $product); ?>>
 
     <article class="product-card card h-100" id="product-<?php echo esc_attr($product_id); ?>">
 
@@ -32,4 +32,4 @@ $product_id = $product->get_id(); ?>
 
     </article>
 
-</li>
+</div>
