@@ -18,7 +18,7 @@ if (!is_a($product, WC_Product::class)) {
 
     <?php do_action('woocommerce_before_single_product'); ?>
 
-    <div class="row g-4">
+    <div class="row gy-4">
 
         <div class="col-lg-6">
 

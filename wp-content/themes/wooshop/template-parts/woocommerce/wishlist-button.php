@@ -38,7 +38,6 @@ if ($wishlist_module instanceof Wishlist) {
 
 >
 
-    ```
     <span
             class="wishlist-button__icon"
             aria-hidden="true"
@@ -51,6 +50,5 @@ if ($wishlist_module instanceof Wishlist) {
     <?php echo esc_html($is_wishlisted ? __('Remove from wishlist', 'wooshop') : __('Add to wishlist', 'wooshop')); ?>
 
 </span>
-    ```
 
 </button>

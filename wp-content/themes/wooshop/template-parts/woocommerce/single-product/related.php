@@ -22,7 +22,7 @@ if (empty($related_products)) {
             </h2>
         <?php endif; ?>
 
-        <div class="row g-3 wooshop-product-grid">
+        <div class="row gy-4 wooshop-product-grid">
 
             <?php foreach ($related_products as $related_product) : ?>
 

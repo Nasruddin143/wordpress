@@ -15,9 +15,15 @@ if (!is_a($product, WC_Product::class)) {
 
 $product_link = $product->get_permalink();
 $product_name = $product->get_name();
+
+$categories = wc_get_product_category_list($product->get_id(), ', ', '<div class="product-card__category text-muted small mb-1 text-uppercase">', '</div>');
 ?>
 
-<h2 class="product-card__title h6 mb-2 text-center fw-bold">
+<?php if (!empty($categories)) : ?>
+    <?php echo wp_kses_post($categories); ?>
+<?php endif; ?>
+
+<h2 class="product-card__title h6 mb-2 fw-bold">
 
     <a href="<?php echo esc_url($product_link); ?>" class="text-decoration-none">
 
@@ -37,7 +43,7 @@ $product_name = $product->get_name();
 
 <?php endif; ?>
 
-<div class="product-card__price text-center">
+<div class="product-card__price">
 
     <?php echo wp_kses_post($product->get_price_html()); ?>
 

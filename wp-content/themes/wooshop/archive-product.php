@@ -20,7 +20,7 @@ get_header('shop');
 
                 <?php get_template_part('template-parts/woocommerce/shop/header'); ?>
 
-                <div class="row">
+                <div class="row gy-4">
 
                     <div class="woocommerce-sidebar-wrapper col-md-3">
                         <?php get_template_part('template-parts/woocommerce/shop/sidebar'); ?>

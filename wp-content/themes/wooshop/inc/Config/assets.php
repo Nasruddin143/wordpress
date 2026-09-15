@@ -156,7 +156,7 @@ return [
 
         'front-page' => [
             'path' => 'assets/build/js/front-page.min.js',
-            'deps' => ['wooshop',],
+            'deps' => [],
             'condition' => 'front_page',
             'in_footer' => true,
             'strategy' => 'defer',
