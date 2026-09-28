@@ -1,0 +1,8 @@
+p:elementor|Elementor
+p:woocommerce|WooCommerce
+p:wpforms-lite|WPForms Lite
+p:wp-optimize-premium|WP-Optimize Premium - Clean, Compress, Cache
+t:blocksy|Blocksy
+p:blocksy-companion|Blocksy Companion
+p:wp-mail-smtp|WP Mail SMTP
+p:pro-elements|PRO Elements

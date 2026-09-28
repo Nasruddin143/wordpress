@@ -1,0 +1,12 @@
+[2026-09-28 16:47:03 : INFO] - Failed to convert to WebP: Converter: vips, plugins/wp-optimize-premium/images/logo/wpo_logo_small.png => uploads/wpo/images/wpo_logo_small.png.webp 
+[2026-09-28 16:47:03 : INFO] - Failed to convert to WebP: Converter: wpc, plugins/wp-optimize-premium/images/logo/wpo_logo_small.png => uploads/wpo/images/wpo_logo_small.png.webp 
+[2026-09-28 16:47:03 : INFO] - Failed to convert to WebP: Converter: ewww, plugins/wp-optimize-premium/images/logo/wpo_logo_small.png => uploads/wpo/images/wpo_logo_small.png.webp 
+[2026-09-28 16:47:03 : INFO] - Failed to convert to WebP: Converter: imagick, plugins/wp-optimize-premium/images/logo/wpo_logo_small.png => uploads/wpo/images/wpo_logo_small.png.webp 
+[2026-09-28 16:47:03 : INFO] - Failed to convert to WebP: Converter: gmagick, plugins/wp-optimize-premium/images/logo/wpo_logo_small.png => uploads/wpo/images/wpo_logo_small.png.webp 
+[2026-09-28 16:47:15 : INFO] - The queue for tasks of type "webp-convert-compressed-images-task" is empty. Aborting! 
+[2026-09-28 16:47:15 : INFO] - Failed to convert to WebP: Converter: vips, plugins/wp-optimize-premium/images/logo/wpo_logo_small.png => uploads/wpo/images/wpo_logo_small.png.webp 
+[2026-09-28 16:47:15 : INFO] - Failed to convert to WebP: Converter: wpc, plugins/wp-optimize-premium/images/logo/wpo_logo_small.png => uploads/wpo/images/wpo_logo_small.png.webp 
+[2026-09-28 16:47:15 : INFO] - Failed to convert to WebP: Converter: ewww, plugins/wp-optimize-premium/images/logo/wpo_logo_small.png => uploads/wpo/images/wpo_logo_small.png.webp 
+[2026-09-28 16:47:15 : INFO] - Failed to convert to WebP: Converter: imagick, plugins/wp-optimize-premium/images/logo/wpo_logo_small.png => uploads/wpo/images/wpo_logo_small.png.webp 
+[2026-09-28 16:47:15 : INFO] - Failed to convert to WebP: Converter: gmagick, plugins/wp-optimize-premium/images/logo/wpo_logo_small.png => uploads/wpo/images/wpo_logo_small.png.webp 
+[2026-09-28 16:47:15 : INFO] - Pruning the WebP log file 

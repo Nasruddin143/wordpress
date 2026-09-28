@@ -1,0 +1,9 @@
+p:blocksy-companion|Blocksy Companion
+p:elementor|Elementor
+p:pro-elements|PRO Elements
+p:woo-razorpay|1 Razorpay
+p:woocommerce|WooCommerce
+p:ai|AI
+p:wpforms-lite|WPForms Lite
+p:wp-mail-smtp|WP Mail SMTP
+t:blocksy|Blocksy

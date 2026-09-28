@@ -1,0 +1,13 @@
+p:ai|AI
+p:blocksy-companion|Blocksy Companion
+p:elementor|Elementor
+p:imagekit|ImageKit
+p:pro-elements|PRO Elements
+p:woo-razorpay|1 Razorpay
+p:woo-variation-swatches|Variation Swatches for WooCommerce
+p:woocommerce|WooCommerce
+p:wp-optimize-premium|WP-Optimize Premium - Clean, Compress, Cache
+p:wpforms-lite|WPForms Lite
+t:blocksy|Blocksy
+p:regenerate-thumbnails|Regenerate Thumbnails
+p:wp-mail-smtp|WP Mail SMTP

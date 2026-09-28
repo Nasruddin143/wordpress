@@ -1,0 +1,7 @@
+p:elementor|Elementor
+p:woocommerce|WooCommerce
+p:wpforms-lite|WPForms Lite
+t:blocksy|Blocksy
+p:woo-variation-swatches|Variation Swatches for WooCommerce
+p:blocksy-companion|Blocksy Companion
+p:wp-mail-smtp|WP Mail SMTP
