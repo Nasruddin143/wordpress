@@ -1,2 +1,0 @@
-2026-10-02T17:06:07+00:00 DEBUG FiltersTaxonomiesProductsLookupTable:set_regeneration_state CONTEXT: {"previous_state":{"state":"idle","enabled":true},"state":{"state":"idle","enabled":true}}
-2026-10-02T17:06:07+00:00 INFO FiltersTaxonomiesProductsLookupTable:finalize_regeneration CONTEXT: {"state":{"state":"idle","enabled":true},"result":true,"reason":"blocksy:cache-manager:purge-all"}

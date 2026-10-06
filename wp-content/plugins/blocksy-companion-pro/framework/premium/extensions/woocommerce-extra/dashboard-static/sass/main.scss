@@ -1,0 +1,75 @@
+.ct-filters-crawl-notice {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 12px;
+	margin-bottom: 20px;
+	color: #9f6000;
+	font-size: 13px;
+	font-weight: 500;
+	text-decoration: none;
+	border-radius: 3px;
+	background: rgba(253, 223, 103, 0.6);
+	transition: color 0.2s ease,
+				background color 0.2s ease;
+
+	&:is(:hover, :focus) {
+		color: #9f6000;
+		outline: none;
+		box-shadow: none;
+		background: rgba(253, 223, 103, 0.9);
+	}
+}
+
+
+
+.ct-filters-crawl-modal {
+	--modal-width: 700px;
+
+	.ct-modal-scroll {
+		padding-bottom: 35px;
+	}
+
+	.ct-filters-crawl-rules {
+		position: relative;
+
+		textarea {
+			font-family: monospace;
+			font-size: 12px;
+			white-space: pre;
+			padding: 12px 15px;
+			background: rgba(240, 240, 240, 0.3);
+		}
+	}
+
+	.ct-filters-crawl-copy {
+		position: absolute;
+		top: 10px;
+		inset-inline-end: 10px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 30px;
+		min-height: 30px;
+		padding: 4px 8px;
+		border: none;
+		border-radius: 3px;
+		background: #fff;
+		color: inherit;
+		font-size: 12px;
+		cursor: pointer;
+		box-shadow: 0px 2px 5px rgba(143, 163, 184, 0.12);
+		transition: color 0.1s linear,
+					background 0.1s linear;
+
+		&:is(:hover, :focus-visible) {
+			color: #fff;
+			outline: none;
+			background: var(--ui-accent-color);
+		}
+	}
+
+	ol {
+		margin: 0 0 1.5em 20px;
+	}
+}
