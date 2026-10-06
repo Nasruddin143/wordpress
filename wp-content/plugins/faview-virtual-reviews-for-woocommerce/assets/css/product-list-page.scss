@@ -1,0 +1,142 @@
+.wvr-control-panel {
+  position: relative;
+}
+
+.wvr-add-review-control {
+  display: none;
+  position: absolute;
+  background-color: white;
+  padding: 1em;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  z-index: 9;
+
+  input {
+    width: 100%;
+    min-width: 200px;
+  }
+
+  .wvr-row-label {
+    line-height: 2;
+  }
+
+  .wvr-row {
+    margin-bottom: 10px;
+  }
+
+  &.wvr-open {
+    display: block;
+  }
+}
+
+.wvr-add-review-progress-bar {
+  //height: 24px;
+  margin: 1em 0;
+  background-color: rgba(0, 0, 0, .1);
+  clear: both;
+  position: relative;
+  display: block;
+  max-width: 100%;
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0.28571429rem;
+
+  .wvr-bar {
+    transition-duration: 300ms;
+    height: 1.75em;
+    display: block;
+    line-height: 1;
+    position: relative;
+    width: 0;
+    min-width: 2em;
+    background: #21ba45;
+    border-radius: 0.28571429rem;
+    -webkit-transition: width .1s ease, background-color .1s ease;
+    transition: width .1s ease, background-color .1s ease;
+
+    &:after {
+      content: '';
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      border-radius: 0.28571429rem;
+      -webkit-animation: progress-active 2s ease infinite;
+      animation: progress-active 2s ease infinite;
+    }
+
+    .wvr-progress {
+      white-space: nowrap;
+      position: absolute;
+      width: auto;
+      font-size: .92857143em;
+      top: 50%;
+      right: 0.5em;
+      left: auto;
+      bottom: auto;
+      color: rgba(255, 255, 255, .7);
+      text-shadow: none;
+      margin-top: -0.5em;
+      font-weight: 700;
+      text-align: left;
+    }
+  }
+}
+
+@-webkit-keyframes progress-active {
+  0% {
+    opacity: 0.3;
+    width: 0;
+  }
+
+  100% {
+    opacity: 0;
+    width: 100%;
+  }
+}
+
+@keyframes progress-active {
+  0% {
+    opacity: 0.3;
+    width: 0;
+  }
+
+  100% {
+    opacity: 0;
+    width: 100%;
+  }
+}
+
+.wvr-products-error-button.button {
+  display: none;
+  height: 32px;
+  line-height: unset;
+  color: #e70000;
+  border-color: #e70000;
+}
+
+.wvr-products-error-section {
+  display: none;
+  position: absolute;
+  background-color: white;
+  padding: 1em;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  z-index: 9;
+  right: 0;
+  width: 350px;
+
+  .wvr-products-error-list {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+}
+
+.wvr-products-error-label {
+  margin: 0 0 10px;
+}

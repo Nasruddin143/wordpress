@@ -1,0 +1,23 @@
+/**1.0.5 - 2022.02.06**/
+- Fix: Add reply user id
+- Update: Add filter virtual review type in reviews list table page
+- Update: Add option product limit in a day
+- Update: Add option allow add verified owner
+
+/**1.0.4 - 2022.08.31**/
+- Update: Add random quantity in add review manual
+- Update: Filter product review count in product list page
+- Fix: Check duplicate reply
+
+/**1.0.3 - 2022.07.20**/
+- Fix: Upgrade from free version
+
+/**1.0.2 - 2022.07.06**/
+- Update: Change name to Faview - Virtual Reviews for WooCommerce Premium
+
+/**1.0.1 - 2022.07.05**/
+- Update: Change name to Fakiew - Virtual Reviews for WooCommerce Premium
+
+/**1.0.0 - 2022.07.04**/
+- Released
+

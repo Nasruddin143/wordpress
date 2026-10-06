@@ -1,0 +1,547 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Faview - Virtual Reviews for WooCommerce Premium\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-29 02:56+0000\n"
+"PO-Revision-Date: 2022-09-29 06:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: Vietnamese\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-6.0.2\n"
+"X-Domain: faview-virtual-reviews-for-woocommerce"
+
+#: inc/settings.php:432
+msgid "Add author names in other language"
+msgstr "Tên tác giả trong ngôn ngữ khác"
+
+#: inc/views/html-add-reviews-manual.php:5
+msgid "Add multiple review"
+msgstr "Thêm nhiều đánh giá"
+
+#: inc/admin.php:252
+msgid "Add reply (from Virtual reviews settings)"
+msgstr "Thêm phản hồi (từ cài đặt Virtual reviews)"
+
+#: inc/settings.php:476 inc/settings.php:504
+msgid "Add reply in other language"
+msgstr "Thêm phản hồi trong ngôn ngữ khác"
+
+#: inc/views/html-add-reviews-manual.php:142
+msgid "Add review"
+msgstr "Thêm đánh giá"
+
+#: inc/settings.php:122
+msgid "Add review with no comment"
+msgstr "Thêm đánh giá không có bình luận"
+
+#: inc/views/html-add-reviews-manual.php:84
+msgid "Add reviews"
+msgstr "Thêm đánh giá"
+
+#: inc/settings.php:454 inc/schedules.php:46
+msgid "Add rule"
+msgstr "Thêm quy tắc"
+
+#: inc/views/html-add-reviews-manual.php:107
+msgid "Add single review"
+msgstr "Thêm đánh giá đơn lẻ"
+
+#: inc/admin.php:274
+msgid "added"
+msgstr "đã thêm"
+
+#: inc/settings.php:140
+msgid "All languages"
+msgstr "Tất cả ngôn ngữ"
+
+#: inc/schedules.php:81
+msgid "at"
+msgstr "ở "
+
+#: inc/settings.php:113 inc/views/html-add-reviews-manual.php:134
+msgid "Author"
+msgstr "Tác giả"
+
+#: inc/reviews.php:429
+msgid "Author name is not exist"
+msgstr "Tên tác giả không tồn tại"
+
+#: inc/settings.php:204
+msgid "Auto fill review"
+msgstr "Tự động điền đánh giá"
+
+#: inc/settings.php:197
+msgid "Auto select 5 star"
+msgstr "Tự động chọn 5 sao"
+
+#: inc/settings.php:199
+msgid "Auto select 5-star rating"
+msgstr "Tự động chọn xếp hạng 5 sao"
+
+#: inc/settings.php:350
+msgid "Auto update key"
+msgstr "Mã tự động cập nhật"
+
+#: inc/settings.php:250
+msgid "Background color"
+msgstr "Màu nền"
+
+#: inc/settings.php:252
+msgid "Background color of canned reviews on the slider"
+msgstr "Màu nền thanh trượt của đánh giá được soạn trước"
+
+#: inc/settings.php:264
+msgid "Background color on hover"
+msgstr "Màu nền khi được di chuột"
+
+#: inc/settings.php:266
+msgid "Background color on hover of canned reviews on the slider"
+msgstr "Màu nền thanh trượt của đánh giá được soạn trước khi di chuột qua"
+
+#: inc/reviews.php:527
+msgid "Can not insert comment"
+msgstr "Không thể thêm bình luận"
+
+#: inc/settings.php:212
+msgid "Canned review"
+msgstr "Đánh giá được soạn trước"
+
+#: inc/settings.php:222
+msgid "Canned reviews"
+msgstr "Đánh giá được soạn trước"
+
+#: inc/settings.php:103
+msgid "Check author name is exist. If exist, random other name"
+msgstr "Kiểm tra tồn tại của tên tác giả. Nếu có, chọn ngẫu nhiên một tên khác"
+
+#: inc/settings.php:109
+msgid "Check comment content is exist. If exist, random other comment content"
+msgstr ""
+"Kiểm tra tồn tại của nội dung bình luận. Nếu có, chọn ngẫu nhiên một nội "
+"dung khác"
+
+#: inc/settings.php:338
+msgid "Custom CSS"
+msgstr "CSS tùy chỉnh"
+
+#: inc/views/html-add-reviews-manual.php:110
+msgid "Date"
+msgstr "Ngày"
+
+#: inc/admin.php:178
+msgid "Delete Virtual Reviews"
+msgstr "Xóa Đánh giá ảo"
+
+#: inc/settings.php:190
+msgid "Dropdown"
+msgstr "Danh sách thả xuống"
+
+#: inc/reviews.php:100
+#, php-format
+msgid "Empty names list in %s"
+msgstr "Xóa danh sách tên trong %s"
+
+#: inc/admin.php:219
+msgid "Error"
+msgstr "Lỗi"
+
+#: inc/views/html-add-reviews-manual.php:96
+msgid "Error:"
+msgstr "Lỗi:"
+
+#: inc/background-process/wp-background-process.php:433
+#, php-format
+msgid "Every %d Minutes"
+msgstr "Mỗi %d Phút"
+
+#: inc/views/html-add-reviews-manual.php:64
+msgid "Exclude categories"
+msgstr "Loại trừ danh mục"
+
+#: inc/views/html-add-reviews-manual.php:80
+msgid "Exclude products"
+msgstr "Loại trừ sản phẩm"
+
+#: inc/admin.php:41 inc/admin.php:42
+msgid "Faview"
+msgstr "Faview"
+
+#. Description of the plugin
+msgid ""
+"Faview - Virtual Reviews for WooCommerce creates virtual reviews, display "
+"canned reviews to increase your conversion rate."
+msgstr ""
+"Faview - Virtual Reviews for WooCommerce tạo đánh giá ảo cho sản phẩm, hiện "
+"những đánh giá đã soạn trước gợi ý cho khách hàng và tăng tương tác cho "
+"trang web của bạn."
+
+#. Name of the plugin
+msgid "Faview - Virtual Reviews for WooCommerce Premium"
+msgstr "Faview - Virtual Reviews for WooCommerce Premium"
+
+#: inc/admin.php:296
+msgid "Filter by review count"
+msgstr "Lọc theo số lượng đánh giá"
+
+#: inc/settings.php:404 inc/admin.php:233 
+#: inc/views/html-add-reviews-manual.php:33
+msgid "From"
+msgstr "Từ"
+
+#: inc/ajax.php:27
+msgid "function not exist"
+msgstr "phương thức không tồn tại"
+
+#: inc/settings.php:362
+msgid "Get key"
+msgstr "Lấy mã"
+
+#: inc/admin.php:267
+msgid "Go to setting"
+msgstr "Đến trang cài đặt"
+
+#. Author URI of the plugin
+msgid "http://villatheme.com"
+msgstr "http://villatheme.com"
+
+#. URI of the plugin
+msgid ""
+"https://villatheme.com/extensions/faview-virtual-reviews-for-woocommerce/"
+msgstr ""
+"https://villatheme.com/extensions/faview-virtual-reviews-for-woocommerce/"
+
+#: inc/settings.php:124
+msgid "If no rule is matched, add review with no comment"
+msgstr "Nếu không khớp với quy tắc nào, thêm đánh giá không có bình luận"
+
+#: inc/settings.php:460
+msgid ""
+"In case the rule contains empty condition fields, leave it at the bottom as "
+"it applies to all products. If there's another rule underneath, it will be "
+"ignored"
+msgstr ""
+"Trường hợp quy tắc bao gồm các trường điều kiện trống, để xuống cuối vì nó "
+"sẽ áp dụng với tất cả sản phẩm. Nếu có quy tắc khác bên dưới, quy tắc đó sẽ "
+"bị bỏ qua"
+
+#: inc/views/html-add-reviews-manual.php:52
+msgid "Include categories"
+msgstr "Bao gồm danh mục"
+
+#: inc/views/html-add-reviews-manual.php:76
+msgid "Include products"
+msgstr "Bao gồm sản phẩm"
+
+#: inc/admin.php:52 inc/admin.php:53
+msgid "Manual"
+msgstr "Thủ công"
+
+#: inc/views/html-add-reviews-manual.php:11
+msgid "Max is 50 reviews per product"
+msgstr "Tối đa 50 đánh giá cho mỗi sản phẩm"
+
+#: inc/reviews.php:216 inc/reviews.php:284 inc/reviews.php:495 
+#: inc/reviews.php:708 inc/reviews.php:774
+msgid "No comment matched"
+msgstr "Không có bình luận nào phù hợp"
+
+#: inc/admin.php:265
+msgid "No reply author was selected. Please select author before add reply."
+msgstr ""
+"Không có tác giả cho phản hồi được lựa chọn. Vui lòng chọn tên tác giả trước "
+"khi thêm phản hồi."
+
+#: inc/schedules.php:101
+msgid "No schedule now"
+msgstr "Không có kế hoạch nào"
+
+#: inc/settings.php:356
+msgid "Please fill your key what you get from"
+msgstr "Vui lòng điền mã được lấy từ "
+
+#: inc/reviews.php:124 inc/reviews.php:661
+msgid "Please input quantity of reviews per each product"
+msgstr "Nhập số lượng đánh giá cho mỗi sản phẩm"
+
+#: inc/reviews.php:657
+msgid "Please select at least one product"
+msgstr "Chọn ít nhất một sản phẩm"
+
+#: inc/settings.php:457
+msgid "Priority: Top to bottom"
+msgstr "Ưu tiên: Trên xuống dưới"
+
+#: inc/review-form.php:181 inc/review-form.php:217
+msgid "product"
+msgid_plural "products"
+msgstr[0] "sản phẩm"
+
+#: inc/views/html-add-reviews-manual.php:138
+msgid "Products"
+msgstr "Sản phẩm"
+
+#: inc/settings.php:283
+msgid "Purchased icon"
+msgstr "Biểu tượng mua hàng"
+
+#: inc/settings.php:317
+msgid "Purchased icon color"
+msgstr "Màu Biểu tượng mua hàng"
+
+#: inc/settings.php:318
+msgid "Purchased icon color for front-end display"
+msgstr "Chọn màu cho biểu tượng mua hàng"
+
+#: inc/settings.php:284
+msgid "Purchased icon for front-end display"
+msgstr "Chọn một biểu tượng thể hiện khách hàng đánh giá đã mua hàng"
+
+#: inc/settings.php:273
+msgid "Purchased label"
+msgstr "Nhãn mua hàng"
+
+#: inc/settings.php:331
+msgid "Purchased label background color"
+msgstr "Màu nền nhãn mua hàng"
+
+#: inc/settings.php:332
+msgid "Purchased label background color for front-end display"
+msgstr "Chọn màu nền cho nhãn mua hàng"
+
+#: inc/settings.php:324
+msgid "Purchased label text color"
+msgstr "Màu chữ nhãn mua hàng"
+
+#: inc/settings.php:325
+msgid "Purchased label text color for front-end display"
+msgstr "Chọn màu cho nội dung văn bản của nhãn "
+
+#: inc/views/html-add-reviews-manual.php:22
+msgid "Quantity from"
+msgstr "Từ"
+
+#: inc/settings.php:96
+msgid "Quantity of bought product"
+msgstr "Só lượng sản phẩm đã mua"
+
+#: inc/admin.php:227
+msgid "Quantity of review per product"
+msgstr "Số lượng đánh giá của mỗi sản phẩm"
+
+#: inc/views/html-add-reviews-manual.php:16
+msgid "Quantity of reviews per each product"
+msgstr "Số lượng đánh giá trên mỗi sản phẩm"
+
+#: inc/views/html-add-reviews-manual.php:26
+msgid "Quantity to"
+msgstr "Đến"
+
+#: inc/settings.php:97
+msgid "Random quantity in this range"
+msgstr "Thêm ngẫu nhiên số lượng đánh giá trong phạm vi này"
+
+#: inc/settings.php:91 inc/admin.php:152 
+#: inc/views/html-add-reviews-manual.php:120
+msgid "Rating"
+msgstr "Xếp hạng"
+
+#: inc/schedules.php:89
+msgid "Remove"
+msgstr "Xóa"
+
+#: inc/schedules.php:110
+msgid "Remove all schedules"
+msgstr "Xóa tất cả kế hoạch"
+
+#: inc/settings.php:80
+msgid "Reply"
+msgstr "Phản hồi"
+
+#: inc/admin.php:273
+msgid "reply"
+msgid_plural "replies"
+msgstr[0] "phản hồi"
+
+#: inc/settings.php:174
+msgid "Reply author"
+msgstr "Tác giả phản hồi"
+
+#: inc/settings.php:182
+msgid "Reply content"
+msgstr "Nội dung phản hồi"
+
+#: faview-virtual-reviews-for-woocommerce.php:69
+msgid "require PHP version at least"
+msgstr "cần phiên bản PHP ít nhất "
+
+#: faview-virtual-reviews-for-woocommerce.php:77
+msgid "require WooCommerce installed and activated"
+msgstr "cần cài đặt và kích hoạt WooCommerce"
+
+#: faview-virtual-reviews-for-woocommerce.php:82
+msgid "require WooCommerce version at least"
+msgstr "cần phiên bản WooCommerce ít nhất "
+
+#: faview-virtual-reviews-for-woocommerce.php:73
+msgid "require WordPress version at least"
+msgstr "cần phiên bản WordPress ít nhất "
+
+#: inc/settings.php:79 inc/views/html-add-reviews-manual.php:130
+msgid "Review"
+msgstr "Đánh giá"
+
+#: inc/settings.php:118
+msgid "Review comment rules"
+msgstr "Quy tắc cho bình luận"
+
+#: inc/admin.php:315
+msgid "Review count"
+msgstr "Số lượng đánh giá"
+
+#: inc/settings.php:81
+msgid "Review form"
+msgstr "Mẫu đánh giá"
+
+#: inc/views/html-add-reviews-manual.php:3
+msgid "Reviews"
+msgstr "Đánh giá"
+
+#: inc/schedules.php:51
+msgid "Running schedules"
+msgstr "Lịch hiện tại"
+
+#: inc/settings.php:69
+msgid "Save & Check key"
+msgstr "Lưu & Kiểm tra"
+
+#: inc/schedules.php:42
+msgid "Save rules"
+msgstr "Lưu quy tắc"
+
+#: inc/settings.php:65
+msgid "Save Settings"
+msgstr "Lưu Cài Đặt"
+
+#: inc/admin.php:61 inc/admin.php:62
+msgid "Schedule"
+msgstr "Lên lịch"
+
+#: inc/schedules.php:35
+msgid "Schedule after setting will be work at next day"
+msgstr "Lịch được lên kế hoạch sẽ bắt đầu chạy vào ngày hôm sau"
+
+#: inc/views/html-add-reviews-manual.php:139
+msgid "Search product to add review"
+msgstr "Tìm kiếm sản phẩm để thêm đánh giá"
+
+#: inc/views/html-add-reviews-manual.php:77 
+#: inc/views/html-add-reviews-manual.php:81
+msgid "Search products"
+msgstr "Tìm sản phẩm"
+
+#: inc/settings.php:358
+msgid "See guide"
+msgstr "Xem hướng dẫn"
+
+#: inc/schedules.php:32
+msgid "Set schedules"
+msgstr "Lên lịch"
+
+#: faview-virtual-reviews-for-woocommerce.php:123 inc/settings.php:32 
+#: inc/admin.php:70 inc/admin.php:71
+msgid "Settings"
+msgstr "Cài đặt"
+
+#: inc/settings.php:216
+msgid "Show canned reviews"
+msgstr "Hiển thị đánh giá có sẵn"
+
+#: inc/settings.php:278
+msgid "Show purchased label"
+msgstr "Hiển thị nhãn mua hàng"
+
+#: inc/settings.php:190
+msgid "Slide"
+msgstr "Trượt"
+
+#: inc/settings.php:227
+msgid "Style for Desktop"
+msgstr "Hiển thị trên Máy tính"
+
+#: inc/settings.php:235
+msgid "Style for Mobile"
+msgstr "Hiển thị trên Điện thoại"
+
+#: inc/settings.php:92
+msgid "Sum of all rating must be equal 100%"
+msgstr "Tổng xác suất xếp hạng phải bằng 100%"
+
+#: inc/settings.php:243
+msgid "Text color"
+msgstr "Màu chữ"
+
+#: inc/settings.php:245
+msgid "Text color of canned reviews on the slider"
+msgstr "Màu chữ cho đánh giá được soạn trước trên thanh trượt"
+
+#: inc/settings.php:257
+msgid "Text color on hover"
+msgstr "Màu chữ khi di chuột"
+
+#: inc/settings.php:259
+msgid "Text color on hover of canned reviews on the slider"
+msgstr "Màu chữ của đánh giá được soạn trước trên thanh trượt khi di chuột qua"
+
+#: inc/settings.php:412 inc/admin.php:239 
+#: inc/views/html-add-reviews-manual.php:42
+msgid "To"
+msgstr "Đến"
+
+#: inc/settings.php:101
+msgid "Unique author"
+msgstr "Tác giá duy nhất"
+
+#: inc/settings.php:107
+msgid "Unique comment content"
+msgstr "Nội dung bình luận duy nhất"
+
+#: inc/settings.php:82
+msgid "Update"
+msgstr "Cập nhật"
+
+#: inc/settings.php:167
+msgid "Use for real review"
+msgstr "Đánh giá thật"
+
+#: inc/settings.php:161
+msgid "Use for virtual review"
+msgstr "Đánh giá ảo"
+
+#: inc/views/html-add-reviews-manual.php:8
+msgid "Use random quantity in range"
+msgstr "Chọn ngẫu nhiên giá trị trong phạm vi này"
+
+#. Author of the plugin
+msgid "VillaTheme"
+msgstr "VillaTheme"
+
+#: inc/admin.php:123
+msgid "Virtual Review"
+msgstr "Virtual Review"
+
+#: inc/admin.php:151
+msgid "Virtual review"
+msgstr "Virtual review"
+
+#: inc/settings.php:357
+msgid "You can auto update this plugin."
+msgstr "Plugin có thể tự động cập nhật"
+
+#: inc/reviews.php:98
+msgid "your settings"
+msgstr "cài đặt của bạn"

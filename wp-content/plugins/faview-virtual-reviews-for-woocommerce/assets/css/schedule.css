@@ -1,0 +1,101 @@
+#wpbody-content {
+  box-sizing: border-box;
+  padding-right: 20px;
+}
+#wpbody-content * {
+  box-sizing: border-box;
+}
+
+.select2-search__field {
+  border: none !important;
+  max-width: 100% !important;
+  width: 100%;
+}
+
+.select2-search.select2-search--inline {
+  min-width: auto !important;
+  margin: 0 !important;
+}
+
+.select2-container {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-width: auto !important;
+}
+
+.wvr-schedule-rule-row {
+  margin-bottom: 1em;
+}
+.wvr-schedule-rule-row > .title {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.wvr-schedule-rule-row > .title .wvr-schedule-rule-title-group {
+  flex-grow: 1;
+}
+.wvr-schedule-rule-row > .title .wvr-schedule-rule-title {
+  width: auto !important;
+}
+
+#wvr-schedules-section .vi-ui.accordion .title, #wvr-schedules-section .vi-ui.accordion .accordion .title {
+  cursor: unset;
+}
+#wvr-schedules-section .vi-ui.accordion .title i.icon, #wvr-schedules-section .vi-ui.accordion .accordion .title i.icon {
+  cursor: pointer;
+  font-size: 18px;
+}
+#wvr-schedules-section .vi-ui.accordion .title .alternate, #wvr-schedules-section .vi-ui.accordion .accordion .title .alternate {
+  background-color: unset;
+}
+
+.wvr-day-options {
+  position: relative;
+}
+.wvr-day-options hr {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+}
+
+.wvr-schedule-row {
+  display: flex;
+}
+
+.wvr-schedule-row-name {
+  flex-grow: 1;
+}
+
+.wvr-remove-schedule {
+  cursor: pointer;
+  line-height: 1;
+}
+.wvr-remove-schedule:hover {
+  color: red;
+}
+.wvr-remove-schedule.circle.notch {
+  animation: rotate 1s linear infinite;
+}
+
+.wvr-remove-all-schedule .circle.notch {
+  animation: rotate 1s linear infinite;
+  background-color: transparent !important;
+  line-height: 1;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.wvr-date-range-label {
+  margin: 5px 0;
+  font-weight: 500;
+  font-size: small;
+  display: inline-block;
+}
+
+/*# sourceMappingURL=schedule.css.map */

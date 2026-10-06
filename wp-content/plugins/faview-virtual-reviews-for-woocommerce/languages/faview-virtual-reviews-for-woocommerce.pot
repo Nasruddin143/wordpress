@@ -1,0 +1,556 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Faview - Virtual Reviews for WooCommerce Premium\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-29 06:39+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-6.0\n"
+"X-Domain: faview-virtual-reviews-for-woocommerce"
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:432
+msgid "Add author names in other language"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:5
+msgid "Add multiple review"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:252
+msgid "Add reply (from Virtual reviews settings)"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:476
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:504
+msgid "Add reply in other language"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:142
+msgid "Add review"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:122
+msgid "Add review with no comment"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:84
+msgid "Add reviews"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/schedules.php:47
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:454
+msgid "Add rule"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:107
+msgid "Add single review"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:274
+msgid "added"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:140
+msgid "All languages"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/schedules.php:82
+msgid "at"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:113
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:134
+msgid "Author"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:429
+msgid "Author name is not exist"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:204
+msgid "Auto fill review"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:197
+msgid "Auto select 5 star"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:199
+msgid "Auto select 5-star rating"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:350
+msgid "Auto update key"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:250
+msgid "Background color"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:252
+msgid "Background color of canned reviews on the slider"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:264
+msgid "Background color on hover"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:266
+msgid "Background color on hover of canned reviews on the slider"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:527
+msgid "Can not insert comment"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:212
+msgid "Canned review"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:222
+msgid "Canned reviews"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:103
+msgid "Check author name is exist. If exist, random other name"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:109
+msgid "Check comment content is exist. If exist, random other comment content"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:338
+msgid "Custom CSS"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:110
+msgid "Date"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:178
+msgid "Delete Virtual Reviews"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:190
+msgid "Dropdown"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:100
+#, php-format
+msgid "Empty names list in %s"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:219
+msgid "Error"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:96
+msgid "Error:"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/background-process/wp-background-process.php:433
+#, php-format
+msgid "Every %d Minutes"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:64
+msgid "Exclude categories"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:80
+msgid "Exclude products"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:41
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:42
+msgid "Faview"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Faview - Virtual Reviews for WooCommerce creates virtual reviews, display "
+"canned reviews to increase your conversion rate."
+msgstr ""
+
+#. Name of the plugin
+msgid "Faview - Virtual Reviews for WooCommerce Premium"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:296
+msgid "Filter by review count"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:233
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:404
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:33
+msgid "From"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/ajax.php:27
+msgid "function not exist"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:362
+msgid "Get key"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:267
+msgid "Go to setting"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://villatheme.com"
+msgstr ""
+
+#. URI of the plugin
+msgid ""
+"https://villatheme.com/extensions/faview-virtual-reviews-for-woocommerce/"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:124
+msgid "If no rule is matched, add review with no comment"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:460
+msgid ""
+"In case the rule contains empty condition fields, leave it at the bottom as "
+"it applies to all products. If there's another rule underneath, it will be "
+"ignored"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:52
+msgid "Include categories"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:76
+msgid "Include products"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:52
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:53
+msgid "Manual"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:11
+msgid "Max is 50 reviews per product"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:216
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:284
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:495
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:708
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:774
+msgid "No comment matched"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:265
+msgid "No reply author was selected. Please select author before add reply."
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/schedules.php:102
+msgid "No schedule now"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:356
+msgid "Please fill your key what you get from"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:124
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:661
+msgid "Please input quantity of reviews per each product"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:657
+msgid "Please select at least one product"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:457
+msgid "Priority: Top to bottom"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/review-form.php:181
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/review-form.php:217
+msgid "product"
+msgid_plural "products"
+msgstr[0] ""
+msgstr[1] ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:138
+msgid "Products"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:283
+msgid "Purchased icon"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:317
+msgid "Purchased icon color"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:318
+msgid "Purchased icon color for front-end display"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:284
+msgid "Purchased icon for front-end display"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:273
+msgid "Purchased label"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:331
+msgid "Purchased label background color"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:332
+msgid "Purchased label background color for front-end display"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:324
+msgid "Purchased label text color"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:325
+msgid "Purchased label text color for front-end display"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:22
+msgid "Quantity from"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:96
+msgid "Quantity of bought product"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:227
+msgid "Quantity of review per product"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:16
+msgid "Quantity of reviews per each product"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:26
+msgid "Quantity to"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:97
+msgid "Random quantity in this range"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:152
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:91
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:120
+msgid "Rating"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/schedules.php:90
+msgid "Remove"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/schedules.php:111
+msgid "Remove all schedules"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:80
+msgid "Reply"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:273
+msgid "reply"
+msgid_plural "replies"
+msgstr[0] ""
+msgstr[1] ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:174
+msgid "Reply author"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:182
+msgid "Reply content"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce.php:69
+msgid "require PHP version at least"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce.php:77
+msgid "require WooCommerce installed and activated"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce.php:82
+msgid "require WooCommerce version at least"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce.php:73
+msgid "require WordPress version at least"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:79
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:130
+msgid "Review"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:118
+msgid "Review comment rules"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:315
+msgid "Review count"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:81
+msgid "Review form"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:3
+msgid "Reviews"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/schedules.php:52
+msgid "Running schedules"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:69
+msgid "Save & Check key"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/schedules.php:43
+msgid "Save rules"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:65
+msgid "Save Settings"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:61
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:62
+msgid "Schedule"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/schedules.php:36
+msgid "Schedule after setting will be work at next day"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:139
+msgid "Search product to add review"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:77
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:81
+msgid "Search products"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:358
+msgid "See guide"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/schedules.php:33
+msgid "Set schedules"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce.php:123
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:70
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:71
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:32
+msgid "Settings"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:216
+msgid "Show canned reviews"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:278
+msgid "Show purchased label"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:190
+msgid "Slide"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:227
+msgid "Style for Desktop"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:235
+msgid "Style for Mobile"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:92
+msgid "Sum of all rating must be equal 100%"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:243
+msgid "Text color"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:245
+msgid "Text color of canned reviews on the slider"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:257
+msgid "Text color on hover"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:259
+msgid "Text color on hover of canned reviews on the slider"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:239
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:412
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:42
+msgid "To"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:101
+msgid "Unique author"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:107
+msgid "Unique comment content"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:82
+msgid "Update"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:167
+msgid "Use for real review"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:161
+msgid "Use for virtual review"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/views/html-add-reviews-manual.php:8
+msgid "Use random quantity in range"
+msgstr ""
+
+#. Author of the plugin
+msgid "VillaTheme"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:123
+msgid "Virtual Review"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/admin.php:151
+msgid "Virtual review"
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/settings.php:357
+msgid "You can auto update this plugin."
+msgstr ""
+
+#: D:/Git/faview-virtual-reviews-for-woocommerce/faview-virtual-reviews-for-woocommerce/inc/reviews.php:98
+msgid "your settings"
+msgstr ""
