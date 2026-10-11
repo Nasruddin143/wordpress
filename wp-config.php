@@ -20,7 +20,6 @@
  
 //define('WP_HOME', 'http://localhost:8080/wordpress');
 //define('WP_SITEURL', 'http://localhost:8080/wordpress');
-
 define('WP_DEBUG', true);
 define('WP_DEBUG_DISPLAY', false);
 define('WP_DEBUG_LOG', false);

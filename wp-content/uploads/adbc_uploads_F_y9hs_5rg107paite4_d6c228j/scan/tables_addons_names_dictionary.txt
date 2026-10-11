@@ -1,9 +1,10 @@
-p:blocksy-companion|Blocksy Companion
 p:elementor|Elementor
 p:pro-elements|PRO Elements
-p:woo-razorpay|1 Razorpay
 p:woocommerce|WooCommerce
-p:ai|AI
 p:wpforms-lite|WPForms Lite
 p:wp-mail-smtp|WP Mail SMTP
 t:blocksy|Blocksy
+p:blocksy-companion-pro|Blocksy Companion (Premium)
+p:bulky-bulk-edit-products-for-woo|Bulky - Bulk Edit Products for WooCommerce
+p:smart-manager-for-wp-e-commerce|Smart Manager – WooCommerce Bulk Edit: Products, Orders, Users & More (Spreadsheet)
+p:wp-optimize-premium|WP-Optimize Premium - Clean, Compress, Cache

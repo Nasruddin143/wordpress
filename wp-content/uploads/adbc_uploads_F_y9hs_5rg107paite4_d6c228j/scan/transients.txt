@@ -29,9 +29,7 @@ _transient_elementor_remote_info_api_data_4.3.2|{"l":["p:elementor:65.96"]}
 _transient_elementor_rollback_versions_4.3.2|{"l":["p:elementor:63.64"]}
 _transient_filter_data-transient-version|{"l":["p:woocommerce:35"]}
 _transient_megamenu_css|{"l":["p:elementor:35"]}
-_transient_orders-transient-version|{"l":["p:woo-variation-swatches:54.29"]}
 _transient_product_query-transient-version|{"l":["p:woocommerce:35"]}
-_transient_product-transient-version|{"l":["p:woo-variation-swatches:50"]}
 _transient_rank_math_first_submenu_id|{"l":["p:blocksy-companion:35"]}
 _transient_shipping-transient-version|{"l":["p:woocommerce:35"]}
 _transient_wc_blocks_query_a8a021ff7ce9be9f609f45d972b0f0a4|{"l":["p:woocommerce:35"]}

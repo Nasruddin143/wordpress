@@ -1,13 +1,11 @@
-p:ai|AI
-p:blocksy-companion|Blocksy Companion
 p:elementor|Elementor
-p:imagekit|ImageKit
 p:pro-elements|PRO Elements
 p:woo-razorpay|1 Razorpay
-p:woo-variation-swatches|Variation Swatches for WooCommerce
 p:woocommerce|WooCommerce
-p:wp-optimize-premium|WP-Optimize Premium - Clean, Compress, Cache
 p:wpforms-lite|WPForms Lite
 t:blocksy|Blocksy
 p:regenerate-thumbnails|Regenerate Thumbnails
-p:wp-mail-smtp|WP Mail SMTP
+p:blocksy-companion-pro|Blocksy Companion (Premium)
+p:bulky-bulk-edit-products-for-woo|Bulky - Bulk Edit Products for WooCommerce
+p:faview-virtual-reviews-for-woocommerce|Faview - Virtual Reviews for WooCommerce Premium
+p:smart-manager-for-wp-e-commerce|Smart Manager – WooCommerce Bulk Edit: Products, Orders, Users & More (Spreadsheet)
